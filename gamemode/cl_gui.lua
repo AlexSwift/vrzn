@@ -3,7 +3,7 @@
 	
 		
 ]]--
-
+local SANDBOX = {}
 GM.Gui = (GAMEMODE or GM).Gui or {}
 GM.Gui.m_intKeyDelay = 0.15
 GM.Gui.m_tblNWMenus = (GAMEMODE or GM).Gui.m_tblNWMenus or {}
@@ -272,49 +272,39 @@ function GM.Gui:Think()
 	end
 end
 
-function GM:OnSpawnMenuOpen()
-	if not self:IsInGame() then return end
-	if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
+-- GM.Sandbox = BaseClass
+
+-- function GM:OnSpawnMenuOpen()
+
+-- 	-- if not self:IsInGame() then return end
+-- 	-- if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
 	
-	if not ValidPanel( self.m_pnlQMenu ) then
-		self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
-		self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
-		--self.m_pnlQMenu:SetSize( 800, 600 )
-		self.m_pnlQMenu:Center()
-	end
+-- 	-- if not ValidPanel( self.m_pnlQMenu ) then
+-- 	-- 	self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
+-- 	-- 	self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
+-- 	-- 	--self.m_pnlQMenu:SetSize( 800, 600 )
+-- 	-- 	self.m_pnlQMenu:Center()
+-- 	-- end
 
-	self.m_pnlQMenu:Refresh()
-	self.m_pnlQMenu:SetVisible( true )
-	self.m_pnlQMenu:MakePopup()
+-- 	-- self.m_pnlQMenu:Refresh()
+-- 	-- self.m_pnlQMenu:SetVisible( true )
+-- 	-- self.m_pnlQMenu:MakePopup()
 
-	RestoreCursorPosition()
-end
+-- 	-- RestoreCursorPosition()
 
-function GM:OnSpawnMenuClose()
-	if ValidPanel( self.m_pnlQMenu ) then
-		self.m_pnlQMenu:SetVisible( false )
-		CloseDermaMenus()
-		RememberCursorPosition()
-	end
-end
+-- end
 
-function GM:ScoreboardShow()
-	if not ValidPanel( self.m_pnlScoreboard ) then
-		self.m_pnlScoreboard = vgui.Create( "SRPScoreboard" )
-		self.m_pnlScoreboard:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
-		self.m_pnlScoreboard:Center()
-	end
+-- function GM:OnSpawnMenuClose()
+-- 	-- if ValidPanel( self.m_pnlQMenu ) then
+-- 	-- 	self.m_pnlQMenu:SetVisible( false )
+-- 	-- 	CloseDermaMenus()
+-- 	-- 	RememberCursorPosition()
+-- 	-- end
+-- end
 
-	self.m_pnlScoreboard:Refresh()
-	self.m_pnlScoreboard:SetVisible( true )
-	self.m_pnlScoreboard:MakePopup()
-end
+-- function GM:ScoreboardShow()
 
-function GM:ScoreboardHide()
-	if ValidPanel( self.m_pnlScoreboard ) then
-		self.m_pnlScoreboard:SetVisible( false )
-	end
-end
+-- end
 
 function GM.Gui:StringRequest( strTitle, strText, strDefaultText, fnEnter, fnCancel, strButtonText, strButtonCancelText, intCharLimit )
 	local Window = vgui.Create( "SRP_Frame" )

@@ -3,6 +3,8 @@
 	For: TalosLife
 	By: TalosLife
 ]]--
+DeriveGamemode("sandbox")
+DEFINE_BASECLASS("gamemode_sandbox")
 
 include "sh_init.lua"
 gameevent.Listen "player_disconnect"

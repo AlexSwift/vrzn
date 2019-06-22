@@ -5,6 +5,8 @@
 ]]--
 
 include "sh_init.lua"
+DeriveGamemode("sandbox")
+
 gameevent.Listen "player_disconnect"
 
 function GM:Reinitialize( pPlayer, strCmd, tblArgs, bNoClients )
