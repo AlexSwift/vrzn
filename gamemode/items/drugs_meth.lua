@@ -19,7 +19,7 @@ Item.LimitID = "drug lab"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Personagem"
+Item.CraftSkill = "Nível do Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -49,7 +49,7 @@ Item.LimitID = "still"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Personagem"
+Item.CraftSkill = "Nível do Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -77,7 +77,7 @@ Item.LimitID = "reaction chamber"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Personagem"
+Item.CraftSkill = "Nível do Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {

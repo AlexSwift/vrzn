@@ -566,7 +566,7 @@ GM.Config.MaxTextMsgLen = 256
 
 --[[ Skills ]]--
 GM.Config.Skills = {
-	["Personagem"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting table
+	["Nível do Personagem"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting table
 	["Fabricação"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for assembly table
 	["Respeito"] = { MaxLevel = 25, Const = 0.25 }, --Used for growing weed/coco
 	["Criminalidade"] = { MaxLevel = 25, Const = 0.25 }, --Used for making meth

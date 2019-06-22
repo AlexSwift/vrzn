@@ -48,7 +48,7 @@ for i = 2, 10 do
 	Item.Volume = 2
 	Item.CanDrop = true
 	Item.CanUse = true
-	Item.BookSkill = "Personagem"
+	Item.BookSkill = "Nível do Personagem"
 	Item.GiveLevel = i
 
 	Item.Name = ("Skill Book: %s %d"):format( Item.BookSkill, Item.GiveLevel )

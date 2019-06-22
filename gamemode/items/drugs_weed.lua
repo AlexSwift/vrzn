@@ -342,7 +342,7 @@ Item.CraftingEntClass = "ent_assembly_table"
 
 Item.CraftingTab = "Machines"
 
-Item.CraftSkill = "Personagem"
+Item.CraftSkill = "Nível do Personagem"
 
 Item.CraftSkillLevel = 1
 
@@ -398,7 +398,7 @@ Item.CraftingEntClass = "ent_assembly_table"
 
 Item.CraftingTab = "Machines"
 
-Item.CraftSkill = "Personagem"
+Item.CraftSkill = "Nível do Personagem"
 
 Item.CraftSkillLevel = 1
 
