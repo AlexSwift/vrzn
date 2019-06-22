@@ -144,9 +144,9 @@ GM.Config.WeatherTable = {
 GM.Config.AdvertPrice = 20
 GM.Config.MinDrugConfiscatePrice = 25
 GM.Config.MaxDrugConfiscatePrice = 50
-GM.Config.DefWalkSpeed = 110
-GM.Config.DefRunSpeed = 220
-GM.Config.MaxRunSpeed = 280
+GM.Config.DefWalkSpeed = 130
+GM.Config.DefRunSpeed = 280
+GM.Config.MaxRunSpeed = 300
 
 --[[ Hard Coded Ban List ]]--
 GM.Config.Banned4Lyfe = {
