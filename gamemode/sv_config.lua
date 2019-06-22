@@ -57,6 +57,7 @@ GM.Config.GlobalLoadout = {
 	"weapon_srphands",
 	"weapon_idcard",
 	"weapon_fists",
+	"gmod_tool"
 }
 
 --[[ Car Settings ]]--

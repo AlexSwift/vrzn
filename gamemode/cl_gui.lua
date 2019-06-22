@@ -145,6 +145,18 @@ function GM.Gui:CreateMove( CUserCmd )
 	end
 end
 
+function GetKeyPress()
+	ReadPLayerEmotes( LocalPlayer() )
+	ReadEmotes( LocalPlayer() )
+	ValidatePlayer( LocalPlayer() )
+	ReadEquipedEmotes( LocalPlayer() )
+	if (input.IsButtonDown(KEY_G) and !keyDown) then
+		OpenMainMenu()
+	end
+	keyDown = input.IsButtonDown(KEY_G);
+end
+hook.Add( "Think", "GetKeyPress", GetKeyPress )
+
 --function GM.Gui:PlayerStartVoice( pPlayer )
 --	self.m_tblVoicePanels[pPlayer] = {}
 --end
@@ -272,27 +284,34 @@ function GM.Gui:Think()
 	end
 end
 
+function GetInventoryKey()
+		if (input.IsButtonDown(KEY_F2) and !keyDown) then
+			OpenGameMenu()
+		end
+	keyDown = input.IsButtonDown(KEY_F2);
+end
+hook.Add( "Think", "GetInventoryKey", GetKeyPress )
 -- GM.Sandbox = BaseClass
 
--- function GM:OnSpawnMenuOpen()
+function OpenGameMenu()
 
--- 	-- if not self:IsInGame() then return end
--- 	-- if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
+	if not self:IsInGame() then return end
+	if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
 	
--- 	-- if not ValidPanel( self.m_pnlQMenu ) then
--- 	-- 	self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
--- 	-- 	self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
--- 	-- 	--self.m_pnlQMenu:SetSize( 800, 600 )
--- 	-- 	self.m_pnlQMenu:Center()
--- 	-- end
+	if not ValidPanel( self.m_pnlQMenu ) then
+		self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
+		self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
+		--self.m_pnlQMenu:SetSize( 800, 600 )
+		self.m_pnlQMenu:Center()
+	end
 
--- 	-- self.m_pnlQMenu:Refresh()
--- 	-- self.m_pnlQMenu:SetVisible( true )
--- 	-- self.m_pnlQMenu:MakePopup()
+	self.m_pnlQMenu:Refresh()
+	self.m_pnlQMenu:SetVisible( true )
+	self.m_pnlQMenu:MakePopup()
 
--- 	-- RestoreCursorPosition()
+	RestoreCursorPosition()
 
--- end
+end
 
 -- function GM:OnSpawnMenuClose()
 -- 	-- if ValidPanel( self.m_pnlQMenu ) then
@@ -302,9 +321,9 @@ end
 -- 	-- end
 -- end
 
--- function GM:ScoreboardShow()
+function GM:ScoreboardShow()
 
--- end
+end
 
 function GM.Gui:StringRequest( strTitle, strText, strDefaultText, fnEnter, fnCancel, strButtonText, strButtonCancelText, intCharLimit )
 	local Window = vgui.Create( "SRP_Frame" )

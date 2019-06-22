@@ -5,17 +5,18 @@
 ]]--
 
 GM.PlayerDamage = {}
+
 PrecacheParticleSystem( "blood_advisor_pierce_spray_b" )
 
 function GM.PlayerDamage:PlayerLimbTakeDamage( pPlayer, intDmg, intDmgType, bNoTakeDamage )
-	local DmgScale =  0.185
+	local DmgScale =  0.325
 	local scale = DmgScale
 	if not bNoTakeDamage then
 		local dmgInfo = DamageInfo()
 		dmgInfo:SetDamage( intDmg )
 		dmgInfo:SetAttacker( Entity(0) )
 		dmgInfo:SetInflictor( Entity(0) )
-		dmgInfo:SetDamageType( intDmgType )
+		dmgInfo:SetDamageType( DMG_GENERIC )
 
 		dmgInfo:ScaleDamage( scale )
 		pPlayer:TakeDamageInfo( dmgInfo )
@@ -57,7 +58,7 @@ function GM.PlayerDamage:EntityTakeDamage( eEnt, pDamageInfo )
 		
 		local scale = self:PlayerLimbTakeDamage( eEnt, pDamageInfo:GetDamage(), pDamageInfo:GetDamageType(), true )
 		
-		if pDamageInfo:GetDamageType() == DMG_FALL or not eEnt:IsRagdolled() then
+		if pDamageInfo:GetDamageType() == DMG_FALL then
 			if scale then pDamageInfo:ScaleDamage( scale ) end
 			eEnt:SetHealth( math.max(0, eEnt:Health() -pDamageInfo:GetDamage()) )
 		else
@@ -74,7 +75,7 @@ function GM.PlayerDamage:ScalePlayerDamage( pPlayer, pDamageInfo )
 	
 	local scale = self:PlayerLimbTakeDamage( pPlayer, pDamageInfo:GetDamage() *0.33, pDamageInfo:GetDamageType(), true )
 	if scale then pDamageInfo:ScaleDamage( scale ) end
-	if pPlayer:IsRagdolled() then pDamageInfo:ScaleDamage( 0 ) end
+	-- if pPlayer:IsRagdolled() then pDamageInfo:ScaleDamage( 0 ) end
 end
 
 --Called to handle fall damage for limbs
