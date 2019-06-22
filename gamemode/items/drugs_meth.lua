@@ -19,7 +19,7 @@ Item.LimitID = "drug lab"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -49,7 +49,7 @@ Item.LimitID = "still"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -77,7 +77,7 @@ Item.LimitID = "reaction chamber"
 
 Item.CraftingEntClass = "ent_crafting_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -226,7 +226,7 @@ Item.DropClass = "ent_fluid_phenylacetone"
 Item.LimitID = "phenylacetone"
 
 Item.CookingPotVars = {
-	Skill = "Chemistry",
+	Skill = "Criminalidade",
 	SkillWeight = 0.32, --max % to remove from the score in the worst case
 
 	--Only displayed if over time explode/fire are both off and item is grabbed before it reaches the max time cap
@@ -289,7 +289,7 @@ Item.CanPlayerUse = function( eEnt, pPlayer, bCanUse )
 	return true --Anyone can take drugs!
 end
 Item.CookingPotVars = {
-	Skill = "Chemistry",
+	Skill = "Criminalidade",
 	SkillWeight = 0.39, --max % to remove from the score in the worst case
 
 	--Only displayed if over time explode/fire are both off and item is grabbed before it reaches the max time cap

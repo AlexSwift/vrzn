@@ -127,7 +127,7 @@ Item.DropClass = "ent_box_fan"
 
 Item.CraftingEntClass = "ent_assembly_table"
 Item.CraftingTab = "Machines"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {

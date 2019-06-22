@@ -566,13 +566,10 @@ GM.Config.MaxTextMsgLen = 256
 
 --[[ Skills ]]--
 GM.Config.Skills = {
-	["Crafting"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting table
-	["Assembly"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for assembly table
-	["Botany"] = { MaxLevel = 25, Const = 0.25 }, --Used for growing weed/coco
-	["Chemistry"] = { MaxLevel = 25, Const = 0.25 }, --Used for making meth
-	["Cooking"] = { MaxLevel = 25, Const = 0.25 }, --Used for cooking food
-	["Stamina"] = { MaxLevel = 25, Const = 0.25 }, --Used for sprint duration/regen speed
-	["Gun Smithing"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting gun parts
+	["Personagem"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting table
+	["Fabricação"] = { MaxLevel = 25, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for assembly table
+	["Respeito"] = { MaxLevel = 25, Const = 0.25 }, --Used for growing weed/coco
+	["Criminalidade"] = { MaxLevel = 25, Const = 0.25 }, --Used for making meth
 }
 
 --[[ Crafting ]]--

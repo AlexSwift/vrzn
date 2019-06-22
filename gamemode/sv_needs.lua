@@ -9,13 +9,13 @@ GM.Needs.m_tblNeeds = (GAMEMODE or GM).Needs.m_tblNeeds or {}
 
 function GM.Needs:Initialize()
 	self:RegisterNeed( "Hunger", "You died of hunger!", "You are dying of hunger!", 500, 2, 1, 50 )
-	self:RegisterNeed( "Thirst", "You died of thirst!", "You are dying of thirst!", 500, 5, 2, 50 )
-	self:RegisterNeed( "Stamina", nil, nil, 100, -5, 0, function( pPlayer )
-		local curSkill = GAMEMODE.Skills:GetPlayerLevel( pPlayer, "Stamina" )
-		local maxSkill = GAMEMODE.Skills:GetMaxLevel( "Stamina" )
-		local scalar = maxSkill == curSkill and 0 or math.Clamp( (maxSkill -curSkill) /maxSkill, 0, 1 )
-		return 2 +(3 *scalar)
-	end )
+	-- self:RegisterNeed( "Thirst", "You died of thirst!", "You are dying of thirst!", 500, 5, 2, 50 )
+	-- self:RegisterNeed( "Stamina", nil, nil, 100, -5, 0, function( pPlayer )
+	-- 	local curSkill = GAMEMODE.Skills:GetPlayerLevel( pPlayer, "Stamina" )
+	-- 	local maxSkill = GAMEMODE.Skills:GetMaxLevel( "Stamina" )
+	-- 	local scalar = maxSkill == curSkill and 0 or math.Clamp( (maxSkill -curSkill) /maxSkill, 0, 1 )
+	-- 	return 2 +(3 *scalar)
+	-- end )
 end
 
 function GM.Needs:RegisterNeed( strNeedID, strDeathMessage, strNeedMessage, intMaxAmount, intDecayScale, intDamageAmount, vaDecayInterval )
@@ -44,9 +44,9 @@ function GM.Needs:SetPlayerNeed( pPlayer, strNeedID, intAmount, bNoSend )
 	
 	GAMEMODE.SQL:MarkDiffDirty( pPlayer, "data_store", "Needs" )
 
-	if strNeedID == "Stamina" then
-		self:UpdatePlayerStamina( pPlayer, intAmount )
-	end
+	-- if strNeedID == "Stamina" then
+	-- 	self:UpdatePlayerStamina( pPlayer, intAmount )
+	-- end
 	hook.Call( "GamemodeOnSetPlayerNeed", GAMEMODE, pPlayer, strNeedID, intAmount, newAmount )
 end
 
@@ -74,84 +74,84 @@ function GM.Needs:OnTakePlayerNeed( pPlayer, strNeedID, intAmount )
 	hook.Call( "GamemodeOnTakePlayerNeed", GAMEMODE, pPlayer, strNeedID, intAmount, newAmount )
 end
 
-function GM.Needs:UpdatePlayerStamina( pPlayer, intNewAmount )
-	local curSkill = GAMEMODE.Skills:GetPlayerLevel( pPlayer, "Stamina" )
-	local maxSkill = GAMEMODE.Skills:GetMaxLevel( "Stamina" )
+-- function GM.Needs:UpdatePlayerStamina( pPlayer, intNewAmount )
+-- 	local curSkill = GAMEMODE.Skills:GetPlayerLevel( pPlayer, "Stamina" )
+-- 	local maxSkill = GAMEMODE.Skills:GetMaxLevel( "Stamina" )
 
-	if curSkill >= maxSkill then
-		local cur = GAMEMODE.Player:GetMoveSpeedModifier( pPlayer, "StaminaSkill" )
-		local speed = GAMEMODE.Config.MaxRunSpeed -GAMEMODE.Config.DefRunSpeed
+-- 	if curSkill >= maxSkill then
+-- 		local cur = GAMEMODE.Player:GetMoveSpeedModifier( pPlayer, "StaminaSkill" )
+-- 		local speed = GAMEMODE.Config.MaxRunSpeed -GAMEMODE.Config.DefRunSpeed
 
-		if not cur or cur[2] ~= speed then
-			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "StaminaSkill", 0, speed )
-		end
-	else
-		local cur = GAMEMODE.Player:GetMoveSpeedModifier( pPlayer, "StaminaSkill" )
-		local scalar = 1 -math.Clamp( (maxSkill -curSkill) /maxSkill, 0, 1 )
-		local speed = math.Round( GAMEMODE.Config.MaxRunSpeed *scalar )
+-- 		if not cur or cur[2] ~= speed then
+-- 			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "StaminaSkill", 0, speed )
+-- 		end
+-- 	else
+-- 		local cur = GAMEMODE.Player:GetMoveSpeedModifier( pPlayer, "StaminaSkill" )
+-- 		local scalar = 1 -math.Clamp( (maxSkill -curSkill) /maxSkill, 0, 1 )
+-- 		local speed = math.Round( GAMEMODE.Config.MaxRunSpeed *scalar )
 
-		if not cur or cur[2] ~= speed then
-			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "StaminaSkill", 0, speed )
-		end
-	end
+-- 		if not cur or cur[2] ~= speed then
+-- 			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "StaminaSkill", 0, speed )
+-- 		end
+-- 	end
 
-	if intNewAmount > self.m_tblNeeds["Stamina"].Max *0.5 then
-		if GAMEMODE.Player:IsMoveSpeedModifierActive( pPlayer, "Stamina" ) then
-			GAMEMODE.Player:RemoveMoveSpeedModifier( pPlayer, "Stamina" )
-		end
-	else
-		if intNewAmount <= 0 then
-			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "Stamina", 0, -95 )
-		else
-			--Update the player's run speed according to the stamina scalar
-			local min = self.m_tblNeeds["Stamina"].Max *0.1
-			local max = (self.m_tblNeeds["Stamina"].Max *0.5) -min
+-- 	if intNewAmount > self.m_tblNeeds["Stamina"].Max *0.5 then
+-- 		if GAMEMODE.Player:IsMoveSpeedModifierActive( pPlayer, "Stamina" ) then
+-- 			GAMEMODE.Player:RemoveMoveSpeedModifier( pPlayer, "Stamina" )
+-- 		end
+-- 	else
+-- 		if intNewAmount <= 0 then
+-- 			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "Stamina", 0, -95 )
+-- 		else
+-- 			--Update the player's run speed according to the stamina scalar
+-- 			local min = self.m_tblNeeds["Stamina"].Max *0.1
+-- 			local max = (self.m_tblNeeds["Stamina"].Max *0.5) -min
 
-			local scalar = math.Clamp( (max -intNewAmount) /max, 0, 1 )
-			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "Stamina", 0, Lerp(scalar, 0, -95) )
-		end
-	end
-end
+-- 			local scalar = math.Clamp( (max -intNewAmount) /max, 0, 1 )
+-- 			GAMEMODE.Player:ModifyMoveSpeed( pPlayer, "Stamina", 0, Lerp(scalar, 0, -95) )
+-- 		end
+-- 	end
+-- end
 
-function GM.Needs:UpdatePlayerStaminaDecay( pPlayer )
-	if not pPlayer.m_intCurSprintVelL then return end
-	if not pPlayer.m_intCurXPVelL then
-		pPlayer.m_intCurXPVelL = 0
-	end	
+-- function GM.Needs:UpdatePlayerStaminaDecay( pPlayer )
+-- 	if not pPlayer.m_intCurSprintVelL then return end
+-- 	if not pPlayer.m_intCurXPVelL then
+-- 		pPlayer.m_intCurXPVelL = 0
+-- 	end	
 
-	pPlayer.m_intCurXPVelL = pPlayer.m_intCurXPVelL +pPlayer.m_intCurSprintVelL
-	local decay = math.Round( pPlayer.m_intCurSprintVelL *0.00033 )
-	if self:GetPlayerNeed( pPlayer, "Stamina" ) > 0 then
-		self:TakePlayerNeed( pPlayer, "Stamina", decay )
-	end
+-- 	pPlayer.m_intCurXPVelL = pPlayer.m_intCurXPVelL +pPlayer.m_intCurSprintVelL
+-- 	local decay = math.Round( pPlayer.m_intCurSprintVelL *0.00033 )
+-- 	if self:GetPlayerNeed( pPlayer, "Stamina" ) > 0 then
+-- 		self:TakePlayerNeed( pPlayer, "Stamina", decay )
+-- 	end
 
-	if pPlayer.m_intCurXPVelL >= 550000 then
-		pPlayer.m_intCurXPVelL = nil
-		GAMEMODE.Skills:GivePlayerXP( pPlayer, "Stamina", 1 )
-	end
+-- 	if pPlayer.m_intCurXPVelL >= 550000 then
+-- 		pPlayer.m_intCurXPVelL = nil
+-- 		GAMEMODE.Skills:GivePlayerXP( pPlayer, "Stamina", 1 )
+-- 	end
 	
-	pPlayer.m_intCurSprintVelL = nil
-end
+-- 	pPlayer.m_intCurSprintVelL = nil
+-- end
 
-function GM.Needs:TickPlayerStamina()
-	local velL
-	for k, v in pairs( player.GetAll() ) do
-		if not v:Alive() or v:InVehicle() or not v:GetCharacterID() then continue end
-		if v:GetRunSpeed() <= v:GetWalkSpeed() then continue end
+-- function GM.Needs:TickPlayerStamina()
+-- 	local velL
+-- 	for k, v in pairs( player.GetAll() ) do
+-- 		if not v:Alive() or v:InVehicle() or not v:GetCharacterID() then continue end
+-- 		if v:GetRunSpeed() <= v:GetWalkSpeed() then continue end
 		
-		velL = v:GetVelocity():Length()
-		if v:KeyDown( IN_SPEED ) and velL > 50 then
-			if not v.m_intCurSprintVelL then
-				v.m_intCurSprintVelL = 0
-			end
+-- 		velL = v:GetVelocity():Length()
+-- 		if v:KeyDown( IN_SPEED ) and velL > 50 then
+-- 			if not v.m_intCurSprintVelL then
+-- 				v.m_intCurSprintVelL = 0
+-- 			end
 
-			v.m_intCurSprintVelL = v.m_intCurSprintVelL +velL
-			if v.m_tblNeedTimes and v.m_tblNeedTimes["Stamina"] then
-				v.m_tblNeedTimes["Stamina"] = CurTime()
-			end
-		end
-	end
-end
+-- 			v.m_intCurSprintVelL = v.m_intCurSprintVelL +velL
+-- 			if v.m_tblNeedTimes and v.m_tblNeedTimes["Stamina"] then
+-- 				v.m_tblNeedTimes["Stamina"] = CurTime()
+-- 			end
+-- 		end
+-- 	end
+-- end
 
 function GM.Needs:ProcessPlayerNeeds( pPlayer )
 	pPlayer.m_tblNeedTimes = pPlayer.m_tblNeedTimes or {}
@@ -194,7 +194,7 @@ function GM.Needs:ProcessPlayerNeeds( pPlayer )
 end
 
 function GM.Needs:Tick()
-	self:TickPlayerStamina()
+	-- self:TickPlayerStamina()
 
 	if CurTime() < (self.m_intLastThink or 0) then return end
 	self.m_intLastThink = CurTime() +1
@@ -205,7 +205,7 @@ function GM.Needs:Tick()
 		if not saveTable then return end
 
 		self:ProcessPlayerNeeds( v )
-		self:UpdatePlayerStaminaDecay( v )
+		-- self:UpdatePlayerStaminaDecay( v )
 		
 		saveTable.Needs = saveTable.Needs or {}
 		for needID, data in pairs( self.m_tblNeeds ) do
@@ -225,7 +225,7 @@ function GM.Needs:PlayerDeath( pPlayer )
 end
 
 function GM.Needs:PlayerSpawn( pPlayer )
-	self:UpdatePlayerStamina( pPlayer, self:GetPlayerNeed(pPlayer, "Stamina") )
+	-- self:UpdatePlayerStamina( pPlayer, self:GetPlayerNeed(pPlayer, "Stamina") )
 end
 
 hook.Add( "GamemodeDefineGameVars", "DefineNeedVars", function( pPlayer )
@@ -244,6 +244,6 @@ hook.Add( "GamemodePlayerSelectCharacter", "ApplyNeedVars", function( pPlayer )
 end )
 
 hook.Add( "GamemodePlayerLevelUpSkill", "UpdatePlayerMaxSpeed", function( pPlayer, strSkill, intOldLevel, intNewLevel )
-	if strSkill ~= "Stamina" then return end
-	GAMEMODE.Needs:UpdatePlayerStamina( pPlayer, GAMEMODE.Needs:GetPlayerNeed(pPlayer, "Stamina") )
+	-- if strSkill ~= "Stamina" then return end
+	-- GAMEMODE.Needs:UpdatePlayerStamina( pPlayer, GAMEMODE.Needs:GetPlayerNeed(pPlayer, "Stamina") )
 end )

@@ -51,7 +51,7 @@ Item.CanDrop = true
 Item.LimitID = "medical supplies"
  
 Item.CraftingEntClass = "ent_crafting_table"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 5
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -131,7 +131,7 @@ Item.LimitID = "car repair kit"
 Item.DropClass = "ent_carfix_high"
 
 Item.CraftingEntClass = "ent_crafting_table"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 15
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -158,7 +158,7 @@ Item.LimitID = "car repair kit"
 Item.DropClass = "ent_carfix_medium"
 
 Item.CraftingEntClass = "ent_crafting_table"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -184,7 +184,7 @@ Item.LimitID = "car repair kit"
 Item.DropClass = "ent_carfix_light"
 
 Item.CraftingEntClass = "ent_crafting_table"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
@@ -208,7 +208,7 @@ Item.LimitID = "car repair kit"
 Item.DropClass = "ent_carfix_wheels"
 
 Item.CraftingEntClass = "ent_crafting_table"
-Item.CraftSkill = "Crafting"
+Item.CraftSkill = "Personagem"
 Item.CraftSkillLevel = 1
 Item.CraftSkillXP = 5
 Item.CraftRecipe = {
