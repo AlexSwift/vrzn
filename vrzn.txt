@@ -1,0 +1,11 @@
+"vrzn"
+{
+	"base"		"sandbox"
+	"title"		"Vrzn"
+	"maps"		""
+	"menusystem"	"1"
+	
+	"settings"
+	{
+	}
+}

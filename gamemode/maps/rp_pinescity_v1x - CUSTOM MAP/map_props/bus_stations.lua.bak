@@ -1,0 +1,38 @@
+--[[
+	Name: bus_stations
+	
+	By: Rustic7
+]]--
+
+local MapProp = {}
+MapProp.ID = "bus_stations"
+MapProp.m_tblSpawn = {}
+MapProp.m_tblProps = {
+	{ mdl = 'models/sligwolf/bus_bendi/bus_stop_001.mdl',pos = Vector('-8194.491211, 12726.031250, 168.031250'), ang = Angle('1.121993, 93.678154, 0.000000') },
+	{ mdl = 'models/sligwolf/bus_bendi/bus_stop_001.mdl',pos = Vector('-12010.002930, 12069.195313, 160.031250'), ang = Angle('0.461993, -175.404175, 0.000000') },
+
+}
+
+function MapProp:CustomSpawn()
+	for _, propData in pairs( self.m_tblProps ) do
+		local ent = ents.Create( "prop_physics" )
+		ent:SetPos( propData.pos )
+		ent:SetAngles( propData.ang )
+		ent:SetModel( propData.mdl )
+		ent:SetCollisionGroup( COLLISION_GROUP_NONE )
+		ent:SetMoveType( MOVETYPE_NONE )
+		ent.IsMapProp = true
+		ent:Spawn()
+		ent:Activate()
+
+		ent:SetSaveValue( "fademindist", 4096 )
+		ent:SetSaveValue( "fademaxdist", 3072 )
+
+		local phys = ent:GetPhysicsObject()
+		if IsValid( phys ) then
+			phys:EnableMotion( false )
+		end
+	end
+end
+
+GAMEMODE.Map:RegisterMapProp( MapProp )
