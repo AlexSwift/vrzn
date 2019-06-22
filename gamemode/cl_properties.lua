@@ -176,56 +176,16 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	local doorTitle = entDoor:GetNWString( "title" )
 	local ownerName
 	if self.m_tblProperties[data.Name].Government then
-		doorTitle = "Government Property"
+		doorTitle = "Propriedade do Governo"
 	elseif not IsValid( self:GetOwner(doorName) ) then
-		doorTitle = "Unowned Property"
+		doorTitle = "PROPRIEDADE DA STAFF"
 	else
-		if doorTitle == "" then doorTitle = "Owned Property" end
+		if doorTitle == "" then doorTitle = "PROPRIEDADE DA STAFF" end
 		ownerName = self:GetOwner( doorName ):Nick()
 	end
 
-	--[[render.ClearStencil()
-	render.SetStencilEnable( true )
-	render.SetStencilReferenceValue( 1 )
-	render.SetStencilTestMask( 1 )
-	render.SetStencilWriteMask( 1 )
-
-	render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_ALWAYS )
-	render.SetStencilFailOperation( STENCILOPERATION_KEEP )
-	render.SetStencilPassOperation( STENCILOPERATION_REPLACE  )
-	render.SetStencilZFailOperation( STENCILOPERATION_KEEP )
-
-	surface.SetDrawColor( 255, 255, 255, 1 )
-	surface.DrawRect( x -(w /2), y -(h /2), w, h *2 )
-	--GAMEMODE.HUD:DrawFancyRect( x -(w /2), y -(h /2), w, h *2, 90 -11.25, 90 +11.25 )
-
-	render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL )
-	render.SetStencilFailOperation( STENCILOPERATION_KEEP )
-	render.SetStencilPassOperation( STENCILOPERATION_KEEP )
-	render.SetStencilZFailOperation( STENCILOPERATION_KEEP )
-		surface.SetMaterial( GAMEMODE.HUD.m_matBlur )
-		surface.SetDrawColor( 255, 255, 255, 255 )
-
-		for i = 0, 1, 0.33 do
-			GAMEMODE.HUD.m_matBlur:SetFloat( '$blur', 5 *i )
-			GAMEMODE.HUD.m_matBlur:Recompute()
-			render.UpdateScreenEffectTexture()
-
-			local rPos = vecCamPos:ToScreen()
-			cam.Start2D()
-				surface.DrawTexturedRect( 0, 0, ScrW(), ScrH() )
-			cam.End2D()
-		end
-	render.SetStencilEnable( false )]]--
 	surface.SetFont( "SRP_DoorFont" )
-	--[[local w, h = surface.GetTextSize( doorName )
-	local w2, h2 = surface.GetTextSize( doorTitle )
-	local w3, h3 = ownerName and surface.GetTextSize( "Owned By: ".. ownerName ) or 0, 0
-	w, h = math.max( w, w2, h3 ) +256, h +h2 +h3 +20
 
-	surface.SetDrawColor( 10, 10, 10, 75 )
-	surface.DrawRect( x -(w /2), y -(h /2), w, h *2 )]]--
-	--GAMEMODE.HUD:DrawFancyRect( x -(w /2), y -(h /2), w, h *2, 90 -11.25, 90 +11.25 )
 
 	draw.SimpleText(
 		doorName,
@@ -249,7 +209,7 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	y = y +150
 	if ownerName then
 		draw.SimpleText(
-			"Owned By: ".. ownerName,
+			"STAFF: ".. ownerName,
 			"SRP_DoorFont",
 			x,
 			y,
