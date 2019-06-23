@@ -8,7 +8,7 @@ local Job = {}
 Job.ID = 13
 Job.Enum = "JOB_SSERVICE"
 Job.TeamColor = Color( 255, 100, 160, 255 )
-Job.Name = "Secret Service"
+Job.Name = "Serviço Secreto"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 180 },
 	{ PlayTime = 4 *(60 *60), Pay = 225 },
@@ -46,7 +46,7 @@ if SERVER then
 	function Job:PlayerApply( pPlayer )
 		if pPlayer.m_intLastSSApply then
 			if pPlayer.m_intLastSSApply > CurTime() then
-				pPlayer:AddNote( ("You must wait for %d seconds before you may apply again."):format(pPlayer.m_intLastSSApply -CurTime()) )
+				pPlayer:AddNote( ("Você deve aguardar %d segundos para talvez submeter sua aplicação."):format(pPlayer.m_intLastSSApply -CurTime()) )
 				return false
 			end
 		end
@@ -61,7 +61,7 @@ if SERVER then
 			end
 		end
 
-		pPlayer:AddNote( "You have applied for the secret service!" )
+		pPlayer:AddNote( "Você submeteu sua aplicação!" )
 		return true
 	end
 	
@@ -75,7 +75,7 @@ if SERVER then
 			end
 		end
 
-		pPlayer:AddNote( "You pulled your application for the secret service!" )
+		pPlayer:AddNote( "Você requisitou sua sbumição ao Serviço Secreto!" )
 	end
 
 	function Job:PlayerHasApp( pPlayer )
@@ -85,16 +85,16 @@ if SERVER then
 	function Job:ApprovePlayerApp( pPlayer )
 		self.PendingPlayerApps[pPlayer] = nil
 		GAMEMODE.Jobs:SetPlayerJob( pPlayer, JOB_SSERVICE )
-		pPlayer:AddNote( "They mayor has approved your secret service application!" )
+		pPlayer:AddNote( "O Prefeito aprovou sua aplicação para o Serviço Secreto!" )
 	end
 	
 	function Job:DenyPlayerApp( pPlayer )
 		self.PendingPlayerApps[pPlayer] = nil
-		pPlayer:AddNote( "They mayor has denied your secret service application!" )
+		pPlayer:AddNote( "O Prefeito reprovou sua aplicação para o Serviço Secreto!" )
 	end
 
 	function Job:MayorFirePlayer( pPlayer )
-		pPlayer:AddNote( "The mayor has fired you from the secret service!" )
+		pPlayer:AddNote( "Você foi demitido do Serviço Secreto!" )
 		GAMEMODE.Jobs:SetPlayerJob( pPlayer, JOB_CIVILIAN )
 	end
 
@@ -108,7 +108,7 @@ if SERVER then
 		end
 
 		entCar.IsCopCar = true
-		pPlayer:AddNote( "Your spawned your government car!" )
+		pPlayer:AddNote( "Você spawnou um veículo do governo!" )
 	end
 
 	--Player wants to spawn a gov car
