@@ -58,8 +58,8 @@ end )
 hook.Add( "GamemodePlayerPickupItem", "DamageCooldown", function( pPlayer, eEnt )
 	if eEnt.m_bDissolving then return false end
 	if eEnt.m_intLastDmgTime and eEnt.m_intLastDmgTime > CurTime() then
-		pPlayer:AddNote( "This item was recently damaged!" )
-		pPlayer:AddNote( ("You won't be able to pick this item up for another %s seconds."):format( math.ceil(eEnt.m_intLastDmgTime -CurTime())) )
+		pPlayer:AddNote( "Este item foi danificado recentemente!" )
+		pPlayer:AddNote( ("Você não conseguirá pega-lo por mais %s segundos."):format( math.ceil(eEnt.m_intLastDmgTime -CurTime())) )
 		return false
 	end
 end )

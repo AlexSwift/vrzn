@@ -33,18 +33,18 @@ end
 GM.Econ.m_tblTaxes = (GM or GAMEMODE).Econ.m_tblTaxes or {}
 
 function GM.Econ:LoadTaxes()
-	self:RegisterTax( "fuel", {Name = "Fuel Tax", MinValue = 0, MaxValue = 1, Value = 0} )
-	self:RegisterTax( "sales", {Name = "Sales Tax", MinValue = 0, MaxValue = 0.4, Value = 0} )
-	self:RegisterTax( "car_insurance", {Name = "Vehicle Insurance Tax", MinValue = 0, MaxValue = 0.25, Value = 0} )
+	self:RegisterTax( "fuel", {Name = "Taxa de combustível", MinValue = 0, MaxValue = 1, Value = 0} )
+	self:RegisterTax( "sales", {Name = "Taxa de venda", MinValue = 0, MaxValue = 0.4, Value = 0} )
+	self:RegisterTax( "car_insurance", {Name = "Seguro do carro", MinValue = 0, MaxValue = 0.25, Value = 0} )
 
-	self:RegisterTax( "prop_Stores", {Name = "Property Tax: Stores", MinValue = 0, MaxValue = 0.4, Value = 0} )
-	self:RegisterTax( "prop_Warehouse", {Name = "Property Tax: Warehouses", MinValue = 0, MaxValue = 0.5, Value = 0} )
-	self:RegisterTax( "prop_Apartments", {Name = "Property Tax: Apartments", MinValue = 0, MaxValue = 0.25, Value = 0} )
-	self:RegisterTax( "prop_House", {Name = "Property Tax: Houses", MinValue = 0, MaxValue = 0.25, Value = 0} )
+	self:RegisterTax( "prop_Stores", {Name = "IPTU: Loja", MinValue = 0, MaxValue = 0.4, Value = 0} )
+	self:RegisterTax( "prop_Warehouse", {Name = "IPTU: Galpôes", MinValue = 0, MaxValue = 0.5, Value = 0} )
+	self:RegisterTax( "prop_Apartments", {Name = "IPTU: Apartamento", MinValue = 0, MaxValue = 0.25, Value = 0} )
+	self:RegisterTax( "prop_House", {Name = "IPTU: Casa", MinValue = 0, MaxValue = 0.25, Value = 0} )
 
 	for k, v in pairs( GM.Jobs:GetJobs() ) do
 		self:RegisterTax( "income_".. k, {
-			Name = "Income Tax: ".. v.Name,
+			Name = "Taxa: ".. v.Name,
 			MinValue = 0,
 			MaxValue = 0.25,
 			Value = 0,

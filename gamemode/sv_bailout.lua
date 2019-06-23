@@ -15,9 +15,9 @@ sound.Add{
 
 GM.SeatBelts = {}
 
-CreateConVar( "rp_bailout_speed", 300, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "How fast a vehicle is moving before the player fles out when they try to exit." )
-CreateConVar( "rp_windshield_enabled", 1, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "Whether hitting a wall fast will toss you from the car." )
-CreateConVar( "rp_windshield_threshold", 13, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "How hard to hit a wall before being tossed through the windshield." )
+CreateConVar( "rp_bailout_speed", 300, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "Velocidade de um veículo antes do player ser arremessado para fora ao sair." )
+CreateConVar( "rp_windshield_enabled", 1, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "Se bater em uma parede rapidamente vai te tirar do carro." )
+CreateConVar( "rp_windshield_threshold", 13, {FCVAR_REPLICATED,FCVAR_SERVER_CAN_EXECUTE,FCVAR_ARCHIVE}, "Quão forte deve bater em uma parede para ser arremessado pelo pára-brisa." )
 local RAGDOLL_WINDOW = 0
 local RAGDOLL_BAILOUT = 1
 

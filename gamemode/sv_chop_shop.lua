@@ -37,7 +37,7 @@ function GM.ChopShop:PlayerChopCar( pPlayer )
 	self.m_tblCars[ownerID] = self.m_tblCars[ownerID] or {}
 	self.m_tblCars[ownerID][entCar.UID] = CurTime()
 
-	pPlayer:AddNote( "You stated chopping a car!" )
+	pPlayer:AddNote( "Você começou a roubar um carro!" )
 	pPlayer:SetNWFloat( "chop_shop_timer", CurTime() )
 	pPlayer:SetNWFloat( "chop_duration", GAMEMODE.Config.ChopShop_CarChopDuration )
 
@@ -55,7 +55,7 @@ function GM.ChopShop:PlayerCanChopCar( pPlayer, entCar )
 			return true
 		else
 			local timeLeft = ((self.m_tblPlayers[pPlayer:SteamID64()] +GAMEMODE.Config.ChopShop_CarStealCooldown) -CurTime()) /60
-			pPlayer:AddNote( ("You must wait %s minutes before chopping another car."):format(math.Round(timeLeft, 0)) )
+			pPlayer:AddNote( ("Você deve esperar %s minutos antes de roubar outro carro."):format(math.Round(timeLeft, 0)) )
 		end
 	end
 
@@ -95,7 +95,7 @@ function GM.ChopShop:Tick()
 			end --failed to chop it, reset this so they can try again
 
 			if IsValid( k.m_pStolenBy ) then
-				k.m_pStolenBy:AddNote( "Your car is no longer being chopped." )
+				k.m_pStolenBy:AddNote( "Seu carro não está mais sendo roubado." )
 				k.m_pStolenBy:SetNWFloat( "chop_shop_timer", -1 )
 			end
 
@@ -111,7 +111,7 @@ function GM.ChopShop:Tick()
 
 		if CurTime() > k.m_intChopStart +GAMEMODE.Config.ChopShop_CarChopDuration then
 			local money = GAMEMODE.Cars:CalcVehicleValue( k ) *0.02
-			k.m_pStolenBy:AddNote( "You earend $".. money.. " for chopping a car!" )
+			k.m_pStolenBy:AddNote( "Você recebeu R$".. money.. " por roubar esse carro!" )
 			k.m_pStolenBy:AddMoney( money )
 			self.m_tblChopping[k] = nil --unref from chop table
 			k:Remove()
@@ -125,7 +125,7 @@ hook.Add( "PlayerEnteredVehicle", "TrackChopCar", function( pPlayer, entVeh )
 		GAMEMODE.ChopShop.m_tblChopping[entVeh] = nil --unref from chop table
 
 		if IsValid( entVeh.m_pStolenBy ) then
-			entVeh.m_pStolenBy:AddNote( "Your car is no longer being chopped." )
+			entVeh.m_pStolenBy:AddNote( "Seu carro não está mais sendo roubado." )
 			entVeh.m_pStolenBy:SetNWFloat( "chop_shop_timer", -1 )
 		end
 
@@ -144,8 +144,8 @@ end )
 hook.Add( "GamemodePlayerCanSpawnCar", "BlockStolenCars", function( pPlayer, strCarUID )
 	if GAMEMODE.ChopShop:IsCarStolen( pPlayer, strCarUID ) then
 		local timeLeft = ((GAMEMODE.ChopShop.m_tblPlayers[pPlayer:SteamID64()] +GAMEMODE.Config.ChopShop_CarStealCooldown) -CurTime()) /60
-		pPlayer:AddNote( "This car was stolen and destroyed at a chop shop!" )
-		pPlayer:AddNote( ("You must wait %s minutes before insurance replaces this car."):format(math.Round(timeLeft, 0)) )
+		pPlayer:AddNote( "Este carro foi roubado e destruído no desmanche!" )
+		pPlayer:AddNote( ("Você deve esperar %s minutos antes do seguro reembolsar esse caro."):format(math.Round(timeLeft, 0)) )
 
 		return false
 	end

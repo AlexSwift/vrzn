@@ -45,7 +45,7 @@ function GM.BankStorage:AddToBank( pPlayer, strItem, intNum )
 
 	if not saveTable.BankItems[strItem] then
 		if table.Count( saveTable.BankItems ) +1 > (pPlayer:CheckGroup("vip") and self.VIP_MAX_UNIQUE_ITEMS or self.MAX_UNIQUE_ITEMS) then
-			pPlayer:AddNote( "You cannot store any more unique items!" )
+			pPlayer:AddNote( "Você não pode mais guardar nenhum item, está lotado!" )
 			return
 		end
 	end
@@ -59,7 +59,7 @@ function GM.BankStorage:AddToBank( pPlayer, strItem, intNum )
 
 	saveTable.BankItems[strItem] = saveTable.BankItems[strItem] or 0
 	if saveTable.BankItems[strItem] +intNum > (pPlayer:CheckGroup("vip") and self.VIP_MAX_NUM_ITEM or self.MAX_NUM_ITEM) then
-		pPlayer:AddNote( "You cannot store any more of that item!" )
+		pPlayer:AddNote( "Você não pode mais guardar nenhum item, está lotado!" )
 		return
 	end
 	
@@ -183,6 +183,6 @@ hook.Add( "GamemodePlayerSelectCharacter", "SendBankItems", function( pPlayer )
 	if not saveTable or not saveTable.LostAndFound then return end
 	GAMEMODE.Net:SendLostAndFoundUpdate( pPlayer, saveTable.LostAndFound )
 	if table.Count( saveTable.LostAndFound ) > 0 then
-		pPlayer:AddNote( "You have items at lost and found! Claim them at the bank.", nil, 20 )
+		pPlayer:AddNote( "Você tem itens nos achados e perdidos! Pegue-os no banco.", nil, 20 )
 	end
 end )

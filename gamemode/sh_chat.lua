@@ -4,31 +4,31 @@ if SERVER then
 		if strText:sub( 1, 5 ) == "/ads " and not bTeamOnly then
 			if pPlayer:CanAfford( GAMEMODE.Config.AdvertPrice ) then
 				pPlayer:TakeMoney( GAMEMODE.Config.AdvertPrice )
-				pPlayer:AddNote( "Your advertisement cost you $".. string.Comma(GAMEMODE.Config.AdvertPrice) )
+				pPlayer:AddNote( "Seu anúncio te custará R$".. string.Comma(GAMEMODE.Config.AdvertPrice) )
 				return strText
 			else
-				pPlayer:AddNote( "Advertisements cost $".. string.Comma(GAMEMODE.Config.AdvertPrice).. ". You can't afford that." )
+				pPlayer:AddNote( "Anúncios custam R$".. string.Comma(GAMEMODE.Config.AdvertPrice).. ". Você não pode pagar." )
 				return ""
 			end
 		elseif strText == "/unstuck" then
 			if GAMEMODE.Jail:IsPlayerInJail( pPlayer ) then
-				pPlayer:AddNote( "You may not use that command while in jail!" )
+				pPlayer:AddNote( "Talvez você não devesse usar esse comando na cadeia!" )
 				return ""
 			end
 			if pPlayer:InVehicle() then
-				pPlayer:AddNote( "You may not use that command while in a vehicle!" )
+				pPlayer:AddNote( "Você não deveria utilizar esse comando em um veículo!" )
 				return ""
 			end
 			if pPlayer.m_intLastUnstuckTime then
 				if pPlayer.m_intLastUnstuckTime > CurTime() then
 					local time = math.Round( pPlayer.m_intLastUnstuckTime -CurTime() )
-					pPlayer:AddNote( "You must wait ".. time.. " seconds before trying this command again." )
+					pPlayer:AddNote( "Você deve aguardar ".. time.. " segundos antes de usar esse comando novamente." )
 					return ""
 				end
 			end
 			GAMEMODE.Util:UnstuckPlayer( pPlayer )
 			pPlayer.m_intLastUnstuckTime = CurTime() +30
-			pPlayer:AddNote( "You should now be unstuck!" )
+			pPlayer:AddNote( "Você deve estar destravado!" )
 			return ""
 		elseif strText:sub( 1, 11 ) == "/broadcast " and not bTeamOnly then
 			if GAMEMODE.Jobs:GetPlayerJobID( pPlayer ) == JOB_MAYOR then return strText else return "" end
@@ -57,7 +57,7 @@ else
 		if find == 1 then
 			strText = string.sub( strText,find +5 )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( Advertisement ) " )
+			table.insert( tblArgs, "( Anúncio ) " )
 			return strText, -1
 		end
 		
@@ -72,7 +72,7 @@ else
 		if find == 1 then
 			strText = string.sub( strText,find +11 )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( Mayor Broadcast ) " )
+			table.insert( tblArgs, "( Mensagem do Prefeito ) " )
 			return strText, -1
 		end		
 		return strText, 500
@@ -88,7 +88,7 @@ else
 		
 		if bTeamOnly then
 			if pPlayer == LocalPlayer() then
-				chat.AddText( Color(255, 100, 100), "Please speak in regular chat. You are using team chat." )
+				chat.AddText( Color(255, 100, 100), "Fale no chat normal. Você está no chat da job." )
 			end
 			return true
 		end

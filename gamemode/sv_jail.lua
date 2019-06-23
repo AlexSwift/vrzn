@@ -30,7 +30,7 @@ function GM.Jail:Tick()
 
 					--Player is in jail but out of the jail zone, consider this a jail break and unjail them
 					if self:ReleasePlayerFromJail( v, "Escaped from cell!", true, true ) then
-						v:AddNote( "You have broken out of your cell!" )
+						v:AddNote( "Você escapou da sua cela!" )
 						hook.Call( "GamemodeOnPlayerJailBreak", GAMEMODE, v )
 					end
 				else
