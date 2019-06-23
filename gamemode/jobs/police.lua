@@ -6,15 +6,15 @@
 
 --Job protocols start at 50 to save space for other things in the gamemode
 GM.Net:AddProtocol( "police", 51 )
-GM.ChatRadio:RegisterChannel( 1, "Police", false )
-GM.ChatRadio:RegisterChannel( 2, "Police Encrypted", true )
+GM.ChatRadio:RegisterChannel( 1, "Polícia", false )
+GM.ChatRadio:RegisterChannel( 2, "Polícia (Seguro)", true )
 
 local Job = {}
 Job.ID = 2
 Job.Enum = "JOB_POLICE"
 Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
-Job.Name = "Police"
+Job.Name = "Polícia"
 Job.WhitelistName = "police"
 Job.PlayerModel = {
 	Male_Fallback = "models/player/santos/cop/Male_02_santosrp.mdl",
@@ -138,7 +138,7 @@ if SERVER then
 		end
 
 		entCar.IsCopCar = true
-		pPlayer:AddNote( "You have spawned your police car!" )
+		pPlayer:AddNote( "Você spawnou seu carro de polícia!" )
 	end
 
 	--Player wants to spawn a cop car
@@ -177,7 +177,7 @@ if SERVER then
 
 	hook.Add( "PlayerEnteredVehicle", "CopComputerHint", function( pPlayer, entVeh, intRole )
 		if entVeh.IsCopCar then
-			pPlayer:AddNote( "Press 'R' to open your police computer" )
+			pPlayer:AddNote( "Aperte 'R' para abrir o computador da polícia." )
 		end
 	end )
 
@@ -185,7 +185,7 @@ if SERVER then
 		if strNumberSendTo ~= "911" then return end
 		if pSender.m_intLast911 and pSender.m_intLast911 > CurTime() then
 			local time = math.Round( pSender.m_intLast911 -CurTime() )
-			GAMEMODE.Net:SendTextMessage( pSender, "911", "You must wait ".. time.. " seconds before you can send another message to dispatch." )
+			GAMEMODE.Net:SendTextMessage( pSender, "911", "Você deve esperar ".. time.. " segundos antes de pedir outra mensagem de ajuda." )
 			pSender:EmitSound( "taloslife/sms.mp3" )
 			return true
 		end
@@ -205,9 +205,9 @@ if SERVER then
 
 		local respMsg = ""
 		if sentTo == 0 then
-			respMsg = "No emergency services are available right now. Sorry!"
+			respMsg = "Náo há serviços de emergência disponiveis agora. Foi mal..."
 		else
-			respMsg = "Your message was received by dispatch and sent to ".. sentTo.. " players."
+			respMsg = "Sua mensagem foi enviada para  ".. sentTo.. " players."
 		end
 		
 		GAMEMODE.Net:SendTextMessage( pSender, "911", respMsg )
@@ -217,7 +217,7 @@ if SERVER then
 	end )
 
 	hook.Add( "GamemodeOnPlayerJailBreak", "AlertPolice", function( pJailedPlayer )
-		local str = ("%s has escaped from jail!"):format( pJailedPlayer:Nick() )
+		local str = ("%s fugiu da cadeia!"):format( pJailedPlayer:Nick() )
 		for k, v in pairs( player.GetAll() ) do
 			if v == pJailedPlayer then continue end
 			if GAMEMODE.Jobs:GetPlayerJobID( v ) ~= JOB_POLICE then continue end
