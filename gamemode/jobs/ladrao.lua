@@ -5,7 +5,7 @@
 ]]--
 
 local Job = {}
-Job.ID = 1
+Job.ID = 14
 Job.Enum = "JOB_ASSALTANTE"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Ladrão"
