@@ -146,16 +146,26 @@ function GM.Gui:CreateMove( CUserCmd )
 end
 
 function GetKeyPress()
-	ReadPLayerEmotes( LocalPlayer() )
-	ReadEmotes( LocalPlayer() )
-	ValidatePlayer( LocalPlayer() )
-	ReadEquipedEmotes( LocalPlayer() )
-	if (input.IsButtonDown(KEY_G) and !keyDown) then
-		OpenMainMenu()
+	if input.IsKeyDown( KEY_F ) and (not IsValid(vgui.GetKeyboardFocus())) then
+		if not keyStateC then
+			keyStateC = true
+		end
+	else
+		if keyStateC then keyStateC = false end
 	end
-	keyDown = input.IsButtonDown(KEY_G);
 end
 hook.Add( "Think", "GetKeyPress", GetKeyPress )
+-- function GetKeyPress()
+-- 	ReadPLayerEmotes( LocalPlayer() )
+-- 	ReadEmotes( LocalPlayer() )
+-- 	ValidatePlayer( LocalPlayer() )
+-- 	ReadEquipedEmotes( LocalPlayer() )
+-- 	if (input.IsButtonDown(KEY_G) and !keyDown) then
+-- 		OpenMainMenu()
+-- 	end
+-- 	keyDown = input.IsButtonDown(KEY_G);
+-- end
+-- hook.Add( "Think", "GetKeyPress", GetKeyPress )
 
 --function GM.Gui:PlayerStartVoice( pPlayer )
 --	self.m_tblVoicePanels[pPlayer] = {}
