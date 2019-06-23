@@ -285,29 +285,45 @@ function GM.Gui:Think()
 end
 
 function GetInventoryKey()
-		if (input.IsButtonDown(KEY_F2) and !keyDown) then
+		if (input.IsButtonDown(KEY_F) and !keyDown) then
 			OpenGameMenu()
 		end
-	keyDown = input.IsButtonDown(KEY_F2);
+	keyDown = input.IsButtonDown(KEY_F);
 end
-hook.Add( "Think", "GetInventoryKey", GetKeyPress )
+hook.Add( "Think", "GetInventoryKey", GetInventoryKey )
+
+
+-- function GetInventoryCloseKey()
+-- 	if (input.IsButtonDown(KEY_E) and !keyDown) then
+-- 		m_pnlQMenu:SetVisible( false )
+-- -- 	-- 	CloseDermaMenus()
+-- 	end
+-- keyDown = input.IsButtonDown(KEY_E);
+-- end
+-- hook.Add( "Think", "GetInventoryCloseKey", GetInventoryCloseKey )
 -- GM.Sandbox = BaseClass
 
 function OpenGameMenu()
 
-	if not self:IsInGame() then return end
 	if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
 	
-	if not ValidPanel( self.m_pnlQMenu ) then
-		self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
-		self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
-		--self.m_pnlQMenu:SetSize( 800, 600 )
-		self.m_pnlQMenu:Center()
+	if not ValidPanel( m_pnlQMenu ) then
+		m_pnlQMenu = vgui.Create( "SRPQMenu" )
+		m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
+		m_pnlQMenu:Center()
+		m_pnlQMenu:Refresh()
+	else
+		if m_pnlQMenu:IsVisible() then
+			m_pnlQMenu:SetVisible( false )
+		else
+			m_pnlQMenu:MakePopup()
+			m_pnlQMenu:SetVisible(true)
+		end
 	end
 
-	self.m_pnlQMenu:Refresh()
-	self.m_pnlQMenu:SetVisible( true )
-	self.m_pnlQMenu:MakePopup()
+
+	-- m_pnlQMenu:SetVisible( true )
+
 
 	RestoreCursorPosition()
 
@@ -321,9 +337,9 @@ end
 -- 	-- end
 -- end
 
-function GM:ScoreboardShow()
+-- function GM:ScoreboardShow()
 
-end
+-- end
 
 function GM.Gui:StringRequest( strTitle, strText, strDefaultText, fnEnter, fnCancel, strButtonText, strButtonCancelText, intCharLimit )
 	local Window = vgui.Create( "SRP_Frame" )

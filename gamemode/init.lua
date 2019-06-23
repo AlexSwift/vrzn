@@ -35,7 +35,6 @@ function GM:Load()
 	self.Cars:LoadCars()
 	self.Weather:LoadTypes()
 	self.Apps:Load()
-	--self.ServerNet:Load()
 end
 
 function GM:Initialize()
@@ -70,7 +69,6 @@ function GM:Tick()
 	self.SQL:Tick()
 	self.Jail:Tick()
 	self.License:Tick()
-	-- self.Uncon:Tick()
 	self.Drugs:Tick()
 	self.Jobs:Tick()
 	self.Cars:TickCarFuel()
@@ -78,33 +76,8 @@ function GM:Tick()
 	self.ChopShop:Tick()
 	self.Weather:Tick()
 	self.FireSystem:Tick()
-	-- self.PlayerDamage:Tick()
 	self.Econ:Tick()
 	self.StoreRobbery:Tick()
-end
-
-function GM:EntityTakeDamage( eEnt, pDamageInfo )
-	if self.Map:EntityTakeDamage( eEnt, pDamageInfo ) then
-		return true
-	end
-
-	self.PlayerDamage:EntityTakeDamage( eEnt, pDamageInfo )
-	self.EntityDamage:EntityTakeDamage( eEnt, pDamageInfo )
-	
-	-- if self.Uncon:EntityTakeDamage( eEnt, pDamageInfo ) then
-	-- 	return true
-	-- end
-
-	self.Cars:EntityTakeDamage( eEnt, pDamageInfo )
-
-	if self.SeatBelts:EntityTakeDamage( eEnt, pDamageInfo ) then
-		return true
-	end
-end
-
-function GM:PlayerShouldTakeDamage( pPlayer, entAttacker )
-	if entAttacker.IsItem then return false end
-	return true
 end
 
 function GM:OnEntityCreated( eEnt )
@@ -123,11 +96,6 @@ end
 function GM:EntityKeyValue( eEnt, strKey, strValue )
 end
 
-function GM:EntityFireBullets( eEnt, tblBullet )
-	if self.PlayerDamage:EntityFireBullets( eEnt, tblBullet ) then
-		return true, tblBullet
-	end
-end
 
 function GM:ShouldCollide( eEnt1, eEnt2 )
 	if eEnt1:IsVehicle() or eEnt2:IsVehicle() then
@@ -341,17 +309,17 @@ function GM:GravGunPickupAllowed( pPlayer, eEnt )
 	return self.PropProtect:GravGunPickupAllowed( pPlayer, eEnt )
 end
 
-function GM:GetFallDamage( pPlayer, intVel )
-	--local dmg = intVel /10
-	--if dmg < 10 then dmg = 0 end
-	--return dmg
+-- function GM:GetFallDamage( pPlayer, intVel )
+-- 	--local dmg = intVel /10
+-- 	--if dmg < 10 then dmg = 0 end
+-- 	--return dmg
 
-	return self.PlayerDamage:GetFallDamage( pPlayer, intVel )
-end
+-- 	return self.PlayerDamage:GetFallDamage( pPlayer, intVel )
+-- end
 
-function GM:ScalePlayerDamage( pPlayer, pDamageInfo )
-	self.PlayerDamage:ScalePlayerDamage( pPlayer, pDamageInfo )
-end
+-- function GM:ScalePlayerDamage( pPlayer, pDamageInfo )
+-- 	self.PlayerDamage:ScalePlayerDamage( pPlayer, pDamageInfo )
+-- end
 
 function GM:GamemodeUpdateMapLighting( ... )
 	return self.Weather:GamemodeUpdateMapLighting( ... )
