@@ -422,7 +422,6 @@ function GM.Cars:BulletHitOccupant( entCar, pDamageInfo, pPlayer )
 			dmgInfo:SetDamage( pDamageInfo:GetDamage() *(GAMEMODE.Config.CarBulletDmgFactor or 0.8) )
 			dmgInfo:SetInflictor( pDamageInfo:GetInflictor() )
 			dmgInfo:SetAttacker( pDamageInfo:GetAttacker() )
-			hook.Call( "ScalePlayerDamage", GAMEMODE, pl, foundHitGroup, dmgInfo )
 			pl:TakeDamageInfo( dmgInfo )
 			break
 		end

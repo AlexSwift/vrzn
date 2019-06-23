@@ -164,7 +164,6 @@ end
 function GM:PlayerDeathThink( pPlayer )
 	if pPlayer.m_bSkipDeathWait then
 		pPlayer:Spawn()
-		-- self.PlayerDamage:HealPlayerLimbs( pPlayer )
 		return true
 	end
 
@@ -175,7 +174,6 @@ function GM:PlayerDeathThink( pPlayer )
 
 	if CurTime() > pPlayer.m_intDeathWaitStart +GAMEMODE.Config.DeathWaitTime then
 		pPlayer:Spawn()
-		-- self.PlayerDamage:HealPlayerLimbs( pPlayer )
 		return true
 	end
 
@@ -308,18 +306,6 @@ end
 function GM:GravGunPickupAllowed( pPlayer, eEnt )
 	return self.PropProtect:GravGunPickupAllowed( pPlayer, eEnt )
 end
-
--- function GM:GetFallDamage( pPlayer, intVel )
--- 	--local dmg = intVel /10
--- 	--if dmg < 10 then dmg = 0 end
--- 	--return dmg
-
--- 	return self.PlayerDamage:GetFallDamage( pPlayer, intVel )
--- end
-
--- function GM:ScalePlayerDamage( pPlayer, pDamageInfo )
--- 	self.PlayerDamage:ScalePlayerDamage( pPlayer, pDamageInfo )
--- end
 
 function GM:GamemodeUpdateMapLighting( ... )
 	return self.Weather:GamemodeUpdateMapLighting( ... )
