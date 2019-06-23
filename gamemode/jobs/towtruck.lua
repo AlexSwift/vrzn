@@ -4,13 +4,13 @@
 	By: TalosLife
 ]]--
 
-GM.ChatRadio:RegisterChannel( 7, "Tow Services", false )
+GM.ChatRadio:RegisterChannel( 7, "Radio Reboque", false )
 
 local Job = {}
 Job.ID = 6
 Job.Enum = "JOB_TOW"
 Job.TeamColor = Color( 255, 100, 160, 255 )
-Job.Name = "Tow Truck Driver"
+Job.Name = "Dono do Reboque"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 35 },
 	{ PlayTime = 4 *(60 *60), Pay = 55 },
@@ -161,7 +161,7 @@ if SERVER then
 		entCar:DeleteOnRemove( btnWForward )
 		entCar:DeleteOnRemove( btnWRel )
 
-		pPlayer:AddNote( "You spawned your tow truck!" )
+		pPlayer:AddNote( "Seu caminhão foi spawnado!" )
 	end
 
 	function Job:OnPlayerSpawnTowTruck( pPlayer, entCar )
@@ -200,7 +200,7 @@ if SERVER then
 		btn:SetAngles( entCar:LocalToWorldAngles(Angle(20, 180, 0)) )
 		btn:SetMoveParent( entCar )
 		btn:Spawn()
-		btn:SetLabel( "Raise / Lower Hook" )
+		btn:SetLabel( "Erguer / Abaixar Gancho" )
 		btn.Extender = true
 
 		local release = ents.Create( "ent_vehicle_btn" )
@@ -209,7 +209,7 @@ if SERVER then
 		release:SetMoveParent( entCar )
 		release:Spawn()
 		release:SetIsToggle( false )
-		release:SetLabel( "Disengage Hook" )
+		release:SetLabel( "Soltar Gancho" )
 
 		local Hook = ents.Create( "ent_towtruck_hook" )
 		Hook:SetPos( entCar:LocalToWorld(Vector(0, -170, 10)) )
@@ -247,7 +247,7 @@ if SERVER then
 		entCar:DeleteOnRemove( btn )
 		entCar:DeleteOnRemove( release )
 
-		pPlayer:AddNote( "You spawned your tow truck!" )
+		pPlayer:AddNote( "Seu caminhão foi spawnado!" )
 	end
 	
 	--Player wants to spawn a tow truck
@@ -275,7 +275,7 @@ if SERVER then
 		if strNumberSendTo ~= "Roadside Assistance" then return end
 		if pSender.m_intLastTowText and pSender.m_intLastTowText > CurTime() then
 			local time = math.Round( pSender.m_intLastTowText -CurTime() )
-			GAMEMODE.Net:SendTextMessage( pSender, "Roadside Assistance", "You must wait ".. time.. " seconds before you can send another message to roadside assistance." )
+			GAMEMODE.Net:SendTextMessage( pSender, "Roadside Assistance", "Você deve aguardar ".. time.. " segundos antes de pedir assitência novamente." )
 			pSender:EmitSound( "taloslife/sms.mp3" )
 			return true
 		end
@@ -291,9 +291,9 @@ if SERVER then
 
 		local respMsg = ""
 		if sentTo == 0 then
-			respMsg = "No roadside services are available right now. Sorry!"
+			respMsg = "Sem guinchos disponíveis. Lamentamos!"
 		else
-			respMsg = "Your message was received by dispatch and sent to ".. sentTo.. " players."
+			respMsg = "Seu pedido de ajuda foi enviado para ".. sentTo.. " players."
 		end
 		
 		GAMEMODE.Net:SendTextMessage( pSender, "Roadside Assistance", respMsg )
@@ -307,8 +307,8 @@ if SERVER then
 		if not IsValid( entVeh.BedEnt ) then return end
 		
 		if not entVeh.BedEnt:IsBedLocked() then
-			pPlayer:AddNote( "The truck bed is currently unlocked!" )
-			pPlayer:AddNote( "This will impact your speed, please lock the bed before driving." )
+			pPlayer:AddNote( "A traseira está destravada!" )
+			pPlayer:AddNote( "Isso impactará na sua velocidade, por favor trave a traseira antes de dirigir." )
 		end
 	end )
 
