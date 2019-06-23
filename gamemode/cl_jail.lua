@@ -16,8 +16,8 @@ function GM.Jail:PaintJailedHUD()
 	surface.SetDrawColor( 0, 0, 0, 220 )
 	surface.DrawRect( x -(box_w /2), y -(box_h /2), box_w, box_h )
 	
-	draw.SimpleTextOutlined( "You are in jail!", "handcuffText", x, y-10, color_white, 1, 1, 1, color_black )
-	draw.SimpleText( "You must wait until you have served your sentence or until another player bails you out!", "DermaDefault", x, y + 25, color_white, 1, 1 )
+	draw.SimpleTextOutlined( "Você está preso!", "handcuffText", x, y-10, color_white, 1, 1, 1, color_black )
+	draw.SimpleText( "Você deve aguardar até sua pena acabar ou alguem te soltar!", "DermaDefault", x, y + 25, color_white, 1, 1 )
 	
 	local jailTimeLeft = GAMEMODE.Player:GetGameVar( "arrest_start", 0 ) +GAMEMODE.Player:GetSharedGameVar( LocalPlayer(), "arrest_duration", 0 )
 	jailTimeLeft = math.max( jailTimeLeft -os.time(), 0 )
