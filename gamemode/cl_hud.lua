@@ -194,7 +194,7 @@ function GM.HUD:DrawChopShopOverlay()
 	if start == -1 then return end
 	if CurTime() > start +endtime then return end
 	
-	local text = "Chop Shop - Time Left: ".. GAMEMODE.Util:FormatTime( (start +endtime) -CurTime() )
+	local text = "Cleitão - Faltam: ".. GAMEMODE.Util:FormatTime( (start +endtime) -CurTime() )
 
 	surface.SetFont( "DermaLarge" )
 	local tw, th = surface.GetTextSize( text )
