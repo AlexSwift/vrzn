@@ -8,7 +8,7 @@ local Job = {}
 Job.ID = 7
 Job.Enum = "JOB_MAIL"
 Job.TeamColor = Color( 255, 100, 160, 255 )
-Job.Name = "Mail Truck Driver"
+Job.Name = "Carteiro"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 25 },
 	{ PlayTime = 4 *(60 *60), Pay = 40 },
@@ -47,7 +47,7 @@ if SERVER then
 		entCar.IsMailTruck = true
 		self.m_tblTrucks[entCar] = true
 
-		pPlayer:AddNote( "You spawned your mail truck!" )
+		pPlayer:AddNote( "Seu caminhão foi spawnado!" )
 	end
 
 	function Job:GenerateMailPoint( entCar )
@@ -128,7 +128,7 @@ if SERVER then
 				if not IsValid( ent ) or not ent.ParentMailTruck then continue end
 				if ent.ParentMailTruck == k then
 					k:GetPlayerOwner():AddMoney( k.MailDest.Pay )
-					k:GetPlayerOwner():AddNote( "You earned $".. k.MailDest.Pay.. " for delivering a package!" )
+					k:GetPlayerOwner():AddNote( "Você ganhou R$".. k.MailDest.Pay.. " por essa entrega!" )
 
 					ent:Remove()
 					k:SetNWInt( "boxes", k:GetNWInt("boxes") -1 )
@@ -187,8 +187,8 @@ else
 
 		--Draw mail depot
 		cam.Start3D2D( Job.m_vecMailDepot +Vector(0, 0, 128 +math.sin(CurTime()) *2), Ang, 0.25 )
-			draw.WordBox(2, -60, 0, "Mail Depot", "handcuffTextSmall", Color(0, 140, 0, 150), Color(255,255,255,255))
-			draw.SimpleText( "Drive here to load boxes onto your truck", "handcuffTextSmall", 0, 45, color_white, 1, 1 )
+			draw.WordBox(2, -60, 0, "Retire aqui", "handcuffTextSmall", Color(0, 140, 0, 150), Color(255,255,255,255))
+			draw.SimpleText( "Carregue o caminhão aqui", "handcuffTextSmall", 0, 45, color_white, 1, 1 )
 		cam.End3D2D()
 
 		if not IsValid( veh ) then return end
@@ -198,8 +198,8 @@ else
 		local dest = Job.m_tblMailPoints[veh:GetNWInt("dest")]
 		if not dest then return end
 		cam.Start3D2D( dest.Pos +Vector(0, 0, 32 +math.sin(CurTime()) *2), Ang, 0.25 )
-			draw.WordBox(2, -60, 0, "Delivery Point", "handcuffTextSmall", Color(0, 140, 0, 150), Color(255,255,255,255))
-			draw.SimpleText( "Drop a package here to complete this delivery", "handcuffTextSmall", 0, 45, color_white, 1, 1 )
+			draw.WordBox(2, -60, 0, "Entregue aqui", "handcuffTextSmall", Color(0, 140, 0, 150), Color(255,255,255,255))
+			draw.SimpleText( "Deixe o pacote aqui para completar a entrega", "handcuffTextSmall", 0, 45, color_white, 1, 1 )
 		cam.End3D2D()
 	end )
 
@@ -210,7 +210,7 @@ else
 		local dest = Job.m_tblMailPoints[veh:GetNWInt("dest", -1)]
 		
 		draw.SimpleTextOutlined(
-			"Packages Remaining: ".. veh:GetNWInt( "boxes" ),
+			"Restam: ".. veh:GetNWInt( "boxes" ) .." pacotes",
 			"handcuffTextSmall",
 			5,
 			5,
@@ -223,7 +223,7 @@ else
 
 		if dest then
 			draw.SimpleTextOutlined(
-				"Delivery Destination: ".. dest.Name,
+				"Destino da encomenda: ".. dest.Name,
 				"handcuffTextSmall",
 				5,
 				30,
