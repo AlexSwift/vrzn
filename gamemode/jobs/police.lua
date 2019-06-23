@@ -56,7 +56,7 @@ Job.CarSpawns = GM.Config.CopCarSpawns
 function Job:OnPlayerJoinJob( pPlayer )
 	pPlayer.m_bJobCivModelOverload = false
 	pPlayer:SetArmor(100)
-	pPlayer:AddNote("You are now wearing light kevlar.")
+	pPlayer:AddNote("Você está usando um kevlar leve agora.")
 end
 
 function Job:OnPlayerQuitJob( pPlayer )
@@ -64,7 +64,7 @@ function Job:OnPlayerQuitJob( pPlayer )
 	pPlayer.m_intSelectedJobModelSkin = nil
 	pPlayer.m_tblSelectedJobModelBGroups = {}
 	pPlayer:SetArmor(0)
-	pPlayer:AddNote("Your light kevlar has been removed.")
+	pPlayer:AddNote("Você tirou seu kevlar leve.")
 
 	local curCar = GAMEMODE.Cars:GetCurrentPlayerCar( pPlayer )
 	if curCar and curCar.Job and curCar.Job == JOB_POLICE then
