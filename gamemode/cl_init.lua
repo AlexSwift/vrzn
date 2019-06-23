@@ -42,7 +42,6 @@ function GM:Initialize( bReload )
 	self.Skills:Initialize()
 	self.NPC:Initialize()
 	self.Player:Initialize()
-	self.PlayerDamage:Initialize()
 end
 
 function GM:GamemodeSetupWorldFog( tblFogData )
@@ -169,10 +168,6 @@ end
 
 function GM:GamemodeOnCharacterUpdate()
 	self.Gui:ShowCharacterSelection()
-end
-
-function GM:GamemodeGameVarChanged( ... )
-	self.PlayerDamage:GamemodeGameVarChanged( ... )
 end
 
 function GM:GamemodeSharedGameVarChanged( ... )
