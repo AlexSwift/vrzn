@@ -8,7 +8,7 @@ local Job = {}
 Job.ID = 1
 Job.Enum = "JOB_CIVILIAN"
 Job.TeamColor = Color( 255, 255, 255, 255 )
-Job.Name = "Civilian"
+Job.Name = "Cidadão"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 15 },
 }
