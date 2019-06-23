@@ -4,8 +4,8 @@
 	By: TalosLife
 ]]--
 
-GM.ChatRadio:RegisterChannel( 3, "Fire", false )
-GM.ChatRadio:RegisterChannel( 4, "Fire Encrypted", true )
+GM.ChatRadio:RegisterChannel( 3, "Bombeiros", false )
+GM.ChatRadio:RegisterChannel( 4, "Bombeiros (Seguro)", true )
 
 local Job = {}
 Job.ID = 4
@@ -13,8 +13,8 @@ Job.HasMasterKeys = true
 Job.Receives911Messages = true
 Job.Enum = "JOB_FIREFIGHTER"
 Job.TeamColor = Color( 255, 100, 160, 255 )
-Job.Name = "Firefighter"
-Job.WhitelistName = "firefighter"
+Job.Name = "Bombeiro"
+Job.WhitelistName = "bombeiro"
 Job.PlayerModel = {
 	Male_Fallback = "models/player/portal/male_07_fireman.mdl",
 	Female_Fallback = "models/player/portal/male_07_fireman.mdl",
@@ -140,12 +140,12 @@ if SERVER then
 		entCar.Hose:SetParent( entCar )
 
 		entCar:SetColor( Color(255, 0, 0, 255) )
-		pPlayer:AddNote( "You spawned your firetruck!" )
+		pPlayer:AddNote( "Você spawnou seu caminhão contra-fogo!" )
 	end
 	
 	function Job:OnPlayerSpawnFirstRespondCar( pPlayer, entCar )
 		entCar:SetSkin( 2 )
-		pPlayer:AddNote( "Your spawned your first responder vehicle!" )
+		pPlayer:AddNote( "Você atendeu seu primeiro chamado contra fogo!" )
 	end
 	
 		--Player wants to spawn a first responder vehicle
