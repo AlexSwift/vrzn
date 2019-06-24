@@ -1,8 +1,12 @@
 --[[
 	Name: sh_init.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Name 	= "santosrp"
 GM.Author 	= "Ultra"

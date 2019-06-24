@@ -1,8 +1,12 @@
 --[[
 	Name: cl_qmenu_tab_buddies.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local Panel = {}
 function Panel:Init()

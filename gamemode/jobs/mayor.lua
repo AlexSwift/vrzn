@@ -1,6 +1,10 @@
 --[[
 	Name: mayor.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 

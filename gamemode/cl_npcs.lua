@@ -1,8 +1,12 @@
 --[[
 	Name: cl_npcs.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.NPC = (GAMEMODE or GM).NPC or {}
 GM.NPC.m_tblNPCRegister = (GAMEMODE or GM).NPC.m_tblNPCRegister or {}

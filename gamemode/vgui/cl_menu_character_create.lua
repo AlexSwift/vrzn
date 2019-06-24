@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_character_create.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "CharacterDisplayFont" , {
 	font = "Trebuchet",

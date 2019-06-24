@@ -1,8 +1,12 @@
 --[[
 	Name: sh_thunderstorm.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local vector_up, vector_down = Vector( 0, 0, 1 ), Vector( 0, 0, -1 )
 

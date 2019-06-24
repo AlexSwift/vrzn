@@ -1,8 +1,12 @@
 --[[
 	Name: cl_weather.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Weather = {}
 GM.Weather.m_tblTypes = (GAMEMODE or GM).m_tblTypes or {}

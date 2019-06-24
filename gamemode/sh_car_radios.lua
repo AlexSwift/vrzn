@@ -1,8 +1,12 @@
 --[[
 	Name: sh_car_radios.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local MAX_RADIO_DIST = 768
 

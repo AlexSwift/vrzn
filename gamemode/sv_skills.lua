@@ -1,8 +1,12 @@
 --[[
 	Name: sv_skills.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Skills = (GAMEMODE or GM).Skills or {}
 GM.Skills.m_tblSkills = (GAMEMODE or GM).Skills.m_tblSkills or {}

@@ -1,8 +1,12 @@
 --[[
 	Name: sv_chop_shop.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.ChopShop = (GM or GAMEMODE).ChopShop or {}
 GM.ChopShop.m_tblCars = (GM or GAMEMODE).ChopShop.m_tblCars or {}

@@ -1,8 +1,12 @@
 --[[
 	Name: sh_mayor_ss_menu.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local App = {}
 App.Name = "Secret Service"

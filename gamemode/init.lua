@@ -1,8 +1,12 @@
 --[[
 	Name: init.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 include "sh_init.lua"
 DeriveGamemode("sandbox")

@@ -1,8 +1,12 @@
 --[[
 	Name: sv_apps.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Apps = (GAMEMODE or GM).Apps or {}
 GM.Apps.m_tblRegister = (GAMEMODE or GM).Apps.m_tblRegister or {}

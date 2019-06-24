@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_santos_carmenu.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local OPEN_MENU = 0
 local CLOSE_MENU = 1

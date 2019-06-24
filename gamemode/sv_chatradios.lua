@@ -1,8 +1,12 @@
 --[[
 	Name: sv_chatradios.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.ChatRadio = {}
 GM.ChatRadio.m_tblChannels = {}

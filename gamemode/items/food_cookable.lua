@@ -1,8 +1,12 @@
 --[[
 	Name: food_cookable.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local function PlayerEatItem( tblItem, pPlayer )
 	if tblItem.GiveHunger >= 0 then

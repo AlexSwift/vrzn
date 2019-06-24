@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_clothing.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local Panel = {}
 function Panel:BuildList()

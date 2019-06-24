@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_chatradio.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local MAT_SHIELD = Material( "icon16/shield.png", "noclamp" )
 local MAT_LOCK = Material( "icon16/lock.png", "noclamp" )

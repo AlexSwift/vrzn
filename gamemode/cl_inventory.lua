@@ -1,8 +1,12 @@
 --[[
 	Name: cl_inventory.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Inv = (GAMEMODE or GM).Inv or {}
 GM.Inv.m_tblItemRegister = (GAMEMODE or GM).Inv.m_tblItemRegister or {}

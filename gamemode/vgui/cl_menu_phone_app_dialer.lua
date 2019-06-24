@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_phone_app_dialer.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local Panel = {}
 function Panel:Init()

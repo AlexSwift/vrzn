@@ -1,8 +1,12 @@
 --[[
 	Name: cl_computer_panels.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local PANEL = {}
 function PANEL:Init()

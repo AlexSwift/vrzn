@@ -1,8 +1,12 @@
 --[[
 	Name: taxi_driver.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.ChatRadio:RegisterChannel( 8, "Taxi Services", false )
 

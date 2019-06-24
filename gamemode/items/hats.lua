@@ -1,8 +1,12 @@
 --[[
 	Name: hats.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 for i = 1, 6 do
 	local Item = {}

@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_storagechest.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local function MoveToInventory( eEnt, strItemID, intAmount )
 	GAMEMODE.Net:NewEvent( "ent", "str_chst_t" )

@@ -1,8 +1,12 @@
 --[[
 	Name: cl_player.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Player = (GAMEMODE or GM).Player or {}
 GM.Player.m_tblGameVars = (GAMEMODE or GM).Player.m_tblGameVars or {}

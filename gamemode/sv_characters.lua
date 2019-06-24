@@ -1,8 +1,12 @@
 --[[
 	Name: sv_characters.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Char = {}
 GM.Char.SEX_MALE = 0

@@ -1,8 +1,12 @@
 --[[
 	Name: firefighter.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.ChatRadio:RegisterChannel( 3, "Fire", false )
 GM.ChatRadio:RegisterChannel( 4, "Fire Encrypted", true )

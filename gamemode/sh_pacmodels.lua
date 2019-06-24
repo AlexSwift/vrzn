@@ -1,8 +1,12 @@
 --[[
 	Name: sh_pacmodels.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.PacModels = (GAMEMODE or GM).PacModels or {}
 GM.PacModels.m_tblModels = (GAMEMODE or GM).PacModels.m_tblModels or {}

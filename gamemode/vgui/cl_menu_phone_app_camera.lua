@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_phone_app_camera.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 hook.Add( "RenderScene", "Update_PhoneCamRT", function()
 	if g_InPhoneRender then return end

@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_phone_app_messages.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local MAT_NEWMSG = Material( "taloslife/phone/ic_menu_notifications.png" )
 

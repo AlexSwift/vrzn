@@ -1,8 +1,12 @@
 --[[
 	Name: sh_santos_customs.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.CarShop = GM.CarShop or {}
 GM.CarShop.m_tblUpgrades = {

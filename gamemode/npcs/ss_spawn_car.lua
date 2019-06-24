@@ -1,8 +1,12 @@
 --[[
 	Name: ss_spawn_car.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local NPCMeta = {}
 NPCMeta.Name = "Secret Service VR"

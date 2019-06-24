@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_carbuy_v2.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "CarMenuV2VIPFont", {size = 64, weight = 400, font = "DermaLarge"} )
 

@@ -1,8 +1,12 @@
 --[[
 	Name: sh_util.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Util = {}
 GM.Util.m_tblIgnoreSpawnEnts = {

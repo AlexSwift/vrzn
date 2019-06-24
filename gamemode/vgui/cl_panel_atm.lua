@@ -1,8 +1,12 @@
 --[[
 	Name: cl_panel_atm.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "ATMBtnFont", {font = "DermaLarge", size = 64} )
 surface.CreateFont( "ATMBtnFont2", {font = "DermaLarge", size = 48} )

@@ -1,8 +1,12 @@
 --[[
 	Name: bags.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 for i = 1, 3 do
 	local Item = {}

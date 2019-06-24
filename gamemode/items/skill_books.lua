@@ -1,8 +1,12 @@
 --[[
 	Name: skill_books.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local function CanPlayerReadBook( pPlayer, tblItem )
 	if GAMEMODE.Skills:GetPlayerLevel( pPlayer, tblItem.BookSkill ) ~= tblItem.GiveLevel -1 then

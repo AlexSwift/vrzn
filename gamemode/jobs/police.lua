@@ -1,8 +1,12 @@
 --[[
 	Name: police.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 --Job protocols start at 50 to save space for other things in the gamemode
 GM.Net:AddProtocol( "police", 51 )

@@ -1,8 +1,12 @@
 --[[
 	Name: drugs_morphine.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 --[[ Morphine Effect ]]--
 local drugEffect = {}

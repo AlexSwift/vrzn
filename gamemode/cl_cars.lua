@@ -1,8 +1,12 @@
 --[[
 	Name: cl_cars.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Cars = (GAMEMODE or GM).Cars or {}
 GM.Cars.m_tblRegister = (GAMEMODE or GM).Cars.m_tblRegister or {}

@@ -1,8 +1,12 @@
 --[[
 	Name: sv_bank_storage.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.BankStorage = {}
 GM.BankStorage.MAX_UNIQUE_ITEMS = GM.Config.BankStorage_MAX_UNIQUE_ITEMS

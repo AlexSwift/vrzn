@@ -1,8 +1,12 @@
 --[[
 	Name: sv_drugs.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 GM.Drugs = {}
 GM.Drugs.m_tblEffects = {}

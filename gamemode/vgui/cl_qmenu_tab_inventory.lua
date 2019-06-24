@@ -1,8 +1,12 @@
 --[[
 	Name: cl_qmenu_tab_inventory.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "ItemCardFont", {size = 28, weight = 400, font = "DermaLarge"} )
 surface.CreateFont( "ItemCardFont2", {size = 24, weight = 400, font = "DermaLarge"} )

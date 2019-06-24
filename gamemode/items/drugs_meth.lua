@@ -1,8 +1,12 @@
 --[[
 	Name: drugs_meth.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local Item = {}
 Item.Name = "Drug Lab"

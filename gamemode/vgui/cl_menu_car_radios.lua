@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_car_radios.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local MAT_BLUR = Material( "pp/blurscreen.png", "noclamp" )
 

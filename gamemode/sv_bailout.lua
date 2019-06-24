@@ -1,8 +1,12 @@
 --[[
 	Name: sv_bailout.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 sound.Add{
 	name = "Seatbelt.Chime",

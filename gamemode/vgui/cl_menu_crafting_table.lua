@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_crafting_table.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "Crafting_Trebuchet20", {size = 20, weight = 525, font = "Trebuchet24"} )
 surface.CreateFont( "Crafting_Trebuchet20_Bold", {size = 20, weight = 400, font = "Trebuchet24"} )

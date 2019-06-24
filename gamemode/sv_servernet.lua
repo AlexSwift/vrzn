@@ -1,8 +1,12 @@
 --[[
 	Name: sv_servernet.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 if g_ServerNetSock then
 	g_ServerNetSock:Close()

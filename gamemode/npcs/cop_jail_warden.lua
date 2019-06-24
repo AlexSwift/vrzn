@@ -1,8 +1,12 @@
 --[[
 	Name: cop_jail_warden.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local NPCMeta = {}
 NPCMeta.Name = "Jail Warden"

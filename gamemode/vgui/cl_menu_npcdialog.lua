@@ -1,8 +1,12 @@
 --[[
 	Name: cl_menu_npcdialog.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 surface.CreateFont( "NPCDialogTitle", {size = 22, weight = 425, font = "Trebuchet18"} )
 

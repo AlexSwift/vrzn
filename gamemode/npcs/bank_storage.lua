@@ -1,8 +1,12 @@
 --[[
 	Name: bank_storage.lua
-	For: TalosLife
-	By: TalosLife
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
 ]]--
+
 
 local NPCMeta = {}
 NPCMeta.Name = "Bank Storage"
