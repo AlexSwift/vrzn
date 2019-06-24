@@ -18,6 +18,26 @@ end
 --[[ User Group Settings ]]--
 local function GlowColour() return HSVToColor( CurTime() % 6 * 60, 1, 1 ) end
 local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
+GM.Config.tblZones = {
+    { Name = "Spawn", Min = Vector(2907.543945, 1785.951538, -217.502609), Max = Vector( 3651.523193, 499.396545, 59.575581), Safe = true },
+    { Name = "Centro da cidade", Min = Vector(-2953.451172, -2937.782471, -246.521973), Max = Vector( -13.262700, 1064.389282, 300), Safe = false },
+    { Name = "Banco do Brasil", Min = Vector(-3723.985352, -2034.568359, -250.247513), Max = Vector(-2965.178711, -1156.600220, 300), Safe = false },
+    { Name = "Zona de tortura", Min = Vector(1221.666504, -4334.869141, -272.981567), Max = Vector(4056.606689, -8227.910156, 300) , Safe = true },
+    { Name = "Esgotoruga de Favela", Min = Vector(-4532.351563, -3188.789551, -270.001251), Max = Vector(3177.463867, 5965.594727, -1390.581543), Safe = false },
+    { Name = "Praia dos aposentados", Min = Vector(7348.679688, -3551.408936, -246.521973), Max = Vector(2367.771240, 144.383881, 300) ,Safe = false },
+    { Name = "Área industrial", Min = Vector( -5181.869629, 1118.100952, -246.521973), Max = Vector(-2217.777100, 4488.528320, 300), Safe = false},
+    { Name = "Vila do Universitário", Min = Vector( 3664.172363, 4977.978027, -246.521973 ), Max = Vector( -956.468506, 8529.574219, 300 ), Safe = false},
+    { Name = "Bairro dos Sociopatas", Min = Vector( 1753.570679, 4961.940918, -246.521973 ), Max = Vector( 5538.185059, 2226.253418, 300 ), Safe = false},
+    { Name = "Bairro dos Sociopatas", Min = Vector( 4094.725342, 2227.114014, -246.521973 ), Max = Vector( 2912.307861, 1979.924072, 300 ), Safe = false},
+    { Name = "Bairro gole de skol", Min = Vector(-2224.700928, 1064.401245, -246.521973), Max = Vector(1747.803589, 4984.221680, 300 ), Safe = false },
+    { Name = "Rua do spawn", Min = Vector(2911.210693, 151.275284, -246.521973), Max = Vector(1750.061646, 2225.466553, 300 ), Safe = true},
+    { Name = "Igreja Salvador Querosene", Min = Vector(4106.317383, -266.651215,-200), Max = Vector( 6096.210449, 2223.958740, 300 ), Safe = true},
+    { Name = "Cornolândia", Min = Vector( 538.077698, -7332.161621, -200 ), Max = Vector(-3652.011230, -4329.042969, 300 ), Safe = false},
+    { Name = "Rua do sertanejo", Min = Vector( 2392.282959, -615.724731, -200 ), Max = Vector( 0.989839, -2045.686768, 300 ), Safe = false }
+        -- { Name = "Centro comercial", Min = Vector(-23.173786 1983.081299 -170.764542)}
+
+}
+
 
 GM.Config.UserGroupConfig = {
 	["founder"] = { Name = "Founder", Color = GlowColour, Rainbow = true },

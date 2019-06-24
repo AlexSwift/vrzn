@@ -4,6 +4,67 @@
 		
 ]]--
 
+
+local PANEL = {}
+	local cos, sin, rad = math.cos, math.sin, math.rad
+
+	AccessorFunc( PANEL, "m_masksize", "MaskSize", FORCE_NUMBER )
+
+	function PANEL:Init()
+		self.Avatar = vgui.Create("AvatarImage", self)
+		self.Avatar:SetPaintedManually(true)
+		self:SetMaskSize( 24 )
+	end
+
+	function PANEL:PerformLayout()
+		self.Avatar:SetSize(self:GetWide(), self:GetTall())
+	end
+
+	function PANEL:SetPlayer( id )
+		self.Avatar:SetPlayer( id, self:GetWide() )
+	end
+
+	function PANEL:Paint(w, h)
+		render.ClearStencil() -- some people are so messy
+		render.SetStencilEnable(true)
+
+		render.SetStencilWriteMask( 1 )
+		render.SetStencilTestMask( 1 )
+
+		render.SetStencilFailOperation( STENCILOPERATION_REPLACE )
+		render.SetStencilPassOperation( STENCILOPERATION_ZERO )
+		render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
+		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_NEVER )
+		render.SetStencilReferenceValue( 1 )
+		
+		local _m = self.m_masksize
+		
+		local circle, t = {}, 0
+		for i = 1, 360 do
+			t = rad(i*720)/720
+			circle[i] = { x = w/2 + cos(t)*_m, y = h/2 + sin(t)*_m }
+		end
+		draw.NoTexture()
+		surface.SetDrawColor(color_white)
+		surface.DrawPoly(circle)
+
+		render.SetStencilFailOperation( STENCILOPERATION_ZERO )
+		render.SetStencilPassOperation( STENCILOPERATION_REPLACE )
+		render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
+		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL )
+		render.SetStencilReferenceValue( 1 )
+
+		self.Avatar:SetPaintedManually(false)
+		self.Avatar:PaintManual()
+		self.Avatar:SetPaintedManually(true)
+
+		render.SetStencilEnable(false)
+		render.ClearStencil() -- you&#39;re welcome, bitch.
+	end
+
+	vgui.Register("AvatarCircleMask", PANEL)
+	
+
 GM.HUD = {}
 GM.HUD.m_tblNotes = {}
 
@@ -34,14 +95,17 @@ function GM.HUD:Paint()
 	if self.m_convBlur:GetBool() then
 		DrawMotionBlur( 0.055, 1, 0.001 )
 	end
+	
+	surface.SetDrawColor( 255, 255, 255, 255 )
+	surface.SetMaterial( self.m_matLogo )
+	surface.DrawTexturedRect( 0, 0, 88, 46 )
 
-	--surface.SetDrawColor( 255, 255, 255, 255 )
-	--surface.SetMaterial( self.m_matLogo )
-	--surface.DrawTexturedRect( 0, 0, 88, 46 )
+	
 
 	GAMEMODE.Jail:PaintJailedHUD()
 	self:DrawCarHUD()
 	self:DrawChopShopOverlay()
+	-- DrawCardHud()
 	--self:DrawDeathOverlay()
 end
 
@@ -214,4 +278,78 @@ function GM.HUD:DrawChopShopOverlay()
 		1,
 		Color( 0, 0, 0, 255 )
 	)
+end
+
+local PANEL = {}
+PANEL.Done = false
+PANEL.maskSize = 16 --Defult for 32
+
+function PANEL:Init()
+	self.Avatar = vgui.Create("AvatarImage", self)
+	self.Avatar:SetPaintedManually(true)
+end
+
+function PANEL:PerformLayout()
+	self.Avatar:SetSize(self:GetWide(), self:GetTall())
+end
+
+function PANEL:SetMaskSize(size)
+	self.maskSize = size
+end
+
+local vw = ScrW() / 10
+local pah = ScrH() * 6.666666666666667 / 100
+local paw = ScrW() * 3.75 / 100
+
+
+surface.CreateFont( "HUD::0.075vw", {	font = "Montserrat Regular", size = 0.75 * vw,	weight = 500, antialias = true } )
+surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1,	weight = 500, antialias = true } )
+surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
+surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
+
+hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
+    if LocalPlayer():IsSuperAdmin() then
+    for k, v in pairs( GAMEMODE.Config.tblZones ) do
+        if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
+            DrawZoneHud( v.Name, v.Safe )
+        end
+            local test = v.Min
+            local test2 =  v.Max
+            local x, y, z = test.x, test.y, test.z
+            local x2, y2, z2 = test2.x, test2.y, test2.z
+            cam.Start3D()
+                render.SetMaterial( Material("models/wireframe"))
+                render.DrawBeam( v.Min,v.Max, 12, 0, 12.5, Color(255,0,0,0) )
+                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
+            cam.End3D()
+    end
+end
+end)
+-- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
+function DrawZoneHud( Name, Safe )
+    hook.Add( "HUDPaint", "DrawZoneText", function()
+        surface.SetFont("HUD::0.2vw")
+        local w, h = surface.GetTextSize(Name)
+        draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        if Safe then
+            surface.SetFont("HUD::0.1vw")
+            local tw, th = surface.GetTextSize("Área segura")
+            draw.SimpleText( "Área segura", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        else
+            surface.SetFont("HUD::0.1vw")
+            local tw, th = surface.GetTextSize("Área não dominada")
+            draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        end
+    end )
 end
