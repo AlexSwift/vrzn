@@ -8,7 +8,7 @@ local Job = {}
 Job.ID = 16
 Job.Enum = "JOB_PSICOPATA"
 Job.TeamColor = Color( 255, 255, 255, 255 )
-Job.Name = "Psicopata"
+Job.Name = "Psicopata (VIP)"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 5 },
 	{ PlayTime = 12*( 60*60 ), Pay = 15},
@@ -25,6 +25,7 @@ Job.PlayerModel = {
 		["female_01"] = "models/players/mj_dbd_guam.mdl",
 	},
 }
+Job.VIP = true
 
 
 function Job:OnPlayerJoinJob( pPlayer )
