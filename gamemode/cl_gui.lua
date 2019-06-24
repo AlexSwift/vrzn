@@ -938,3 +938,15 @@ function GM.Gui:ShowTrunk(intCarIndex)
 end
 
 
+function GM.Gui:ShowMayorVoteWheel(participants)
+	if ValidPanel( self.m_pnlMayorVoteMenu ) then self.m_pnlMayorVoteMenu:Remove() self.m_pnlMayorVoteMenu = nil end
+	self.m_pnlMayorVoteMenu = vgui.Create( "SRPMayorVoteRadialMenu" )
+	self.m_pnlMayorVoteMenu:SetSize( 500, 500 )
+	self.m_pnlMayorVoteMenu:Center()
+	self.m_pnlMayorVoteMenu:InitializeButtons(participants)
+	self.m_pnlMayorVoteMenu:MakePopup()
+	timer.Simple(GAMEMODE.Config.MVWaitingTime, function() 
+		if ValidPanel( self.m_pnlMayorVoteMenu ) then self.m_pnlMayorVoteMenu:Remove() self.m_pnlMayorVoteMenu = nil end
+	end)
+end
+
