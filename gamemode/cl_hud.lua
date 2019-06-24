@@ -157,6 +157,35 @@ function GM.HUD:DrawMayorOverlay()
 	draw.SimpleTextOutlined(text, "DermaLarge", 5, y + 5, Color(255, 255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT, 1, Color(0, 0, 0, 255))
 end
 
+
+function GM.HUD:DrawCityWorkerJob()
+	local pPlayer = LocalPlayer()
+	if not pPlayer:GetCharacter() then return end
+	if pPlayer:Team() ~= JOB_CITYWORKER then return end
+	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetMaterial(Material("icon16/money.png"))
+
+	for k, v in pairs(ents.FindByClass('ent_hydrant')) do
+		if v:GetBroken() then
+			local entpos = v:GetPos():ToScreen()
+			surface.DrawTexturedRect(entpos.x, entpos.y - 25, 16, 16)
+			draw.SimpleText("Fix a leaking hydrant!", "CopMenuFont", entpos.x, entpos.y, color_white, 1, 1)
+		end
+	end
+
+	for k, v in pairs(ents.FindByClass('ent_road_debris')) do
+		local entpos = v:GetPos():ToScreen()
+		surface.DrawTexturedRect(entpos.x, entpos.y - 25, 16, 16)
+		draw.SimpleText("Clear the road of debris!", "CopMenuFont", entpos.x, entpos.y, color_white, 1, 1)
+	end
+
+	for k, v in pairs(ents.FindByClass('ent_mow_grass')) do
+		local entpos = v:GetPos():ToScreen()
+		surface.DrawTexturedRect(entpos.x, entpos.y - 25, 16, 16)
+		draw.SimpleText("Mow the grass!", "CopMenuFont", entpos.x, entpos.y, color_white, 1, 1)
+	end
+end
+
 function GM.HUD:DrawFancyRect( intX, intY, intW, intH, intSlantLeft, intSlantRight, matMaterial )
 	intSlantLeft, intSlantRight = math.rad(intSlantLeft), math.rad(intSlantRight)
 
