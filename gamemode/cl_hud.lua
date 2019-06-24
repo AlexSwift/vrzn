@@ -189,8 +189,8 @@ end
 
 local CircleMat = Material("sgm/playercircle")
 local color_config = {}
-color_config["developer"] = function() return util.CleanGlow(0.3, Color(255, 255, 255), HSVToColor(CurTime() * 60 % 360, 1, 1)) end
-color_config["sugardaddy"] = function() return util.CleanGlow(0.1, Color(255, 55, 55), Color(55, 255, 255)) end
+color_config["superadmin"] = function() return util.CleanGlow(0.3, Color(255, 255, 255), HSVToColor(CurTime() * 60 % 360, 1, 1)) end
+color_config["founder"] = function() return util.CleanGlow(0.1, Color(255, 55, 55), Color(55, 255, 255)) end
 local num = 65
 
 function GM:DrawPlayerRing(pPlayer)
@@ -281,7 +281,7 @@ function GM.HUD:AddNote( text, type, length )
 	Panel:SetPos( Panel.fx, Panel.fy )
 
 	table.insert( self.m_tblNotes, Panel )
-	--surface.PlaySound( "ui/beepclear.wav" )
+	surface.PlaySound( "ui/beepclear.wav" )
 end
 
 function GM.HUD:UpdateNotice( i, Panel, Count )
