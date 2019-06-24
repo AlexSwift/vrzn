@@ -11,6 +11,13 @@ Job.ID = 12
 Job.Enum = "JOB_MAYOR"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Prefeito"
+Job.DefaultChatRadioChannel = 1
+Job.ChannelKeys = {
+    [2] = true, -- Dá Acesso ao canal 2
+    [4] = true, -- Dá Acesso ao canal 4
+    [6] = true, --  Dá Acesso ao canal 6
+    [10] = false,
+}
 Job.Pay = {
 	{ PlayTime = 0, Pay = 220 },
 	{ PlayTime = 4 *(60 *60), Pay = 280 },
@@ -33,6 +40,8 @@ end
 
 if SERVER then
 	function Job:PlayerLoadout( pPlayer )
+		pPlayer:Give( "radio_ss" )
+		pPlayer:Give( "radio_cop" )
 	end
 
 	hook.Add( "GamemodeBuildPlayerComputerApps", "AutoInstallMayorApps", function( pPlayer, entComputer, tblApps )
