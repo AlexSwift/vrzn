@@ -128,6 +128,35 @@ function GM.HUD:DrawRobberyOverlay()
 end
 
 
+function GM.HUD:DrawMayorOverlay()
+	if GAMEMODE.Config.MayorVoteHUD:GetInt() == 1 then return end
+	local candidates = LocalPlayer():GetNWFloat("mayor_candidates", 0)
+	local cooldown = GetGlobalInt("MayorCooldown") - CurTime()
+	local text = ""
+
+	--print(GAMEMODE.Jobs:MayorAlive())
+	if GAMEMODE.Jobs:MayorAlive() then
+		for _, ply in pairs(player.GetAll()) do
+			if GAMEMODE.Jobs:PlayerIsJob(ply, JOB_MAYOR) then
+				text = "Current Mayor: " .. ply:Nick()
+			end
+		end
+	elseif #player.GetAll() < GAMEMODE.Config.MVPeopleNeedOnline then
+		text = "Need " .. (GAMEMODE.Config.MVPeopleNeedOnline - #player.GetAll()) .. " more players online to start the election."
+	elseif candidates < GAMEMODE.Config.MVPeopleNeedRegistred then
+		text = "Need " .. (GAMEMODE.Config.MVPeopleNeedRegistred - candidates) .. " more candidates to start the election."
+	else
+		text = "Election will occure in: " .. GAMEMODE.Util:FormatTime(math.floor(cooldown))
+	end
+
+	surface.SetFont("DermaLarge")
+	local tw, th = surface.GetTextSize(text)
+	local y = math.max(ScrH() * 0.05, 50)
+	surface.SetDrawColor(40, 40, 40, 150)
+	self:DrawFancyRect(0, y, tw + 30, th + 10, 90, 80)
+	draw.SimpleTextOutlined(text, "DermaLarge", 5, y + 5, Color(255, 255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT, 1, Color(0, 0, 0, 255))
+end
+
 function GM.HUD:DrawFancyRect( intX, intY, intW, intH, intSlantLeft, intSlantRight, matMaterial )
 	intSlantLeft, intSlantRight = math.rad(intSlantLeft), math.rad(intSlantRight)
 
