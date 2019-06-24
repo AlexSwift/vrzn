@@ -145,38 +145,16 @@ function GM.Gui:CreateMove( CUserCmd )
 	end
 end
 
-function GetKeyPress()
-	if input.IsKeyDown( KEY_F ) and (not IsValid(vgui.GetKeyboardFocus())) then
-		if not keyStateC then
-			keyStateC = true
-		end
-	else
-		if keyStateC then keyStateC = false end
-	end
-end
-hook.Add( "Think", "GetKeyPress", GetKeyPress )
--- function GetKeyPress()
--- 	ReadPLayerEmotes( LocalPlayer() )
--- 	ReadEmotes( LocalPlayer() )
--- 	ValidatePlayer( LocalPlayer() )
--- 	ReadEquipedEmotes( LocalPlayer() )
--- 	if (input.IsButtonDown(KEY_G) and !keyDown) then
--- 		OpenMainMenu()
--- 	end
--- 	keyDown = input.IsButtonDown(KEY_G);
+-- function GM.Gui:PlayerStartVoice( pPlayer )
+-- 	self.m_tblVoicePanels[pPlayer] = {}
 -- end
--- hook.Add( "Think", "GetKeyPress", GetKeyPress )
 
---function GM.Gui:PlayerStartVoice( pPlayer )
---	self.m_tblVoicePanels[pPlayer] = {}
---end
---
---function GM.Gui:PlayerEndVoice( pPlayer )
---	if ValidPanel( self.m_tblVoicePanels[pPlayer] ) then
---		self.m_tblVoicePanels[pPlayer]:Remove()
---	end
---	self.m_tblVoicePanels[pPlayer] = nil
---end
+-- function GM.Gui:PlayerEndVoice( pPlayer )
+-- 	if ValidPanel( self.m_tblVoicePanels[pPlayer] ) then
+-- 		self.m_tblVoicePanels[pPlayer]:Remove()
+-- 	end
+-- 	self.m_tblVoicePanels[pPlayer] = nil
+-- end
 
 function GM.Gui:HUDShouldDraw( strName )
 	if not ValidPanel( self.m_pnlPhone ) then return end
@@ -294,40 +272,32 @@ function GM.Gui:Think()
 	end
 end
 
+
 function GetInventoryKey()
-		if (input.IsButtonDown(KEY_F) and !keyDown) then
-			OpenGameMenu()
-		end
-	keyDown = input.IsButtonDown(KEY_F);
+	if (input.IsButtonDown(KEY_F) and !keyDown) then
+		GM:OpenGameMenu()
+	end
+keyDown = input.IsButtonDown(KEY_F);
 end
 hook.Add( "Think", "GetInventoryKey", GetInventoryKey )
 
-
--- function GetInventoryCloseKey()
--- 	if (input.IsButtonDown(KEY_E) and !keyDown) then
--- 		m_pnlQMenu:SetVisible( false )
--- -- 	-- 	CloseDermaMenus()
--- 	end
--- keyDown = input.IsButtonDown(KEY_E);
--- end
--- hook.Add( "Think", "GetInventoryCloseKey", GetInventoryCloseKey )
--- GM.Sandbox = BaseClass
-
-function OpenGameMenu()
+function GM:OpenGameMenu()
 
 	if LocalPlayer():HasWeapon( "weapon_handcuffed" ) or LocalPlayer():HasWeapon( "weapon_ziptied" ) then return end
 	
-	if not ValidPanel( m_pnlQMenu ) then
-		m_pnlQMenu = vgui.Create( "SRPQMenu" )
-		m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
-		m_pnlQMenu:Center()
-		m_pnlQMenu:Refresh()
+	if not ValidPanel( GM.m_pnlQMenu ) then
+		self.m_pnlQMenu = vgui.Create( "SRPQMenu" )
+		self.m_pnlQMenu:SetSize( math.max(ScrW() *0.66, 800), math.max(ScrH() *0.8, 600) )
+		self.m_pnlQMenu:Center()
+		self.m_pnlQMenu:Refresh()
 	else
-		if m_pnlQMenu:IsVisible() then
-			m_pnlQMenu:SetVisible( false )
+		if self.m_pnlQMenu:IsVisible() then
+			RememberCursorPosition()
+			self.m_pnlQMenu:SetVisible( false )
 		else
-			m_pnlQMenu:MakePopup()
-			m_pnlQMenu:SetVisible(true)
+			self.m_pnlQMenu:MakePopup()
+			RestoreCursorPosition()
+			self.m_pnlQMenu:SetVisible(true)
 		end
 	end
 
@@ -335,17 +305,13 @@ function OpenGameMenu()
 	-- m_pnlQMenu:SetVisible( true )
 
 
-	RestoreCursorPosition()
+	
 
 end
 
--- function GM:OnSpawnMenuClose()
--- 	-- if ValidPanel( self.m_pnlQMenu ) then
--- 	-- 	self.m_pnlQMenu:SetVisible( false )
--- 	-- 	CloseDermaMenus()
--- 	-- 	RememberCursorPosition()
--- 	-- end
--- end
+function GM:OnSpawnMenuClose()
+		CloseDermaMenus()
+end
 
 -- function GM:ScoreboardShow()
 
