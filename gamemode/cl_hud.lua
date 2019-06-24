@@ -186,6 +186,40 @@ function GM.HUD:DrawCityWorkerJob()
 	end
 end
 
+
+local CircleMat = Material("sgm/playercircle")
+local color_config = {}
+color_config["developer"] = function() return util.CleanGlow(0.3, Color(255, 255, 255), HSVToColor(CurTime() * 60 % 360, 1, 1)) end
+color_config["sugardaddy"] = function() return util.CleanGlow(0.1, Color(255, 55, 55), Color(55, 255, 255)) end
+local num = 65
+
+function GM:DrawPlayerRing(pPlayer)
+	if IsValid(pPlayer:GetActiveWeapon()) and pPlayer:GetActiveWeapon():GetClass() ~= "god_s" then return end
+	if pPlayer:IsUncon() then return end
+	if pPlayer:IsIncapacitated() then return end
+	if IsValid(pPlayer:GetVehicle()) then return end
+	if pPlayer:GetColor().a ~= 255 then return end
+	local trace = {}
+	trace.start = pPlayer:GetPos() + Vector(0, 0, 50)
+	trace.endpos = trace.start + Vector(0, 0, -300)
+	trace.filter = pPlayer
+	local tr = util.TraceLine(trace)
+
+	if not tr.HitWorld then
+		tr.HitPos = pPlayer:GetPos()
+	end
+
+	local color = color_config[pPlayer:GetUserGroup()] and color_config[pPlayer:GetUserGroup()]() or Color(255, 255, 255)
+	color.a = 100
+	local size = pPlayer:IsSuperAdmin() and num + math.sin(CurTime() * 1) * 7 or num + math.sin(CurTime() * 1) * 5
+	render.SetMaterial(CircleMat)
+	render.DrawQuadEasy(tr.HitPos + tr.HitNormal, tr.HitNormal, size, size, color)
+end
+
+hook.Add("PrePlayerDraw", "DrawPlayerRing", function(ply)
+	GAMEMODE:DrawPlayerRing(ply)
+end)
+
 function GM.HUD:DrawFancyRect( intX, intY, intW, intH, intSlantLeft, intSlantRight, matMaterial )
 	intSlantLeft, intSlantRight = math.rad(intSlantLeft), math.rad(intSlantRight)
 
