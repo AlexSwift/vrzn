@@ -113,6 +113,21 @@ function GM.HUD:Think()
 	self:UpdateNotes()
 end
 
+function GM.HUD:DrawRobberyOverlay()
+	local start = LocalPlayer():GetNWFloat("robbery_timer", -1)
+	local endtime = LocalPlayer():GetNWFloat("robbery_duration", -1)
+	if start == -1 then return end
+	if CurTime() > start + endtime then return end
+	local text = "Robbery - Time Left: " .. GAMEMODE.Util:FormatTime((start + endtime) - CurTime())
+	surface.SetFont("DermaLarge")
+	local tw, th = surface.GetTextSize(text)
+	local y = math.max(ScrH() * 0.05, 100)
+	surface.SetDrawColor(40, 40, 40, 150)
+	self:DrawFancyRect(0, y, tw + 30, th + 10, 90, 80)
+	draw.SimpleTextOutlined(text, "DermaLarge", 5, y + 5, Color(255, 255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT, 1, Color(0, 0, 0, 255))
+end
+
+
 function GM.HUD:DrawFancyRect( intX, intY, intW, intH, intSlantLeft, intSlantRight, matMaterial )
 	intSlantLeft, intSlantRight = math.rad(intSlantLeft), math.rad(intSlantRight)
 
