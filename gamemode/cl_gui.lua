@@ -145,16 +145,146 @@ function GM.Gui:CreateMove( CUserCmd )
 	end
 end
 
--- function GM.Gui:PlayerStartVoice( pPlayer )
--- 	self.m_tblVoicePanels[pPlayer] = {}
--- end
 
--- function GM.Gui:PlayerEndVoice( pPlayer )
--- 	if ValidPanel( self.m_tblVoicePanels[pPlayer] ) then
--- 		self.m_tblVoicePanels[pPlayer]:Remove()
--- 	end
--- 	self.m_tblVoicePanels[pPlayer] = nil
--- end
+// Voice chat
+
+local PANEL = {}
+local PlayerVoicePanels = {}
+
+function PANEL:Init()
+	self.LabelName = vgui.Create( "DLabel", self )
+	self.LabelName:SetFont( "GModNotify" )
+	self.LabelName:Dock( FILL )
+	self.LabelName:DockMargin( 8, 0, 0, 0 )
+	self.LabelName:SetTextColor( Color( 255, 255, 255, 255 ) )
+
+	//self.ModelPanel = vgui.Create("DModelPanel", self )
+	//self.ModelPanel:Dock( LEFT )
+	//self.ModelPanel:SetSize( 32, 32 )
+	//self.Avatar = vgui.Create( "AvatarImage", self )
+	//self.Avatar:Dock( LEFT );
+	//self.Avatar:SetSize( 32, 32 )
+
+	self.Color = color_transparent
+
+	self:SetSize( 250, 32 + 8 )
+	self:DockPadding( 4, 4, 4, 4 )
+	self:DockMargin( 2, 2, 2, 2 )
+	self:Dock( BOTTOM )
+end
+
+function PANEL:Setup( ply )
+	self.ply = ply
+	self.LabelName:SetText( ply:Nick() .. ' [' .. ply:GetName() .. ']')
+
+	//self.ModelPanel:SetModel( ply:GetModel() )
+	//self.ModelPanel.Entity:SetRenderMode(2)
+	//self.ModelPanel.LayoutEntity = function(Entity) end
+	//self.ModelPanel:SetFOV(70)
+	//self.ModelPanel:SetCamPos(Vector(14, 0, 60))
+	//self.ModelPanel:SetLookAt(CAM_LOOK_AT[ply:GetSex()])
+	//self.Avatar:SetPlayer( ply )
+	local PlayerJob = GAMEMODE.Jobs:GetPlayerJob( ply ) or {}
+	self.Color = PlayerJob.TeamColor or team.GetColor( ply:Team() )
+	
+	self:InvalidateLayout()
+end
+
+function PANEL:Paint( w, h )
+	if not IsValid( self.ply ) then return end
+	draw.RoundedBox( 4, 0, 0, w, h, Color( 0, self.ply:VoiceVolume() * 255, 0, 240 ) )
+end
+
+function PANEL:Think()
+	if self.fadeAnim then
+		self.fadeAnim:Run()
+	end
+end
+
+function PANEL:FadeOut( anim, delta, data )
+	if anim.Finished then
+		if IsValid( PlayerVoicePanels[ self.ply ] ) then
+			PlayerVoicePanels[ self.ply ]:Remove()
+			PlayerVoicePanels[ self.ply ] = nil
+			return
+		end
+
+		return
+	end
+			
+	self:SetAlpha( 255 - ( 255 * delta ) )
+	// Player models look like shit with alpha turned down :(
+		local x, y = self:GetPos()
+	self:SetPos(x + (400 * delta), y)
+	//self.ModelPanel:SetColor(Color(255, 255, 255, 255 - ( 255 * delta )))
+end
+
+derma.DefineControl( "VoiceNotify", "", PANEL, "DPanel" )
+
+function GM.Gui:PlayerStartVoice( ply ) 
+	if not IsValid( LocalPlayer() ) then return end
+	if not LocalPlayer():IsAdmin() then return end
+	if not IsValid( g_VoicePanelList ) then return end
+	
+	-- There'd be an exta one if voice_loopback is on, so remove it.
+	GAMEMODE.Gui:PlayerEndVoice( ply )
+
+
+	if ( IsValid( PlayerVoicePanels[ ply ] ) ) then
+
+		if ( PlayerVoicePanels[ ply ].fadeAnim ) then
+			PlayerVoicePanels[ ply ].fadeAnim:Stop()
+			PlayerVoicePanels[ ply ].fadeAnim = nil
+		end
+
+		PlayerVoicePanels[ ply ]:SetAlpha( 255 )
+
+		return
+
+	end
+
+	if not IsValid( ply ) then return end
+
+	local pnl = g_VoicePanelList:Add( "VoiceNotify" )
+	pnl:Setup( ply )
+	
+	PlayerVoicePanels[ ply ] = pnl
+end
+	
+function GM.Gui:PlayerEndVoice( ply ) 
+	if not IsValid( LocalPlayer() ) then return end
+	if not LocalPlayer():IsAdmin() then return end
+	if IsValid( PlayerVoicePanels[ ply ] ) then
+
+		if PlayerVoicePanels[ ply ].fadeAnim then return end
+
+		PlayerVoicePanels[ ply ].fadeAnim = Derma_Anim( "FadeOut", PlayerVoicePanels[ ply ], PlayerVoicePanels[ ply ].FadeOut )
+		PlayerVoicePanels[ ply ].fadeAnim:Start( 2 )
+
+	end
+end
+
+local function VoiceClean()
+	for k, v in pairs( PlayerVoicePanels ) do
+		if not IsValid( k ) then
+			GAMEMODE.Gui:PlayerEndVoice( k )
+		end
+	end
+end
+
+timer.Create( "VoiceClean", 10, 0, VoiceClean )
+
+local function CreateVoiceVGUI()
+	if IsValid( g_VoicePanelList ) then g_VoicePanelList:Remove() end
+	g_VoicePanelList = vgui.Create( "DPanel" )
+
+	g_VoicePanelList:ParentToHUD()
+	g_VoicePanelList:SetPos( ScrW() - 300, 100 )
+	g_VoicePanelList:SetSize( 250, ScrH() - 320 )
+	g_VoicePanelList:SetDrawBackground( false )
+end
+
+hook.Add( "InitPostEntity", "CreateVoiceVGUI", CreateVoiceVGUI )
 
 function GM.Gui:HUDShouldDraw( strName )
 	if not ValidPanel( self.m_pnlPhone ) then return end
@@ -937,7 +1067,7 @@ function GM.Gui:ShowTrunk(intCarIndex)
 	self.m_pnlTrunkMenu:Open(eCar)
 end
 
-
+-- Prefeito
 function GM.Gui:ShowMayorVoteWheel(participants)
 	if ValidPanel( self.m_pnlMayorVoteMenu ) then self.m_pnlMayorVoteMenu:Remove() self.m_pnlMayorVoteMenu = nil end
 	self.m_pnlMayorVoteMenu = vgui.Create( "SRPMayorVoteRadialMenu" )
@@ -950,3 +1080,181 @@ function GM.Gui:ShowMayorVoteWheel(participants)
 	end)
 end
 
+-- Placa neon
+function GM.Gui:NeonEditMenu(intEntIndex)
+	local eEnt = ents.GetByIndex(intEntIndex)
+	if ValidPanel( self.m_pnlNeonEdit ) then
+		self.m_pnlNeonEdit:Remove()
+	end
+	local color = {
+		r = math.floor(eEnt:GetColorText().x),
+		g = math.floor(eEnt:GetColorText().y),
+		b = math.floor(eEnt:GetColorText().z),
+		a = 255
+	}
+	self.m_pnlNeonEdit = vgui.Create( "SRP_Frame" )
+	self.m_pnlNeonEdit:SetSize( 480, 335 )
+	self.m_pnlNeonEdit:Center()
+	self.m_pnlNeonEdit:SetTitle("Neon sign")
+	self.m_pnlNeonEdit:MakePopup()
+
+	self.m_pnlMixer = vgui.Create( "DColorMixer", self.m_pnlNeonEdit )
+	self.m_pnlMixer:SetPos(5,30)
+	self.m_pnlMixer:SetWide(470)
+	self.m_pnlMixer:SetPalette( true )
+	self.m_pnlMixer:SetAlphaBar( false )
+	self.m_pnlMixer:SetWangs( true )
+	self.m_pnlMixer:SetColor( color )
+
+	self.m_pnlTextEntry = vgui.Create( "DTextEntry", self.m_pnlNeonEdit )
+	self.m_pnlTextEntry:SetPos( 5, 280 )
+	self.m_pnlTextEntry:SetSize( 470, 25 )
+	self.m_pnlTextEntry:SetText( eEnt:GetText() )
+
+
+	local Button = vgui.Create( "SRP_Button", self.m_pnlNeonEdit )
+	Button:SetText( "Save" )
+	Button:SetTall( 20 )
+	Button:SetWide( self.m_pnlNeonEdit:GetWide() )
+	Button:SetPos( 0, self.m_pnlNeonEdit:GetTall()-20 )
+	Button.DoClick = function() 
+		if string.len(self.m_pnlTextEntry:GetValue()) < 30 then
+			net.Start("UpdateNeonSign")
+				net.WriteEntity(eEnt)
+				net.WriteString(self.m_pnlTextEntry:GetValue())
+				net.WriteTable(self.m_pnlMixer:GetColor())
+			net.SendToServer()
+		else
+			GAMEMODE.HUD:AddNote( "Text need to be less than 30 symbols!", 0, 5 )
+		end
+	end
+end
+
+-- Sistema de correio
+
+function GM.Gui:BuildMailboxMenu()
+	if ValidPanel( self.m_pnlMailboxMenu ) then
+		self.m_pnlMailboxMenu:Remove()
+	end
+
+	self.m_pnlMailboxMenu = vgui.Create( "SRPMailboxMenu" )
+	self.m_pnlMailboxMenu:SetSize( 800, 480 )
+	self.m_pnlMailboxMenu:Center()
+	self.m_pnlMailboxMenu:SetVisible( false )
+	self:RegisterNWMenu( "mailbox_menu", self.m_pnlMailboxMenu )
+	
+	if ValidPanel( self.m_pnlSendMenu ) then
+		self.m_pnlSendMenu:Remove()
+	end
+
+	self.m_pnlSendMenu = vgui.Create( "SRPSendMailMenu" )
+	self.m_pnlSendMenu:SetSize( 800, 480 )
+	self.m_pnlSendMenu:Center()
+	self.m_pnlSendMenu:SetVisible( false )
+	self:RegisterNWMenu( "send_menu", self.m_pnlSendMenu )
+end
+
+function GM.Gui:PassCodeMenu(intEntIndex)
+	if ValidPanel( self.m_pnlPassCodeMenu ) then
+		self.m_pnlPassCodeMenu:Remove()
+	end
+
+	self.m_pnlPassCodeMenu = vgui.Create( "SRP_Frame" )
+	self.m_pnlPassCodeMenu:SetSize( 200, 100 )
+	self.m_pnlPassCodeMenu:Center()
+	self.m_pnlPassCodeMenu:SetTitle("Vault")
+	self.m_pnlPassCodeMenu:MakePopup()
+
+	self.m_pnlTextEntry = vgui.Create( "DTextEntry", self.m_pnlPassCodeMenu )
+	self.m_pnlTextEntry:SetPos( 0, 40 )
+	self.m_pnlTextEntry:SetSize( self.m_pnlPassCodeMenu:GetWide(), 25 )
+	self.m_pnlTextEntry:SetText("Password")
+
+
+	local Button = vgui.Create( "SRP_Button", self.m_pnlPassCodeMenu )
+	Button:SetText( "Open" )
+	Button:SetTall( 20 )
+	Button:SetWide( self.m_pnlPassCodeMenu:GetWide() /2 - 2 )
+	Button:SetPos( 0, self.m_pnlPassCodeMenu:GetTall()-20 )
+	Button.DoClick = function()
+		net.Start("CheckPass")
+			net.WriteEntity(ents.GetByIndex(intEntIndex))
+			net.WriteString(self.m_pnlTextEntry:GetText())
+		net.SendToServer()
+
+		self.m_pnlPassCodeMenu:Remove()
+	end
+
+	local ButtonOwner = vgui.Create( "SRP_Button", self.m_pnlPassCodeMenu )
+	ButtonOwner:SetText( "Change Pass" )
+	ButtonOwner:SetTall( 20 )
+	ButtonOwner:SetWide( self.m_pnlPassCodeMenu:GetWide() /2 - 2 )
+	ButtonOwner:SetPos( self.m_pnlPassCodeMenu:GetWide() /2  +2, self.m_pnlPassCodeMenu:GetTall()-20 )
+	ButtonOwner.DoClick = function()
+		net.Start("MenuSetPass")
+			net.WriteEntity(ents.GetByIndex(intEntIndex))
+			net.WriteString(self.m_pnlTextEntry:GetText())
+		net.SendToServer()
+
+		self.m_pnlPassCodeMenu:Remove()
+	end
+end
+
+function GM.Gui:ChangePassCodeMenu(intEntIndex)
+	if ValidPanel( self.m_pnlChangePassCodeMenu ) then
+		self.m_pnlChangePassCodeMenu:Remove()
+	end
+
+	self.m_pnlChangePassCodeMenu = vgui.Create( "SRP_Frame" )
+	self.m_pnlChangePassCodeMenu:SetSize( 200, 100 )
+	self.m_pnlChangePassCodeMenu:Center()
+	self.m_pnlChangePassCodeMenu:SetTitle("Vault")
+	self.m_pnlChangePassCodeMenu:MakePopup()
+
+	self.m_pnlTextEntry = vgui.Create( "DTextEntry", self.m_pnlChangePassCodeMenu )
+	self.m_pnlTextEntry:SetPos( 0, 40 )
+	self.m_pnlTextEntry:SetSize( self.m_pnlChangePassCodeMenu:GetWide(), 25 )
+	self.m_pnlTextEntry:SetText("New password")
+
+
+	local Button = vgui.Create( "SRP_Button", self.m_pnlChangePassCodeMenu )
+	Button:SetText( "Save" )
+	Button:SetTall( 20 )
+	Button:SetWide( self.m_pnlChangePassCodeMenu:GetWide() )
+	Button:SetPos( 0, self.m_pnlChangePassCodeMenu:GetTall()-20 )
+	Button.DoClick = function()
+		net.Start("SetPass")
+			net.WriteEntity(ents.GetByIndex(intEntIndex))
+			net.WriteString(self.m_pnlTextEntry:GetText())
+		net.SendToServer()
+
+		self.m_pnlChangePassCodeMenu:Remove()
+	end
+end
+
+function GM.Gui:ShowVault(intVaultIndex)
+	local eVault = ents.GetByIndex(intVaultIndex)
+	if ValidPanel( self.m_pnlVaultStorageMenu ) then
+		self.m_pnlVaultStorageMenu:Remove()
+	end
+
+	self.m_pnlVaultStorageMenu = vgui.Create( "SRPVaultStorageMenu" )
+	self.m_pnlVaultStorageMenu:SetSize( 800, 480 )
+	self.m_pnlVaultStorageMenu:Center()
+	self.m_pnlVaultStorageMenu:SetVisible( false )
+	self.m_pnlVaultStorageMenu:Open(eVault)
+end
+
+-- Coplist
+function GM.Gui:ShowCopListMenu()
+	if ValidPanel( self.m_pnlCopListMenu ) then
+		self.m_pnlCopListMenu:Remove()
+	end
+
+	self.m_pnlCopListMenu = vgui.Create( "SRPCopListMenu" )
+	self.m_pnlCopListMenu:SetSize( 800, 480 )
+	self.m_pnlCopListMenu:Center()
+	self.m_pnlCopListMenu:Populate()
+	self.m_pnlCopListMenu:SetVisible( true )
+	self.m_pnlCopListMenu:MakePopup()
+end
