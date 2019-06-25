@@ -35,12 +35,12 @@ GM.Config.tblZones2 = {
 		{ Name = "Rua do vazio", Min = Vector( 6242.884766, 4671.600098, -205 ), Max = Vector(1756.762085, 2502.399658, 370), Safe = false },
 		{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 4084.629883, 2502.272949, 370), Safe = false }, --p2
 		{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 1756.762085, 2502.399658, 370), Safe = false }, --p3
-		{ Name = "Bairo sem nome", Min = Vector( -5746.612793, -7170.313477, -205 ), Max = Vector( -2350.304443, -3622.072510, 370 ), Safe = false },
-		{ Name = "Bairo sem nome", Min = Vector( -3643.174805, -8381.653320, -205 ), Max = Vector( -1579.879517, -7171.869141, 370 ), Safe = false }, -- p2
-		{ Name = "Bairo sem nome", Min = Vector( -2353.048340, -7170.374023, -205 ), Max = Vector(  1094.302734, -5820.246582, 370 ), Safe = false }, -- p3
-		{ Name = "Bairo sem nome", Min = Vector(-709.961670, -7170.530762, -205 ), Max = Vector( 1094.783386, -8387.021484, 370 ), Safe = false }, --p4
-		{ Name = "Bairo sem nome", Min = Vector(-1628.458496, -5833.840332, -205 ), Max = Vector( 1015.451294, -3176.507080, 370 ), Safe = false }, --p5
-		{ Name = "Bairo sem nome", Min = Vector(-2348.701416, -4603.702637, -205), Max = Vector(-1627, -3622.072510, 370), Safe = false }, -- p6
+		{ Name = "Bairro Cornolândia", Min = Vector( -5746.612793, -7170.313477, -205 ), Max = Vector( -2350.304443, -3622.072510, 370 ), Safe = false },
+		{ Name = "Bairro Cornolândia", Min = Vector( -3643.174805, -8381.653320, -205 ), Max = Vector( -1579.879517, -7171.869141, 370 ), Safe = false }, -- p2
+		{ Name = "Bairro Cornolândia", Min = Vector( -2353.048340, -7170.374023, -205 ), Max = Vector(  1094.302734, -5820.246582, 370 ), Safe = false }, -- p3
+		{ Name = "Bairro Cornolândia", Min = Vector(-709.961670, -7170.530762, -205 ), Max = Vector( 1094.783386, -8387.021484, 370 ), Safe = false }, --p4
+		{ Name = "Bairro Cornolândia", Min = Vector(-1628.458496, -5833.840332, -205 ), Max = Vector( 1015.451294, -3176.507080, 370 ), Safe = false }, --p5
+		{ Name = "Bairro Cornolândia", Min = Vector(-2348.701416, -4603.702637, -205), Max = Vector(-1627, -3622.072510, 370), Safe = false }, -- p6
 		{ Name = "Posto de Gasolina", Min = Vector( -1579.919678, -8387.961914, -205 ), Max = Vector( -709.135193, -7170.523926, 370), Safe = false },
 		{ Name = "Zona Industrial", Min = Vector(-5589.061035, 1057.255249, -205), Max = Vector( -2182.334473, 5318.679688, 370), Safe = false },
 		{ Name = "Vero Sítio do Aposentado Nese", Min = Vector( 4090.013672, 2499.208496, -205), Max = Vector( 7107.777832, 483.341003, 370 ), Safe = false },
