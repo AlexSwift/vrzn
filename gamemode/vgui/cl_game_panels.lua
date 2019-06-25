@@ -225,8 +225,8 @@ AccessorFunc( PANEL, "m_pPanel", "Panel" )
 
 function PANEL:Init()
 	self:SetMouseInputEnabled( true )
-	self:SetContentAlignment( 7 )
-	self:SetTextInset( 0, 7 )
+	self:SetContentAlignment( 5 )
+	self:SetTextInset( 0, 0 )
 end
 
 function PANEL:Setup( label, pPropertySheet, pPanel, strMaterial )
@@ -237,7 +237,7 @@ function PANEL:Setup( label, pPropertySheet, pPanel, strMaterial )
 	if strMaterial then
 		self.Image = vgui.Create( "DImage", self )
 		self.Image:SetImage( strMaterial )
-		self.Image:SizeToContents()
+		self.Image:SetSize( 32,32 )
 		self:InvalidateLayout()
 	end
 end
@@ -289,11 +289,11 @@ function PANEL:ApplySchemeSettings()
 	if self.Image then
 		ExtraInset = ExtraInset + self.Image:GetWide()
 	end
-	
-	self:SetTextInset( ExtraInset, 7 )
+	-- self:DockMargin(0, 0, 15, 0)
+	self:SetTextInset( ExtraInset, 5 )
 	local w, h = self:GetContentSize()
 	h = 20
-	self:SetSize( w + 20, 28 )
+	self:SetSize( w + 10, 42 )
 	
 	DLabel.ApplySchemeSettings( self )
 end
@@ -337,7 +337,7 @@ function PANEL:AddSheet( label, panel, material, NoStretchX, NoStretchY, Tooltip
 	Sheet.Panel = panel
 	Sheet.Panel.NoStretchX = NoStretchX
 	Sheet.Panel.NoStretchY = NoStretchY
-	Sheet.Panel:SetPos( self:GetPadding(), 28 +self:GetPadding() )
+	Sheet.Panel:SetPos( self:GetPadding(), 42 +self:GetPadding() )
 	Sheet.Panel:SetVisible( false )
 	
 	panel:SetParent( self )
@@ -446,7 +446,7 @@ end
 
 function PANEL:Paint( intW, intH )
 	surface.SetDrawColor( 50, 50, 50, 100 )
-	surface.DrawRect( 0, 0, intW, 28 )
+	-- surface.DrawRect( 0, 0, intW, 28 )
 end
 
 function PANEL:SizeToContentWidth()
