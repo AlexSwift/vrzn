@@ -31,6 +31,7 @@ AddCSLuaFile "vrzn/gamemode/cl_chatradios.lua"
 AddCSLuaFile "vrzn/gamemode/cl_weather.lua"
 AddCSLuaFile "vrzn/gamemode/cl_daynight.lua"
 AddCSLuaFile "vrzn/gamemode/cl_apps.lua"
+AddCSLuaFile "vrzn/gamemode/sh_legs.lua"
 
 AddCSLuaFile "vrzn/gamemode/sh_config.lua"
 AddCSLuaFile "vrzn/gamemode/sh_init.lua"
@@ -49,6 +50,7 @@ AddCSLuaFile "vrzn/gamemode/sh_pacmodels.lua"
 AddCSLuaFile "vrzn/gamemode/sh_chat.lua"
 AddCSLuaFile "vrzn/gamemode/sh_player_anims.lua"
 AddCSLuaFile "vrzn/gamemode/sh_store_robbery.lua"
+AddCSLuaFile "vrzn/gamemode/sh_legs.lua"
 
 
 include "vrzn/gamemode/sh_config.lua"
@@ -67,6 +69,7 @@ include "vrzn/gamemode/sh_pacmodels.lua"
 include "vrzn/gamemode/sh_chat.lua"
 include "vrzn/gamemode/sh_player_anims.lua"
 include "vrzn/gamemode/sh_store_robbery.lua"
+include "vrzn/gamemode/sh_legs.lua"
 
 include "vrzn/gamemode/sv_config.lua"
 include "vrzn/gamemode/sv_networking.lua"

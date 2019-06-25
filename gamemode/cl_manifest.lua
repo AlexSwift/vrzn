@@ -45,6 +45,7 @@ include "vrzn/gamemode/cl_weather.lua"
 include "vrzn/gamemode/cl_daynight.lua"
 include "vrzn/gamemode/cl_apps.lua"
 include "vrzn/gamemode/sh_store_robbery.lua"
+include "vrzn/gamemode/sh_legs.lua"
 
 
 --Load vgui
