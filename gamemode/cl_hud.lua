@@ -414,12 +414,11 @@ surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
 
--- hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
---     if LocalPlayer():IsSuperAdmin() then
---     for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
---         if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
---             DrawZoneHud( v.Name, v.Safe )
---         end
+hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
+    for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
+        if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
+            DrawZoneHud( v.Name, v.Safe )
+        end
 --             local zonemin = v.Min
 --             local zonemax =  v.Max
 --             local x, y, z = zonemin.x, zonemin.y, zonemin.z
@@ -441,8 +440,8 @@ surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3
 --                 render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
 --             cam.End3D()
 --     end
--- end
--- end)
+	end
+end)
 -- -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 function DrawZoneHud( Name, Safe )
