@@ -414,36 +414,36 @@ surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
 
-hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
-    if LocalPlayer():IsSuperAdmin() then
-    for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
-        if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
-            DrawZoneHud( v.Name, v.Safe )
-        end
-            local zonemin = v.Min
-            local zonemax =  v.Max
-            local x, y, z = zonemin.x, zonemin.y, zonemin.z
-            local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
-            cam.Start3D()
-                render.SetMaterial( Material("cable/redlaser"))
-                render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
-                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-            cam.End3D()
-    end
-end
-end)
--- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
+-- hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
+--     if LocalPlayer():IsSuperAdmin() then
+--     for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
+--         if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
+--             DrawZoneHud( v.Name, v.Safe )
+--         end
+--             local zonemin = v.Min
+--             local zonemax =  v.Max
+--             local x, y, z = zonemin.x, zonemin.y, zonemin.z
+--             local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
+--             cam.Start3D()
+--                 render.SetMaterial( Material("cable/redlaser"))
+--                 render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
+--                 render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+--                 render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+--             cam.End3D()
+--     end
+-- end
+-- end)
+-- -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 function DrawZoneHud( Name, Safe )
     hook.Add( "HUDPaint", "DrawZoneText", function()
