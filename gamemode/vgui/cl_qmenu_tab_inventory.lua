@@ -372,6 +372,7 @@ function Panel:Think()
 			self:OnCursorHover()
 		end
 	end
+	self:Refresh()
 end
 
 function Panel:OnCursorHover()

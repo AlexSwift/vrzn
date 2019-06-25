@@ -561,7 +561,7 @@ function GM.DayNight:Think()
 	end
 	
 	self:SetSunAngle( "pitch", sunFXAngle )
-	self:SetSunNormal( self:GetSunFXEnts()[1]:GetInternalVariable("m_vDirection") )
+	-- self:SetSunNormal( self:GetSunFXEnts()[1]:GetInternalVariable("m_vDirection") )
 
 	if math.floor( self.m_intCurMinute ) ~= (self.m_intLastMinute or 0) then
 		if math.floor( self.m_intCurMinute ) >= self.m_tblTimeData.Length then
