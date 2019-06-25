@@ -50,6 +50,7 @@ function Panel:Init()
 			self:InvalidateLayout()
 		end
 	end
+
 end
 
 function Panel:Think()
@@ -88,6 +89,9 @@ function Panel:PerformLayout( intW, intH )
 
 	self.m_pnlXPLabel:SizeToContents()
 	self.m_pnlXPLabel:SetPos( x +((intW -x -padding) /2) -(self.m_pnlXPLabel:GetWide() /2), y )
+
+	
+
 end
 vgui.Register( "SRPSkillInfoCard", Panel, "EditablePanel" )
 
@@ -97,6 +101,46 @@ local Panel = {}
 function Panel:Init()
 	self.m_pnlCharModel = vgui.Create( "SRPCharacterPreview", self )
 	self.m_pnlCharModel:SetBackgroundColor( Color(40, 40, 40, 200) )
+
+	
+	self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
+	
+	self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
+	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
+
+	self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
+	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
+
+	self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlSecondarySlot:SetTitle( "Secondary" )
+	self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
+
+	self.m_pnlAltSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlAltSlot:SetTitle( "Alternate" )
+	self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
+
+	self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlHeadSlot:SetTitle( "Head" )
+	self.m_pnlHeadSlot:SetSlotID( "Head" )
+
+	self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlEyesSlot:SetTitle( "Eyes" )
+	self.m_pnlEyesSlot:SetSlotID( "Eyes" )
+
+	self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlFaceSlot:SetTitle( "Face" )
+	self.m_pnlFaceSlot:SetSlotID( "Face" )
+
+	self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlNeckSlot:SetTitle( "Neck" )
+	self.m_pnlNeckSlot:SetSlotID( "Neck" )
+
+	self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	self.m_pnlBackSlot:SetTitle( "Back" )
+	self.m_pnlBackSlot:SetSlotID( "Back" )
+
 	-- self.m_pnlCharModel.DrawLimbCard = self.DrawLimbCard
 	-- function self.m_pnlCharModel:Paint( intW, intH )
 	-- 	surface.SetDrawColor( self.m_colBG )
@@ -230,5 +274,53 @@ function Panel:PerformLayout( intW, intH )
 
 	self.m_pnlHealthBar:SetSize( self.m_pnlCharModel:GetWide(), 20 )
 	self.m_pnlHealthBar:SetPos( 0, self.m_pnlSkillList:GetTall() -self.m_pnlHealthBar:GetTall() )
+
+	self.m_pnlSlotContainer:SetPos( 0, 0 )
+	-- self.m_pnlSlotContainer:Dock( BOTTOM )
+	self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
+
+	-- local y = 5
+	
+	self.m_pnlPrimarySlot:SetSize( 48, 48 )
+	self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )
+	
+	self.m_pnlSecondarySlot:SetSize( 48, 48 )
+	self.m_pnlSecondarySlot:SetPos(
+		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
+	)
+	
+	self.m_pnlAltSlot:SetSize( 48, 48 )
+	self.m_pnlAltSlot:SetPos(
+		self.m_pnlSlotContainer:GetWide() -self.m_pnlAltSlot:GetWide() -5,
+		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
+	)
+
+	self.m_pnlHeadSlot:SetSize( 48, 48 )
+	self.m_pnlHeadSlot:SetPos(
+		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+		5
+	)
+
+	self.m_pnlEyesSlot:SetSize( 48, 48 )
+	self.m_pnlEyesSlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() *0.125 )
+
+	self.m_pnlFaceSlot:SetSize( 48, 48 )
+	self.m_pnlFaceSlot:SetPos(
+		self.m_pnlSlotContainer:GetWide() -self.m_pnlFaceSlot:GetWide() - 5,
+		self.m_pnlSlotContainer:GetTall() *0.125
+	)
+
+	self.m_pnlNeckSlot:SetSize( 48, 48 )
+	self.m_pnlNeckSlot:SetPos(
+		self.m_pnlSlotContainer:GetWide() -self.m_pnlNeckSlot:GetWide() - 5,
+		self.m_pnlSlotContainer:GetTall() *0.125 +self.m_pnlFaceSlot:GetTall() +5
+	)
+
+	self.m_pnlBackSlot:SetSize( 48, 48 )
+	self.m_pnlBackSlot:SetPos(
+		5,
+		self.m_pnlSlotContainer:GetTall() *0.33
+	)
 end
 vgui.Register( "SRPQMenu_Character", Panel, "EditablePanel" )
