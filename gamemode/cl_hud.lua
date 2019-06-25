@@ -29,7 +29,7 @@ local PANEL = {}
 		render.SetStencilEnable(true)
 
 		render.SetStencilWriteMask( 1 )
-		render.SetStencilTestMask( 1 )
+		render.SetStencilzoneminMask( 1 )
 
 		render.SetStencilFailOperation( STENCILOPERATION_REPLACE )
 		render.SetStencilPassOperation( STENCILOPERATION_ZERO )
@@ -96,9 +96,9 @@ function GM.HUD:Paint()
 		DrawMotionBlur( 0.055, 1, 0.001 )
 	end
 	
-	surface.SetDrawColor( 255, 255, 255, 255 )
-	surface.SetMaterial( self.m_matLogo )
-	surface.DrawTexturedRect( 0, 0, 88, 46 )
+	-- surface.SetDrawColor( 255, 255, 255, 255 )
+	-- surface.SetMaterial( self.m_matLogo )
+	-- surface.DrawTexturedRect( 0, 0, 88, 46 )
 
 	
 
@@ -416,33 +416,34 @@ surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3
 
 hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
     if LocalPlayer():IsSuperAdmin() then
-    for k, v in pairs( GAMEMODE.Config.tblZones ) do
+    for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
         if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
             DrawZoneHud( v.Name, v.Safe )
         end
-            local test = v.Min
-            local test2 =  v.Max
-            local x, y, z = test.x, test.y, test.z
-            local x2, y2, z2 = test2.x, test2.y, test2.z
+            local zonemin = v.Min
+            local zonemax =  v.Max
+            local x, y, z = zonemin.x, zonemin.y, zonemin.z
+            local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
             cam.Start3D()
-                render.SetMaterial( Material("models/wireframe"))
-                render.DrawBeam( v.Min,v.Max, 12, 0, 12.5, Color(255,0,0,0) )
-                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 12, 0, 12.5, Color(255,0,0,255) )
+                render.SetMaterial( Material("cable/redlaser"))
+                render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
+                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
             cam.End3D()
     end
 end
 end)
+-- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 function DrawZoneHud( Name, Safe )
     hook.Add( "HUDPaint", "DrawZoneText", function()
@@ -456,7 +457,7 @@ function DrawZoneHud( Name, Safe )
         else
             surface.SetFont("HUD::0.1vw")
             local tw, th = surface.GetTextSize("Área não dominada")
-            draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+            -- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
         end
     end )
 end
