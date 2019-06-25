@@ -447,16 +447,26 @@ end)
 -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
 function DrawZoneHud( Name, Safe )
     hook.Add( "HUDPaint", "DrawZoneText", function()
-        surface.SetFont("HUD::0.2vw")
-        local w, h = surface.GetTextSize(Name)
-        draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-        if Safe then
+        
+		if Safe then
+			surface.SetFont("HUD::0.3vw")
+        	local w, h = surface.GetTextSize(Name)
+			draw.SimpleText( Name, "HUD::0.3vw", ScrW()/2 - w/2, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			
             surface.SetFont("HUD::0.1vw")
-            local tw, th = surface.GetTextSize("Área segura")
-            draw.SimpleText( "Área segura", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-        else
+            local tw, th = surface.GetTextSize("OFF RP")
+            draw.SimpleText( "OFF RP", "HUD::0.1vw", ScrW()/2 - tw/2, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+		else
+			surface.SetFont("HUD::0.2vw")
+			local w, h = surface.GetTextSize(Name)
+			draw.RoundedBox(16, ScrW() - w - 15 - 8, 2, w + 16, h + 4, Color(30,30,30,50) )
+
+			draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
             surface.SetFont("HUD::0.1vw")
-            local tw, th = surface.GetTextSize("Área não dominada")
+			local tw, th = surface.GetTextSize("Área não dominada")
+			
+
             -- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
         end
     end )
