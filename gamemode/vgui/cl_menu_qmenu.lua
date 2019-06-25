@@ -12,10 +12,10 @@ local Panel = {}
 function Panel:Init()
 	self.m_pnlTabs = vgui.Create( "SRP_PropertySheet", self )
 	self.m_pnlTabs:SetPadding( 0 )
-	self.m_pnlTabInventory = self.m_pnlTabs:AddSheet( "Inventory", vgui.Create("SRPQMenu_Inventory", self) ).Panel
-	self.m_pnlTabCharacter = self.m_pnlTabs:AddSheet( "Character", vgui.Create("SRPQMenu_Character", self) ).Panel
-	self.m_pnlTabBuddies = self.m_pnlTabs:AddSheet( "Buddies", vgui.Create("SRPQMenu_Buddies", self) ).Panel
-	self.m_pnlTabSettings = self.m_pnlTabs:AddSheet( "Settings", vgui.Create("SRPQMenu_Settings", self) ).Panel
+	self.m_pnlTabInventory = self.m_pnlTabs:AddSheet( "", vgui.Create("SRPQMenu_Inventory",  self), "icon16/box.png" ).Panel
+	self.m_pnlTabCharacter = self.m_pnlTabs:AddSheet( "", vgui.Create("SRPQMenu_Character", self), "icon16/user.png" ).Panel
+	self.m_pnlTabBuddies = self.m_pnlTabs:AddSheet( "", vgui.Create("SRPQMenu_Buddies", self), "icon16/group.png"  ).Panel
+	self.m_pnlTabSettings = self.m_pnlTabs:AddSheet( "", vgui.Create("SRPQMenu_Settings", self), "icon16/wrench.png"  ).Panel
 end
 
 function Panel:Refresh()
