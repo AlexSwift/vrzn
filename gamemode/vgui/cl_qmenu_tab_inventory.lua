@@ -551,36 +551,36 @@ vgui.Register( "SRPQMenuItemCard", Panel, "EditablePanel" )
 
 local Panel = {}
 function Panel:Init()
-	self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
-	self.m_pnlWeightBar:SetBarColor( Color(150, 200, 135, 255) )
-	self.m_pnlWeightBar.Think = function()
-		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-		self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
-	end
-	self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
-		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-		draw.SimpleTextOutlined(
-			"Weight",
-			"EquipSlotFont",
-			5, intH /2,
-			color_white,
-			TEXT_ALIGN_LEFT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
+	-- self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
+	-- self.m_pnlWeightBar:SetBarColor( Color(150, 200, 135, 255) )
+	-- self.m_pnlWeightBar.Think = function()
+	-- 	local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+	-- 	self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
+	-- end
+	-- self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
+	-- 	local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+	-- 	draw.SimpleTextOutlined(
+	-- 		"Weight",
+	-- 		"EquipSlotFont",
+	-- 		5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_LEFT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
 
-		draw.SimpleTextOutlined(
-			"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
-			"EquipSlotFont",
-			intW -5, intH /2,
-			color_white,
-			TEXT_ALIGN_RIGHT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
-	end
+	-- 	draw.SimpleTextOutlined(
+	-- 		"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
+	-- 		"EquipSlotFont",
+	-- 		intW -5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_RIGHT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
+	-- end
 
 	-- self.m_pnlVolumeBar = vgui.Create( "SRP_Progress", self )
 	-- self.m_pnlVolumeBar:SetBarColor( Color(200, 90, 40, 255) )
@@ -613,34 +613,34 @@ function Panel:Init()
 	-- 	)
 	-- end
 
-	self.m_pnlHungerBar = vgui.Create( "SRP_Progress", self )
-	self.m_pnlHungerBar:SetBarColor( Color(167, 178, 71, 255) )
-	self.m_pnlHungerBar.Think = function()
-		self.m_pnlHungerBar:SetFraction( GAMEMODE.Needs:GetNeed( "Hunger" ) /GAMEMODE.Needs:GetNeedData( "Hunger" ).Max )
-	end
-	self.m_pnlHungerBar.PaintOver = function( _, intW, intH )
-		draw.SimpleTextOutlined(
-			"Hunger",
-			"EquipSlotFont",
-			5, intH /2,
-			color_white,
-			TEXT_ALIGN_LEFT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
+	-- self.m_pnlHungerBar = vgui.Create( "SRP_Progress", self )
+	-- self.m_pnlHungerBar:SetBarColor( Color(167, 178, 71, 255) )
+	-- self.m_pnlHungerBar.Think = function()
+	-- 	self.m_pnlHungerBar:SetFraction( GAMEMODE.Needs:GetNeed( "Hunger" ) /GAMEMODE.Needs:GetNeedData( "Hunger" ).Max )
+	-- end
+	-- self.m_pnlHungerBar.PaintOver = function( _, intW, intH )
+	-- 	draw.SimpleTextOutlined(
+	-- 		"Hunger",
+	-- 		"EquipSlotFont",
+	-- 		5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_LEFT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
 
-		draw.SimpleTextOutlined(
-			"(".. GAMEMODE.Needs:GetNeed( "Hunger" ).. "/".. GAMEMODE.Needs:GetNeedData( "Hunger" ).Max.. ")",
-			"EquipSlotFont",
-			intW -5, intH /2,
-			color_white,
-			TEXT_ALIGN_RIGHT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
-	end
+	-- 	draw.SimpleTextOutlined(
+	-- 		"(".. GAMEMODE.Needs:GetNeed( "Hunger" ).. "/".. GAMEMODE.Needs:GetNeedData( "Hunger" ).Max.. ")",
+	-- 		"EquipSlotFont",
+	-- 		intW -5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_RIGHT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
+	-- end
 
 	-- self.m_pnlThirst = vgui.Create( "SRP_Progress", self )
 	-- self.m_pnlThirst:SetBarColor( Color(0, 90, 160, 255) )
@@ -700,86 +700,86 @@ function Panel:Init()
 	-- 	)
 	-- end
 
-	self.m_colMoney = Color( 120, 230, 110, 255 )
-	self.m_pnlMoneyDisplay = vgui.Create( "EditablePanel", self )
-	self.m_pnlMoneyDisplay.Paint = function( p, intW, intH )
-		surface.SetDrawColor( 60, 60, 60, 200 )
-		surface.DrawRect( 0, 0, intW, intH )
+	-- self.m_colMoney = Color( 120, 230, 110, 255 )
+	-- self.m_pnlMoneyDisplay = vgui.Create( "EditablePanel", self )
+	-- self.m_pnlMoneyDisplay.Paint = function( p, intW, intH )
+	-- 	surface.SetDrawColor( 60, 60, 60, 200 )
+	-- 	surface.DrawRect( 0, 0, intW, intH )
 
-		draw.SimpleText(
-			"$".. string.Comma( GAMEMODE.Player:GetGameVar("money_wallet", 0) ),
-			"MoneyDisplayFont",
-			intW -5, intH /2 -1,
-			self.m_colMoney,
-			TEXT_ALIGN_RIGHT,
-			TEXT_ALIGN_CENTER
-		)
-	end
-	self.m_pnlBtnDropMoney = vgui.Create( "SRP_Button", self.m_pnlMoneyDisplay )
-	self.m_pnlBtnDropMoney:SetText( "Drop Money" )
-	self.m_pnlMoneyDisplay.PerformLayout = function( _, intW, intH )
-		self.m_pnlBtnDropMoney:SetSize( 80, intH )
-		self.m_pnlBtnDropMoney:SetPos( 0, 0 )
-	end
-	self.m_pnlBtnDropMoney.DoClick = function()
-		local context = DermaMenu( self )
+	-- 	draw.SimpleText(
+	-- 		"$".. string.Comma( GAMEMODE.Player:GetGameVar("money_wallet", 0) ),
+	-- 		"MoneyDisplayFont",
+	-- 		intW -5, intH /2 -1,
+	-- 		self.m_colMoney,
+	-- 		TEXT_ALIGN_RIGHT,
+	-- 		TEXT_ALIGN_CENTER
+	-- 	)
+	-- end
+	-- self.m_pnlBtnDropMoney = vgui.Create( "SRP_Button", self.m_pnlMoneyDisplay )
+	-- self.m_pnlBtnDropMoney:SetText( "Drop Money" )
+	-- self.m_pnlMoneyDisplay.PerformLayout = function( _, intW, intH )
+	-- 	self.m_pnlBtnDropMoney:SetSize( 80, intH )
+	-- 	self.m_pnlBtnDropMoney:SetPos( 0, 0 )
+	-- end
+	-- self.m_pnlBtnDropMoney.DoClick = function()
+	-- 	local context = DermaMenu( self )
 
-		local owned = context:AddSubMenu( "Owned" )	
-		owned:AddOption( "$100", function() GAMEMODE.Net:RequestDropMoney( 100 ) end )
-		owned:AddOption( "$500", function() GAMEMODE.Net:RequestDropMoney( 500 ) end )
-		owned:AddOption( "$1000", function() GAMEMODE.Net:RequestDropMoney( 1000 ) end )
-		owned:AddOption( "$2500", function() GAMEMODE.Net:RequestDropMoney( 2500 ) end )
-		owned:AddOption( "$5000", function() GAMEMODE.Net:RequestDropMoney( 5000 ) end )
-		owned:AddOption( "Enter Amount", function()
-			GAMEMODE.Gui:StringRequest(
-				"Drop Money",
-				"Enter the amount of money you would like to drop.", 
-				"10000",
-				function( strText )
-					if not tonumber(strText) then return end
-					GAMEMODE.Net:RequestDropMoney( tonumber(strText) )
-				end,
-				function() end,
-				"Drop Money",
-				"Cancel"
-			)
-		end )
+	-- 	local owned = context:AddSubMenu( "Owned" )	
+	-- 	owned:AddOption( "$100", function() GAMEMODE.Net:RequestDropMoney( 100 ) end )
+	-- 	owned:AddOption( "$500", function() GAMEMODE.Net:RequestDropMoney( 500 ) end )
+	-- 	owned:AddOption( "$1000", function() GAMEMODE.Net:RequestDropMoney( 1000 ) end )
+	-- 	owned:AddOption( "$2500", function() GAMEMODE.Net:RequestDropMoney( 2500 ) end )
+	-- 	owned:AddOption( "$5000", function() GAMEMODE.Net:RequestDropMoney( 5000 ) end )
+	-- 	owned:AddOption( "Enter Amount", function()
+	-- 		GAMEMODE.Gui:StringRequest(
+	-- 			"Drop Money",
+	-- 			"Enter the amount of money you would like to drop.", 
+	-- 			"10000",
+	-- 			function( strText )
+	-- 				if not tonumber(strText) then return end
+	-- 				GAMEMODE.Net:RequestDropMoney( tonumber(strText) )
+	-- 			end,
+	-- 			function() end,
+	-- 			"Drop Money",
+	-- 			"Cancel"
+	-- 		)
+	-- 	end )
 
-		local ownerless = context:AddSubMenu( "Abandoned" )	
-		ownerless:AddOption( "$100", function() GAMEMODE.Net:RequestDropMoney( 100, true ) end )
-		ownerless:AddOption( "$500", function() GAMEMODE.Net:RequestDropMoney( 500, true ) end )
-		ownerless:AddOption( "$1000", function() GAMEMODE.Net:RequestDropMoney( 1000, true ) end )
-		ownerless:AddOption( "$2500", function() GAMEMODE.Net:RequestDropMoney( 2500, true ) end )
-		ownerless:AddOption( "$5000", function() GAMEMODE.Net:RequestDropMoney( 5000, true ) end )
-		ownerless:AddOption( "Enter Amount", function()
-			GAMEMODE.Gui:StringRequest(
-				"Drop Money (Abandoned)",
-				"Enter the amount of money you would like to drop.", 
-				"10000",
-				function( strText )
-					if not tonumber(strText) then return end
-					GAMEMODE.Net:RequestDropMoney( tonumber(strText), true )
-				end,
-				function() end,
-				"Drop Money",
-				"Cancel"
-			)
-		end )
+	-- 	local ownerless = context:AddSubMenu( "Abandoned" )	
+	-- 	ownerless:AddOption( "$100", function() GAMEMODE.Net:RequestDropMoney( 100, true ) end )
+	-- 	ownerless:AddOption( "$500", function() GAMEMODE.Net:RequestDropMoney( 500, true ) end )
+	-- 	ownerless:AddOption( "$1000", function() GAMEMODE.Net:RequestDropMoney( 1000, true ) end )
+	-- 	ownerless:AddOption( "$2500", function() GAMEMODE.Net:RequestDropMoney( 2500, true ) end )
+	-- 	ownerless:AddOption( "$5000", function() GAMEMODE.Net:RequestDropMoney( 5000, true ) end )
+	-- 	ownerless:AddOption( "Enter Amount", function()
+	-- 		GAMEMODE.Gui:StringRequest(
+	-- 			"Drop Money (Abandoned)",
+	-- 			"Enter the amount of money you would like to drop.", 
+	-- 			"10000",
+	-- 			function( strText )
+	-- 				if not tonumber(strText) then return end
+	-- 				GAMEMODE.Net:RequestDropMoney( tonumber(strText), true )
+	-- 			end,
+	-- 			function() end,
+	-- 			"Drop Money",
+	-- 			"Cancel"
+	-- 		)
+	-- 	end )
 
-		context:Open()
-	end
+	-- 	context:Open()
+	-- end
 
 	self.m_tblTabs = {
-		{ Name = "All", ID = "type_all" },
-		{ Name = "Clothing", ID = "type_clothing" },
-		{ Name = "Electronics", ID = "type_electronics" },
-		{ Name = "Furniture", ID = "type_furniture" },
-		{ Name = "Food", ID = "type_food" },
-		{ Name = "Drugs", ID = "type_drugs" },
-		{ Name = "Books", ID = "type_book" },
-		{ Name = "Misc", ID = "type_misc" },
-		{ Name = "Weapons", ID = "type_weapon" },
-		{ Name = "Ammo", ID = "type_ammo" },
+		{ Name = "Tudo", ID = "type_all" },
+		{ Name = "Roupas", ID = "type_clothing" },
+		{ Name = "Eletrônicos", ID = "type_electronics" },
+		-- { Name = "Furniture", ID = "type_furniture" },
+		{ Name = "Comida", ID = "type_food" },
+		{ Name = "Drogas", ID = "type_drugs" },
+		{ Name = "Livros", ID = "type_book" },
+		{ Name = "Outros", ID = "type_misc" },
+		{ Name = "Armas", ID = "type_weapon" },
+		{ Name = "Munições", ID = "type_ammo" },
 	}
 
 	self.m_tblTabPanels = {}
@@ -791,39 +791,39 @@ function Panel:Init()
 	end
 
 	self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
-	self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
+	-- self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
 	
-	self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlPrimarySlot:SetTitle( "Primary" )
-	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
+	-- self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
+	-- self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
 
-	self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlSecondarySlot:SetTitle( "Secondary" )
-	self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
+	-- self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlSecondarySlot:SetTitle( "Secondary" )
+	-- self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
 
-	self.m_pnlAltSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlAltSlot:SetTitle( "Alternate" )
-	self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
+	-- self.m_pnlAltSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlAltSlot:SetTitle( "Alternate" )
+	-- self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
 
-	self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlHeadSlot:SetTitle( "Head" )
-	self.m_pnlHeadSlot:SetSlotID( "Head" )
+	-- self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlHeadSlot:SetTitle( "Head" )
+	-- self.m_pnlHeadSlot:SetSlotID( "Head" )
 
-	self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlEyesSlot:SetTitle( "Eyes" )
-	self.m_pnlEyesSlot:SetSlotID( "Eyes" )
+	-- self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlEyesSlot:SetTitle( "Eyes" )
+	-- self.m_pnlEyesSlot:SetSlotID( "Eyes" )
 
-	self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlFaceSlot:SetTitle( "Face" )
-	self.m_pnlFaceSlot:SetSlotID( "Face" )
+	-- self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlFaceSlot:SetTitle( "Face" )
+	-- self.m_pnlFaceSlot:SetSlotID( "Face" )
 
-	self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlNeckSlot:SetTitle( "Neck" )
-	self.m_pnlNeckSlot:SetSlotID( "Neck" )
+	-- self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlNeckSlot:SetTitle( "Neck" )
+	-- self.m_pnlNeckSlot:SetSlotID( "Neck" )
 
-	self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlBackSlot:SetTitle( "Back" )
-	self.m_pnlBackSlot:SetSlotID( "Back" )
+	-- self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
+	-- self.m_pnlBackSlot:SetTitle( "Back" )
+	-- self.m_pnlBackSlot:SetSlotID( "Back" )
 
 	self:Refresh()
 end
@@ -833,7 +833,7 @@ function Panel:Refresh()
 	for k, v in pairs( LocalPlayer():GetBodyGroups() ) do
 		groups[v.id] = LocalPlayer():GetBodygroup( v.id )
 	end
-	self.m_pnlCharModel:SetPlayerModel( LocalPlayer():GetModel(), LocalPlayer():GetSkin(), groups )
+	-- self.m_pnlCharModel:SetPlayerModel( LocalPlayer():GetModel(), LocalPlayer():GetSkin(), groups )
 
 	for k, v in pairs( self.m_tblTabPanels ) do
 		for _, card in pairs( v.Cards ) do
@@ -881,9 +881,9 @@ end
 function Panel:PerformLayout( intW, intH )
 	local w = intW *0.3
 	local y = intH
-	self.m_pnlWeightBar:SetSize( w, 20 )
-	y = y -self.m_pnlWeightBar:GetTall()
-	self.m_pnlWeightBar:SetPos( 0, y )
+	-- self.m_pnlWeightBar:SetSize( w, 20 )
+	-- y = y -self.m_pnlWeightBar:GetTall()
+	-- self.m_pnlWeightBar:SetPos( 0, y )
 
 	-- self.m_pnlVolumeBar:SetSize( w, 20 )
 	-- y = y -self.m_pnlVolumeBar:GetTall() +1
@@ -893,83 +893,84 @@ function Panel:PerformLayout( intW, intH )
 	-- y = y -self.m_pnlStamina:GetTall() +1
 	-- self.m_pnlStamina:SetPos( 0, y )
 
-	self.m_pnlHungerBar:SetSize( w, 20 )
-	y = y -self.m_pnlHungerBar:GetTall() +1
-	self.m_pnlHungerBar:SetPos( 0, y )
+	-- self.m_pnlHungerBar:SetSize( w, 20 )
+	-- y = y -self.m_pnlHungerBar:GetTall() +1
+	-- self.m_pnlHungerBar:SetPos( 0, y )
 
 	-- self.m_pnlThirst:SetSize( w, 20 )
 	-- y = y -self.m_pnlThirst:GetTall() +1
 	-- self.m_pnlThirst:SetPos( 0, y )
 
-	self.m_pnlMoneyDisplay:SetSize( w, 25 )
-	self.m_pnlMoneyDisplay:SetPos(
-		0,
-		y -self.m_pnlMoneyDisplay:GetTall()
-	)
+	-- self.m_pnlMoneyDisplay:SetSize( w, 25 )
+	-- self.m_pnlMoneyDisplay:SetPos(
+	-- 	0,
+	-- 	y -self.m_pnlMoneyDisplay:GetTall()
+	-- )
 
-	self.m_pnlCharModel:SetPos( 0, 0 )
-	self.m_pnlCharModel:SetSize(
-		w,
-		y -self.m_pnlMoneyDisplay:GetTall()
-	)
+	-- self.m_pnlCharModel:SetPos( 0, 0 )
+	-- self.m_pnlCharModel:SetSize(
+	-- 	w,
+	-- 	y -self.m_pnlMoneyDisplay:GetTall()
+	-- )
 
-	self.m_pnlSlotContainer:SetPos( 0, 0 )
-	self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
+	-- self.m_pnlSlotContainer:SetPos( 0, 0 )
+	-- -- self.m_pnlSlotContainer:Dock( BOTTOM )
+	-- self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
 
-	local y = 5
+	-- -- local y = 5
 	
-	self.m_pnlPrimarySlot:SetSize( 48, 48 )
-	self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )
+	-- self.m_pnlPrimafrySlot:SetSize( 48, 48 )
+	-- self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )
 	
-	self.m_pnlSecondarySlot:SetSize( 48, 48 )
-	self.m_pnlSecondarySlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
-		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
-	)
+	-- self.m_pnlSecondarySlot:SetSize( 48, 48 )
+	-- self.m_pnlSecondarySlot:SetPos(
+	-- 	self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+	-- 	self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
+	-- )
 	
-	self.m_pnlAltSlot:SetSize( 48, 48 )
-	self.m_pnlAltSlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() -self.m_pnlAltSlot:GetWide() -5,
-		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
-	)
+	-- self.m_pnlAltSlot:SetSize( 48, 48 )
+	-- self.m_pnlAltSlot:SetPos(
+	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlAltSlot:GetWide() -5,
+	-- 	self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
+	-- )
 
-	self.m_pnlHeadSlot:SetSize( 48, 48 )
-	self.m_pnlHeadSlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
-		5
-	)
+	-- self.m_pnlHeadSlot:SetSize( 48, 48 )
+	-- self.m_pnlHeadSlot:SetPos(
+	-- 	self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+	-- 	5
+	-- )
 
-	self.m_pnlEyesSlot:SetSize( 48, 48 )
-	self.m_pnlEyesSlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() *0.125 )
+	-- self.m_pnlEyesSlot:SetSize( 48, 48 )
+	-- self.m_pnlEyesSlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() *0.125 )
 
-	self.m_pnlFaceSlot:SetSize( 48, 48 )
-	self.m_pnlFaceSlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() -self.m_pnlFaceSlot:GetWide() - 5,
-		self.m_pnlSlotContainer:GetTall() *0.125
-	)
+	-- self.m_pnlFaceSlot:SetSize( 48, 48 )
+	-- self.m_pnlFaceSlot:SetPos(
+	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlFaceSlot:GetWide() - 5,
+	-- 	self.m_pnlSlotContainer:GetTall() *0.125
+	-- )
 
-	self.m_pnlNeckSlot:SetSize( 48, 48 )
-	self.m_pnlNeckSlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() -self.m_pnlNeckSlot:GetWide() - 5,
-		self.m_pnlSlotContainer:GetTall() *0.125 +self.m_pnlFaceSlot:GetTall() +5
-	)
+	-- self.m_pnlNeckSlot:SetSize( 48, 48 )
+	-- self.m_pnlNeckSlot:SetPos(
+	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlNeckSlot:GetWide() - 5,
+	-- 	self.m_pnlSlotContainer:GetTall() *0.125 +self.m_pnlFaceSlot:GetTall() +5
+	-- )
 
-	self.m_pnlBackSlot:SetSize( 48, 48 )
-	self.m_pnlBackSlot:SetPos(
-		5,
-		self.m_pnlSlotContainer:GetTall() *0.33
-	)
+	-- self.m_pnlBackSlot:SetSize( 48, 48 )
+	-- self.m_pnlBackSlot:SetPos(
+	-- 	5,
+	-- 	self.m_pnlSlotContainer:GetTall() *0.33
+	-- )
 
-	local x, y = self.m_pnlSlotContainer:GetPos()
+	-- local x, y = self.m_pnlSlotContainer:GetPos()
 
-	self.m_pnlItemList:SetSize( intW -x -self.m_pnlSlotContainer:GetWide(), intH )
-	self.m_pnlItemList:SetPos( x +self.m_pnlSlotContainer:GetWide(), 0 )
+	self.m_pnlItemList:SetSize( intW , intH )
+	self.m_pnlItemList:SetPos( 0 , 0 )
 
 	for k, v in pairs( self.m_tblTabPanels ) do
 		--v.Panel:SetPos( 0, 0 )
 		--v.Panel:SetSize( self.m_pnlItemList:GetSize() )
 		for _, card in pairs( v.Cards ) do
-			card:SetTall( 48 )
+			card:SetTall( 64 )
 			card:DockMargin( 0, 0, 0, 5 )
 			card:Dock( TOP )
 		end
