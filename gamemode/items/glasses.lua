@@ -1,16 +1,12 @@
 --[[
 	Name: glasses.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
 
-
 local Item = {}
-Item.Name = "Aviators"
-Item.Desc = "Aviator glasses."
+Item.Name = "Aviadores"
+Item.Desc = "Óculos de aviador."
 Item.Type = "type_clothing"
 Item.Model = "models/modified/aviators.mdl"
 Item.Weight = 1
@@ -80,8 +76,8 @@ GM.Inv:RegisterItem( Item )
 
 for i = 1, 6 do
 	local Item = {}
-	Item.Name = "Glasses 1 (Skin ".. i.. ")"
-	Item.Desc = "A pair of glasses."
+	Item.Name = "Óculos 1 (Skin ".. i.. ")"
+	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses01.mdl"
 	Item.Skin = i -1
@@ -154,8 +150,8 @@ end
 
 for i = 1, 8 do
 	local Item = {}
-	Item.Name = "Glasses 2 (Skin ".. i.. ")"
-	Item.Desc = "A pair of glasses."
+	Item.Name = "Óculos 2 (Skin ".. i.. ")"
+	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses_3.mdl"
 	Item.Skin = i -1
@@ -228,8 +224,8 @@ end
 
 for i = 1, 5 do
 	local Item = {}
-	Item.Name = "Glasses 3 (Skin ".. i.. ")"
-	Item.Desc = "A pair of glasses."
+	Item.Name = "Óculos 3 (Skin ".. i.. ")"
+	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses02.mdl"
 	Item.Skin = i -1
@@ -303,8 +299,8 @@ end
 
 for i = 1, 5 do
 	local Item = {}
-	Item.Name = "Glasses 4 (Skin ".. i.. ")"
-	Item.Desc = "A pair of glasses."
+	Item.Name = "Óculos 4 (Skin ".. i.. ")"
+	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses_4.mdl"
 	Item.Skin = i -1

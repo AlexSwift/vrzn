@@ -1,17 +1,13 @@
 --[[
 	Name: hats.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 for i = 1, 6 do
 	local Item = {}
-	Item.Name = "Hat 1 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 1 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/acc/fix/beerhat.mdl"
 	Item.Skin = i -1
@@ -56,8 +52,8 @@ end
 
 for i = 1, 8 do
 local Item = {}
-	Item.Name = "Hat 2 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 2 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat01_fix.mdl"
 	Item.Skin = i -1
@@ -103,8 +99,8 @@ end
 
 for i = 1, 5 do
 	local Item = {}
-	Item.Name = "Hat 3 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 3 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat03.mdl"
 	Item.Skin = i -1
@@ -150,8 +146,8 @@ end
 
 for i = 1, 5 do
 	local Item = {}
-	Item.Name = "Hat 4 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 4 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat04.mdl"
 	Item.Skin = i -1
@@ -195,8 +191,8 @@ end
 -- ----------------------------------------------------------------
 
 local Item = {}
-Item.Name = "Hat 5"
-Item.Desc = "A hat!"
+Item.Name = "Chapéu 5"
+Item.Desc = "Um chapéu!"
 Item.Type = "type_clothing"
 Item.Model = "models/modified/hat06.mdl"
 Item.Weight = 1
@@ -238,8 +234,8 @@ GM.Inv:RegisterItem( Item )
 
 for i = 1, 11 do
 	local Item = {}
-	Item.Name = "Hat 6 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 6 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat07.mdl"
 	Item.Skin = i -1
@@ -310,8 +306,8 @@ end
 
 for i = 1, 11 do
 	local Item = {}
-	Item.Name = "Hat 6 (Backwards) (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 6 (para trás) (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat07.mdl"
 	Item.Skin = i -1
@@ -384,8 +380,8 @@ end
 
 for i = 1, 12 do
 	local Item = {}
-	Item.Name = "Hat 7 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 7 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat08.mdl"
 	Item.Skin = i -1
@@ -456,8 +452,8 @@ end
 
 for i = 1, 12 do
 	local Item = {}
-	Item.Name = "Hat 7 (Backwards) (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 7 (para trás) (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat08.mdl"
 	Item.Skin = i -1
@@ -530,8 +526,8 @@ end
 
 for i = 1, 13 do
 	local Item = {}
-	Item.Name = "Hat 8 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 8 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat_11.mdl"
 	Item.Skin = i -1
@@ -604,8 +600,8 @@ end
 
 for i = 1, 13 do
 	local Item = {}
-	Item.Name = "Hat 9 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 9 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat_12.mdl"
 	Item.Skin = i -1
@@ -678,8 +674,8 @@ end
 
 for i = 1, 7 do
 	local Item = {}
-	Item.Name = "Hat 10 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 10 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat_13.mdl"
 	Item.Skin = i -1
@@ -752,8 +748,8 @@ end
 
 for i = 1, 8 do
 	local Item = {}
-	Item.Name = "Hat 11 (Skin ".. i.. ")"
-	Item.Desc = "A hat!"
+	Item.Name = "Chapéu 11 (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu!"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat_14.mdl"
 	Item.Skin = i -1
@@ -826,8 +822,8 @@ end
 
 for i = 1, 10 do
 	local Item = {}
-	Item.Name = "Bike Helmet (Skin ".. i.. ")"
-	Item.Desc = "A bike helmet."
+	Item.Name = "Capacete de Motoqueiro (Skin ".. i.. ")"
+	Item.Desc = "Um capacete de motoqueiro."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/bike_1.mdl"
 	Item.Skin = i -1
@@ -898,8 +894,8 @@ end
 
 for i = 1, 13 do
 	local Item = {}
-	Item.Name = "Top-Hat (Skin ".. i.. ")"
-	Item.Desc = "A top-hat."
+	Item.Name = "Cartola (Skin ".. i.. ")"
+	Item.Desc = "Um chapéu elegante."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/tophat.mdl"
 	Item.Skin = i -1

@@ -1,19 +1,15 @@
 --[[
 	Name: masks.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 -------------------------------------------------------------------------------
 
 for i = 1, 3 do
 	local Item = {}
-	Item.Name = "Doctor Mask (Skin ".. i.. ")"
-	Item.Desc = "A mask."
+	Item.Name = "Máscara de Médico (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/doctor.mdl"
 	Item.Skin = i -1
@@ -59,8 +55,8 @@ end
 
 for i = 1, 4 do
 	local Item = {}
-	Item.Name = "Head Wrap 1 (Skin ".. i.. ")"
-	Item.Desc = "A head wrap."
+	Item.Name = "Bandana 1 (Skin ".. i.. ")"
+	Item.Desc = "Uma bandana."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/headwrap1.mdl"
 	Item.Skin = i -1
@@ -132,8 +128,8 @@ end
 
 for i = 1, 4 do
 	local Item = {}
-	Item.Name = "Head Wrap 2 (Skin ".. i.. ")"
-	Item.Desc = "A head wrap."
+	Item.Name = "Bandana 2 (Skin ".. i.. ")"
+	Item.Desc = "Uma bandana."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/headwrap2.mdl"
 	Item.Skin = i -1
@@ -207,8 +203,8 @@ end
 
 for i = 1, 15 do
 	local Item = {}
-	Item.Name = "Mask 1 (Skin ".. i.. ")"
-	Item.Desc = "A mask."
+	Item.Name = "Máscara 1 (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/acc/fix/mask_2.mdl"
 	Item.Skin = i -1
@@ -281,8 +277,8 @@ end
 
 for i = 1, 9 do
 	local Item = {}
-	Item.Name = "Mask 2 (Skin ".. i.. ")"
-	Item.Desc = "A mask."
+	Item.Name = "Máscara 2 (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/acc/fix/mask_4.mdl"
 	Item.Skin = i -1
@@ -354,8 +350,8 @@ end
 -- ----------------------------------------------------------------
 
 local Item = {}
-Item.Name = "Mask 4"
-Item.Desc = "A mask."
+Item.Name = "Máscara 4"
+Item.Desc = "Uma máscara."
 Item.Type = "type_clothing"
 Item.Model = "models/modified/mask5.mdl"
 Item.Weight = 1
@@ -424,8 +420,8 @@ GM.Inv:RegisterItem( Item )
 
 for i = 1, 4 do
 	local Item = {}
-	Item.Name = "Mask 5 (Skin ".. i.. ")"
-	Item.Desc = "A mask."
+	Item.Name = "Máscara 5 (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/mask6.mdl"
 	Item.Skin = i -1
@@ -498,8 +494,8 @@ end
 
 for i = 1, 4 do
 	local Item = {}
-	Item.Name = "Monkey Mask (Skin ".. i.. ")"
-	Item.Desc = "A monkey mask."
+	Item.Name = "Máscara de Macaco (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara de macaco."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/monkey.mdl"
 	Item.Skin = i -1
@@ -572,8 +568,8 @@ end
 
 for i = 1, 11 do
 	local Item = {}
-	Item.Name = "Ninja Mask (Skin ".. i.. ")"
-	Item.Desc = "A ninja mask."
+	Item.Name = "Máscara Ninja (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara ninja."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/ninja.mdl"
 	Item.Skin = i -1
@@ -644,8 +640,8 @@ end
 
 for i = 1, 4 do
 	local Item = {}
-	Item.Name = "Skull Mask (Skin ".. i.. ")"
-	Item.Desc = "A skull mask."
+	Item.Name = "Máscara de caveira (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara de uma caveira."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/skull.mdl"
 	Item.Skin = i -1
@@ -718,8 +714,8 @@ end
 
 for i = 1, 2 do
 	local Item = {}
-	Item.Name = "Zombie Mask (Skin ".. i.. ")"
-	Item.Desc = "A zombie mask."
+	Item.Name = "Máscara de Zumbi (Skin ".. i.. ")"
+	Item.Desc = "Uma máscara de zumbi."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/zombie.mdl"
 	Item.Skin = i -1
@@ -792,8 +788,8 @@ end
 
 for i = 1, 26 do
 	local Item = {}
-	Item.Name = "Bag Mask (Skin ".. i.. ")"
-	Item.Desc = "A bag mask."
+	Item.Name = "Máscara de Sacola (Skin ".. i.. ")"
+	Item.Desc = "Uma sacola com o propósito de ser uma máscara."
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/halloween/bag.mdl"
 	Item.Skin = i -1
@@ -838,8 +834,8 @@ end
 -- ---------------------------------------------------------------- RUSTIC 7 ADDED&BROKE
 
 local Item = {}
-Item.Name = "Cookie Face"
-Item.Desc = "A mask."
+Item.Name = "Cara de Biscoito"
+Item.Desc = "Uma máscara."
 Item.Type = "type_clothing"
 Item.Model = "models/sal/gingerbread.mdl"
 Item.Weight = 1
@@ -880,8 +876,8 @@ GM.Inv:RegisterItem( Item )
 -- ----------------------------------------------------------------
 
 local Item = {}
-Item.Name = "Bear Mask"
-Item.Desc = "A bear mask."
+Item.Name = "Máscara de Urso"
+Item.Desc = "Uma máscara de urso."
 Item.Type = "type_clothing"
 Item.Model = "models/sal/bear.mdl"
 Item.Weight = 1
@@ -949,8 +945,8 @@ GM.Inv:RegisterItem( Item )
 -- ----------------------------------------------------------------
 
 local Item = {}
-Item.Name = "Horse Mask"
-Item.Desc = "A horse mask."
+Item.Name = "Máscara de Cavalo"
+Item.Desc = "Uma máscara de cavalo."
 Item.Type = "type_clothing"
 Item.Model = "models/horsie/horsiemask.mdl"
 Item.Weight = 1
@@ -991,8 +987,8 @@ GM.Inv:RegisterItem( Item )
 -- ----------------------------------------------------------------
 
 local Item = {}
-Item.Name = "Raccoon Mask"
-Item.Desc = "A raccoon mask."
+Item.Name = "Máscara de Guaxinim"
+Item.Desc = "Uma máscara de guaxinim."
 Item.Type = "type_clothing"
 Item.Model = "models/sal/racoon.mdl"
 Item.Weight = 1
@@ -1035,7 +1031,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Balaclava"
-Item.Desc = "A balaclava."
+Item.Desc = "Uma balaclava."
 Item.Type = "type_clothing"
 Item.Model = "models/sal/burgle.mdl"
 Item.Weight = 1

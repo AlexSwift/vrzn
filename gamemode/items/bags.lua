@@ -1,17 +1,13 @@
 --[[
 	Name: bags.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 for i = 1, 3 do
 	local Item = {}
-	Item.Name = "Backpack 1 (Skin ".. i.. ")"
-	Item.Desc = "A backpack."
+	Item.Name = "Mochila 1 (Skin ".. i.. ")"
+	Item.Desc = "Uma mochila."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/backpack_1.mdl"
 	Item.Skin = i -1
@@ -91,8 +87,8 @@ end
 
 for i = 1, 3 do
 	local Item = {}
-	Item.Name = "Backpack 2 (Skin ".. i.. ")"
-	Item.Desc = "A backpack."
+	Item.Name = "Mochila 2 (Skin ".. i.. ")"
+	Item.Desc = "Uma mochila."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/backpack_2.mdl"
 	Item.Skin = i -1
@@ -172,8 +168,8 @@ end
 
 for i = 1, 2 do
 	local Item = {}
-	Item.Name = "Backpack 3 (Skin ".. i.. ")"
-	Item.Desc = "A backpack."
+	Item.Name = "Mochila 3 (Skin ".. i.. ")"
+	Item.Desc = "Uma mochila."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/backpack_3.mdl"
 	Item.Skin = i -1
@@ -252,8 +248,8 @@ end
 
 for i = 1, 2 do
 	local Item = {}
-	Item.Name = "K-Throat VIP Backpack"
-	Item.Desc = "A backpack."
+	Item.Name = "Mochila VIP K-Throat"
+	Item.Desc = "Uma mochila ."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/backpack_3.mdl"
 	Item.Skin = i -1

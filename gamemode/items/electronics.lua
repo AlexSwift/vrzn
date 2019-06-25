@@ -1,17 +1,13 @@
 --[[
 	Name: electronics.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 if DEV_SERVER then
 	local Item = {}
-	Item.Name = "Dev Computer"
-	Item.Desc = "Dev test item."
+	Item.Name = "Computador de desenvolvedor"
+	Item.Desc = "Item de teste do desenvolvedor."
 	Item.Model = "models/testmodels/macbook_pro.mdl"
 	Item.Type = "type_electronics"
 	Item.Weight = 12
@@ -29,17 +25,13 @@ end
 
 --[[
 	Name: electronics.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
 
-
 local Item = {}
-Item.Name = "Stational Radio Civ"
-Item.Desc = "Use this on your shop to communicate with your friends or play music"
+Item.Name = "Radio civ estacionaria"
+Item.Desc = "Use isso em sua loja para se comunicar com seus amigos ou para tocar musica"
 Item.Type = "type_electronics"
 Item.Model = "models/gspeak/militaryradio.mdl"
 Item.Weight = 1
@@ -52,8 +44,8 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 1 } )
 
 local Item = {}
-Item.Name = "Civ Radio"
-Item.Desc = "Civ Radio"
+Item.Name = "Radio civ"
+Item.Desc = "Radio civ"
 Item.Type = "type_weapon"
 Item.Model = "models/gspeak/funktronics.mdl"
 Item.Weight = 1
@@ -68,8 +60,8 @@ Item.DropClass = "weapon_gspeak_radio_civ"
 GM.Inv:RegisterItem( Item )
 
 local Item = {}
-Item.Name = "Cash Register"
-Item.Desc = "A cash register that allows the user to safely manage a store."
+Item.Name = "Caixa registradora"
+Item.Desc = "Uma caixa registradora que permite que uma pessoa gerencia sua loja com segurança."
 Item.Model = "models/props_c17/cashregister01a.mdl"
 Item.Type = "type_electronics"
 Item.Weight = 15
@@ -84,7 +76,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 1 } )
 
 local Item = {}
 Item.Name = "Radio"
-Item.Desc = "A portable radio. Plays shoutcast streams."
+Item.Desc = "Um radio portavel."
 Item.Type = "type_electronics"
 Item.Model = "models/props/cs_office/radio.mdl"
 Item.Weight = 2
@@ -96,8 +88,8 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1 )
 
 local Item = {}
-Item.Name = "Television"
-Item.Desc = "A flat screen TV. Plays youtube videos and twitch.tv streams."
+Item.Name = "Televisao"
+Item.Desc = "Uma TV plana. Toca videos do youtube e lives do twitch.tv."
 Item.Type = "type_electronics"
 Item.Model = "models/props/cs_office/TV_plasma.mdl"
 Item.Weight = 10
@@ -109,8 +101,8 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1 )
 
 local Item = {}
-Item.Name = "Large Sign"
-Item.Desc = "A large digital sign. Displays text that a user programs into the sign."
+Item.Name = "Sinal grande"
+Item.Desc = "Um grande sinal digital. Mostra o texto que um usuario programou no sinal."
 Item.Type = "type_electronics"
 Item.Model = "models/props/cs_office/offpaintinga.mdl"
 Item.Weight = 5
@@ -122,8 +114,8 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 2 } )
 
 local Item = {}
-Item.Name = "Box Fan"
-Item.Desc = "A box fan."
+Item.Name = "Cooler"
+Item.Desc = "Um cooler."
 Item.Model = "models/freeman/ventfan.mdl"
 Item.Type = "type_electronics"
 Item.Weight = 6
@@ -148,8 +140,8 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 2, { ["vip"] = 2 } )
 
 local Item = {}
-Item.Name = "Large Lamp"
-Item.Desc = "A lamp meant for lighting large rooms."
+Item.Name = "Lampada grande"
+Item.Desc = "Uma lampada feita para iluminar grandes  espaços."
 Item.Type = "type_electronics"
 Item.Model = "models/props_c17/light_decklight01_off.mdl"
 Item.Weight = 20
@@ -163,8 +155,8 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 2, { ["vip"] = 2 } )
 
 local Item = {}
 
-Item.Name = "Company Computer"
-Item.Desc = "Advanced Server PC"
+Item.Name = "Computador da companhia"
+Item.Desc = "Servidor de computador avançado"
 Item.Model = "models/alarm_system/computer.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -179,8 +171,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 4)
 
 local Item = {}
 
-Item.Name = "Alarm"
-Item.Desc = "Advanced Alarm System"
+Item.Name = "Alarme"
+Item.Desc = "Sistema de alarme avançado"
 Item.Model = "models/alarm_system/siren.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -195,8 +187,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 8)
 
 local Item = {}
 
-Item.Name = "Door Sensor Reciver"
-Item.Desc = "Advanced Door Sensor Reciver"
+Item.Name = "Recebedor de sensor da porta"
+Item.Desc = "Sensor recebedor de porta avançado"
 Item.Model = "models/alarm_system/door_sensor_2.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -211,8 +203,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 8)
 
 local Item = {}
 
-Item.Name = "Door Alarm"
-Item.Desc = "Advanced Door Sensor"
+Item.Name = "Alarme de porta"
+Item.Desc = "Sensor de porta avançado"
 Item.Model = "models/alarm_system/door_sensor_1.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -227,8 +219,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 8)
 
 local Item = {}
 
-Item.Name = "Fire Detector"
-Item.Desc = "Advanced Fire Alarm System"
+Item.Name = "Detector de Incendio"
+Item.Desc = "Sistema de alarme de incendio avançado"
 Item.Model = "models/alarm_system/fire_detector.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -243,8 +235,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 4)
 
 local Item = {}
 
-Item.Name = "Laser Reciver"
-Item.Desc = "Advanced Laser Reciver System"
+Item.Name = "Recebedor de laser"
+Item.Desc = "Sistema recebedor de laser avançado"
 Item.Model = "models/alarm_system/laser_alarm.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -259,8 +251,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 4)
 
 local Item = {}
 
-Item.Name = "Motion Sensor"
-Item.Desc = "State Of The Art Motion Sensor"
+Item.Name = "Sensor de Movimento"
+Item.Desc = "Ponta de tecnologia de sensores de movimento"
 Item.Model = "models/alarm_system/bewegungsmelder.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -276,7 +268,7 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 4)
 local Item = {}
 
 Item.Name = "Laser"
-Item.Desc = "Adavnced Laser Reciver."
+Item.Desc = "Recebedor de Laser Avançado."
 Item.Model = "models/alarm_system/laser_alarm.mdl"
 Item.Weight = 34
 Item.Volume = 28
@@ -291,8 +283,8 @@ GM.Inv:RegisterItemLimit(Item.LimitID, 4)
 
 local Item = {}
 
-Item.Name = "Control Panel"
-Item.Desc = "Control All Systems Here."
+Item.Name = "Painel de Controle"
+Item.Desc = "Controle todos sistemas aqui."
 Item.Model = "models/alarm_system/terminal.mdl"
 Item.Weight = 34
 Item.Volume = 28

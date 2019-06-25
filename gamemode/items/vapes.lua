@@ -6,8 +6,8 @@
 
 
 local Item = {}
-Item.Name = "American Vape"
-Item.Desc = "A vape"
+Item.Name = "Vape Americano"
+Item.Desc = "Um vape"
 Item.Type = "type_weapon"
 Item.Model = "models/swamponions/vape.mdl"
 Item.Weight = 4
@@ -25,8 +25,8 @@ GM.Inv:RegisterItem( Item )
 
 
 local Item = {}
-Item.Name = "Custom Vape"
-Item.Desc = "A Vape"
+Item.Name = "Vape Customizavel"
+Item.Desc = "Um Vape"
 Item.Type = "type_weapon"
 Item.Model = "models/swamponions/vape.mdl"
 Item.Weight = 3
@@ -41,8 +41,8 @@ Item.EquipGiveClass = "weapon_vape_custom"
 GM.Inv:RegisterItem( Item )
 
 local Item = {}
-Item.Name = "Hallucinogenic Vape"
-Item.Desc = "A Vape"
+Item.Name = "Vape Alucinógeno"
+Item.Desc = "Um Vape"
 Item.Type = "type_weapon"
 Item.Model = "models/swamponions/vape.mdl"
 Item.Weight = 3
@@ -57,8 +57,8 @@ Item.EquipGiveClass = "weapon_vape_hallucinogenic"
 GM.Inv:RegisterItem( Item )
 
 local Item = {}
-Item.Name = "Flavored Vape"
-Item.Desc = "A Vape"
+Item.Name = "Vape de Fruta"
+Item.Desc = "Um Vape"
 Item.Type = "type_weapon"
 Item.Model = "models/swamponions/vape.mdl"
 Item.Weight = 3

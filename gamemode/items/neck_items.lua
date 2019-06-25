@@ -1,16 +1,12 @@
 --[[
 	Name: neck_items.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 local Item = {}
 Item.Name = "Bandana"
-Item.Desc = "A bandana."
+Item.Desc = "Uma bandana."
 Item.Type = "type_clothing"
 Item.Model = "models/modified/bandana.mdl"
 Item.Weight = 1
