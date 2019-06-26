@@ -399,6 +399,13 @@ function GM.Net:RequestDropItem( strItemID, intAmount, bOwnerless )
 	self:FireEvent()
 end
 
+function GM.Net:RequestDestroyItem(strItemID, intAmount, bOwnerless)
+	self:NewEvent("inv", "r")
+	net.WriteString(strItemID)
+	net.WriteUInt(intAmount, 8)
+	self:FireEvent()
+end
+
 function GM.Net:RequestUseItem( strItemID )
 	self:NewEvent( "inv", "u" )
 		net.WriteString( strItemID )
