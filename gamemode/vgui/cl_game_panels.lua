@@ -111,7 +111,6 @@ function Panel:Paint( intW, intH )
 end
 
 vgui.Register( "SRP_Frame", Panel, "DFrame" )
-
 --[[---------------------------------------------------------
    Name: SRPButton
 -----------------------------------------------------------]]
@@ -164,6 +163,8 @@ function PANEL:SetDepressedColor( col )
 end
 
 function PANEL:Paint( intW, intH )
+	draw.RoundedBox(8, 0, 0, intW, intH, Color(40,40,40) )
+
 	if self:GetDisabled() then
 		if not self.m_colDisabled then
 			surface.SetDrawColor( 40, 40, 40, self.m_intAlphaOverride or self.m_intAlpha *0.9 )
@@ -177,10 +178,12 @@ function PANEL:Paint( intW, intH )
 			surface.SetDrawColor( 55, 55, 55, self.m_intAlphaOverride or self.m_intAlpha *0.8 )
 		else
 			surface.SetDrawColor( self.m_colDepressed.r, self.m_colDepressed.g, self.m_colDepressed.b, self.m_colDepressed.a )
+			draw.RoundedBox(8, 0, 0, intW, intH, Color(26,26,26) )
 		end
 		
 		self:SetTextColor( self.m_colOverride or self.m_colWhite )
 	elseif self.Hovered then
+		draw.RoundedBox(8, 0, 0, intW, intH, Color(26,26,26) )
 		if not self.m_colMouseOver then
 			surface.SetDrawColor( 100, 100, 100, self.m_intAlphaOverride or self.m_intAlpha *0.7 )
 		else
@@ -206,12 +209,12 @@ function PANEL:Paint( intW, intH )
 		self:SetTextColor( self.m_colOverride or self.m_colWhiteT )
 	end
 
-	surface.DrawRect( 0, 0, intW, intH )
+	
 
 	if self.m_matIcon then
 		surface.SetDrawColor( 255, 255, 255, 255 )
 		surface.SetMaterial( self.m_matIcon )
-		surface.DrawTexturedRect( self.m_intTexX, self.m_intTexY, self.m_intTexW or intW, self.m_intTexH or intH )
+		drawTexturedRect( self.m_intTexX, self.m_intTexY, self.m_intTexW or intW, self.m_intTexH or intH )
 	end
 end
 vgui.Register( "SRP_Button", PANEL, "DButton" )
@@ -237,8 +240,9 @@ function PANEL:Setup( label, pPropertySheet, pPanel, strMaterial )
 	if strMaterial then
 		self.Image = vgui.Create( "DImage", self )
 		self.Image:SetImage( strMaterial )
-		self.Image:SetSize( 32,32 )
+		self.Image:SetSize( 48, 48 )
 		self:InvalidateLayout()
+		self.IsImage = true
 	end
 end
 
@@ -264,8 +268,9 @@ end
 
 function PANEL:Paint( intW, intH )
 	if self:IsActive() then
-		surface.SetDrawColor( 125, 125, 125, 65 )
-		surface.DrawRect( 0, 0, intW, intH )
+		surface.SetDrawColor( 26, 26, 26, 255 )
+		draw.RoundedBox(8, 0, 0, intW, intH, Color(26, 26, 26, 255) )
+		-- drawRect( 0, 0, intW, intH )
 	end
 end
 
@@ -285,16 +290,17 @@ function PANEL:UpdateColours( skin )
 end
 
 function PANEL:ApplySchemeSettings()
-	local ExtraInset = 15
-	if self.Image then
-		ExtraInset = ExtraInset + self.Image:GetWide()
-	end
+
+	local ExtraInset = 0
 	-- self:DockMargin(0, 0, 15, 0)
-	self:SetTextInset( ExtraInset, 5 )
+	self:SetTextInset( ExtraInset, 0 )
 	local w, h = self:GetContentSize()
 	h = 20
-	self:SetSize( w + 10, 42 )
-	
+	if self.Image then
+		self:SetSize( 48 + 20, 48 + 10 )
+	else
+		self:SetSize( w + 20, 30)
+	end
 	DLabel.ApplySchemeSettings( self )
 end
 
@@ -333,11 +339,17 @@ function PANEL:AddSheet( label, panel, material, NoStretchX, NoStretchY, Tooltip
 	Sheet.Tab = vgui.Create( "SRP_Tab", self )
 	Sheet.Tab:SetTooltip( Tooltip )
 	Sheet.Tab:Setup( label, self, panel, material )
-	
+	Sheet.Tab:DockMargin(10,0,0,0)
 	Sheet.Panel = panel
 	Sheet.Panel.NoStretchX = NoStretchX
 	Sheet.Panel.NoStretchY = NoStretchY
-	Sheet.Panel:SetPos( self:GetPadding(), 42 +self:GetPadding() )
+	-- //Controla o tamanho do Header
+	if material then
+		Sheet.Panel:SetPos( self:GetPadding(), 78 +self:GetPadding() )
+	else
+		Sheet.Panel:SetPos( self:GetPadding(), 30 +self:GetPadding() )	
+	end
+
 	Sheet.Panel:SetVisible( false )
 	
 	panel:SetParent( self )
@@ -446,7 +458,7 @@ end
 
 function PANEL:Paint( intW, intH )
 	surface.SetDrawColor( 50, 50, 50, 100 )
-	-- surface.DrawRect( 0, 0, intW, 28 )
+	-- drawRect( 0, 0, intW, 28 )
 end
 
 function PANEL:SizeToContentWidth()
@@ -535,30 +547,33 @@ function PANEL:Init()
 	self.VBar.Paint = function() end
 
 	local paintBtn = function( p, intW, intH )
+		draw.RoundedBox(4, 5, 0, intW-5, intH, Color(66,66,66,0))
 		if p.Depressed then
-			surface.SetDrawColor( 55, 55, 55, 200 )
+			draw.RoundedBox(4, 5, 0, intW-5, intH, Color(55, 55, 55, 200))
 		elseif p.Hovered then
-			surface.SetDrawColor( 100, 100, 100, 150 )
+			draw.RoundedBox(4, 5, 0, intW-5, intH, Color(100, 100, 100, 150 ))
 		else
-			surface.SetDrawColor( 80, 80, 80, 150 )
+			draw.RoundedBox(4, 5, 0, intW-5, intH, Color(80, 80, 80, 0 ))
 		end
-
-		surface.DrawRect( 0, 0, intW, intH )
+		
+		-- drawRect( 0, 0, intW, intH )
 	end
 
 	self.VBar.btnUp.Paint = paintBtn
 	self.VBar.btnDown.Paint = paintBtn
 	
 	self.VBar.btnGrip.Paint = function( p, intW, intH )
+		draw.RoundedBox(12, 5, 0, intW-5, intH, Color(66,66,66))
 		if p.Depressed then
 			surface.SetDrawColor( 70, 70, 70, 200 )
 		elseif p.Hovered then
 			surface.SetDrawColor( 130, 130, 130, 175 )
 		else
-			surface.SetDrawColor( 120, 120, 120, 175 )
+			draw.RoundedBox(12, 5, 0, intW-5, intH, Color(66,66,66))
+			-- surface.SetDrawColor( 120, 120, 120, 175 )
 		end
 
-		surface.DrawRect( 0, 0, intW, intH )
+		-- drawRect( 0, 0, intW, intH )
 	end
 
 	self:SetPadding( 0 )
@@ -640,8 +655,6 @@ function PANEL:Clear()
 	return self.pnlCanvas:Clear()
 end
 vgui.Register( "SRP_ScrollPanel", PANEL, "DPanel" )
-
-
 --[[---------------------------------------------------------
    Name: SRP_CategoryHeader
 -----------------------------------------------------------]]
@@ -1396,12 +1409,15 @@ function PANEL:SetBarColor( col )
 	self.m_colBar = col
 end
 function PANEL:Paint( intW, intH )
-	surface.SetDrawColor( self.m_colBackground )
-	surface.DrawRect( 1, 1, intW -2, intH -2 )
+	local radius = intH/2+1
+	-- surface.SetDrawColor( self.m_colBackground )
+	-- surface.DrawRect( 1, 1, intW -2, intH -2 )
+	draw.RoundedBox(radius, 1, 1, intW -2, intH-2, self.m_colBackground )
 	if (intW -2) *self.m_fFraction > 0 then
-		surface.SetDrawColor( self.m_colBar )
-		surface.DrawRect( 1, 1, (intW -2) *self.m_fFraction, intH -2 )
-		surface.SetTexture( TEX_GRADIENT_DOWN )
+		-- surface.SetDrawColor( self.m_colBar )
+		-- surface.DrawRect( 1, 1, (intW -2) *self.m_fFraction, intH -2 )
+		draw.RoundedBox(radius, 1, 1,(intW -2) *self.m_fFraction, intH -2, self.m_colBar)
+		-- surface.SetTexture( TEX_GRADIENT_DOWN )
 		surface.SetDrawColor(
 			math.max( 0, self.m_colBar.r -100 ),
 			math.max( 0, self.m_colBar.g -100 ),
@@ -1409,13 +1425,103 @@ function PANEL:Paint( intW, intH )
 			255
 		)
 		local half = (intH -2) /2 -1
-		surface.DrawTexturedRect( 1, 1, (intW -2) *self.m_fFraction, half )
-		surface.DrawTexturedRectRotated( 1 +((intW -1) *self.m_fFraction) /2, intH -(half /2), (intW -2) *self.m_fFraction, half, 180 )
+		-- surface.DrawTexturedRect( 1, 1, (intW -2) *self.m_fFraction, half )
+		-- surface.DrawTexturedRectRotated( 1 +((intW -1) *self.m_fFraction) /2, intH -(half /2), (intW -2) *self.m_fFraction, half, 180 )
 	end
-	surface.SetDrawColor( 0, 0, 0, 255 )
-	surface.DrawRect( 0, 0, intW, 1 ) --top
-	surface.DrawRect( 0, 0, 1, intH ) --left side
-	surface.DrawRect( intW -1, 0, 1, intH ) --right side
-	surface.DrawRect( 0, intH -1, intW, 1 ) --bottom
+	-- surface.SetDrawColor( 0, 0, 0, 255 )
+	-- surface.DrawRect( 0, 0, intW, 1 ) --top
+	-- surface.DrawRect( 0, 0, 1, intH ) --left side
+	-- surface.DrawRect( intW -1, 0, 1, intH ) --right side
+	-- surface.DrawRect( 0, intH -1, intW, 1 ) --bottom
 end
 vgui.Register( "SRP_Progress", PANEL, "EditablePanel" )
+
+-- ----------------------------------------------------------------
+
+local Panel = {}
+function Panel:Init()
+	self.m_colItemName = Color( 255, 255, 255, 255 )
+	self.m_colAmount = Color( 120, 230, 110, 255 )
+
+	self.m_pnlIcon = vgui.Create( "ModelImage", self )
+	self.m_pnlIcon:SetMouseInputEnabled( false )
+	self.m_pnlNameLabel = vgui.Create( "DLabel", self )
+	self.m_pnlNameLabel:SetTextColor( self.m_colItemName )
+	self.m_pnlNameLabel:SetFont( "EquipSlotFont" )
+	self.m_pnlNameLabel:SetMouseInputEnabled( false )
+
+	self:SetText( "" )
+end
+
+
+function Panel:SetItemID( strItemID )
+	self.m_strItemID = strItemID
+	self.m_tblItem = GAMEMODE.Inv:GetItem( strItemID )
+	if self.m_tblItem then
+		self.m_pnlIcon:SetModel( self.m_tblItem.Model, self.m_tblItem.Skin )
+		self.Paint = function()  
+			draw.RoundedBox(4, 0, 0, intW, intH, GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
+		end
+		self.m_pnlIcon:SetVisible( true )
+	else
+		self.m_pnlIcon:SetVisible( false )
+	end
+	
+	self:InvalidateLayout()
+end
+
+function Panel:GetItemTable()
+	return self.m_tblItem
+end
+
+function Panel:SetSlotID( strID )
+	self.m_strSlotID = strID
+end
+
+function Panel:Think()
+	local cur = GAMEMODE.Player:GetSharedGameVar( LocalPlayer(), "eq_slot_".. self.m_strSlotID )
+	if self.m_strItemID ~= cur then
+		self:SetItemID( cur )
+	end
+end
+
+function Panel:DoClick()
+	if not self.m_tblItem then return end
+	GAMEMODE.Net:RequestEquipItem( self.m_tblItem.EquipSlot )
+end
+
+function Panel:SetTitle( strText )
+	self.m_pnlNameLabel:SetText( strText )
+	self:InvalidateLayout()
+end
+
+function Panel:Paint( intW, intH )
+	-- surface.SetDrawColor( 50, 50, 50, 200 )
+	-- self:GetItemTable()
+	-- print(self:GetItemTable())
+	-- -- surface.DrawRect( 0, 0, intW, intH )
+	-- -- print (GAMEMODE.Inv:GetItem( strText ))
+	-- local color =  Color( 0,0,0,255)
+	-- draw.RoundedBox(4, 0, 0, intW, intH, color )
+end
+
+function Panel:PaintOver( intW, intH )
+	surface.SetDrawColor( 0, 0, 0, 255 )
+	draw.RoundedBox(4, 0, 0, intW, intH, Color(255,255,255,10) )
+	-- surface.DrawRect( 0, 0, intW, 1 ) --top
+	-- surface.DrawRect( 0, 0, 1, intH ) --left side
+
+	-- surface.DrawRect( intW -1, 0, 1, intH ) --right side
+	-- surface.DrawRect( 0, intH -1, intW, 1 ) --bottom
+end
+
+function Panel:PerformLayout( intW, intH )
+	local padding = 5
+
+	self.m_pnlIcon:SetPos( 0, 0 )
+	self.m_pnlIcon:SetSize( intH, intH )
+
+	self.m_pnlNameLabel:SizeToContents()
+	self.m_pnlNameLabel:SetPos( (intW /2) -(self.m_pnlNameLabel:GetWide() /2), (intH /2) -(self.m_pnlNameLabel:GetTall() /2) )
+end
+vgui.Register( "SRPEquipSlot", Panel, "DButton" )

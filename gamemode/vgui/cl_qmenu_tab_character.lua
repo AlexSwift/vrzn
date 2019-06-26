@@ -7,21 +7,24 @@
 -----------------------------------------------------------------
 ]]--
 
+surface.CreateFont( "NameLabel", {size = 26, weight = 400, font = "Montserrat Bold"} )
+surface.CreateFont( "SubLabel", {size = 20, weight = 400, font = "Montserrat Regular"} )
 
 local Panel = {}
 function Panel:Init()
+	
 	self.m_pnlNameLabel = vgui.Create( "DLabel", self )
-	self.m_pnlNameLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	-- self.m_pnlNameLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
 	self.m_pnlNameLabel:SetTextColor( Color(255, 255, 255, 255) )
-	self.m_pnlNameLabel:SetFont( "CarMenuFont" )
+	self.m_pnlNameLabel:SetFont( "NameLabel" )
 
 	self.m_pnlLevelLabel = vgui.Create( "DLabel", self )
-	self.m_pnlLevelLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	-- self.m_pnlLevelLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
 	self.m_pnlLevelLabel:SetTextColor( Color(255, 255, 255, 255) )
-	self.m_pnlLevelLabel:SetFont( "Trebuchet24" )
+	self.m_pnlLevelLabel:SetFont( "SubLabel" )
 
 	self.m_pnlXPBar = vgui.Create( "SRP_Progress", self )
-	self.m_pnlXPBar:SetBarColor( Color(170, 220, 155, 255) )
+	self.m_pnlXPBar:SetBarColor( Color(4,236,86) )
 	self.m_pnlXPBar.Think = function()
 		if not self.m_strSkillName then return end
 		local curXP = GAMEMODE.Skills:GetPlayerXP( self.m_strSkillName )
@@ -35,7 +38,7 @@ function Panel:Init()
 
 	self.m_pnlXPLabel = vgui.Create( "DLabel", self )
 	self.m_pnlXPLabel:SetTextColor( Color(255, 255, 255, 255) )
-	self.m_pnlXPLabel:SetFont( "Trebuchet24" )
+	self.m_pnlXPLabel:SetFont( "SubLabel" )
 	self.m_pnlXPLabel.Think = function()
 		if not self.m_strSkillName then return end
 		if GAMEMODE.Skills:GetPlayerXP( self.m_strSkillName ) ~= self.m_intLastXP or -1 then
@@ -50,7 +53,7 @@ function Panel:Init()
 			self:InvalidateLayout()
 		end
 	end
-
+	
 end
 
 function Panel:Think()
@@ -63,27 +66,34 @@ function Panel:Think()
 end
 
 function Panel:SetSkill( strSkill, tblData )
+	if strSkill == "1 Nível do Personagem" then
+		local name = string.gsub( strSkill, "1 ", "" )
+		self.m_pnlNameLabel:SetText( name )
+	else
+		self.m_pnlNameLabel:SetText( strSkill )
+	end
 	self.m_strSkillName = strSkill
 	self.m_tblSkill = tblData
-	self.m_pnlNameLabel:SetText( strSkill )
 	self:InvalidateLayout()
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 50, 50, 50, 200 )
-	surface.DrawRect( 0, 0, intW, intH )
+	draw.RoundedBox(20, 0, 0, intW, intH, Color(45, 45, 45) )
+	-- surface.SetDrawColor( 50, 50, 50, 200 )
+	-- surface.DrawRect( 0, 0, intW, intH )
 end
 
 function Panel:PerformLayout( intW, intH )
+
 	local padding = 5
 	self.m_pnlNameLabel:SizeToContents()
-	self.m_pnlNameLabel:SetPos( padding, (intH /2) -self.m_pnlNameLabel:GetTall() )
+	self.m_pnlNameLabel:SetPos( intW/2 - self.m_pnlNameLabel:GetWide()/2, (intH /2) -self.m_pnlNameLabel:GetTall() - 5 )
 
 	local x, y = self.m_pnlNameLabel:GetPos()
 	self.m_pnlLevelLabel:SizeToContents()
 	self.m_pnlLevelLabel:SetPos( x, y +self.m_pnlNameLabel:GetTall() +padding )
 
-	self.m_pnlXPBar:SetPos( self.m_pnlLevelLabel:GetWide() +(padding *3), y +self.m_pnlNameLabel:GetTall() +padding )
+	self.m_pnlXPBar:SetPos( intW/2 - self.m_pnlXPBar:GetWide()/2, y +self.m_pnlNameLabel:GetTall() +padding )
 	x, y = self.m_pnlXPBar:GetPos()
 	self.m_pnlXPBar:SetSize( intW -x -padding, 25 )
 
@@ -100,7 +110,8 @@ vgui.Register( "SRPSkillInfoCard", Panel, "EditablePanel" )
 local Panel = {}
 function Panel:Init()
 	self.m_pnlCharModel = vgui.Create( "SRPCharacterPreview", self )
-	self.m_pnlCharModel:SetBackgroundColor( Color(40, 40, 40, 200) )
+	-- self.m_pnlCharModel.Paint = nil
+	self.m_pnlCharModel:SetBackgroundColor( Color(40, 40, 40, 255) )
 
 	
 	self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
@@ -108,21 +119,23 @@ function Panel:Init()
 	self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
 	self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
 	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
+	-- self.m_pnlPrimarySlot.Paint = function()
+	-- end
 
 	self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlSecondarySlot:SetTitle( "Secondary" )
+	self.m_pnlSecondarySlot:SetTitle( "Arma Secundária" )
 	self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
 
 	self.m_pnlAltSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlAltSlot:SetTitle( "Alternate" )
+	self.m_pnlAltSlot:SetTitle( "Arma Extra" )
 	self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
 
 	self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlHeadSlot:SetTitle( "Head" )
+	self.m_pnlHeadSlot:SetTitle( "Cabeça" )
 	self.m_pnlHeadSlot:SetSlotID( "Head" )
 
 	self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlEyesSlot:SetTitle( "Eyes" )
+	self.m_pnlEyesSlot:SetTitle( "Olhos" )
 	self.m_pnlEyesSlot:SetSlotID( "Eyes" )
 
 	self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
@@ -130,11 +143,11 @@ function Panel:Init()
 	self.m_pnlFaceSlot:SetSlotID( "Face" )
 
 	self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlNeckSlot:SetTitle( "Neck" )
+	self.m_pnlNeckSlot:SetTitle( "Pescoço" )
 	self.m_pnlNeckSlot:SetSlotID( "Neck" )
 
 	self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlBackSlot:SetTitle( "Back" )
+	self.m_pnlBackSlot:SetTitle( "Costas" )
 	self.m_pnlBackSlot:SetSlotID( "Back" )
 
 	-- self.m_pnlCharModel.DrawLimbCard = self.DrawLimbCard
@@ -188,8 +201,49 @@ function Panel:Init()
 	-- end
 
 	self.m_pnlSkillList = vgui.Create( "SRP_ScrollPanel", self )
+	self.m_tblSkillCards1 = {}
 	self.m_tblSkillCards = {}
+		
 
+
+
+	self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
+	if GAMEMODE.Inv:GetCurrentWeight() > (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(7, 255, 165, 255) )
+	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(255, 71, 71, 255) )
+	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*30 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(255, 28, 28, 255) )
+	end
+
+	self.m_pnlWeightBar.Think = function()
+		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+		self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
+	end
+	self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
+		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+		draw.SimpleTextOutlined(
+			"Peso do inventário",
+			"EquipSlotFont",
+			5, intH /2,
+			color_white,
+			TEXT_ALIGN_LEFT,
+			TEXT_ALIGN_CENTER,
+			0,
+			color_black
+		)
+
+		draw.SimpleTextOutlined(
+			"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
+			"EquipSlotFont",
+			intW -5, intH /2,
+			color_white,
+			TEXT_ALIGN_RIGHT,
+			TEXT_ALIGN_CENTER,
+			0,
+			color_black
+		)
+	end
 	-- self.m_pnlHealthBar = vgui.Create( "SRP_Progress", self.m_pnlCharModel )
 	-- self.m_pnlHealthBar:SetBarColor( Color(220, 50, 50, 255) )
 	-- self.m_pnlHealthBar.Think = function()
@@ -235,35 +289,54 @@ function Panel:Refresh()
 		self.m_pnlCharModel.m_entModel:SetBodygroup( v.id, LocalPlayer():GetBodygroup(v.id) )
 	end
 
+	for k, v in pairs( self.m_tblSkillCards1 ) do
+		if IsValid( v ) then v:Remove() end
+	end
+
 	for k, v in pairs( self.m_tblSkillCards ) do
 		if IsValid( v ) then v:Remove() end
 	end
 
+	self.m_tblSkillCards1 = {}
 	self.m_tblSkillCards = {}
-	for k, v in pairs( GAMEMODE.Skills:GetSkills() ) do
+	for k, v in SortedPairs( GAMEMODE.Skills:GetSkills() ) do
 		self:CreateSkillCard( k, v )
 	end
 end
 
 function Panel:CreateSkillCard( strSkill, tblSkillData )
-	local pnl = vgui.Create( "SRPSkillInfoCard", self.m_pnlSkillList )
-	pnl:SetSkill( strSkill, tblSkillData )
-	pnl.m_pnlParentMenu = self
-	self.m_pnlSkillList:AddItem( pnl )
-	table.insert( self.m_tblSkillCards, pnl )
-
-	return pnl
+	if strSkill == "1 Nível do Personagem" then
+		local pnl2 = vgui.Create( "SRPSkillInfoCard", self.m_pnlSkillList )
+		pnl2:SetSkill( strSkill, tblSkillData )
+		pnl2.m_pnlParentMenu = self
+		self.m_pnlSkillList:AddItem( pnl2 )
+		table.insert( self.m_tblSkillCards1, pnl2 )
+		return pnl2
+	else
+		local pnl = vgui.Create( "SRPSkillInfoCard", self.m_pnlSkillList )
+		pnl:SetSkill( strSkill, tblSkillData )
+		pnl.m_pnlParentMenu = self
+		self.m_pnlSkillList:AddItem( pnl )
+		table.insert( self.m_tblSkillCards, pnl )
+		return pnl
+	end
 end
 
 function Panel:PerformLayout( intW, intH )
 	self.m_pnlCharModel:SetPos( 0, 0 )
-	self.m_pnlCharModel:SetSize( intW *0.3, intH )
+	self.m_pnlCharModel:SetSize( intW *0.4, intH )
 
-	self.m_pnlSkillList:SetPos( self.m_pnlCharModel:GetWide(), 0 )
-	self.m_pnlSkillList:SetSize( intW -self.m_pnlCharModel:GetWide(), intH )
+	self.m_pnlSkillList:SetPos( self.m_pnlCharModel:GetWide() + 10, 0 )
+	self.m_pnlSkillList:SetSize( intW - self.m_pnlCharModel:GetWide() - 20, intH-20 )
+
+	for _, pnl2 in pairs( self.m_tblSkillCards1 ) do
+		pnl2:DockMargin( 0, 0, 0, 40)
+		pnl2:SetTall( 64 )
+		pnl2:Dock( TOP )
+	end
 
 	for _, pnl in pairs( self.m_tblSkillCards ) do
-		pnl:DockMargin( 0, 0, 0, 5 )
+		pnl:DockMargin( 0, 0, 0, 5)
 		pnl:SetTall( 64 )
 		pnl:Dock( TOP )
 	end
@@ -277,46 +350,51 @@ function Panel:PerformLayout( intW, intH )
 
 	-- local y = 5
 	
-	self.m_pnlPrimarySlot:SetSize( 48, 48 )
+	self.m_pnlPrimarySlot:SetSize( self.m_pnlCharModel:GetSize()/2-15, 100 )
 	self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )
 	
-	self.m_pnlSecondarySlot:SetSize( 48, 48 )
+	self.m_pnlSecondarySlot:SetSize(self.m_pnlCharModel:GetSize()/2-15, 100 )
 	self.m_pnlSecondarySlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+		self.m_pnlSlotContainer:GetWide() -self.m_pnlSecondarySlot:GetWide() -5,
 		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
 	)
 	
-	self.m_pnlAltSlot:SetSize( 48, 48 )
+	self.m_pnlAltSlot:SetSize( 100, 70 )
 	self.m_pnlAltSlot:SetPos(
 		self.m_pnlSlotContainer:GetWide() -self.m_pnlAltSlot:GetWide() -5,
-		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
+		self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -80
 	)
 
-	self.m_pnlHeadSlot:SetSize( 48, 48 )
+	self.m_pnlHeadSlot:SetSize( 70, 70 )
 	self.m_pnlHeadSlot:SetPos(
-		self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
+		self.m_pnlSlotContainer:GetWide() /2 - (self.m_pnlHeadSlot:GetWide() /2),
 		5
 	)
 
-	self.m_pnlEyesSlot:SetSize( 48, 48 )
+	self.m_pnlEyesSlot:SetSize( 70, 70 )
 	self.m_pnlEyesSlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() *0.125 )
 
-	self.m_pnlFaceSlot:SetSize( 48, 48 )
+	self.m_pnlFaceSlot:SetSize( 70, 70 )
 	self.m_pnlFaceSlot:SetPos(
 		self.m_pnlSlotContainer:GetWide() -self.m_pnlFaceSlot:GetWide() - 5,
 		self.m_pnlSlotContainer:GetTall() *0.125
 	)
 
-	self.m_pnlNeckSlot:SetSize( 48, 48 )
+	self.m_pnlNeckSlot:SetSize( 70, 70 )
 	self.m_pnlNeckSlot:SetPos(
 		self.m_pnlSlotContainer:GetWide() -self.m_pnlNeckSlot:GetWide() - 5,
 		self.m_pnlSlotContainer:GetTall() *0.125 +self.m_pnlFaceSlot:GetTall() +5
 	)
 
-	self.m_pnlBackSlot:SetSize( 48, 48 )
+	self.m_pnlBackSlot:SetSize( 70, 70 )
 	self.m_pnlBackSlot:SetPos(
 		5,
 		self.m_pnlSlotContainer:GetTall() *0.33
 	)
+	local y = intH
+	self.m_pnlWeightBar:SetWide( intW - self.m_pnlCharModel:GetWide())
+	self.m_pnlWeightBar:SetTall( 20 )
+	self.m_pnlWeightBar:SetPos( self.m_pnlCharModel:GetWide() , intH-20)
+	-- self.m_pnlWeightBar:Dock( BOTTOM )
 end
 vgui.Register( "SRPQMenu_Character", Panel, "EditablePanel" )

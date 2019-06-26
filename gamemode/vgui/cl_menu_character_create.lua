@@ -9,9 +9,9 @@
 
 
 surface.CreateFont( "CharacterDisplayFont" , {
-	font = "Trebuchet",
-	size = 24,
-	weight = 1500,
+	font = "Montserrat Bold",
+	size = 32,
+	weight = 400,
 	antialias = true,
 	outline  = false,
 	shadow  = true,
@@ -30,8 +30,8 @@ local Panel = {}
 function Panel:Init()
 	self:SetText( " " )
 
-	self.m_strFirstName = "John"
-	self.m_strLastName = "Doe"
+	self.m_strFirstName = "Nome"
+	self.m_strLastName = "Sobrenome"
 
 	self.m_entModel = ClientsideModel( "models/error.mdl", RENDERGROUP_BOTH )
 	self.m_entModel:SetSkin( 0 )
@@ -52,7 +52,7 @@ end
 
 function Panel:SetModel( strModel )
 	self.m_entModel:SetModel( strModel )
-	self.m_entModel:ResetSequence( self.m_entModel:LookupSequence("pose_standing_01") )
+	self.m_entModel:ResetSequence( self.m_entModel:LookupSequence("pose_standing_04") )
 end
 
 function Panel:SetSkin( intSkin )
@@ -90,9 +90,9 @@ function Panel:SetBackgroundColor( col )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( self.m_colBG )
-	surface.DrawRect( 0, 0, intW, intH )
-
+	-- surface.SetDrawColor( self.m_colBG )
+	-- surface.DrawRect( 0, 0, intW, intH )
+	draw.RoundedBox(8, 0, 0, intW, intH, self.m_colBG )
 	if not IsValid( self.m_entModel ) then return end
 	local x, y = self:LocalToScreen( 0, 0 )
 
