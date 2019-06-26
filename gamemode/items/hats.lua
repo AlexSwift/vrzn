@@ -7,10 +7,11 @@
 for i = 1, 6 do
 	local Item = {}
 	Item.Name = "Chapéu 1 (Skin ".. i.. ")"
-	Item.Desc = "Um chapéu!"
+	Item.Desc = "Normal"
 	Item.Type = "type_clothing"
 	Item.Model = "models/sal/acc/fix/beerhat.mdl"
 	Item.Skin = i -1
+	Item.Rarity = "Normal"
 	Item.Weight = 1
 	Item.Volume = 1
 	Item.CanDrop = true
@@ -53,7 +54,8 @@ end
 for i = 1, 8 do
 local Item = {}
 	Item.Name = "Chapéu 2 (Skin ".. i.. ")"
-	Item.Desc = "Um chapéu!"
+	Item.Desc = "Raro"
+	Item.Rarity = "Raro"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat01_fix.mdl"
 	Item.Skin = i -1
@@ -100,7 +102,8 @@ end
 for i = 1, 5 do
 	local Item = {}
 	Item.Name = "Chapéu 3 (Skin ".. i.. ")"
-	Item.Desc = "Um chapéu!"
+	Item.Desc = "Épico"
+	Item.Rarity = "Épico"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat03.mdl"
 	Item.Skin = i -1
@@ -147,7 +150,8 @@ end
 for i = 1, 5 do
 	local Item = {}
 	Item.Name = "Chapéu 4 (Skin ".. i.. ")"
-	Item.Desc = "Um chapéu!"
+	Item.Desc = "Lendário"
+	Item.Rarity = "Lendário"
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/hat04.mdl"
 	Item.Skin = i -1
@@ -192,7 +196,8 @@ end
 
 local Item = {}
 Item.Name = "Chapéu 5"
-Item.Desc = "Um chapéu!"
+Item.Desc = "Limitado"
+Item.Rarity = "Limitado"
 Item.Type = "type_clothing"
 Item.Model = "models/modified/hat06.mdl"
 Item.Weight = 1

@@ -75,12 +75,13 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Blast Door"
-Item.Desc = "A blast door."
+Item.Desc = "Normal"
 Item.Model = "models/props_lab/blastdoor001b.mdl"
-Item.Weight = 90
+Item.Weight = 500
 Item.Volume = 45
 Item.HealthOverride = 1000
 Item.CanDrop = true
+Item.Rarity = "Normal"
 Item.CollidesWithCars = true
 Item.DropClass = "prop_physics"
 GM.Inv:RegisterItem( Item )
