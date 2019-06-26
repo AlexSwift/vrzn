@@ -8,11 +8,11 @@
 ]]--
 
 
-surface.CreateFont( "ItemCardFont", {size = 28, weight = 400, font = "DermaLarge"} )
-surface.CreateFont( "ItemCardFont2", {size = 24, weight = 400, font = "DermaLarge"} )
-surface.CreateFont( "ItemCardDescFont", {size = 20, weight = 400, font = "DermaLarge"} )
-surface.CreateFont( "EquipSlotFont", {size = 12, weight = 400, font = "DermaLarge"} )
-surface.CreateFont( "MoneyDisplayFont", {size = 22, weight = 550, font = "DermaLarge"} )
+surface.CreateFont( "ItemCardFont", {size = 28, weight = 400, font = "Montserrat Regular"} )
+surface.CreateFont( "ItemCardFont2", {size = 26, weight = 400, font = "Montserrat Bold"} )
+surface.CreateFont( "ItemCardDescFont", {size = 20, weight = 400, font = "Montserrat Regular"} )
+surface.CreateFont( "EquipSlotFont", {size = 20, weight = 400, font = "Montserrat Regular"} )
+surface.CreateFont( "MoneyDisplayFont", {size = 26, weight = 550, font = "Montserrat Bold"} )
 
 local Panel = {}
 function Panel:Init()
@@ -245,85 +245,9 @@ vgui.Register( "SRPPlayerPreview", Panel, "EditablePanel" )
 local Panel = {}
 function Panel:Init()
 	self.m_colItemName = Color( 255, 255, 255, 255 )
-	self.m_colAmount = Color( 120, 230, 110, 255 )
-
-	self.m_pnlIcon = vgui.Create( "ModelImage", self )
-	self.m_pnlIcon:SetMouseInputEnabled( false )
-	self.m_pnlNameLabel = vgui.Create( "DLabel", self )
-	self.m_pnlNameLabel:SetTextColor( self.m_colItemName )
-	self.m_pnlNameLabel:SetFont( "EquipSlotFont" )
-	self.m_pnlNameLabel:SetMouseInputEnabled( false )
-
-	self:SetText( "" )
-end
-
-function Panel:SetItemID( strItemID )
-	self.m_strItemID = strItemID
-	self.m_tblItem = GAMEMODE.Inv:GetItem( strItemID )
-	if self.m_tblItem then
-		self.m_pnlIcon:SetModel( self.m_tblItem.Model, self.m_tblItem.Skin )
-		self.m_pnlIcon:SetVisible( true )
-	else
-		self.m_pnlIcon:SetVisible( false )
-	end
-	
-	self:InvalidateLayout()
-end
-
-function Panel:SetSlotID( strID )
-	self.m_strSlotID = strID
-end
-
-function Panel:Think()
-	local cur = GAMEMODE.Player:GetSharedGameVar( LocalPlayer(), "eq_slot_".. self.m_strSlotID )
-	if self.m_strItemID ~= cur then
-		self:SetItemID( cur )
-	end
-end
-
-function Panel:DoClick()
-	if not self.m_tblItem then return end
-	GAMEMODE.Net:RequestEquipItem( self.m_tblItem.EquipSlot )
-end
-
-function Panel:SetTitle( strText )
-	self.m_pnlNameLabel:SetText( strText )
-	self:InvalidateLayout()
-end
-
-function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 50, 50, 50, 200 )
-	surface.DrawRect( 0, 0, intW, intH )
-end
-
-function Panel:PaintOver( intW, intH )
-	surface.SetDrawColor( 0, 0, 0, 255 )
-	surface.DrawRect( 0, 0, intW, 1 ) --top
-	surface.DrawRect( 0, 0, 1, intH ) --left side
-
-	surface.DrawRect( intW -1, 0, 1, intH ) --right side
-	surface.DrawRect( 0, intH -1, intW, 1 ) --bottom
-end
-
-function Panel:PerformLayout( intW, intH )
-	local padding = 5
-
-	self.m_pnlIcon:SetPos( 0, 0 )
-	self.m_pnlIcon:SetSize( intH, intH )
-
-	self.m_pnlNameLabel:SizeToContents()
-	self.m_pnlNameLabel:SetPos( (intW /2) -(self.m_pnlNameLabel:GetWide() /2), (intH /2) -(self.m_pnlNameLabel:GetTall() /2) )
-end
-vgui.Register( "SRPEquipSlot", Panel, "DButton" )
-
--- ----------------------------------------------------------------
-
-local Panel = {}
-function Panel:Init()
-	self.m_colItemName = Color( 255, 255, 255, 255 )
 	self.m_colAmount = Color( 255,255,255, 255 )
 
-	self.m_matWeight = Material( "icon16/anchor.png", "smooth" )
+	self.m_matWeight = Material( "materials/vgui/elements/weight.png" )
 	self.m_matVolume = Material( "icon16/brick.png", "smooth" )
 
 	self.m_pnlIcon = vgui.Create( "ModelImage", self )
@@ -421,15 +345,16 @@ function Panel:BuildTrayButtons()
 	if not self.m_tblItem then return end
 	
 	if self.m_tblItem.CanDrop then
-		local dropBtn = vgui.Create( "SRP_Button", self.m_pnlBtnTray )
-		dropBtn:SetText( "Drop" )
+		local dropBtn = vgui.Create( "SRP_Button", self.m_pnlBtnTray)
+		-- dropBtn:SetTexture("materials/vgui/elements/weight.png")
+		dropBtn:SetText( "Por no chão" )
 		dropBtn.DoClick = function()
 			GAMEMODE.Net:RequestDropItem( self.m_strItemID, 1 )
 		end
 		table.insert( self.m_tblTrayBtns, dropBtn )
 
 		local dropOwnerlessBtn = vgui.Create( "SRP_Button", self.m_pnlBtnTray )
-		dropOwnerlessBtn:SetText( "Drop (Abandoned)" )
+		dropOwnerlessBtn:SetText( "Largar" )
 		dropOwnerlessBtn.DoClick = function()
 			GAMEMODE.Net:RequestDropItem( self.m_strItemID, 1, true )
 		end
@@ -438,7 +363,7 @@ function Panel:BuildTrayButtons()
 
 	if self.m_tblItem.CanUse then
 		local useBtn = vgui.Create( "SRP_Button", self.m_pnlBtnTray )
-		useBtn:SetText( "Use" )
+		useBtn:SetText( "Utilizar" )
 		useBtn.DoClick = function()
 			GAMEMODE.Net:RequestUseItem( self.m_strItemID )
 		end
@@ -447,11 +372,25 @@ function Panel:BuildTrayButtons()
 
 	if self.m_tblItem.CanEquip then
 		local eqBtn = vgui.Create( "SRP_Button", self.m_pnlBtnTray )
-		eqBtn:SetText( "Equip" )
+		eqBtn:SetText( "Equipar" )
 		eqBtn.DoClick = function()
 			GAMEMODE.Net:RequestEquipItem( self.m_tblItem.EquipSlot, self.m_strItemID )
 		end
 		table.insert( self.m_tblTrayBtns, eqBtn )
+	end
+
+	if not self.m_tblItem.Illegal and self.m_tblItem.JobItem == nil then
+		local dsBtn = vgui.Create("SRP_Button", self.m_pnlBtnTray)
+		dsBtn:SetText("Destruir")
+
+		dsBtn.DoClick = function()
+			GAMEMODE.Gui:Derma_Query("Quer mesmo destruir este item?", "Destruir?", "Sim", function()
+				GAMEMODE.Net:RequestDestroyItem(self.m_strItemID, 1)
+			end, "Não", function() end)
+		end
+
+		table.insert(self.m_tblTrayBtns, dsBtn)
+
 	end
 
 	self.m_pnlBtnTray:InvalidateLayout()
@@ -468,7 +407,11 @@ function Panel:SetItemID( strItemID )
 	end
 	
 	self.m_pnlIcon:SetModel( self.m_tblItem.Model, self.m_tblItem.Skin )
-	self.m_pnlDescLabel:SetText( self.m_tblItem.Desc )
+	if self.m_tblItem.Rarity ~= nil then
+		self.m_pnlDescLabel:SetText( self.m_tblItem.Rarity )
+	else
+		self.m_pnlDescLabel:SetText( "Normal" )
+	end
 
 	self:InvalidateLayout()
 	self:BuildTrayButtons()
@@ -488,13 +431,27 @@ function Panel:SetItemPrice( intAmount )
 end
 
 function Panel:Paint( intW, intH )
-	-- if not self.m_tblItem then return end
+	if not self.m_tblItem then return end
 	-- print(GAMEMODE.Config.tblItemRarity[self.m_tblItem])
-	-- surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
-	surface.DrawRect( 0, 0, 64 + 20, intH )
-	draw.RoundedBoxEx(8, 3, 0, 64 + 20 , intH, GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity], true, false, true, false)
+	-- surface.SetDrawColor( 26, 26, 26  )
+	-- surface.DrawRect(0, 0, intH + 13, intH)
+	if self.m_tblItem.Rarity == nil then
+		self.RarityColor = "Normal"
+	else
+		self.RarityColor = self.m_tblItem.Rarity
+	end
+	surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.RarityColor]  )
+
+	draw.RoundedBoxEx(4, 0, 0, 64, 64, GAMEMODE.Config.tblItemRarity[self.RarityColor], true, false, true, false)
+
 	surface.SetMaterial( Material("materials/vgui/elements/gradient-left.png") )
-	surface.DrawTexturedRect(64+20, 0, intW -64-20-8, intH )
+	surface.DrawTexturedRect( 64 , 0, intW - 74, intH )
+	-- surface.SetMaterial(Material("materials/vgui/elements/item-frame.png"))
+	-- surface.DrawTexturedRect(0, 0, 64+10, intH)
+	-- draw.RoundedBoxEx(0, 0, 0, 64 + 20 , intH, GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity], true, false, true, false)
+
+	-- surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
+
 end
 
 function Panel:PaintOver( intW, intH )
@@ -509,14 +466,15 @@ function Panel:PaintOver( intW, intH )
 	draw.SimpleText(
 		weight,
 		"EquipSlotFont",
-		intW -5, 8,
+		intW -5, intH/2,
 		color_white,
 		TEXT_ALIGN_RIGHT
 	)
 
 	surface.SetMaterial( self.m_matWeight )
 	surface.SetDrawColor( 255, 255, 255, 255 )
-	surface.DrawTexturedRect( intW -10 -wW -16, 5, 16, 16 )
+	surface.DrawTexturedRect( intW -10 -wW -32, intH/2-13, 32, 32 )
+
 
 	-- draw.SimpleText(
 	-- 	volume,
@@ -530,6 +488,7 @@ function Panel:PaintOver( intW, intH )
 	-- surface.SetMaterial( self.m_matVolume )
 	-- surface.SetDrawColor( 255, 255, 255, 255 )
 	-- surface.DrawTexturedRect( intW -10 -wW -16, intH -5 -16, 16, 16 )
+	
 end
 
 function Panel:PerformLayout( intW, intH )
@@ -537,7 +496,7 @@ function Panel:PerformLayout( intW, intH )
 
 	self.m_pnlIcon:SetPos( 0, 0 )
 	self.m_pnlIcon:SetSize( intH, intH )
-	self:DockMargin(4, 5, 4, 5)
+	self:DockMargin(10, 5, 10, 0)
 	-- print(intW .." "..  intH)
 
 	self.m_pnlNameLabel:SizeToContents()
@@ -561,37 +520,7 @@ vgui.Register( "SRPQMenuItemCard", Panel, "EditablePanel" )
 
 local Panel = {}
 function Panel:Init()
-	-- self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
-	-- self.m_pnlWeightBar:SetBarColor( Color(150, 200, 135, 255) )
-	-- self.m_pnlWeightBar.Think = function()
-	-- 	local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-	-- 	self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
-	-- end
-	-- self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
-	-- 	local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-	-- 	draw.SimpleTextOutlined(
-	-- 		"Weight",
-	-- 		"EquipSlotFont",
-	-- 		5, intH /2,
-	-- 		color_white,
-	-- 		TEXT_ALIGN_LEFT,
-	-- 		TEXT_ALIGN_CENTER,
-	-- 		1,
-	-- 		color_black
-	-- 	)
-
-	-- 	draw.SimpleTextOutlined(
-	-- 		"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
-	-- 		"EquipSlotFont",
-	-- 		intW -5, intH /2,
-	-- 		color_white,
-	-- 		TEXT_ALIGN_RIGHT,
-	-- 		TEXT_ALIGN_CENTER,
-	-- 		1,
-	-- 		color_black
-	-- 	)
-	-- end
-
+	
 	-- self.m_pnlVolumeBar = vgui.Create( "SRP_Progress", self )
 	-- self.m_pnlVolumeBar:SetBarColor( Color(200, 90, 40, 255) )
 	-- self.m_pnlVolumeBar.Think = function()
@@ -781,13 +710,14 @@ function Panel:Init()
 
 	self.m_tblTabs = {
 		{ Name = "Tudo", ID = "type_all" },
-		{ Name = "Roupas", ID = "type_clothing" },
+		{ Name = "Outros", ID = "type_misc" },
+		{ Name = "Vestimenta", ID = "type_clothing" },
 		{ Name = "Eletrônicos", ID = "type_electronics" },
 		-- { Name = "Furniture", ID = "type_furniture" },
-		{ Name = "Comida", ID = "type_food" },
+		{ Name = "Consumíveis", ID = "type_food" },
+		{ Name = "Médicos", ID = "type_food" },
 		{ Name = "Drogas", ID = "type_drugs" },
 		{ Name = "Livros", ID = "type_book" },
-		{ Name = "Outros", ID = "type_misc" },
 		{ Name = "Armas", ID = "type_weapon" },
 		{ Name = "Munições", ID = "type_ammo" },
 	}
@@ -799,7 +729,7 @@ function Panel:Init()
 		self.m_tblTabPanels[v.ID] = { Panel = vgui.Create( "SRP_ScrollPanel", self.m_pnlItemList ), Cards = {} }
 		self.m_pnlItemList:AddSheet( v.Name, self.m_tblTabPanels[v.ID].Panel )
 	end
-
+	-- self.m_tblTabPanels[v.ID]:SetTall(20)
 	-- self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
 	-- self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
 	

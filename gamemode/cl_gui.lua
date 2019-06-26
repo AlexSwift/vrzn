@@ -3,6 +3,7 @@
 	
 		
 ]]--
+-- PrintTable( Entity( 1 ):GetSequenceList() )
 local SANDBOX = {}
 GM.Gui = (GAMEMODE or GM).Gui or {}
 GM.Gui.m_intKeyDelay = 0.15
@@ -511,7 +512,7 @@ function GM.Gui:Derma_Query( strText, strTitle, ... )
 		Window:ShowCloseButton( false )
 		Window:SetBackgroundBlur( true )
 		Window:SetDrawOnTop( true )
-		Window:SetBackgroundColor( Color(35, 35, 35, 175) )
+		Window:SetBackgroundColor( Color(35, 35, 35, 255) )
 		
 	local InnerPanel = vgui.Create( "DPanel", Window )
 		InnerPanel:SetDrawBackground( false )
