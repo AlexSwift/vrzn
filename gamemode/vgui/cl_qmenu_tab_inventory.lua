@@ -765,7 +765,6 @@ function Panel:Init()
 	-- self.m_pnlBackSlot:SetTitle( "Back" )
 	-- self.m_pnlBackSlot:SetSlotID( "Back" )
 
-	self:Refresh()
 end
 
 function Panel:Refresh()

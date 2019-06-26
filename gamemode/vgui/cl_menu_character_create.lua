@@ -92,7 +92,10 @@ end
 function Panel:Paint( intW, intH )
 	-- surface.SetDrawColor( self.m_colBG )
 	-- surface.DrawRect( 0, 0, intW, intH )
-	draw.RoundedBox(8, 0, 0, intW, intH, self.m_colBG )
+	-- draw.RoundedBox(8, 0, 0, intW, intH, self.m_colBG )
+	surface.SetDrawColor( self.m_colBG )
+	surface.SetMaterial( Material("materials/vgui/elements/gradient-bottom.png") )
+	surface.DrawTexturedRect(0, 0, intW, intH)
 	if not IsValid( self.m_entModel ) then return end
 	local x, y = self:LocalToScreen( 0, 0 )
 

@@ -1459,9 +1459,6 @@ function Panel:SetItemID( strItemID )
 	self.m_tblItem = GAMEMODE.Inv:GetItem( strItemID )
 	if self.m_tblItem then
 		self.m_pnlIcon:SetModel( self.m_tblItem.Model, self.m_tblItem.Skin )
-		self.Paint = function()  
-			draw.RoundedBox(4, 0, 0, intW, intH, GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
-		end
 		self.m_pnlIcon:SetVisible( true )
 	else
 		self.m_pnlIcon:SetVisible( false )
@@ -1503,11 +1500,20 @@ function Panel:Paint( intW, intH )
 	-- -- print (GAMEMODE.Inv:GetItem( strText ))
 	-- local color =  Color( 0,0,0,255)
 	-- draw.RoundedBox(4, 0, 0, intW, intH, color )
+	if self.m_strItemID ~= "" then
+		local color = GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity]
+		draw.RoundedBox(4, 0, 0, intW, intH, color )
+	else
+		local color = Color(255,255,255,10)
+		draw.RoundedBox(4, 0, 0, intW, intH, color )
+	end
+	surface.SetDrawColor( 0, 0, 0, 255 )
 end
 
 function Panel:PaintOver( intW, intH )
-	surface.SetDrawColor( 0, 0, 0, 255 )
-	draw.RoundedBox(4, 0, 0, intW, intH, Color(255,255,255,10) )
+	-- local color = Color(255,255,255,10)
+	-- draw.RoundedBox(4, 0, 0, intW, intH, color )
+
 	-- surface.DrawRect( 0, 0, intW, 1 ) --top
 	-- surface.DrawRect( 0, 0, 1, intH ) --left side
 

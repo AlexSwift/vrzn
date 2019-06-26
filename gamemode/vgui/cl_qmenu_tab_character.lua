@@ -63,6 +63,7 @@ function Panel:Think()
 		self.m_pnlLevelLabel:SetText( "Level: ".. self.m_intLastLevel )
 		self:InvalidateLayout()
 	end
+	
 end
 
 function Panel:SetSkill( strSkill, tblData )
