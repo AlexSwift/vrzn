@@ -109,10 +109,6 @@ function Panel:Init()
 	self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
 	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
 
-	self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
-	self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
-
 	self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
 	self.m_pnlSecondarySlot:SetTitle( "Secondary" )
 	self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
@@ -194,34 +190,34 @@ function Panel:Init()
 	self.m_pnlSkillList = vgui.Create( "SRP_ScrollPanel", self )
 	self.m_tblSkillCards = {}
 
-	self.m_pnlHealthBar = vgui.Create( "SRP_Progress", self.m_pnlCharModel )
-	self.m_pnlHealthBar:SetBarColor( Color(220, 50, 50, 255) )
-	self.m_pnlHealthBar.Think = function()
-		self.m_pnlHealthBar:SetFraction( LocalPlayer():Health() /100 )
-	end
-	self.m_pnlHealthBar.PaintOver = function( _, intW, intH )
-		draw.SimpleTextOutlined(
-			"Health",
-			"EquipSlotFont",
-			5, intH /2,
-			color_white,
-			TEXT_ALIGN_LEFT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
+	-- self.m_pnlHealthBar = vgui.Create( "SRP_Progress", self.m_pnlCharModel )
+	-- self.m_pnlHealthBar:SetBarColor( Color(220, 50, 50, 255) )
+	-- self.m_pnlHealthBar.Think = function()
+	-- 	self.m_pnlHealthBar:SetFraction( LocalPlayer():Health() /100 )
+	-- end
+	-- self.m_pnlHealthBar.PaintOver = function( _, intW, intH )
+	-- 	draw.SimpleTextOutlined(
+	-- 		"Health",
+	-- 		"EquipSlotFont",
+	-- 		5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_LEFT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
 
-		draw.SimpleTextOutlined(
-			"(".. LocalPlayer():Health().. "/100)",
-			"EquipSlotFont",
-			intW -5, intH /2,
-			color_white,
-			TEXT_ALIGN_RIGHT,
-			TEXT_ALIGN_CENTER,
-			1,
-			color_black
-		)
-	end
+	-- 	draw.SimpleTextOutlined(
+	-- 		"(".. LocalPlayer():Health().. "/100)",
+	-- 		"EquipSlotFont",
+	-- 		intW -5, intH /2,
+	-- 		color_white,
+	-- 		TEXT_ALIGN_RIGHT,
+	-- 		TEXT_ALIGN_CENTER,
+	-- 		1,
+	-- 		color_black
+	-- 	)
+	-- end
 end
 
 local MAT_BLEED = Material( "icon16/bullet_red.png" )
@@ -272,8 +268,8 @@ function Panel:PerformLayout( intW, intH )
 		pnl:Dock( TOP )
 	end
 
-	self.m_pnlHealthBar:SetSize( self.m_pnlCharModel:GetWide(), 20 )
-	self.m_pnlHealthBar:SetPos( 0, self.m_pnlSkillList:GetTall() -self.m_pnlHealthBar:GetTall() )
+	-- self.m_pnlHealthBar:SetSize( self.m_pnlCharModel:GetWide(), 20 )
+	-- self.m_pnlHealthBar:SetPos( 0, self.m_pnlSkillList:GetTall() -self.m_pnlHealthBar:GetTall() )
 
 	self.m_pnlSlotContainer:SetPos( 0, 0 )
 	-- self.m_pnlSlotContainer:Dock( BOTTOM )

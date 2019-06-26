@@ -23,102 +23,109 @@ end
 local function GlowColour() return HSVToColor( CurTime() % 6 * 60, 1, 1 ) end
 local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
 GM.Config.tblZones2 = {
-		-- { Name = "", Min = Vector(), Max = Vector(), Safe = false },
-		{ Name = "Estacionamento Público", Min = Vector( -2348.701416, -4603.702637, -205 ), Max =Vector(-1630.166382, -5834.920898, 370 ), Safe = false },
-		{ Name = "Cassino", Min = Vector( -3642.798584, -7167.158203, -205 ), Max = Vector( -5704.512207, -8380.028320, 370 ), Safe = true },
-		{ Name = "Zona Sul", Min = Vector( 1094.265503, -7379.178223, -205), Max = Vector(3783.506836, -4330.623047 ,370), Safe = false },
-		{ Name = "Banco do Brasil", Min = Vector( -2943.794678, -2435.335205, -205 ), Max = Vector( -4522.928711, -818.316345, 370 ), Safe = false },
-		{ Name = "Praia", Min = Vector( 2037.370605, -402.734314, -400 ), Max = Vector(  8055.685059, -4139.222168, 370 ), Safe = false },
-		{ Name = "Spawn", Min = Vector( 2895, 180, -205 ), Max = Vector( 3658, 1391, 370 ), Safe = true },
-		{ Name = "Rua do Spawn", Min = Vector( 3660.870117, 1977.190674, -205 ), Max = Vector( 1966.033936, 1385.873413, 370), Safe = false},
-		{ Name = "Rua do Spawn", Min = Vector( 2895, 180, -205 ), Max = Vector( 1966.033936, 1385.873413, 370), Safe = false},
-		{ Name = "Rua do vazio", Min = Vector( 6242.884766, 4671.600098, -205 ), Max = Vector(1756.762085, 2502.399658, 370), Safe = false },
-		{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 4084.629883, 2502.272949, 370), Safe = false }, --p2
-		{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 1756.762085, 2502.399658, 370), Safe = false }, --p3
-		{ Name = "Bairro Cornolândia", Min = Vector( -5746.612793, -7170.313477, -205 ), Max = Vector( -2350.304443, -3622.072510, 370 ), Safe = false },
-		{ Name = "Bairro Cornolândia", Min = Vector( -3643.174805, -8381.653320, -205 ), Max = Vector( -1579.879517, -7171.869141, 370 ), Safe = false }, -- p2
-		{ Name = "Bairro Cornolândia", Min = Vector( -2353.048340, -7170.374023, -205 ), Max = Vector(  1094.302734, -5820.246582, 370 ), Safe = false }, -- p3
-		{ Name = "Bairro Cornolândia", Min = Vector(-709.961670, -7170.530762, -205 ), Max = Vector( 1094.783386, -8387.021484, 370 ), Safe = false }, --p4
-		{ Name = "Bairro Cornolândia", Min = Vector(-1628.458496, -5833.840332, -205 ), Max = Vector( 1015.451294, -3176.507080, 370 ), Safe = false }, --p5
-		{ Name = "Bairro Cornolândia", Min = Vector(-2348.701416, -4603.702637, -205), Max = Vector(-1627, -3622.072510, 370), Safe = false }, -- p6
-		{ Name = "Posto de Gasolina", Min = Vector( -1579.919678, -8387.961914, -205 ), Max = Vector( -709.135193, -7170.523926, 370), Safe = false },
-		{ Name = "Zona Industrial", Min = Vector(-5589.061035, 1057.255249, -205), Max = Vector( -2182.334473, 5318.679688, 370), Safe = false },
-		{ Name = "Vero Sítio do Aposentado Nese", Min = Vector( 4090.013672, 2499.208496, -205), Max = Vector( 7107.777832, 483.341003, 370 ), Safe = false },
-		{ Name = "Centro da Cidade", Min = Vector(-2945, -2810, -205), Max = Vector(-1035.808716, -169.362793, 370 ), Safe = false},
-		{ Name = "Centro da Cidade", Min = Vector(-1441.762695, 971.363831, -205), Max = Vector(-1035.808716, -169.362793, 370 ), Safe = false},
-		{ Name = "Delegacia / Prefeitura", Min = Vector(-1417.968750, -165.461472, -205), Max = Vector(-2507, 1006, 370 ), Safe = false },
-		{ Name = "Rua do Desencontro", Min = Vector(1756.978149, 2502.833740, -205 ), Max = Vector( -2182.334473, 5318.679688, 370 ), Safe = false },
-		{ Name = "Rua Gole de Skol", Min = Vector(-1013.800293, 2252.774902, -205 ), Max = Vector( 1964.741699, 180.094254, 370 ), Safe = false },
-		{ Name = "Rua do Trabalhador", Min = Vector(2037.370605, -402.734314, -400 ), Max = Vector( -1034.700317, -2811.300781, 370 ), Safe = false },
-		{ Name = "Culto do Lobo", Min = Vector(2143.866455, -1919.952881, -727.949585 ), Max = Vector(  41.741394, -3208.399902, -624.643799 ), Safe = false },
-		{ Name = "Área de Eventos", Min = Vector(8202.799805, 8197.596680,	 12185.641602 ), Max = Vector( -8191.802246, -8193.515625, 14427.484375 ), Safe = false },
-		{ Name = "Subterrâneo", Min = Vector( 6252, 4651, -303 ), Max = Vector( -627,-1912, -751 ), Safe = false },
+	-- { Name = "", Min = Vector(), Max = Vector(), Safe = false },
+	{ Name = "Estacionamento Público", Min = Vector( -2348.701416, -4603.702637, -205 ), Max =Vector(-1630.166382, -5834.920898, 370 ), Safe = false },
+	{ Name = "Cassino", Min = Vector( -3642.798584, -7167.158203, -205 ), Max = Vector( -5704.512207, -8380.028320, 370 ), Safe = true },
+	{ Name = "Zona Sul", Min = Vector( 1094.265503, -7379.178223, -205), Max = Vector(3783.506836, -4330.623047 ,370), Safe = false },
+	{ Name = "Banco do Brasil", Min = Vector( -2943.794678, -2435.335205, -205 ), Max = Vector( -4522.928711, -818.316345, 370 ), Safe = false },
+	{ Name = "Praia", Min = Vector( 2037.370605, -402.734314, -400 ), Max = Vector(  8055.685059, -4139.222168, 370 ), Safe = false },
+	{ Name = "Spawn", Min = Vector( 2895, 180, -205 ), Max = Vector( 3658, 1391, 370 ), Safe = true },
+	{ Name = "Rua do Spawn", Min = Vector( 3660.870117, 1977.190674, -205 ), Max = Vector( 1966.033936, 1385.873413, 370), Safe = false},
+	{ Name = "Rua do Spawn", Min = Vector( 2895, 180, -205 ), Max = Vector( 1966.033936, 1385.873413, 370), Safe = false},
+	{ Name = "Rua do vazio", Min = Vector( 6242.884766, 4671.600098, -205 ), Max = Vector(1756.762085, 2502.399658, 370), Safe = false },
+	{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 4084.629883, 2502.272949, 370), Safe = false }, --p2
+	{ Name = "Rua do vazio", Min = Vector( 3223.665283, 1983.911377, -209.235535 ), Max = Vector( 1756.762085, 2502.399658, 370), Safe = false }, --p3
+	{ Name = "Bairro Cornolândia", Min = Vector( -5746.612793, -7170.313477, -205 ), Max = Vector( -2350.304443, -3622.072510, 370 ), Safe = false },
+	{ Name = "Bairro Cornolândia", Min = Vector( -3643.174805, -8381.653320, -205 ), Max = Vector( -1579.879517, -7171.869141, 370 ), Safe = false }, -- p2
+	{ Name = "Bairro Cornolândia", Min = Vector( -2353.048340, -7170.374023, -205 ), Max = Vector(  1094.302734, -5820.246582, 370 ), Safe = false }, -- p3
+	{ Name = "Bairro Cornolândia", Min = Vector(-709.961670, -7170.530762, -205 ), Max = Vector( 1094.783386, -8387.021484, 370 ), Safe = false }, --p4
+	{ Name = "Bairro Cornolândia", Min = Vector(-1628.458496, -5833.840332, -205 ), Max = Vector( 1015.451294, -3176.507080, 370 ), Safe = false }, --p5
+	{ Name = "Bairro Cornolândia", Min = Vector(-2348.701416, -4603.702637, -205), Max = Vector(-1627, -3622.072510, 370), Safe = false }, -- p6
+	{ Name = "Posto de Gasolina", Min = Vector( -1579.919678, -8387.961914, -205 ), Max = Vector( -709.135193, -7170.523926, 370), Safe = false },
+	{ Name = "Zona Industrial", Min = Vector(-5589.061035, 1057.255249, -205), Max = Vector( -2182.334473, 5318.679688, 370), Safe = false },
+	{ Name = "Vero Sítio do Aposentado Nese", Min = Vector( 4090.013672, 2499.208496, -205), Max = Vector( 7107.777832, 483.341003, 370 ), Safe = false },
+	{ Name = "Centro da Cidade", Min = Vector(-2945, -2810, -205), Max = Vector(-1035.808716, -169.362793, 370 ), Safe = false},
+	{ Name = "Centro da Cidade", Min = Vector(-1441.762695, 971.363831, -205), Max = Vector(-1035.808716, -169.362793, 370 ), Safe = false},
+	{ Name = "Delegacia / Prefeitura", Min = Vector(-1417.968750, -165.461472, -205), Max = Vector(-2507, 1006, 370 ), Safe = false },
+	{ Name = "Rua do Desencontro", Min = Vector(1756.978149, 2502.833740, -205 ), Max = Vector( -2182.334473, 5318.679688, 370 ), Safe = false },
+	{ Name = "Rua Gole de Skol", Min = Vector(-1013.800293, 2252.774902, -205 ), Max = Vector( 1964.741699, 180.094254, 370 ), Safe = false },
+	{ Name = "Rua do Trabalhador", Min = Vector(2037.370605, -402.734314, -400 ), Max = Vector( -1034.700317, -2811.300781, 370 ), Safe = false },
+	{ Name = "Culto do Lobo", Min = Vector(2143.866455, -1919.952881, -727.949585 ), Max = Vector(  41.741394, -3208.399902, -624.643799 ), Safe = false },
+	{ Name = "Área de Eventos", Min = Vector(8202.799805, 8197.596680,	 12185.641602 ), Max = Vector( -8191.802246, -8193.515625, 14427.484375 ), Safe = false },
+	{ Name = "Subterrâneo", Min = Vector( 6252, 4651, -303 ), Max = Vector( -627,-1912, -751 ), Safe = false },
 
 }
 
+GM.Config.tblItemRarity = {
+	["Normal"] 		=  Color(100,100,100),
+	["Incomum"] 	=  Color(30,255,0),
+	["Raro"]		=  Color(0,112,221)	,
+	["Lendário"]	=  Color(163,53,238),
+}
 
 GM.Config.UserGroupConfig = {
-	["founder"] = { Name = "Founder", Color = GlowColour, Rainbow = true },
-	["owner"] = { Name = "Owner", Color = GlowColour, Rainbow = true },
-	["developer"] = { Name = "Developer", Color = GlowColour, Rainbow = true },
-	["superadmin"] = { Name = "Co Owner", GlowColour, Rainbow = true },
-	["headofstaff"] = { Name = "Head of Staff", Color = GlowColour, Rainbow = true },
-	["communitymanager"] = { Name = "Community Manager", Color = GlowColour, Rainbow = true },
-	["servermanager"] = { Name = "Server Manager", Color = Color(10, 147, 35, 255) },
-	["headadmin"] = { Name = "Head Admin", Color = Color(10, 25, 145, 255) },
-	["senioradmin"] = { Name = "Senior Admin", Color = Color(10, 25, 145, 255) },
-	["admin"] = { Name = "Administrator", Color = Color(10, 25, 145, 255) },
-	["moderator"] = { Name = "Moderator", Color = Color(0, 233, 255, 255) },
-	["trialmod"] = { Name = "Trial Moderator", Color = Color(0, 233, 255, 255)},
-    ["support"] = { Name = "Support", Color = Color(255, 123, 0, 255)},
-	["vip"] = { Name = "VIP", Color = Color(255, 255, 0, 255)},
-	["user"] = { Name = "Player", Color = Color(255, 255, 255, 255) },
-	["member"] = { Name = "Member", Color = Color(0, 233, 255, 255) },
-	["developer"] = { Name = "Developer", Color = GlowColour, Rainbow = true },
-	["tmod+"] = { Name = "VIP TMod", Color = Color(198, 3, 3, 255) },
-	["admin+"] = { Name = "VIP Admin", Color = Color(198, 3, 3, 255) },
+	["founder"] 			= { Name = "Founder", Color = GlowColour, Rainbow = true			},
+	["owner"] 				= { Name = "Owner", Color = GlowColour, Rainbow = true 				},
+	["developer"] 			= { Name = "Developer", Color = GlowColour, Rainbow = true 			},
+	["superadmin"] 			= { Name = "Co Owner", GlowColour, Rainbow = true 					},
+	["headofstaff"] 		= { Name = "Head of Staff", Color = GlowColour, Rainbow = true 		},
+	["communitymanager"] 	= { Name = "Community Manager", Color = GlowColour, Rainbow = true	},
+	["servermanager"] 		= { Name = "Server Manager", Color = Color(10, 147, 35, 255) 		},
+	["headadmin"] 			= { Name = "Head Admin", Color = Color(10, 25, 145, 255) 			},
+	["senioradmin"] 		= { Name = "Senior Admin", Color = Color(10, 25, 145, 255) 			},
+	["admin"] 				= { Name = "Administrator", Color = Color(10, 25, 145, 255) 		},
+	["moderator"] 			= { Name = "Moderator", Color = Color(0, 233, 255, 255) 			},
+	["trialmod"] 			= { Name = "Trial Moderator", Color = Color(0, 233, 255, 255)		},
+    ["support"] 			= { Name = "Support", Color = Color(255, 123, 0, 255)				},
+	["vip"] 				= { Name = "VIP", Color = Color(255, 255, 0, 255)					},
+	["user"] 				= { Name = "Player", Color = Color(255, 255, 255, 255) 				},
+	["member"]				= { Name = "Member", Color = Color(0, 233, 255, 255) 				},
+	["developer"] 			= { Name = "Developer", Color = GlowColour, Rainbow = true 			},
+	["tmod+"] 				= { Name = "VIP TMod", Color = Color(198, 3, 3, 255) 				},
+	["admin+"] 				= { Name = "VIP Admin", Color = Color(198, 3, 3, 255) 				},
 }
 
 GM.Config.VIPGroups = {
-	["founder"] = true,
-	["developer"] = true,
-	["superadmin"] = false,
-	["headofstaff"] = false,
-	["communitymanager"] = false,
-	["servermanager"] = false,
-	["headadmin"] = false,
-	["senioradmin"] = false,
-	["admin"] = false,
-	["moderator"] = false,
-	["vip"] = true,
-        ["tmod+"] = true,
-        ["admin+"] = true,
+	["founder"] 			= true,
+	["developer"] 			= true,
+	["superadmin"] 			= false,
+	["headofstaff"] 		= false,
+	["communitymanager"]	= false,
+	["servermanager"]		= false,
+	["headadmin"]			= false,
+	["senioradmin"]			= false,
+	["admin"]				= false,
+	["moderator"]			= false,
+	["vip"]					= true,
+	["tmod+"]				= true,
+	["admin+"]				= true,
 }
 
 --[[ Item Limits ]]--
 GM.Config.MaxItemLimit = 64
 GM.Config.GroupExtraMaxItems = {
-	["founder"] = 640,
-	["superadmin"] = 640,
-	["headofstaff"] = 640,
-	["developer"] = 640,
-	["communitymanager"] = 640,
-	["servermanager"] = 640,
-	["headadmin"] = 44,
-	["seinoradmin"] = 44,
-	["admin"] = 44,
-	["moderator"] = 34,
-	["trialmod"] = 34,
-        ["support"] = 34,
-	["vip"] = 24,
+    ["founder"]          = 640,
+    ["superadmin"]       = 640,
+    ["headofstaff"]      = 640,
+    ["developer"]        = 640,
+    ["communitymanager"] = 640,
+    ["servermanager"]    = 640,
+    ["headadmin"]        = 44,
+    ["seinoradmin"]      = 44,
+    ["admin"]            = 44,
+    ["moderator"]        = 34,
+    ["trialmod"]         = 34,
+    ["support"]          = 34,
+    ["vip"]              = 24,
 }
 
 --[[ Character Settings ]]--
-GM.Config.MaxCharacters = DEV_SERVER and 3 or 1
-GM.Config.NameLength = { First = 15, Last = 15 }
-GM.Config.StartingMoney = { Wallet = 25000, Bank = 35000 }
+GM.Config.MaxCharacters  = DEV_SERVER and 3 or 1
+GM.Config.NameLength     = { First = 15, Last = 15 }
+GM.Config.StartingMoney  = { Wallet = 25000, Bank = 35000 }
 GM.Config.MaxCarryWeight = 600
 GM.Config.MaxCarryVolume = 1000
+
 --Player models allowed in character creation
 GM.Config.PlayerModels = {
 	Female = {
@@ -314,13 +321,13 @@ GM.Config.BlockedModelSkins = {
 --[[ Car Settings ]]--
 --Stock colors a player may pick from when buying a new car
 GM.Config.StockCarColors = {
-	["White"] = Color( 255, 255, 255, 255 ),
-	["Silver"] = Color( 182, 182, 182, 255 ),
-	["Black"] = Color( 36, 36, 36, 255 ),
-	["Red"] = Color( 255, 0, 0, 255 ),
-	["Blue"] = Color( 0, 63, 255, 255 ),
-	["Green"] = Color( 0, 127, 31, 255 ),
-	["Yellow"] = Color( 255, 250, 0, 255 ),
+    ["White"]  = Color( 255, 255, 255, 255 ),
+    ["Silver"] = Color( 182, 182, 182, 255 ),
+    ["Black"]  = Color( 36, 36, 36, 255 ),
+    ["Red"]    = Color( 255, 0, 0, 255 ),
+    ["Blue"]   = Color( 0, 63, 255, 255 ),
+    ["Green"]  = Color( 0, 127, 31, 255 ),
+    ["Yellow"] = Color( 255, 250, 0, 255 ),
 }
 GM.Config.LPlateCost = 2000 --Cost to buy custom license plates
 GM.Config.BaseFuelCost = 3 --Cost per unit of fuel for the gas pumps

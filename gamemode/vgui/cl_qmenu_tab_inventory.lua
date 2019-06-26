@@ -321,19 +321,19 @@ vgui.Register( "SRPEquipSlot", Panel, "DButton" )
 local Panel = {}
 function Panel:Init()
 	self.m_colItemName = Color( 255, 255, 255, 255 )
-	self.m_colAmount = Color( 120, 230, 110, 255 )
+	self.m_colAmount = Color( 255,255,255, 255 )
 
 	self.m_matWeight = Material( "icon16/anchor.png", "smooth" )
 	self.m_matVolume = Material( "icon16/brick.png", "smooth" )
 
 	self.m_pnlIcon = vgui.Create( "ModelImage", self )
 	self.m_pnlNameLabel = vgui.Create( "DLabel", self )
-	self.m_pnlNameLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	-- self.m_pnlNameLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
 	self.m_pnlNameLabel:SetTextColor( self.m_colItemName )
 	self.m_pnlNameLabel:SetFont( "ItemCardFont2" )
 
 	self.m_pnlNumLabel = vgui.Create( "DLabel", self )
-	self.m_pnlNumLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	-- self.m_pnlNumLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
 	self.m_pnlNumLabel:SetTextColor( self.m_colAmount )
 	self.m_pnlNumLabel:SetFont( "Trebuchet24" )
 	self.m_pnlNumLabel:SetText( " " )
@@ -352,7 +352,7 @@ function Panel:Init()
 	end
 
 	self.m_pnlDescLabel = vgui.Create( "DLabel", self.m_pnlContainer )
-	self.m_pnlDescLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	-- self.m_pnlDescLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
 	self.m_pnlDescLabel:SetTextColor( self.m_colItemName )
 	self.m_pnlDescLabel:SetFont( "ItemCardDescFont" )
 
@@ -473,6 +473,9 @@ function Panel:SetItemID( strItemID )
 	self:InvalidateLayout()
 	self:BuildTrayButtons()
 end
+function Panel:SetItemRarity( itemColor )
+	self.m_intItemColor = GAMEMODE.Config.tblItemRarity[itemColor]
+end
 
 function Panel:SetItemAmount( intAmount )
 	self.m_intItemAmount = intAmount
@@ -485,13 +488,18 @@ function Panel:SetItemPrice( intAmount )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 50, 50, 50, 200 )
-	surface.DrawRect( 0, 0, intW, intH )
+	-- if not self.m_tblItem then return end
+	-- print(GAMEMODE.Config.tblItemRarity[self.m_tblItem])
+	-- surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
+	surface.DrawRect( 0, 0, 64 + 20, intH )
+	draw.RoundedBoxEx(8, 3, 0, 64 + 20 , intH, GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity], true, false, true, false)
+	surface.SetMaterial( Material("materials/vgui/elements/gradient-left.png") )
+	surface.DrawTexturedRect(64+20, 0, intW -64-20-8, intH )
 end
 
 function Panel:PaintOver( intW, intH )
 	if not self.m_tblItem then return end
-	
+	-- surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] )
 	surface.SetFont( "EquipSlotFont" )
 	local weight = tostring( self.m_tblItem.Weight *self.m_intItemAmount )
 	local volume = tostring( self.m_tblItem.Volume *self.m_intItemAmount )
@@ -510,25 +518,27 @@ function Panel:PaintOver( intW, intH )
 	surface.SetDrawColor( 255, 255, 255, 255 )
 	surface.DrawTexturedRect( intW -10 -wW -16, 5, 16, 16 )
 
-	draw.SimpleText(
-		volume,
-		"EquipSlotFont",
-		intW -5, intH -8,
-		color_white,
-		TEXT_ALIGN_RIGHT,
-		TEXT_ALIGN_BOTTOM
-	)
+	-- draw.SimpleText(
+	-- 	volume,
+	-- 	"EquipSlotFont",
+	-- 	intW -5, intH -8,
+	-- 	color_white,
+	-- 	TEXT_ALIGN_RIGHT,
+	-- 	TEXT_ALIGN_BOTTOM
+	-- )
 
-	surface.SetMaterial( self.m_matVolume )
-	surface.SetDrawColor( 255, 255, 255, 255 )
-	surface.DrawTexturedRect( intW -10 -wW -16, intH -5 -16, 16, 16 )
+	-- surface.SetMaterial( self.m_matVolume )
+	-- surface.SetDrawColor( 255, 255, 255, 255 )
+	-- surface.DrawTexturedRect( intW -10 -wW -16, intH -5 -16, 16, 16 )
 end
 
 function Panel:PerformLayout( intW, intH )
-	local padding = 5
+	local padding = 10
 
 	self.m_pnlIcon:SetPos( 0, 0 )
 	self.m_pnlIcon:SetSize( intH, intH )
+	self:DockMargin(4, 5, 4, 5)
+	-- print(intW .." "..  intH)
 
 	self.m_pnlNameLabel:SizeToContents()
 	self.m_pnlNameLabel:SetPos( (padding *2) +intH, (intH /2) -self.m_pnlNameLabel:GetTall() )
@@ -790,7 +800,7 @@ function Panel:Init()
 		self.m_pnlItemList:AddSheet( v.Name, self.m_tblTabPanels[v.ID].Panel )
 	end
 
-	self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
+	-- self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
 	-- self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
 	
 	-- self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
@@ -846,6 +856,8 @@ function Panel:Refresh()
 	local itemData
 	for itemName, itemAmount in SortedPairs( LocalPlayer():GetInventory() ) do
 		itemData = GAMEMODE.Inv:GetItem( itemName )
+		itemRarity = itemData.Rarity
+		-- print( itemRarity )
 		if not itemData then continue end
 		
 		local groupTab = itemData.Type
@@ -855,6 +867,7 @@ function Panel:Refresh()
 		local itemCard = vgui.Create( "SRPQMenuItemCard", tabPanel )
 		itemCard:SetItemID( itemName )
 		itemCard:SetItemAmount( itemAmount )
+		itemCard:SetItemRarity( itemColor )
 		tabPanel:AddItem( itemCard )
 		table.insert( self.m_tblTabPanels[groupTab].Cards, itemCard )
 
@@ -863,6 +876,7 @@ function Panel:Refresh()
 			local itemCard = vgui.Create( "SRPQMenuItemCard", tabPanel )
 			itemCard:SetItemID( itemName )
 			itemCard:SetItemAmount( itemAmount )
+			itemCard:SetItemRarity( itemRarity )
 			tabPanel:AddItem( itemCard )
 			table.insert( self.m_tblTabPanels["type_all"].Cards, itemCard )
 		else --add to the misc tab
@@ -870,6 +884,7 @@ function Panel:Refresh()
 			local itemCard = vgui.Create( "SRPQMenuItemCard", tabPanel )
 			itemCard:SetItemID( itemName )
 			itemCard:SetItemAmount( itemAmount )
+			itemCard:SetItemRarity( itemRarity )
 			tabPanel:AddItem( itemCard )
 			table.insert( self.m_tblTabPanels["type_misc"].Cards, itemCard )
 		end
@@ -881,87 +896,6 @@ end
 function Panel:PerformLayout( intW, intH )
 	local w = intW *0.3
 	local y = intH
-	-- self.m_pnlWeightBar:SetSize( w, 20 )
-	-- y = y -self.m_pnlWeightBar:GetTall()
-	-- self.m_pnlWeightBar:SetPos( 0, y )
-
-	-- self.m_pnlVolumeBar:SetSize( w, 20 )
-	-- y = y -self.m_pnlVolumeBar:GetTall() +1
-	-- self.m_pnlVolumeBar:SetPos( 0, y )
-
-	-- self.m_pnlStamina:SetSize( w, 20 )
-	-- y = y -self.m_pnlStamina:GetTall() +1
-	-- self.m_pnlStamina:SetPos( 0, y )
-
-	-- self.m_pnlHungerBar:SetSize( w, 20 )
-	-- y = y -self.m_pnlHungerBar:GetTall() +1
-	-- self.m_pnlHungerBar:SetPos( 0, y )
-
-	-- self.m_pnlThirst:SetSize( w, 20 )
-	-- y = y -self.m_pnlThirst:GetTall() +1
-	-- self.m_pnlThirst:SetPos( 0, y )
-
-	-- self.m_pnlMoneyDisplay:SetSize( w, 25 )
-	-- self.m_pnlMoneyDisplay:SetPos(
-	-- 	0,
-	-- 	y -self.m_pnlMoneyDisplay:GetTall()
-	-- )
-
-	-- self.m_pnlCharModel:SetPos( 0, 0 )
-	-- self.m_pnlCharModel:SetSize(
-	-- 	w,
-	-- 	y -self.m_pnlMoneyDisplay:GetTall()
-	-- )
-
-	-- self.m_pnlSlotContainer:SetPos( 0, 0 )
-	-- -- self.m_pnlSlotContainer:Dock( BOTTOM )
-	-- self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
-
-	-- -- local y = 5
-	
-	-- self.m_pnlPrimafrySlot:SetSize( 48, 48 )
-	-- self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )
-	
-	-- self.m_pnlSecondarySlot:SetSize( 48, 48 )
-	-- self.m_pnlSecondarySlot:SetPos(
-	-- 	self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
-	-- 	self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
-	-- )
-	
-	-- self.m_pnlAltSlot:SetSize( 48, 48 )
-	-- self.m_pnlAltSlot:SetPos(
-	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlAltSlot:GetWide() -5,
-	-- 	self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5
-	-- )
-
-	-- self.m_pnlHeadSlot:SetSize( 48, 48 )
-	-- self.m_pnlHeadSlot:SetPos(
-	-- 	self.m_pnlSlotContainer:GetWide() /2 -(self.m_pnlSecondarySlot:GetWide() /2),
-	-- 	5
-	-- )
-
-	-- self.m_pnlEyesSlot:SetSize( 48, 48 )
-	-- self.m_pnlEyesSlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() *0.125 )
-
-	-- self.m_pnlFaceSlot:SetSize( 48, 48 )
-	-- self.m_pnlFaceSlot:SetPos(
-	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlFaceSlot:GetWide() - 5,
-	-- 	self.m_pnlSlotContainer:GetTall() *0.125
-	-- )
-
-	-- self.m_pnlNeckSlot:SetSize( 48, 48 )
-	-- self.m_pnlNeckSlot:SetPos(
-	-- 	self.m_pnlSlotContainer:GetWide() -self.m_pnlNeckSlot:GetWide() - 5,
-	-- 	self.m_pnlSlotContainer:GetTall() *0.125 +self.m_pnlFaceSlot:GetTall() +5
-	-- )
-
-	-- self.m_pnlBackSlot:SetSize( 48, 48 )
-	-- self.m_pnlBackSlot:SetPos(
-	-- 	5,
-	-- 	self.m_pnlSlotContainer:GetTall() *0.33
-	-- )
-
-	-- local x, y = self.m_pnlSlotContainer:GetPos()
 
 	self.m_pnlItemList:SetSize( intW , intH )
 	self.m_pnlItemList:SetPos( 0 , 0 )
