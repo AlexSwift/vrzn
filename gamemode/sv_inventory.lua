@@ -449,6 +449,7 @@ function GM.Inv:MakeItemDrop( pOwner, strItemID, intAmount, bOwnerless )
 		end
 
 		hook.Call( "PlayerDroppedItem", GAMEMODE, pPlayer, strItemID, bOwnerless, ent )
+		hook.Call( "ProttectDroppedItem", GAMEMODE, pOwner, ent )
 	end
 
 	return true
