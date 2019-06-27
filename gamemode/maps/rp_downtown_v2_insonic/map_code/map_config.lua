@@ -64,14 +64,14 @@ if SERVER then
 	--[[ Register the car customs shop location ]]--
 	GM.CarShop.m_tblGarage["rp_downtown_v2_insonic"] = {
 		Doors = {
-			["Repair_garagedoor 2"] = { CarPos = Vector(-7931, -7157, 316) }, --Doors for the garage
-			["Repair_garagedoor 1"] = { CarPos = Vector(-7526, -7157, 316) }, --Doors for the garage
+			["Repair_garagedoor 2"] = { CarPos = Vector(-1952, -6492, -138) }, --Doors for the garage
+			["Repair_garagedoor 1"] = { CarPos = Vector(-1952, -5836, -138) }, --Doors for the garage
 		},
 		BBox = {
-			Min = Vector( -8127, -7438, 294 ), --Inside of the garage
-			Max = Vector( -7344, -7057, 411 ), --Inside of the garage
+			Min = Vector( -934.224792, -5697.066895, -250.179871 ), --Inside of the garage
+			Max = Vector( -2344.711914, -6754.595703, 355.342529 ), --Inside of the garage
 		},
-		PlayerSetPos = Vector( -7730, -7507, 292 ), --If a player gets inside the garage, set them to this location
+		PlayerSetPos = Vector( -2282.217285, -5969.218750, -195.968750 ), --If a player gets inside the garage, set them to this location
 	}
 
 	--[[ Fire Spawner Settings ]]--
