@@ -20,8 +20,8 @@ GM.Property.m_colTextColor = Color( 255, 255, 255, 255 )
 GM.Property.m_tblProperties = (GAMEMODE or GM).Property.m_tblProperties or {}
 GM.Property.m_tblDoorCache = (GAMEMODE or GM).Property.m_tblDoorCache or {}
 
-surface.CreateFont( "SRP_DoorFont", {size = 128, weight = 400, font = "DermaLarge"} )
-surface.CreateFont( "SRP_DoorSubFont", {size = 96, weight = 400, font = "DermaLarge"} )
+surface.CreateFont( "SRP_DoorFont", {size = 142, weight = 400, font = "Montserrat Bold"} )
+surface.CreateFont( "SRP_DoorSubFont", {size = 96, weight = 400, font = "Montserrat Regular"} )
 
 function GM.Property:LoadProperties()
 	GM:PrintDebug( 0, "->LOADING PROPERTIES" )
@@ -178,9 +178,9 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	if self.m_tblProperties[data.Name].Government then
 		doorTitle = "Propriedade do Governo"
 	elseif not IsValid( self:GetOwner(doorName) ) then
-		doorTitle = "PROPRIEDADE DA STAFF"
+		doorTitle = "VAGO"
 	else
-		if doorTitle == "" then doorTitle = "PROPRIEDADE DA STAFF" end
+		if doorTitle == "" then doorTitle = "VAGO" end
 		ownerName = self:GetOwner( doorName ):Nick()
 	end
 
@@ -236,3 +236,82 @@ function GM.Property:PaintDoorText()
 	cam.End3D2D()
 	render.SuppressEngineLighting( false )
 end
+
+surface.CreateFont( "BSYS::CrateTimer", {
+	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
+
+hook.Add( "Think", "OpenCrateDerma", function()
+	local eTraceHit = LocalPlayer():GetEyeTrace()
+	if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+		if input.IsKeyDown( KEY_F2 ) then 
+			local Door = LocalPlayer():GetEyeTrace().Entity
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+		if not time then
+			time = CurTime() + ( 1 )
+			hook.Add( "HUDPaint", "hHoldingButton", function()
+			variavel = CurTime() + 1
+			if time then			
+
+			local Door = LocalPlayer():GetEyeTrace().Entity
+			-- DrawPropertyMenu( Door, PropertyData )
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+			local PropertyName = DoorData.Name
+			if !DoorData.Owner:IsWorld() then return end
+
+			if  PropertyData.Government then return end
+				-- PrintTable(DoorData, 1)
+				-- PrintTable(PropertyData)
+				-- if self.m_tblProperties[data.Name].Government then
+
+				if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+					local iOpenT = 1
+					diff=(time-(CurTime()+iOpenT))*-1
+					RevDiff=time-CurTime()
+					---
+					draw.NoTexture()
+					-- surface.SetDrawColor( Color(255,255,255) )
+					-- drawCircle(ScrW()/2 ,ScrH()/2, 100)
+					Col = Color( 255,255, 255, 100)
+					surface.SetDrawColor( Col )
+					-- print(diff)
+					drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
+					----
+					surface.SetFont( "BSYS::CrateTimer" )
+					surface.SetTextColor( Color( 255,255,255) )
+					local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
+					surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
+					surface.DrawText( math.Round(RevDiff,1))
+
+				else
+					time = nil
+					LocalPlayer():ChatPrint("Deixou de olhar")
+				end
+				---ScrW()/2 ,ScrH()/2
+				--NodgeUtil.DrawArc(ScrW() / 2 , ScrH() / 2, -180,ToNumber(diff,360,iOpenT), 80, Color(255,255,255,100), 30)
+			end
+		end )
+		end 
+		if CurTime() > time and not open then
+			local Door = LocalPlayer():GetEyeTrace().Entity
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+			if  PropertyData.Government then return end
+			if !DoorData.Owner:IsWorld() then return end
+			LocalPlayer():ChatPrint("MENU DE PORTA ABERTO")
+				
+			hook.Remove( "HUDPaint", "hHoldingButton" )
+			end
+		else
+			open = false 
+			time = nil 
+		end
+	end
+end )
