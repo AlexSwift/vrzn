@@ -271,6 +271,10 @@ function PANEL:Paint( intW, intH )
 		surface.SetDrawColor( 26, 26, 26, 255 )
 		draw.RoundedBox(8, 0, 0, intW, intH, Color(26, 26, 26, 255) )
 		-- drawRect( 0, 0, intW, intH )
+	else
+		if self.Image then
+			draw.RoundedBox(4, 0, 0, intW, intH, Color(66, 66, 66, 255) )
+		end
 	end
 end
 
