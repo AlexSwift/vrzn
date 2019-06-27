@@ -440,6 +440,7 @@ function Panel:Paint( intW, intH )
 	else
 		self.RarityColor = self.m_tblItem.Rarity
 	end
+	
 	surface.SetDrawColor( GAMEMODE.Config.tblItemRarity[self.RarityColor]  )
 
 	draw.RoundedBoxEx(4, 0, 0, 64, 64, GAMEMODE.Config.tblItemRarity[self.RarityColor], true, false, true, false)
@@ -767,42 +768,6 @@ function Panel:Init()
 		self.m_pnlItemList:AddSheet( v.Name, self.m_tblTabPanels[v.ID].Panel )
 	end
 
-	
-	-- self.m_tblTabPanels[v.ID]:SetTall(20)
-	-- self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
-	-- self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
-	
-	-- self.m_pnlPrimarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlPrimarySlot:SetTitle( "Arma Primária" )
-	-- self.m_pnlPrimarySlot:SetSlotID( "PrimaryWeapon" )
-
-	-- self.m_pnlSecondarySlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlSecondarySlot:SetTitle( "Secondary" )
-	-- self.m_pnlSecondarySlot:SetSlotID( "SecondaryWeapon" )
-
-	-- self.m_pnlAltSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlAltSlot:SetTitle( "Alternate" )
-	-- self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
-
-	-- self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlHeadSlot:SetTitle( "Head" )
-	-- self.m_pnlHeadSlot:SetSlotID( "Head" )
-
-	-- self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlEyesSlot:SetTitle( "Eyes" )
-	-- self.m_pnlEyesSlot:SetSlotID( "Eyes" )
-
-	-- self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlFaceSlot:SetTitle( "Face" )
-	-- self.m_pnlFaceSlot:SetSlotID( "Face" )
-
-	-- self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlNeckSlot:SetTitle( "Neck" )
-	-- self.m_pnlNeckSlot:SetSlotID( "Neck" )
-
-	-- self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	-- self.m_pnlBackSlot:SetTitle( "Back" )
-	-- self.m_pnlBackSlot:SetSlotID( "Back" )
 
 end
 

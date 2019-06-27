@@ -223,11 +223,31 @@ if SERVER then
 end
 
 if CLIENT then
+	surface.CreateFont( "SurrenderFont", {size = 26, weight = 550, font = "Montserrat Bold"} )
+	surface.CreateFont( "SurrenderFont2", {size = 18, weight = 550, font = "Montserrat Regular"} )
 	net.Receive( "HandsUp", function()
 		local ply = net.ReadEntity()
 		local bool = net.ReadBool()
 		ply.HandsUp = bool
+		if ply == LocalPlayer() then
+			hook.Add( "HUDPaint", "DrawSurrended", function()
+				surface.SetFont("SurrenderFont")
+				local tw, th = surface.GetTextSize("Você está se rendendo")
+				surface.SetFont("SurrenderFont2")
+				local tw2, th2 = surface.GetTextSize("Pressione F3 para abaixar as mãos")
 
+				BSHADOWS.BeginShadow()
+				draw.RoundedBox(th, ScrW()/2 - tw2/2 - 40, 95, tw + 80, th + th2 + 10, Color(25,25,25))
+				BSHADOWS.EndShadow(2, 2, 4, 255)
+
+				draw.SimpleText("Você está se rendendo", "SurrenderFont", (ScrW()/2) - (tw/2), 100, Color(255,255,255,255) )
+
+				draw.SimpleText("Pressione F3 para abaixar as mãos", "SurrenderFont2", (ScrW()/2) - (tw2/2), 120, Color(255,255,255,255) )
+
+			
+				-- surface.draw
+			end )
+		end
 		if IsValid( ply ) and bool and ply:Alive() then
 			local wep = ply:GetWeapon( "weapon_srphands" )
 			if IsValid( wep ) and wep.SetWeaponHoldType then
@@ -241,9 +261,10 @@ if CLIENT then
 			if IsValid( wep ) and wep.SetWeaponHoldType then
 				wep:SetWeaponHoldType( "normal" )
 			end
-
+			hook.Remove( "HUDPaint", "DrawSurrended")
 			GAMEMODE.PlayerAnims:RemoveAnimID( ply, "hands_up" ) --applyduhbones(ply,"r")
 		end
+	
 	end )
 	
 	concommand.Add( "hands_up", function( p, c, a )

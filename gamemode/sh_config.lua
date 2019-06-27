@@ -91,37 +91,37 @@ local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
     Safe = false
 		}, --p3
 	{ 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector( -5746.612793, -7170.313477, -205 ),
     Max  = Vector( -2350.304443, -3622.072510, 370 ),
     Safe = false
 	},
     { 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector( -3643.174805, -8381.653320, -205 ),
     Max  = Vector( -1579.879517, -7171.869141, 370 ),
     Safe = false
 		}, -- p2
     { 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector( -2353.048340, -7170.374023, -205 ),
     Max  = Vector(  1094.302734, -5820.246582, 370 ),
     Safe = false
 		}, -- p3
     { 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector(-709.961670, -7170.530762, -205 ),
     Max  = Vector( 1094.783386, -8387.021484, 370 ),
     Safe = false
 		}, --p4
     { 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector(-1628.458496, -5833.840332, -205 ),
     Max  = Vector( 1015.451294, -3176.507080, 370 ),
     Safe = false
 		}, --p5
     { 
-    Name = "Bairro Cornolândia",
+    Name = "Bairro Capitalista",
     Min  = Vector(-2348.701416, -4603.702637, -205),
     Max  = Vector(-1627, -3622.072510, 370),
     Safe = false
