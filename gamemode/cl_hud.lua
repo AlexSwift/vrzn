@@ -252,8 +252,11 @@ local healthColor = {
 	["$pp_colour_mulb"] = 0
 }
 function GM.HUD:RenderScreenspaceEffects()
+	surface.SetDrawColor(255, 255, 255, 255)
+	surface.SetMaterial(Material("materials/vgui/elements/vignett.png"))
+	surface.DrawTexturedRect(0, 0, ScrW(), ScrH())
 	local hp, maxHp = LocalPlayer():Health(), 100
-	healthColor["$pp_colour_colour"] = math.Clamp( hp /maxHp *2 -1, 0, 1 )
+	healthColor["$pp_colour_colour"] = math.Clamp( hp /maxHp*10 -1, 0, 1 )
 	DrawColorModify( healthColor )
 end
 
