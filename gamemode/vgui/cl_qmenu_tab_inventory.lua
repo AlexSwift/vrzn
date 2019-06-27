@@ -520,7 +520,44 @@ vgui.Register( "SRPQMenuItemCard", Panel, "EditablePanel" )
 
 local Panel = {}
 function Panel:Init()
-	
+
+	self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
+	if GAMEMODE.Inv:GetCurrentWeight() > (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(7, 255, 165, 255) )
+	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(255, 71, 71, 255) )
+	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*30 / 100) then
+		self.m_pnlWeightBar:SetBarColor( Color(255, 28, 28, 255) )
+	end
+
+	self.m_pnlWeightBar.Think = function()
+		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+		self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
+	end
+	self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
+		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
+		draw.SimpleTextOutlined(
+			"Peso do inventário",
+			"EquipSlotFont",
+			5, intH /2,
+			color_white,
+			TEXT_ALIGN_LEFT,
+			TEXT_ALIGN_CENTER,
+			0,
+			color_black
+		)
+
+		draw.SimpleTextOutlined(
+			"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
+			"EquipSlotFont",
+			intW -5, intH /2,
+			color_white,
+			TEXT_ALIGN_RIGHT,
+			TEXT_ALIGN_CENTER,
+			0,
+			color_black
+		)
+	end
 	-- self.m_pnlVolumeBar = vgui.Create( "SRP_Progress", self )
 	-- self.m_pnlVolumeBar:SetBarColor( Color(200, 90, 40, 255) )
 	-- self.m_pnlVolumeBar.Think = function()
@@ -729,6 +766,8 @@ function Panel:Init()
 		self.m_tblTabPanels[v.ID] = { Panel = vgui.Create( "SRP_ScrollPanel", self.m_pnlItemList ), Cards = {} }
 		self.m_pnlItemList:AddSheet( v.Name, self.m_tblTabPanels[v.ID].Panel )
 	end
+
+	
 	-- self.m_tblTabPanels[v.ID]:SetTall(20)
 	-- self.m_pnlCharModel = vgui.Create( "SRPPlayerPreview", self )
 	-- self.m_pnlSlotContainer = vgui.Create( "EditablePanel", self )
@@ -826,7 +865,7 @@ function Panel:PerformLayout( intW, intH )
 	local w = intW *0.3
 	local y = intH
 
-	self.m_pnlItemList:SetSize( intW , intH )
+	self.m_pnlItemList:SetSize( intW , intH - 25 )
 	self.m_pnlItemList:SetPos( 0 , 0 )
 
 	for k, v in pairs( self.m_tblTabPanels ) do
@@ -839,5 +878,11 @@ function Panel:PerformLayout( intW, intH )
 		end
 	end
 
+	local y = intH
+	self.m_pnlWeightBar:Dock(BOTTOM)
+	self.m_pnlWeightBar:DockMargin(8, 0, 8, 2)
+	-- self.m_pnlWeightBar:SetWide( intW - 4)
+	self.m_pnlWeightBar:SetTall( 20 )
+	-- self.m_pnlWeightBar:SetPos( 2 , intH-20)
 end
 vgui.Register( "SRPQMenu_Inventory", Panel, "EditablePanel" )

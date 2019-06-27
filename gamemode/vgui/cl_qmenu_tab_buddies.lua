@@ -76,7 +76,7 @@ vgui.Register( "SRPBuddyCard", Panel, "SRP_Button" )
 local Panel = {}
 function Panel:Init()
 	self.m_pnlBtnBack = vgui.Create( "SRP_Button", self )
-	self.m_pnlBtnBack:SetText( "Back" )
+	self.m_pnlBtnBack:SetText( "Voltar a lista de amigos" )
 	self.m_pnlBtnBack.DoClick = function()
 		self:GetParent():ShowBuddyOverview()
 	end
@@ -92,7 +92,7 @@ function Panel:Init()
 		self.m_pnlBtnCar:SetDisabled( not buddyData )
 		if not buddyData then return end
 
-		self.m_pnlBtnCar:SetText( buddyData.Settings.ShareCar and "Revoke Car Keys" or "Share Car Keys" )
+		self.m_pnlBtnCar:SetText( buddyData.Settings.ShareCar and "Negar acesso ao carro" or "Dar chaves do carro" )
 	end
 
 	self.m_pnlBtnDoor = vgui.Create( "SRP_Button", self )
@@ -106,7 +106,7 @@ function Panel:Init()
 		self.m_pnlBtnDoor:SetDisabled( not buddyData )
 		if not buddyData then return end
 
-		self.m_pnlBtnDoor:SetText( buddyData.Settings.ShareDoors and "Revoke Property Keys" or "Share Property Keys" )
+		self.m_pnlBtnDoor:SetText( buddyData.Settings.ShareDoors and "Negar acesso as portas" or "Compartilhar casa" )
 	end
 
 	self.m_pnlBtnItems = vgui.Create( "SRP_Button", self )
@@ -120,7 +120,7 @@ function Panel:Init()
 		self.m_pnlBtnItems:SetDisabled( not buddyData )
 		if not buddyData then return end
 
-		self.m_pnlBtnItems:SetText( buddyData.Settings.ShareItems and "Revoke Prop Protection" or "Grant Prop Protection" )
+		self.m_pnlBtnItems:SetText( buddyData.Settings.ShareItems and "Revogar permissão de mover props" or "Permitir mover props" )
 	end
 
 	self.m_pnlBtnRemove = vgui.Create( "SRP_Button", self )
@@ -136,9 +136,9 @@ function Panel:Init()
 	self.m_pnlBtnRemove.Think = function()
 		local buddyData = GAMEMODE.Buddy:GetBuddyData( self.m_intBuddyID )
 		if not buddyData then
-			self.m_pnlBtnRemove:SetText( "Add Buddy" )
+			self.m_pnlBtnRemove:SetText( "Adicionar amigo" )
 		else
-			self.m_pnlBtnRemove:SetText( "Remove Buddy" )
+			self.m_pnlBtnRemove:SetText( "Remover da lista de amigos" )
 		end
 	end
 
@@ -153,19 +153,19 @@ function Panel:Update()
 end
 
 function Panel:PerformLayout( intW, intH )
-	self.m_pnlBtnBack:SetPos( 5, intH -25 )
-	self.m_pnlBtnBack:SetSize( 100, 20 )
-
-	self.m_pnlBtnCar:DockMargin( 0, 0, 0, 5 )
-	self.m_pnlBtnDoor:DockMargin( 0, 0, 0, 5 )
-	self.m_pnlBtnItems:DockMargin( 0, 0, 0, 5 )
-	self.m_pnlBtnRemove:DockMargin( 0, 0, 0, 5 )
+	
+	self.m_pnlBtnBack:DockMargin( 12, 0, 12, 5 )
+	self.m_pnlBtnCar:DockMargin( 12, 0, 12, 5 )
+	self.m_pnlBtnDoor:DockMargin( 12, 0, 12, 5 )
+	self.m_pnlBtnItems:DockMargin( 12, 0, 12, 5 )
+	self.m_pnlBtnRemove:DockMargin( 12, 0, 12, 5 )
 
 	self.m_pnlBtnCar:SetTall( 32 )
 	self.m_pnlBtnDoor:SetTall( 32 )
 	self.m_pnlBtnItems:SetTall( 32 )
 	self.m_pnlBtnRemove:SetTall( 32 )
 
+	self.m_pnlBtnBack:Dock( TOP )
 	self.m_pnlBtnCar:Dock( TOP )
 	self.m_pnlBtnDoor:Dock( TOP )
 	self.m_pnlBtnItems:Dock( TOP )
@@ -174,7 +174,7 @@ end
 vgui.Register( "SRPEditBuddy", Panel, "EditablePanel" )
 
 -- ----------------------------------------------------------------
-
+surface.CreateFont( "FriendTitle", {size = 32, weight = 400, font = "Montserrat Bold"} )
 local Panel = {}
 function Panel:Init()
 	self.m_pnlCardContainer = vgui.Create( "SRP_ScrollPanel", self )
@@ -187,18 +187,18 @@ function Panel:Rebuild()
 	end
 	self.m_tblCards = {}
 
-	self:AddHeader( "Buddies" )
+	self:AddHeader( "Lista de Amigos" )
 	for k, v in pairs( GAMEMODE.Buddy:GetBuddyTable() ) do
 		self:AddBuddy( k )
 	end
 
-	self:AddHeader( "Players" )
-	for k, v in pairs( player.GetAll() ) do
-		if v == LocalPlayer() then continue end
-		if GAMEMODE.Buddy:IsBuddyWith( v ) then continue end
-		if not v:GetCharacterID() or v:GetCharacterID() == 0 then continue end
-		self:AddPlayer( v )
-	end
+	-- self:AddHeader( "Players" )
+	-- for k, v in pairs( player.GetAll() ) do
+	-- 	if v == LocalPlayer() then continue end
+	-- 	if GAMEMODE.Buddy:IsBuddyWith( v ) then continue end
+	-- 	if not v:GetCharacterID() or v:GetCharacterID() == 0 then continue end
+	-- 	self:AddPlayer( v )
+	-- end
 
 	self:InvalidateLayout()
 end
@@ -206,15 +206,16 @@ end
 function Panel:AddHeader( strText )
 	local header = vgui.Create( "EditablePanel" )
 	header.Paint = function( pnl, intW, intH )
-		surface.SetDrawColor( 70, 70, 70, 100 )
-		surface.DrawRect( 0, 0, intW, intH )
+		-- surface.SetDrawColor( 70, 70, 70, 100 )
+		-- surface.DrawRect( 0, 0, intW, intH )
+		draw.RoundedBox(12, 8, 0, intW-16, intH, Color( 42, 41, 41) )
 
-		surface.SetFont( "DermaLarge" )
+		surface.SetFont( "FriendTitle" )
 		local tX, tY = surface.GetTextSize( strText )
 
 		draw.SimpleText(
 			strText,
-			"DermaLarge",
+			"FriendTitle",
 			(intW /2),
 			(intH /2),
 			Color( 255, 255, 255, 255 ),

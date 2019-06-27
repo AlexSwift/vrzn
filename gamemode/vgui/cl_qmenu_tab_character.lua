@@ -205,46 +205,6 @@ function Panel:Init()
 	self.m_tblSkillCards1 = {}
 	self.m_tblSkillCards = {}
 		
-
-
-
-	self.m_pnlWeightBar = vgui.Create( "SRP_Progress", self )
-	if GAMEMODE.Inv:GetCurrentWeight() > (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
-		self.m_pnlWeightBar:SetBarColor( Color(7, 255, 165, 255) )
-	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*50 / 100) then
-		self.m_pnlWeightBar:SetBarColor( Color(255, 71, 71, 255) )
-	elseif GAMEMODE.Inv:GetCurrentWeight() <= (GAMEMODE.Inv:GetCurrentWeight()*30 / 100) then
-		self.m_pnlWeightBar:SetBarColor( Color(255, 28, 28, 255) )
-	end
-
-	self.m_pnlWeightBar.Think = function()
-		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-		self.m_pnlWeightBar:SetFraction( GAMEMODE.Inv:GetCurrentWeight() /weight )
-	end
-	self.m_pnlWeightBar.PaintOver = function( _, intW, intH )
-		local weight, _ = GAMEMODE.Inv:ComputeInventorySize()
-		draw.SimpleTextOutlined(
-			"Peso do inventário",
-			"EquipSlotFont",
-			5, intH /2,
-			color_white,
-			TEXT_ALIGN_LEFT,
-			TEXT_ALIGN_CENTER,
-			0,
-			color_black
-		)
-
-		draw.SimpleTextOutlined(
-			"(".. GAMEMODE.Inv:GetCurrentWeight().. "/".. weight.. ")",
-			"EquipSlotFont",
-			intW -5, intH /2,
-			color_white,
-			TEXT_ALIGN_RIGHT,
-			TEXT_ALIGN_CENTER,
-			0,
-			color_black
-		)
-	end
 	-- self.m_pnlHealthBar = vgui.Create( "SRP_Progress", self.m_pnlCharModel )
 	-- self.m_pnlHealthBar:SetBarColor( Color(220, 50, 50, 255) )
 	-- self.m_pnlHealthBar.Think = function()
@@ -392,10 +352,7 @@ function Panel:PerformLayout( intW, intH )
 		5,
 		self.m_pnlSlotContainer:GetTall() *0.33
 	)
-	local y = intH
-	self.m_pnlWeightBar:SetWide( intW - self.m_pnlCharModel:GetWide())
-	self.m_pnlWeightBar:SetTall( 20 )
-	self.m_pnlWeightBar:SetPos( self.m_pnlCharModel:GetWide() , intH-20)
+
 	-- self.m_pnlWeightBar:Dock( BOTTOM )
 end
 vgui.Register( "SRPQMenu_Character", Panel, "EditablePanel" )
