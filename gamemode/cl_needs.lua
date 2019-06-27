@@ -31,3 +31,11 @@ hook.Add( "GamemodeDefineGameVars", "DefineNeedVars", function( pPlayer )
 		GAMEMODE.Player:DefineGameVar( "need_".. k, v.Max, "UInt16" )
 	end
 end )
+
+
+
+
+
+
+
+-- print(  LocalPlayer():GetGamemodeData().SharedGameVars["eq_slot_Head"].Value )
