@@ -472,6 +472,12 @@ GM.Net:RegisterEventHandle( "game", "d_money", function( intMsgLen, pPlayer )
 	GAMEMODE.Inv:PlayerDropMoney( pPlayer, net.ReadUInt(32), net.ReadBit() == 1 )
 end )
 
+GM.Net:RegisterEventHandle("inv", "r", function(intMsgLen, pPlayer)
+	local itemID, itemAmount = net.ReadString(), net.ReadUInt(8)
+	-- GAMEMODE:Log("item_destroy", string.format("%s has destroyed %s (x%s)", GAMEMODE:FormatPlayer(pPlayer), GAMEMODE:Highlight(itemID), GAMEMODE:Highlight(itemAmount)))
+	GAMEMODE.Inv:TakePlayerItem(pPlayer, itemID, itemAmount)
+end)
+
 -- ----------------------------------------------------------------
 -- Clothing Shop Netcode
 -- ----------------------------------------------------------------

@@ -1188,3 +1188,16 @@ function GM.Net:RequestPayAllBills()
 	self:FireEvent()
 end
 
+
+GM.Net:AddProtocol( "jobs", 15 )
+
+GM.Net:RegisterEventHandle( "jobs", "mayor_v", function( intMsgLen, pPlayer )
+	local participants = net.ReadTable()
+	GAMEMODE.Gui:ShowMayorVoteWheel(participants)
+end )
+
+function GM.Net:SendVote(participant)
+	self:NewEvent( "jobs", "mayor_sv" )
+		net.WriteEntity(participant)
+	self:FireEvent()
+end
