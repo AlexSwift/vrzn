@@ -501,20 +501,22 @@ hook.Add( "Think", "OpenCrateDerma", function()
 
 			if  PropertyData.Government then return end
 				if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
-					local iOpenT = 1
-					diff=(time-(CurTime()+iOpenT))*-1
-					RevDiff=time-CurTime()
-					---
-					draw.NoTexture()
-					Col = Color( 255,255, 255, 100)
-					surface.SetDrawColor( Col )
-					drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
-					----
-					surface.SetFont( "BSYS::CrateTimer" )
-					surface.SetTextColor( Color( 255,255,255) )
-					local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
-					surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
-					surface.DrawText( math.Round(RevDiff,1))
+					if time > CurTime() then
+						local iOpenT = 1
+						diff=(time-(CurTime()+iOpenT))*-1
+						RevDiff=time-CurTime()
+						---
+						draw.NoTexture()
+						Col = Color( 255,255, 255, 100)
+						surface.SetDrawColor( Col )
+						drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
+						----
+						surface.SetFont( "BSYS::CrateTimer" )
+						surface.SetTextColor( Color( 255,255,255) )
+						local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
+						surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
+						surface.DrawText( math.Round(RevDiff,1))
+					end
 
 				else
 					time = nil
