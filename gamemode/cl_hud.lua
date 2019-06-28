@@ -410,7 +410,7 @@ end
 local vw = ScrW() / 10
 local pah = ScrH() * 6.666666666666667 / 100
 local paw = ScrW() * 3.75 / 100
-
+// ZONES HUD + SCREEN SIZED FONTS
 
 surface.CreateFont( "HUD::0.075vw", {	font = "Montserrat Regular", size = 0.75 * vw,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1,	weight = 500, antialias = true } )
@@ -420,33 +420,35 @@ surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3
 hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
     for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
         if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
-            DrawZoneHud( v.Name, v.Safe )
-        end
---             local zonemin = v.Min
---             local zonemax =  v.Max
---             local x, y, z = zonemin.x, zonemin.y, zonemin.z
---             local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
---             cam.Start3D()
---                 render.SetMaterial( Material("cable/redlaser"))
---                 render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
---                 render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
---                 render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
---             cam.End3D()
---     end
+			DrawZoneHud( v.Name, v.Safe )
+			-- DrawTimerHud( v.Name, true)
+		end
+		--[[ UNCOMMENT TO SHOW ZONE DRAWINGS :) 
+            local zonemin = v.Min
+            local zonemax =  v.Max
+            local x, y, z = zonemin.x, zonemin.y, zonemin.z
+            local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
+            cam.Start3D()
+                render.SetMaterial( Material("cable/redlaser"))
+                render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
+                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
+			cam.End3D()
+			
+    end]]--
 	end
 end)
--- -- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
--- hook.Remove("PostDrawOpaqueRenderables", "drawZones")
+
 function DrawZoneHud( Name, Safe )
     hook.Add( "HUDPaint", "DrawZoneText", function()
         
@@ -467,9 +469,201 @@ function DrawZoneHud( Name, Safe )
 
             surface.SetFont("HUD::0.1vw")
 			local tw, th = surface.GetTextSize("Área não dominada")
-			
-
             -- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
         end
-    end )
+	end )
 end
+
+
+hook.Add("InitPostEntity" , "GetRidOfAnnoyingHintSystem" , function()
+	if timer.IsTimer("HintSystem_OpeningMenu") then
+		timer.Remove("HintSystem_OpeningMenu")
+	end
+	if timer.IsTimer("HintSystem_Annoy1") then
+		timer.Remove("HintSystem_Annoy1")
+	end
+	if timer.IsTimer("HintSystem_Annoy2") then
+		timer.Remove("HintSystem_Annoy2")
+	end
+end )
+
+
+
+
+surface.CreateFont( "BSYS::CrateTimer", {
+	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
+
+hook.Add( "Think", "OpenCrateDerma", function()
+	local eTraceHit = LocalPlayer():GetEyeTrace()
+	if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+		if input.IsKeyDown( KEY_F2 ) then 
+			local Door = LocalPlayer():GetEyeTrace().Entity
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+		if not time then
+			time = CurTime() + ( 1 )
+			hook.Add( "HUDPaint", "hHoldingButton", function()
+			variavel = CurTime() + 1
+			if time then			
+
+
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+			local PropertyName = DoorData.Name
+
+			if  PropertyData.Government then return end
+				if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+					local iOpenT = 1
+					diff=(time-(CurTime()+iOpenT))*-1
+					RevDiff=time-CurTime()
+					---
+					draw.NoTexture()
+					Col = Color( 255,255, 255, 100)
+					surface.SetDrawColor( Col )
+					drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
+					----
+					surface.SetFont( "BSYS::CrateTimer" )
+					surface.SetTextColor( Color( 255,255,255) )
+					local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
+					surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
+					surface.DrawText( math.Round(RevDiff,1))
+
+				else
+					time = nil
+					LocalPlayer():ChatPrint("Deixou de olhar")
+				end
+
+			end
+		end )
+		end 
+		if CurTime() > time and not open then
+			local Door = LocalPlayer():GetEyeTrace().Entity
+			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+			if !DoorData then return end
+			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+			if !PropertyData then return end
+			if  PropertyData.Government then return end
+			-- if DoorData.Owner ~= LocalPlayer() then return end
+			-- if !DoorData.Owner:IsWorld() then return end				
+			hook.Remove( "HUDPaint", "hHoldingButton" )
+
+			open = true
+			local mw = vgui.Create("DFrame")
+			mw:SetSize(500,400)
+			mw:SetTitle("")
+			mw:MakePopup()
+			mw:SetPos(ScrW()/2 - mw:GetWide()/2, ScrH()/2 - mw:GetWide()/2 - 50)
+			mw:DockMargin(0, 0, 0, 0)
+			mw:ShowCloseButton(false)
+			mw:SetDraggable(false)
+			mw.Paint = function()
+			end
+
+			local mwh = mw:Add("DPanel")
+			mwh:Dock(TOP)
+			mwh:SetTall(100)
+			mwh.Paint = function(pnl, w, h)
+				local aX, aY = pnl:LocalToScreen()
+				BSHADOWS.BeginShadow()
+				draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(26,26,26))
+				BSHADOWS.EndShadow(1, 1, 2, 200)
+			end
+
+			local hi = mwh:Add("DImage")
+			hi:SetImage( "materials/vgui/elements/house.png")
+			hi:Dock(LEFT)
+			hi:SetWide( mwh:GetTall())
+
+			local hn = mwh:Add("DLabel")
+			hn:SetText("")
+			hn:Dock(FILL)
+			hn.Paint = function(pnl, w, h)
+				surface.SetFont("DoorMenuFont")
+				t1w, t1h = surface.GetTextSize("Opções da propriedade")
+				surface.SetTextColor(255, 255, 255, 255)
+				surface.SetTextPos( 0, h/2-t1h)
+				surface.DrawText("Opções da propriedade")
+
+				surface.SetFont("DoorMenuFont2")
+				surface.SetTextColor(255, 255, 255, 180)
+				t2w, t2h = surface.GetTextSize("n24, Rua Gole de Skol")
+				surface.SetTextPos( 0, h/2)
+				surface.DrawText( DoorData.Name )
+			end
+			if DoorData.Owner:IsWorld() then
+				local cc = mw:Add("DButton")
+				cc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+				cc:Dock(TOP)
+				cc:SetTall(40)
+				cc:SetTextColor( Color(255,255,255) )
+				cc:SetFont("DoorMenuButtonFont")
+				cc:SetText("Alugar: R$".. PropertyData.Price)
+				cc.Paint = function(pnl, w, h)
+					local aX, aY = pnl:LocalToScreen()
+					BSHADOWS.BeginShadow()
+					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+					BSHADOWS.EndShadow(1, 1, 2, 200)
+				end
+			end
+			if DoorData.Owner == LocalPlayer() then
+				local sc = mw:Add("DButton")
+				sc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+				sc:Dock(TOP)
+				sc:SetTall(40)
+				sc:SetTextColor( Color(255,255,255) )
+				sc:SetFont("DoorMenuButtonFont")
+				sc:SetText("Vender")
+				sc.Paint = function(pnl, w, h)
+					local aX, aY = pnl:LocalToScreen()
+							BSHADOWS.BeginShadow()
+					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+					BSHADOWS.EndShadow(1, 1, 2, 200)
+				end
+			end
+
+			-- local cdc = mw:Add("DButton")
+			-- cdc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+			-- cdc:Dock(TOP)
+			-- cdc:SetTall(40)
+			-- cdc:SetTextColor( Color(255,255,255) )
+			-- cdc:SetFont("DoorMenuButtonFont")
+			-- cdc:SetText("Trancar todas as portas")
+			-- cdc.Paint = function(pnl, w, h)
+			-- 	local aX, aY = pnl:LocalToScreen()
+			-- 	BSHADOWS.BeginShadow()
+			-- 	draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+			-- 	BSHADOWS.EndShadow(1, 1, 2, 200)
+			-- end
+
+			local cb = vgui.Create("SRP_Button", mw)
+			cb:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+			cb:Dock(TOP)
+			cb:SetTall(40)
+			cb:SetTextColor( Color(255,255,255) )
+			cb:SetFont("DoorMenuButtonFont")
+			cb:SetText("Voltar")
+			cb.Paint = function(pnl, w, h)
+				local aX, aY = pnl:LocalToScreen()
+				BSHADOWS.BeginShadow()
+				draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+				BSHADOWS.EndShadow(1, 1, 2, 200)
+			end
+			cb.DoClick = function()
+				mw:Remove()
+			end
+
+			end
+		else
+			open = false 
+			time = nil
+		end
+	end
+end )
+
+surface.CreateFont( "DoorMenuFont", {size = 32, weight = 400, font = "Montserrat Bold"} )
+surface.CreateFont( "DoorMenuButtonFont", {size = 32, weight = 400, font = "Montserrat Regular"} )
+surface.CreateFont( "DoorMenuFont2", {size = 26, weight = 400, font = "Montserrat Regular"} )
