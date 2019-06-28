@@ -180,7 +180,7 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	elseif not IsValid( self:GetOwner(doorName) ) then
 		doorTitle = "VAGO"
 	else
-		if doorTitle == "" then doorTitle = "VAGO" end
+		if doorTitle == "" then doorTitle = "PROPRIEDADE PRIVADA" end
 		ownerName = self:GetOwner( doorName ):Nick()
 	end
 
@@ -209,7 +209,7 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	y = y +150
 	if ownerName then
 		draw.SimpleText(
-			"STAFF: ".. ownerName,
+			ownerName,
 			"SRP_DoorFont",
 			x,
 			y,
