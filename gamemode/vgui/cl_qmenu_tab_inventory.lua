@@ -408,7 +408,7 @@ function Panel:SetItemID( strItemID )
 	
 	self.m_pnlIcon:SetModel( self.m_tblItem.Model, self.m_tblItem.Skin )
 	if self.m_tblItem.Rarity ~= nil then
-		self.m_pnlDescLabel:SetText( self.m_tblItem.Rarity )
+		self.m_pnlDescLabel:SetText(self.m_tblItem.Rarity .. " | " ..  self.m_tblItem.Desc)
 	else
 		self.m_pnlDescLabel:SetText( "Normal" )
 	end
