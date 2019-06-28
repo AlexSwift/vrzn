@@ -48,10 +48,6 @@ function AWDrawTimeCountdown( Initial, Final, Colour)
         end
     end)
 end
-function AWRemoveTimeCountdown()
-    hook.Remove("HUDPaint", "AWESOME::TimeCountdown")
-    LocalPlayer():ChatPrint("Removido")
-end
 -----------------------------
 ---@ Awesome Derma/Client LIB
 ---@ Author: Nodge
@@ -106,6 +102,7 @@ function ToNumber(arg, arg2, max)
 	finished = arg/max*arg2
 	return finished
 end
+
 function drawCircle( x, y, radius )
 	local cir = {}
 	local seg = 100
@@ -120,3 +117,4 @@ function drawCircle( x, y, radius )
 
 	surface.DrawPoly( cir )
 end
+
