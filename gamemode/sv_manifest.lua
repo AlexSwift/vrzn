@@ -32,6 +32,8 @@ AddCSLuaFile "vrzn/gamemode/cl_weather.lua"
 AddCSLuaFile "vrzn/gamemode/cl_daynight.lua"
 AddCSLuaFile "vrzn/gamemode/cl_apps.lua"
 AddCSLuaFile "vrzn/gamemode/modules/libs/shadow.lua"
+AddCSLuaFile "vrzn/gamemode/modules/libs/circle.lua"
+AddCSLuaFile "vrzn/gamemode/modules/libs/awesonme_utils.lua"
 
 AddCSLuaFile "vrzn/gamemode/sh_config.lua"
 AddCSLuaFile "vrzn/gamemode/sh_init.lua"
