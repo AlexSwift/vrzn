@@ -206,7 +206,7 @@ function GM.Property:PlayerBuyProperty( strName, pPlayer )
 
 	data.Owner = pPlayer
 	data.OwnerSID64 = pPlayer:SteamID64()
-	pPlayer:AddNote( "You bought ".. data.Name.. " for $".. price.. "." )
+	pPlayer:AddNote( "Você comprou ".. data.Name.. " por R$".. price.. "." )
 	pPlayer:AddMoney( -price )
 	GAMEMODE.Net:NetworkProperty( strName )
 
@@ -227,7 +227,7 @@ function GM.Property:PlayerSellProperty( strName, pPlayer )
 
 	local price = math.ceil( data.Price /2 )
 	owner:AddMoney( price )
-	owner:AddNote( "You sold ".. data.Name.. " for $".. price.. "." )
+	owner:AddNote( "Você vendeu ".. data.Name.. " por R$".. price.. "." )
 	self:ResetProperty( strName )
 
 	return true
