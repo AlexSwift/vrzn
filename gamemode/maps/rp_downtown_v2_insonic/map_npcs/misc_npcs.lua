@@ -11,19 +11,19 @@ GAMEMODE.Map:RegisterNPCSpawn{
 }
 
 GAMEMODE.Map:RegisterNPCSpawn{
-	UID = "healer",
-	pos = { Vector( -6903.781738, 7239.276855, 356.031250 ) },
-	angs = { Angle( 0, -90, 0 ) },
+	UID = "bank_storage",
+	pos = { Vector( -3337.572266, -1644.317383, -195.968750 ) },
+	angs = { Angle( 0, 0, 0 ) },
 }
 
 GAMEMODE.Map:RegisterNPCSpawn{
 	UID = "bank_storage",
-	pos = { Vector( -4895.968750, 5268.631348, 352.031250 ) },
-	angs = { Angle( 0, -180, 0 ) },
+	pos = { Vector( -3343.209473, -1501.853882, -195.968750 ) },
+	angs = { Angle( 0, 0, 0 ) },
 }
 
 GAMEMODE.Map:RegisterNPCSpawn{
-	UID = "chop_shop",
-	pos = { Vector( -5458.352051, -9707.833984, 347.969116 ) },
+	UID = "bank_storage",
+	pos = { Vector( -3342.782959, -1788.928101, -195.968750 ) },
 	angs = { Angle( 0, 0, 0 ) },
 }
