@@ -474,22 +474,6 @@ function DrawZoneHud( Name, Safe )
 	end )
 end
 
-
-hook.Add("InitPostEntity" , "GetRidOfAnnoyingHintSystem" , function()
-	if timer.IsTimer("HintSystem_OpeningMenu") then
-		timer.Remove("HintSystem_OpeningMenu")
-	end
-	if timer.IsTimer("HintSystem_Annoy1") then
-		timer.Remove("HintSystem_Annoy1")
-	end
-	if timer.IsTimer("HintSystem_Annoy2") then
-		timer.Remove("HintSystem_Annoy2")
-	end
-end )
-
-
-
-
 surface.CreateFont( "BSYS::CrateTimer", {
 	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
 
@@ -608,6 +592,10 @@ hook.Add( "Think", "OpenCrateDerma", function()
 					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
 					BSHADOWS.EndShadow(1, 1, 2, 200)
 				end
+				cc.DoClick = function()
+					GAMEMODE.Net:RequestBuyProperty( DoorData.Name )
+					mw:Remove()
+				end
 			end
 			if DoorData.Owner == LocalPlayer() then
 				local sc = mw:Add("DButton")
@@ -622,6 +610,10 @@ hook.Add( "Think", "OpenCrateDerma", function()
 							BSHADOWS.BeginShadow()
 					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
 					BSHADOWS.EndShadow(1, 1, 2, 200)
+				end
+				sc.DoClick = function()
+					GAMEMODE.Net:RequestSellProperty( DoorData.Name )
+					mw:Remove()
 				end
 			end
 
