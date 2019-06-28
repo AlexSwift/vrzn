@@ -1535,3 +1535,186 @@ function Panel:PerformLayout( intW, intH )
 	self.m_pnlNameLabel:SetPos( (intW /2) -(self.m_pnlNameLabel:GetWide() /2), (intH /2) -(self.m_pnlNameLabel:GetTall() /2) )
 end
 vgui.Register( "SRPEquipSlot", Panel, "DButton" )
+
+local PANEL = {}
+
+AccessorFunc(PANEL, "m_fInterval", "Interval")
+AccessorFunc(PANEL, "m_fMoveDuration", "MoveDuration")
+AccessorFunc(PANEL, "m_fDotRadius", "DotRadius")
+AccessorFunc(PANEL, "m_cColor", "Color")
+
+local drawCircle = DrawLibDrawCircle
+
+function DrawLibDrawCircle(sx, sy, radius, vertexCount, bOutline, thickness, angle)
+  DrawLibDrawEllipse(sx, sy, radius * 2, radius * 2, vertexCount, bOutline, thickness, angle)
+end
+
+function DrawLibDrawEllipse(sx, sy, sw, sh, vertexCount, bOutline, thickness, angle)
+  local vertices = {}
+  local ang = - math.rad(angle or 0)
+  local c = math.cos(ang)
+  local s = math.sin(ang)
+
+  for i = 0, 360, 360 / vertexCount do
+    local radd = math.rad(i)
+    local x = math.cos(radd)
+    local y = math.sin(radd)
+    local tempx = x * sw / 2 * c - y * sh * s + sx
+
+    y = x * sw * s + y * sh / 2 * c + sy
+    x = tempx
+    vertices[# vertices + 1] = {
+    x = x,
+    y = y,
+    u = u,
+    v = v
+    }
+  end
+
+  if bOutline == true then
+    local n = # vertices
+
+    for i = 1, n do
+      local v = vertices[i]
+
+      if i + 1 <= n then
+        local x, y = v.x, v.y
+        local x2, y2 = vertices[i + 1].x, vertices[i + 1].y
+        drawLine(x, y, x2, y2, thickness)
+      end
+    end
+
+    drawLine(vertices[n].x, vertices[n].y, vertices[1].x, vertices[1].y, thickness)
+  else
+    if vertices and # vertices > 0 then
+    draw.NoTexture()
+    surface.DrawPoly(vertices)
+    end
+  end
+end
+
+function DrawLibDrawCircle(sx, sy, radius, vertexCount, bOutline, thickness, angle)
+  DrawLibDrawEllipse(sx, sy, radius * 2, radius * 2, vertexCount, bOutline, thickness, angle)
+end
+
+
+
+function PANEL:Init()
+  self.lastTime = CurTime()
+
+  self:SetInterval(0.6)
+  self:SetMoveDuration(0.4)
+  self:SetDotRadius(10)
+  self:SetColor(Color(255, 255, 255))
+
+  -- Positions in the grid,
+  --    1
+  -- 4     2
+  --    3
+
+  self.dots = {
+    { pos = 3 },
+    { pos = 4 },
+    { pos = 1 },
+  }
+
+  self.counter = 0
+
+  self.dotPositions = {
+    { x = 0, y = -1 },
+    { x = 1, y = 0 },
+    { x = 0, y = 1 },
+    { x = -1, y = 0},
+  }
+end
+
+function PANEL:UpdateDotPos(index, pos)
+  local dot = self.dots[index]
+
+  dot.prevPos = dot.pos
+  dot.pos = pos
+  dot.time = CurTime() + self:GetMoveDuration()
+end
+
+function PANEL:CycleDot(index)
+  local dot = self.dots[index]
+  self:UpdateDotPos(index, dot.pos % 4 + 1)
+end
+
+function PANEL:FlipDot(index)
+  local dot = self.dots[index]
+  self:UpdateDotPos(index, (dot.pos + 1) % 4 + 1)
+end
+
+function PANEL:GetGridPos(index)
+  return self.dotPositions[index]
+end
+
+local function ease(time, beginning, change, duration)
+  time = time / duration
+  local timeSquared = time * time
+  local timeCubed = timeSquared * time
+	return beginning + change * (timeCubed + -3 * timeSquared + 3 * time)
+end
+
+function PANEL:Think()
+  local time = CurTime()
+  local interval = self:GetInterval()
+
+  if time - self.lastTime >= interval then
+    self.lastTime = time
+
+    self.counter = (self.counter + 1) % 2
+
+    if self.counter == 1 then
+      self:FlipDot(1)
+    elseif self.counter == 0 then
+      self:FlipDot(2)
+    end
+    self:CycleDot(3)
+  end
+end
+
+function PANEL:Paint(w, h)
+  surface.SetDrawColor(self:GetColor())
+  local radius = self:GetDotRadius()
+  local gw, gh = w / 2 - radius, h / 2 - radius
+  local time = CurTime()
+  local duration = self:GetMoveDuration()
+
+  for i = 1, #self.dots do
+    local dot = self.dots[i]
+    if not dot.time then dot.time = time end
+    if not dot.prevPos then dot.prevPos = dot.pos end
+
+    local f = 1 - math.Clamp((dot.time - time) / duration, 0, 1)
+    local fEased = ease(f, 0, 1, 1)
+
+    local pos = self:GetGridPos(dot.pos)
+    local prevPos = self:GetGridPos(dot.prevPos)
+    local interpolatedX = Lerp(fEased, prevPos.x, pos.x)
+    local interpolatedY = Lerp(fEased, prevPos.y, pos.y)
+
+    drawCircle(w / 2 + interpolatedX * gw, h / 2 + interpolatedY * gh, radius, 12)
+  end
+
+end
+
+vgui.Register("VrznLoading", PANEL, "DPanel")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
