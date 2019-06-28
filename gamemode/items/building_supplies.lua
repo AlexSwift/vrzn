@@ -75,7 +75,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Blast Door"
-Item.Desc = "Normal"
+Item.Desc = "Uma porta de chumbo"
 Item.Model = "models/props_lab/blastdoor001b.mdl"
 Item.Weight = 0.5
 Item.Volume = 45
