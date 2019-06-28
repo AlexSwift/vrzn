@@ -1093,15 +1093,17 @@ end
 end]]--
 
 GM.Net:RegisterEventHandle( "property", "b", function( intMsgLen, pPlayer )
-	if not pPlayer:WithinTalkingRange() then return end
-	if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
+	print("chegou")
+	-- if not pPlayer:WithinTalkingRange() then return end
+	-- if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
 	if pPlayer:IsIncapacitated() then return end
 	GAMEMODE.Property:PlayerBuyProperty( net.ReadString(), pPlayer )
+	print( GAMEMODE.Property:PlayerBuyProperty( net.ReadString(), pPlayer ) )
 end )
 
 GM.Net:RegisterEventHandle( "property", "s", function( intMsgLen, pPlayer )
-	if not pPlayer:WithinTalkingRange() then return end
-	if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
+	-- if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
 	if pPlayer:IsIncapacitated() then return end
 	GAMEMODE.Property:PlayerSellProperty( net.ReadString(), pPlayer )
 end )
