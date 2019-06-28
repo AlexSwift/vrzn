@@ -37,7 +37,7 @@ function NPCMeta:OnPlayerTalk( entNPC, pPlayer )
 end
 
 function NPCMeta:OnPlayerEndDialog( pPlayer )
-	if not pPlayer:WithinTalkingRange() then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
 	if pPlayer:GetTalkingNPC().UID ~= self.UID then return end
 	
 	if (pPlayer.m_entTalkingNPC.m_intLastSoundTime or 0) < CurTime() then
@@ -50,19 +50,19 @@ function NPCMeta:OnPlayerEndDialog( pPlayer )
 end
 
 function NPCMeta:ShowBankMenu( pPlayer, ... )
-	if not pPlayer:WithinTalkingRange() then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
 	if pPlayer:GetTalkingNPC().UID ~= self.UID then return end
 	GAMEMODE.Net:ShowNWMenu( pPlayer, "bank_storage_menu" )
 end
 
 function NPCMeta:ShowLostAndFoundMenu( pPlayer, ... )
-	if not pPlayer:WithinTalkingRange() then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
 	if pPlayer:GetTalkingNPC().UID ~= self.UID then return end
 	GAMEMODE.Net:ShowNWMenu( pPlayer, "lost_and_found_menu" )
 end
 
 function NPCMeta:ShowBillsMenu( pPlayer, ... )
-	if not pPlayer:WithinTalkingRange() then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
 	if pPlayer:GetTalkingNPC().UID ~= self.UID then return end
 	GAMEMODE.Net:ShowNWMenu( pPlayer, "bills_menu" )
 end
