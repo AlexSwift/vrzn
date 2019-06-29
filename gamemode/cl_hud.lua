@@ -1,69 +1,69 @@
 --[[
-	Name: cl_hud.lua
-	
-		
+Name: cl_hud.lua
+
+
 ]]--
 
 
 local PANEL = {}
-	local cos, sin, rad = math.cos, math.sin, math.rad
+local cos, sin, rad = math.cos, math.sin, math.rad
 
-	AccessorFunc( PANEL, "m_masksize", "MaskSize", FORCE_NUMBER )
+AccessorFunc( PANEL, "m_masksize", "MaskSize", FORCE_NUMBER )
 
-	function PANEL:Init()
-		self.Avatar = vgui.Create("AvatarImage", self)
-		self.Avatar:SetPaintedManually(true)
-		self:SetMaskSize( 24 )
-	end
+function PANEL:Init()
+	self.Avatar = vgui.Create("AvatarImage", self)
+	self.Avatar:SetPaintedManually(true)
+	self:SetMaskSize( 24 )
+end
 
-	function PANEL:PerformLayout()
-		self.Avatar:SetSize(self:GetWide(), self:GetTall())
-	end
+function PANEL:PerformLayout()
+	self.Avatar:SetSize(self:GetWide(), self:GetTall())
+end
 
-	function PANEL:SetPlayer( id )
-		self.Avatar:SetPlayer( id, self:GetWide() )
-	end
+function PANEL:SetPlayer( id )
+	self.Avatar:SetPlayer( id, self:GetWide() )
+end
 
-	function PANEL:Paint(w, h)
-		render.ClearStencil() -- some people are so messy
-		render.SetStencilEnable(true)
-
-		render.SetStencilWriteMask( 1 )
-		render.SetStencilzoneminMask( 1 )
-
-		render.SetStencilFailOperation( STENCILOPERATION_REPLACE )
-		render.SetStencilPassOperation( STENCILOPERATION_ZERO )
-		render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
-		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_NEVER )
-		render.SetStencilReferenceValue( 1 )
-		
-		local _m = self.m_masksize
-		
-		local circle, t = {}, 0
-		for i = 1, 360 do
-			t = rad(i*720)/720
-			circle[i] = { x = w/2 + cos(t)*_m, y = h/2 + sin(t)*_m }
-		end
-		draw.NoTexture()
-		surface.SetDrawColor(color_white)
-		surface.DrawPoly(circle)
-
-		render.SetStencilFailOperation( STENCILOPERATION_ZERO )
-		render.SetStencilPassOperation( STENCILOPERATION_REPLACE )
-		render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
-		render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL )
-		render.SetStencilReferenceValue( 1 )
-
-		self.Avatar:SetPaintedManually(false)
-		self.Avatar:PaintManual()
-		self.Avatar:SetPaintedManually(true)
-
-		render.SetStencilEnable(false)
-		render.ClearStencil() -- you&#39;re welcome, bitch.
-	end
-
-	vgui.Register("AvatarCircleMask", PANEL)
+function PANEL:Paint(w, h)
+	render.ClearStencil() -- some people are so messy
+	render.SetStencilEnable(true)
 	
+	render.SetStencilWriteMask( 1 )
+	render.SetStencilzoneminMask( 1 )
+	
+	render.SetStencilFailOperation( STENCILOPERATION_REPLACE )
+	render.SetStencilPassOperation( STENCILOPERATION_ZERO )
+	render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
+	render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_NEVER )
+	render.SetStencilReferenceValue( 1 )
+	
+	local _m = self.m_masksize
+	
+	local circle, t = {}, 0
+	for i = 1, 360 do
+		t = rad(i*720)/720
+		circle[i] = { x = w/2 + cos(t)*_m, y = h/2 + sin(t)*_m }
+	end
+	draw.NoTexture()
+	surface.SetDrawColor(color_white)
+	surface.DrawPoly(circle)
+	
+	render.SetStencilFailOperation( STENCILOPERATION_ZERO )
+	render.SetStencilPassOperation( STENCILOPERATION_REPLACE )
+	render.SetStencilZFailOperation( STENCILOPERATION_ZERO )
+	render.SetStencilCompareFunction( STENCILCOMPARISONFUNCTION_EQUAL )
+	render.SetStencilReferenceValue( 1 )
+	
+	self.Avatar:SetPaintedManually(false)
+	self.Avatar:PaintManual()
+	self.Avatar:SetPaintedManually(true)
+	
+	render.SetStencilEnable(false)
+	render.ClearStencil() -- you&#39;re welcome, bitch.
+end
+
+vgui.Register("AvatarCircleMask", PANEL)
+
 
 GM.HUD = {}
 GM.HUD.m_tblNotes = {}
@@ -99,9 +99,9 @@ function GM.HUD:Paint()
 	-- surface.SetDrawColor( 255, 255, 255, 255 )
 	-- surface.SetMaterial( self.m_matLogo )
 	-- surface.DrawTexturedRect( 0, 0, 88, 46 )
-
 	
-
+	
+	
 	GAMEMODE.Jail:PaintJailedHUD()
 	-- self:DrawCarHUD()
 	self:DrawChopShopOverlay()
@@ -133,7 +133,7 @@ function GM.HUD:DrawMayorOverlay()
 	local candidates = LocalPlayer():GetNWFloat("mayor_candidates", 0)
 	local cooldown = GetGlobalInt("MayorCooldown") - CurTime()
 	local text = ""
-
+	
 	--print(GAMEMODE.Jobs:MayorAlive())
 	if GAMEMODE.Jobs:MayorAlive() then
 		for _, ply in pairs(player.GetAll()) do
@@ -148,7 +148,7 @@ function GM.HUD:DrawMayorOverlay()
 	else
 		text = "Election will occure in: " .. GAMEMODE.Util:FormatTime(math.floor(cooldown))
 	end
-
+	
 	surface.SetFont("DermaLarge")
 	local tw, th = surface.GetTextSize(text)
 	local y = math.max(ScrH() * 0.05, 50)
@@ -164,7 +164,7 @@ function GM.HUD:DrawCityWorkerJob()
 	if pPlayer:Team() ~= JOB_CITYWORKER then return end
 	surface.SetDrawColor(255, 255, 255, 255)
 	surface.SetMaterial(Material("icon16/money.png"))
-
+	
 	for k, v in pairs(ents.FindByClass('ent_hydrant')) do
 		if v:GetBroken() then
 			local entpos = v:GetPos():ToScreen()
@@ -172,13 +172,13 @@ function GM.HUD:DrawCityWorkerJob()
 			draw.SimpleText("Fix a leaking hydrant!", "CopMenuFont", entpos.x, entpos.y, color_white, 1, 1)
 		end
 	end
-
+	
 	for k, v in pairs(ents.FindByClass('ent_road_debris')) do
 		local entpos = v:GetPos():ToScreen()
 		surface.DrawTexturedRect(entpos.x, entpos.y - 25, 16, 16)
 		draw.SimpleText("Clear the road of debris!", "CopMenuFont", entpos.x, entpos.y, color_white, 1, 1)
 	end
-
+	
 	for k, v in pairs(ents.FindByClass('ent_mow_grass')) do
 		local entpos = v:GetPos():ToScreen()
 		surface.DrawTexturedRect(entpos.x, entpos.y - 25, 16, 16)
@@ -204,11 +204,11 @@ function GM:DrawPlayerRing(pPlayer)
 	trace.endpos = trace.start + Vector(0, 0, -300)
 	trace.filter = pPlayer
 	local tr = util.TraceLine(trace)
-
+	
 	if not tr.HitWorld then
 		tr.HitPos = pPlayer:GetPos()
 	end
-
+	
 	local color = color_config[pPlayer:GetUserGroup()] and color_config[pPlayer:GetUserGroup()]() or Color(255, 255, 255)
 	color.a = 100
 	local size = pPlayer:IsSuperAdmin() and num + math.sin(CurTime() * 1) * 7 or num + math.sin(CurTime() * 1) * 5
@@ -222,15 +222,15 @@ end)
 
 function GM.HUD:DrawFancyRect( intX, intY, intW, intH, intSlantLeft, intSlantRight, matMaterial )
 	intSlantLeft, intSlantRight = math.rad(intSlantLeft), math.rad(intSlantRight)
-
+	
 	local ladj = (intSlantLeft == 90 or intSlantLeft == 270) and 0 or ((1 /math.tan(intSlantLeft)) *intH)
 	local radj = (intSlantRight == 90 or intSlantRight == 270) and 0 or ((1 /math.tan(intSlantRight)) *intH)
-
+	
 	local tl = ladj > 0 and ladj or 0
 	local bl = ladj > 0 and 0 or -ladj
 	local tr = radj > 0 and 0 or -radj
 	local br = radj > 0 and radj or 0
-
+	
 	if matMaterial then surface.SetMaterial( matMaterial ) else draw.NoTexture() end
 	surface.DrawPoly{
 		{ x = intX +tl, y = intY },
@@ -270,7 +270,7 @@ end
 function GM.HUD:AddNote( text, type, length )
 	local parent = nil
 	if GetOverlayPanel then parent = GetOverlayPanel() end
-
+	
 	local Panel = vgui.Create( "SRPNoticePanel", parent )
 	Panel.StartTime = SysTime()
 	Panel.Length = length and length or 8
@@ -282,7 +282,7 @@ function GM.HUD:AddNote( text, type, length )
 	Panel:SetText( text )
 	Panel:SetType( type )
 	Panel:SetPos( Panel.fx, Panel.fy )
-
+	
 	table.insert( self.m_tblNotes, Panel )
 	surface.PlaySound( "ui/beepclear.wav" )
 end
@@ -315,7 +315,7 @@ function GM.HUD:UpdateNotice( i, Panel, Count )
 	local dist = ideal_y -y
 	Panel.VelY = Panel.VelY +dist *spd *1
 	if math.abs( dist ) < 2 and math.abs( Panel.VelY ) < 0.1 then Panel.VelY = 0 end
-
+	
 	local dist = ideal_x -x
 	Panel.VelX = Panel.VelX +dist *spd *1
 	if math.abs( dist ) < 2 and math.abs( Panel.VelX ) < 0.1 then Panel.VelX = 0 end
@@ -364,30 +364,30 @@ end
 function GM.HUD:DrawChopShopOverlay()
 	local start = LocalPlayer():GetNWFloat( "chop_shop_timer", -1 )
 	local endtime = LocalPlayer():GetNWFloat( "chop_duration", -1 )
-
+	
 	if start == -1 then return end
 	if CurTime() > start +endtime then return end
 	
 	local text = "Chop Shop - Time Left: ".. GAMEMODE.Util:FormatTime( (start +endtime) -CurTime() )
-
+	
 	surface.SetFont( "DermaLarge" )
 	local tw, th = surface.GetTextSize( text )
 	local y = math.max( ScrH() *0.05, 50 )
-
+	
 	surface.SetDrawColor( 40, 40, 40, 150 )
 	self:DrawFancyRect( 0, y, tw +30, th +10, 90, 80 )
-
+	
 	draw.SimpleTextOutlined(
-		text,
-		"DermaLarge",
-		5,
-		y +5,
-		Color( 255, 255, 255, 255 ),
-		TEXT_ALIGN_LEFT,
-		TEXT_ALIGN_LEFT,
-		1,
-		Color( 0, 0, 0, 255 )
-	)
+	text,
+	"DermaLarge",
+	5,
+	y +5,
+	Color( 255, 255, 255, 255 ),
+	TEXT_ALIGN_LEFT,
+	TEXT_ALIGN_LEFT,
+	1,
+	Color( 0, 0, 0, 255 )
+)
 end
 
 local PANEL = {}
@@ -417,382 +417,386 @@ surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
 
-hook.Add("PostDrawOpaqueRenderables", "drawZones", function( a, b )
-    for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
-        if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
-			DrawZoneHud( v.Name, v.Safe )
-			-- DrawTimerHud( v.Name, true)
-		end
-		--[[ UNCOMMENT TO SHOW ZONE DRAWINGS :) 
-            local zonemin = v.Min
-            local zonemax =  v.Max
-            local x, y, z = zonemin.x, zonemin.y, zonemin.z
-            local x2, y2, z2 = zonemax.x, zonemax.y, zonemax.z
-            cam.Start3D()
-                render.SetMaterial( Material("cable/redlaser"))
-                render.DrawBeam( v.Min,v.Max, 20,0, 20.5, Color(255,0,0,0) )
-                render.DrawBeam( Vector(x, y, z), Vector(x2, y, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y2, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x, y2, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y, z), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z2), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z2), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z2), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z2), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y2, z), Vector(x, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y2, z), Vector(x2, y2, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x, y, z), Vector(x, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-                render.DrawBeam( Vector(x2, y, z), Vector(x2, y, z2), 20,0, 20.5, Color(255,0,0,255) )
-			cam.End3D()
-			
-    end]]--
-	end
-end)
+-- local function CreateZoneTimer()
+-- 	timer.Create( "ZoneTimer", 1.5, 0, function() 
+-- 		local ZoneTable = {}
+-- 		for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
+-- 			if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
+-- 				ZoneTable = v
+-- 				-- DrawTimerHud( v.Name, true)
+-- 			end
+-- 		end
+-- 		DrawZoneHud( ZoneTable.Name, ZoneTable.Safe )
+-- 	end )
+-- end
+-- hook.Add( "DrawZoneInfo", "Zone::Timer", CreateZoneTimer )
+-- -- hook.Remove( "Move", "Timer Example")
 
-function DrawZoneHud( Name, Safe )
-    hook.Add( "HUDPaint", "DrawZoneText", function()
-        
-		if Safe then
-			surface.SetFont("HUD::0.3vw")
-        	local w, h = surface.GetTextSize(Name)
-			draw.SimpleText( Name, "HUD::0.3vw", ScrW()/2 - w/2, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-			
-            surface.SetFont("HUD::0.1vw")
-            local tw, th = surface.GetTextSize("OFF RP")
-            draw.SimpleText( "OFF RP", "HUD::0.1vw", ScrW()/2 - tw/2, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-		else
-			surface.SetFont("HUD::0.2vw")
-			local w, h = surface.GetTextSize(Name)
-			-- draw.RoundedBox(16, ScrW() - w - 15 - 8, 2, w + 16, h + 4, Color(30,30,30,50) )
+-- -- timer.Create("ZoneChecker", 1, 0, function()
+-- -- 	LocalPlayer():ChatPrint("timer 1 rodou")
+-- -- 	for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
+-- -- 		if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
+-- -- 			DrawZoneHud( v.Name, v.Safe )
+-- -- 			-- DrawTimerHud( v.Name, true)
+-- -- 		end
+-- -- 	end
+-- -- end)
 
-			draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+-- -- hook.Add("Tick", "drawZones", function( a, b )
 
-            surface.SetFont("HUD::0.1vw")
-			local tw, th = surface.GetTextSize("Área não dominada")
-            -- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-        end
-	end )
-end
+-- -- end)
+
+-- function DrawZoneHud( Name, Safe )
+-- 	hook.Add( "HUDPaint", "DrawZoneText", function()
+-- 		if Safe then
+-- 			surface.SetFont("HUD::0.3vw")
+-- 			local w, h = surface.GetTextSize(Name)
+-- 			draw.SimpleText( Name, "HUD::0.3vw", ScrW()/2 - w/2, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
+-- 			surface.SetFont("HUD::0.1vw")
+-- 			local tw, th = surface.GetTextSize("OFF RP")
+-- 			draw.SimpleText( "OFF RP", "HUD::0.1vw", ScrW()/2 - tw/2, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+-- 		else
+-- 			surface.SetFont("HUD::0.2vw")
+-- 			local w, h = surface.GetTextSize(Name)
+-- 			-- draw.RoundedBox(16, ScrW() - w - 15 - 8, 2, w + 16, h + 4, Color(30,30,30,50) )
+
+-- 			draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
+-- 			surface.SetFont("HUD::0.1vw")
+-- 			local tw, th = surface.GetTextSize("Área não dominada")
+-- 			-- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+-- 		end
+-- 		if timer.Exists("ZoneChecker") then 
+-- 			LocalPlayer():ChatPrint("Removendo o timer 1")
+-- 			timer.Remove("ZoneChecker")
+-- 		else
+-- 			timer.Start("ZoneChecker")
+-- 		end
+-- 	end )
+-- end
 
 surface.CreateFont( "BSYS::CrateTimer", {
 	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
-
-hook.Add( "Think", "OpenCrateDerma", function()
-	local eTraceHit = LocalPlayer():GetEyeTrace()
-	if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
-		if input.IsKeyDown( KEY_F2 ) then 
-			local Door = LocalPlayer():GetEyeTrace().Entity
-			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-			if !DoorData then return end
-			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-			if !PropertyData then return end
-		if not time then
-			time = CurTime() + ( 1 )
-			hook.Add( "HUDPaint", "hHoldingButton", function()
-			variavel = CurTime() + 1
-			if time then			
-
-
-			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-			if !DoorData then return end
-			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-			if !PropertyData then return end
-			local PropertyName = DoorData.Name
-
-			if  PropertyData.Government then return end
-				if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
-					if time > CurTime() then
-						local iOpenT = 1
-						diff=(time-(CurTime()+iOpenT))*-1
-						RevDiff=time-CurTime()
-						---
-						draw.NoTexture()
-						Col = Color( 255,255, 255, 100)
-						surface.SetDrawColor( Col )
-						drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
-						----
-						surface.SetFont( "BSYS::CrateTimer" )
-						surface.SetTextColor( Color( 255,255,255) )
-						local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
-						surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
-						surface.DrawText( math.Round(RevDiff,1))
+	
+	hook.Add( "Think", "OpenCrateDerma", function()
+		local eTraceHit = LocalPlayer():GetEyeTrace()
+		if !eTraceHit.Entity:IsValid() then return end
+		-- if eTraceHit == nil then return end
+		if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+			if input.IsKeyDown( KEY_F2 ) then 
+				local Door = LocalPlayer():GetEyeTrace().Entity
+				local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+				if !DoorData then return end
+				local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+				if !PropertyData then return end
+				if not time then
+					time = CurTime() + ( 1 )
+					hook.Add( "HUDPaint", "hHoldingButton", function()
+						variavel = CurTime() + 1
+						if time then			
+							local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+							if !DoorData then return end
+							local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+							if !PropertyData then return end
+							local PropertyName = DoorData.Name
+							
+							if  PropertyData.Government then return end
+							if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+								if time > CurTime() then
+									local iOpenT = 1
+									diff=(time-(CurTime()+iOpenT))*-1
+									RevDiff=time-CurTime()
+									---
+									draw.NoTexture()
+									Col = Color( 255,255, 255, 100)
+									surface.SetDrawColor( Col )
+									drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
+									----
+									surface.SetFont( "BSYS::CrateTimer" )
+									surface.SetTextColor( Color( 255,255,255) )
+									local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
+									surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
+									surface.DrawText( math.Round(RevDiff,1))
+								end
+								
+							else
+								time = nil
+								LocalPlayer():ChatPrint("Deixou de olhar")
+							end
+							
+						end
+					end )
+				end 
+				if CurTime() > time and not open then
+					local Door = LocalPlayer():GetEyeTrace().Entity
+					local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
+					if !DoorData then return end
+					local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
+					if !PropertyData then return end
+					if  PropertyData.Government then return end
+					-- if DoorData.Owner ~= LocalPlayer() then return end
+					-- if !DoorData.Owner:IsWorld() then return end				
+					hook.Remove( "HUDPaint", "hHoldingButton" )
+					
+					open = true
+					local mw = vgui.Create("DFrame")
+					mw:SetSize(500,400)
+					mw:SetTitle("")
+					mw:MakePopup()
+					mw:SetPos(ScrW()/2 - mw:GetWide()/2, ScrH()/2 - mw:GetWide()/2 - 50)
+					mw:DockMargin(0, 0, 0, 0)
+					mw:ShowCloseButton(false)
+					mw:SetDraggable(false)
+					mw.Paint = function()
 					end
-
-				else
-					time = nil
-					LocalPlayer():ChatPrint("Deixou de olhar")
-				end
-
-			end
-		end )
-		end 
-		if CurTime() > time and not open then
-			local Door = LocalPlayer():GetEyeTrace().Entity
-			local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-			if !DoorData then return end
-			local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-			if !PropertyData then return end
-			if  PropertyData.Government then return end
-			-- if DoorData.Owner ~= LocalPlayer() then return end
-			-- if !DoorData.Owner:IsWorld() then return end				
-			hook.Remove( "HUDPaint", "hHoldingButton" )
-
-			open = true
-			local mw = vgui.Create("DFrame")
-			mw:SetSize(500,400)
-			mw:SetTitle("")
-			mw:MakePopup()
-			mw:SetPos(ScrW()/2 - mw:GetWide()/2, ScrH()/2 - mw:GetWide()/2 - 50)
-			mw:DockMargin(0, 0, 0, 0)
-			mw:ShowCloseButton(false)
-			mw:SetDraggable(false)
-			mw.Paint = function()
-			end
-
-			local mwh = mw:Add("DPanel")
-			mwh:Dock(TOP)
-			mwh:SetTall(100)
-			mwh.Paint = function(pnl, w, h)
-				local aX, aY = pnl:LocalToScreen()
-				BSHADOWS.BeginShadow()
-				draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(26,26,26))
-				BSHADOWS.EndShadow(1, 1, 2, 200)
-			end
-
-			local hi = mwh:Add("DImage")
-			hi:SetImage( "materials/vgui/elements/house.png")
-			hi:Dock(LEFT)
-			hi:SetWide( mwh:GetTall())
-
-			local hn = mwh:Add("DLabel")
-			hn:SetText("")
-			hn:Dock(FILL)
-			hn.Paint = function(pnl, w, h)
-				surface.SetFont("DoorMenuFont")
-				t1w, t1h = surface.GetTextSize("Opções da propriedade")
-				surface.SetTextColor(255, 255, 255, 255)
-				surface.SetTextPos( 0, h/2-t1h)
-				surface.DrawText("Opções da propriedade")
-
-				surface.SetFont("DoorMenuFont2")
-				surface.SetTextColor(255, 255, 255, 180)
-				t2w, t2h = surface.GetTextSize("n24, Rua Gole de Skol")
-				surface.SetTextPos( 0, h/2)
-				surface.DrawText( DoorData.Name )
-			end
-			if DoorData.Owner:IsWorld() then
-				local cc = mw:Add("DButton")
-				cc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-				cc:Dock(TOP)
-				cc:SetTall(40)
-				cc:SetTextColor( Color(255,255,255) )
-				cc:SetFont("DoorMenuButtonFont")
-				cc:SetText("Alugar: R$".. PropertyData.Price)
-				cc.Paint = function(pnl, w, h)
-					local aX, aY = pnl:LocalToScreen()
-					BSHADOWS.BeginShadow()
-					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-					BSHADOWS.EndShadow(1, 1, 2, 200)
-				end
-				cc.DoClick = function()
-					GAMEMODE.Net:RequestBuyProperty( DoorData.Name )
-					mw:Remove()
-				end
-			end
-			if DoorData.Owner == LocalPlayer() then
-				local sc = mw:Add("DButton")
-				sc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-				sc:Dock(TOP)
-				sc:SetTall(40)
-				sc:SetTextColor( Color(255,255,255) )
-				sc:SetFont("DoorMenuButtonFont")
-				sc:SetText("Vender")
-				sc.Paint = function(pnl, w, h)
-					local aX, aY = pnl:LocalToScreen()
+					
+					local mwh = mw:Add("DPanel")
+					mwh:Dock(TOP)
+					mwh:SetTall(100)
+					mwh.Paint = function(pnl, w, h)
+						local aX, aY = pnl:LocalToScreen()
+						BSHADOWS.BeginShadow()
+						draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(26,26,26))
+						BSHADOWS.EndShadow(1, 1, 2, 200)
+					end
+					
+					local hi = mwh:Add("DImage")
+					hi:SetImage( "materials/vgui/elements/house.png")
+					hi:Dock(LEFT)
+					hi:SetWide( mwh:GetTall())
+					
+					local hn = mwh:Add("DLabel")
+					hn:SetText("")
+					hn:Dock(FILL)
+					hn.Paint = function(pnl, w, h)
+						surface.SetFont("DoorMenuFont")
+						t1w, t1h = surface.GetTextSize("Opções da propriedade")
+						surface.SetTextColor(255, 255, 255, 255)
+						surface.SetTextPos( 0, h/2-t1h)
+						surface.DrawText("Opções da propriedade")
+						
+						surface.SetFont("DoorMenuFont2")
+						surface.SetTextColor(255, 255, 255, 180)
+						t2w, t2h = surface.GetTextSize("n24, Rua Gole de Skol")
+						surface.SetTextPos( 0, h/2)
+						surface.DrawText( DoorData.Name )
+					end
+					if DoorData.Owner:IsWorld() then
+						local cc = mw:Add("DButton")
+						cc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+						cc:Dock(TOP)
+						cc:SetTall(40)
+						cc:SetTextColor( Color(255,255,255) )
+						cc:SetFont("DoorMenuButtonFont")
+						cc:SetText("Alugar: R$".. PropertyData.Price)
+						cc.Paint = function(pnl, w, h)
+							local aX, aY = pnl:LocalToScreen()
 							BSHADOWS.BeginShadow()
-					draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-					BSHADOWS.EndShadow(1, 1, 2, 200)
+							draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+							BSHADOWS.EndShadow(1, 1, 2, 200)
+						end
+						cc.DoClick = function()
+							GAMEMODE.Net:RequestBuyProperty( DoorData.Name )
+							mw:Remove()
+						end
+					end
+					if DoorData.Owner == LocalPlayer() then
+						local sc = mw:Add("DButton")
+						sc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+						sc:Dock(TOP)
+						sc:SetTall(40)
+						sc:SetTextColor( Color(255,255,255) )
+						sc:SetFont("DoorMenuButtonFont")
+						sc:SetText("Vender")
+						sc.Paint = function(pnl, w, h)
+							local aX, aY = pnl:LocalToScreen()
+							BSHADOWS.BeginShadow()
+							draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+							BSHADOWS.EndShadow(1, 1, 2, 200)
+						end
+						sc.DoClick = function()
+							GAMEMODE.Net:RequestSellProperty( DoorData.Name )
+							mw:Remove()
+						end
+					end
+					
+					-- local cdc = mw:Add("DButton")
+					-- cdc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+					-- cdc:Dock(TOP)
+					-- cdc:SetTall(40)
+					-- cdc:SetTextColor( Color(255,255,255) )
+					-- cdc:SetFont("DoorMenuButtonFont")
+					-- cdc:SetText("Trancar todas as portas")
+					-- cdc.Paint = function(pnl, w, h)
+					-- 	local aX, aY = pnl:LocalToScreen()
+					-- 	BSHADOWS.BeginShadow()
+					-- 	draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+					-- 	BSHADOWS.EndShadow(1, 1, 2, 200)
+					-- end
+					
+					local cb = vgui.Create("SRP_Button", mw)
+					cb:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
+					cb:Dock(TOP)
+					cb:SetTall(40)
+					cb:SetTextColor( Color(255,255,255) )
+					cb:SetFont("DoorMenuButtonFont")
+					cb:SetText("Voltar")
+					cb.Paint = function(pnl, w, h)
+						local aX, aY = pnl:LocalToScreen()
+						BSHADOWS.BeginShadow()
+						draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
+						BSHADOWS.EndShadow(1, 1, 2, 200)
+					end
+					cb.DoClick = function()
+						mw:Remove()
+					end
+					
 				end
-				sc.DoClick = function()
-					GAMEMODE.Net:RequestSellProperty( DoorData.Name )
-					mw:Remove()
-				end
+			else
+				open = false 
+				time = nil
 			end
-
-			-- local cdc = mw:Add("DButton")
-			-- cdc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-			-- cdc:Dock(TOP)
-			-- cdc:SetTall(40)
-			-- cdc:SetTextColor( Color(255,255,255) )
-			-- cdc:SetFont("DoorMenuButtonFont")
-			-- cdc:SetText("Trancar todas as portas")
-			-- cdc.Paint = function(pnl, w, h)
-			-- 	local aX, aY = pnl:LocalToScreen()
-			-- 	BSHADOWS.BeginShadow()
-			-- 	draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-			-- 	BSHADOWS.EndShadow(1, 1, 2, 200)
-			-- end
-
-			local cb = vgui.Create("SRP_Button", mw)
-			cb:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-			cb:Dock(TOP)
-			cb:SetTall(40)
-			cb:SetTextColor( Color(255,255,255) )
-			cb:SetFont("DoorMenuButtonFont")
-			cb:SetText("Voltar")
-			cb.Paint = function(pnl, w, h)
-				local aX, aY = pnl:LocalToScreen()
-				BSHADOWS.BeginShadow()
-				draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-				BSHADOWS.EndShadow(1, 1, 2, 200)
-			end
-			cb.DoClick = function()
-				mw:Remove()
-			end
-
-			end
-		else
-			open = false 
-			time = nil
+		else return
 		end
+	end )
+	
+	surface.CreateFont( "DoorMenuFont", {size = 32, weight = 400, font = "Montserrat Bold"} )
+	surface.CreateFont( "DoorMenuButtonFont", {size = 32, weight = 400, font = "Montserrat Regular"} )
+	surface.CreateFont( "DoorMenuFont2", {size = 26, weight = 400, font = "Montserrat Regular"} )
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	-- LIB SPACE
+	-----------------------------
+	---@ Awesome Derma/Client LIB
+	---@ Author: Nodge
+	---@ Função de tempo removida da lib MRP
+	-----------------------------
+	function AWDrawTimeCountdown( Initial, Final, Colour)
+		hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
+			local start, finish = Initial, Final
+			local curTime = CurTime()
+			local scrW, scrH = ScrW(), ScrH()
+			
+			if finish > curTime then
+				local fraction = 1 - math.TimeFraction(start, finish, curTime)
+				local alpha = fraction * 255
+				
+				if alpha > 0 then
+					running = true
+					local w, h = scrW * 0.35, 28
+					local x, y = (scrW * 0.5) - (w * 0.5), (scrH * 0.725) - (h * 0.5)
+					
+					surface.SetDrawColor(35, 35, 35, 255)
+					-- surface.DrawRect(x, y, w, h)
+					draw.RoundedBox(8, x, y, w, h, Color(35, 35, 35, 255) )
+					
+					surface.SetDrawColor(0, 0, 0, 120)
+					-- surface.DrawOutlinedRect(x, y, w, h)
+					draw.RoundedBox(8, x, y, w, h, Color(0, 0, 0, 255) )
+					
+					surface.SetDrawColor( 0, 0, 0, 255 )
+					-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
+					draw.RoundedBox(8, x+4, y+4,  (w * fraction) - 8, h - 8, Color( 26,26,26,255 ) )
+					
+					-- surface.SetDrawColor( Color.r, Color.g, Color.b, Color.a )
+					-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
+					draw.RoundedBox(8, x + 4,y  + 4,  (w * fraction) - 8, h - 8, Colour)
+					
+					surface.SetFont("MRP_ActionText")
+					local boxX, boxY = scrW / 2, scrH * 0.1
+					
+					
+					-- draw.SimpleText("Tempo Restante", "PropProtectFont", x + 2, y - 22, color_black)
+					draw.SimpleText("Tempo Restante", "PropProtectFont", x, y - 24, color_white)
+					
+					local remainingTime = string.FormattedTime(math.max(finish - curTime, 0), "%02i:%02i:%02i")
+					-- draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 22, color_black, TEXT_ALIGN_RIGHT)
+					draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 24, color_white, TEXT_ALIGN_RIGHT)
+				end
+			end
+		end)
 	end
-end )
-
-surface.CreateFont( "DoorMenuFont", {size = 32, weight = 400, font = "Montserrat Bold"} )
-surface.CreateFont( "DoorMenuButtonFont", {size = 32, weight = 400, font = "Montserrat Regular"} )
-surface.CreateFont( "DoorMenuFont2", {size = 26, weight = 400, font = "Montserrat Regular"} )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- LIB SPACE
------------------------------
----@ Awesome Derma/Client LIB
----@ Author: Nodge
----@ Função de tempo removida da lib MRP
------------------------------
-function AWDrawTimeCountdown( Initial, Final, Colour)
-    hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
-        local start, finish = Initial, Final
-        local curTime = CurTime()
-        local scrW, scrH = ScrW(), ScrH()
-
-        if finish > curTime then
-            local fraction = 1 - math.TimeFraction(start, finish, curTime)
-            local alpha = fraction * 255
-
-            if alpha > 0 then
-                running = true
-                local w, h = scrW * 0.35, 28
-                local x, y = (scrW * 0.5) - (w * 0.5), (scrH * 0.725) - (h * 0.5)
-
-                surface.SetDrawColor(35, 35, 35, 255)
-                -- surface.DrawRect(x, y, w, h)
-                draw.RoundedBox(8, x, y, w, h, Color(35, 35, 35, 255) )
-
-                surface.SetDrawColor(0, 0, 0, 120)
-                -- surface.DrawOutlinedRect(x, y, w, h)
-                draw.RoundedBox(8, x, y, w, h, Color(0, 0, 0, 255) )
-
-                surface.SetDrawColor( 0, 0, 0, 255 )
-                -- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-                draw.RoundedBox(8, x+4, y+4,  (w * fraction) - 8, h - 8, Color( 26,26,26,255 ) )
-
-                -- surface.SetDrawColor( Color.r, Color.g, Color.b, Color.a )
-                -- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-                draw.RoundedBox(8, x + 4,y  + 4,  (w * fraction) - 8, h - 8, Colour)
-
-                surface.SetFont("MRP_ActionText")
-                local boxX, boxY = scrW / 2, scrH * 0.1
-
-
-                -- draw.SimpleText("Tempo Restante", "PropProtectFont", x + 2, y - 22, color_black)
-                draw.SimpleText("Tempo Restante", "PropProtectFont", x, y - 24, color_white)
-
-                local remainingTime = string.FormattedTime(math.max(finish - curTime, 0), "%02i:%02i:%02i")
-                -- draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 22, color_black, TEXT_ALIGN_RIGHT)
-                draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 24, color_white, TEXT_ALIGN_RIGHT)
-            end
-        end
-    end)
-end
------------------------------
----@ Awesome Derma/Client LIB
----@ Author: Nodge
----@ Desenha um arco vazado, baseado na hud do DayZ
------------------------------
-
-function drawArc( x, y, radius, thickness, start, endp )
-	local outcir = {}
-	local incir = {}
-
-	local start = math.floor(start)
-	local endp = math.floor(endp)
-
-
-	if (start>endp) then
-		local swap = endp
-		endp = start
-		start = swap
-	end
-
-	local inr = radius - thickness
-	for i = start, endp do
-		local a = math.rad(i)
-		table.insert(incir, {x = x+(math.cos(a))*inr, y = y+(-math.sin(a))*inr})
-	end
-
-	for i = start, endp do
-		local a = math.rad(i)
-		table.insert(outcir, {x = x+(math.cos(a))*radius, y = y+(-math.sin(a))*radius})
+	-----------------------------
+	---@ Awesome Derma/Client LIB
+	---@ Author: Nodge
+	---@ Desenha um arco vazado, baseado na hud do DayZ
+	-----------------------------
+	
+	function drawArc( x, y, radius, thickness, start, endp )
+		local outcir = {}
+		local incir = {}
+		
+		local start = math.floor(start)
+		local endp = math.floor(endp)
+		
+		
+		if (start>endp) then
+			local swap = endp
+			endp = start
+			start = swap
+		end
+		
+		local inr = radius - thickness
+		for i = start, endp do
+			local a = math.rad(i)
+			table.insert(incir, {x = x+(math.cos(a))*inr, y = y+(-math.sin(a))*inr})
+		end
+		
+		for i = start, endp do
+			local a = math.rad(i)
+			table.insert(outcir, {x = x+(math.cos(a))*radius, y = y+(-math.sin(a))*radius})
+		end
+		
+		local comcir = {}
+		for i=0,#incir*2 do
+			local p,q,r
+			p = outcir[math.floor(i/2)+1]
+			r = incir[math.floor((i+1)/2)+1]
+			if (i%2) == 0 then
+				q = outcir[math.floor((i+1)/2)]
+			else
+				q = incir[math.floor((i+1)/2)]
+			end
+			table.insert(comcir, {p,q,r})
+		end
+		
+		for k,v in ipairs(comcir) do
+			surface.DrawPoly(v)
+		end
+		
 	end
 	
-	local comcir = {}
-	for i=0,#incir*2 do
-		local p,q,r
-		p = outcir[math.floor(i/2)+1]
-		r = incir[math.floor((i+1)/2)+1]
-		if (i%2) == 0 then
-			q = outcir[math.floor((i+1)/2)]
-		else
-			q = incir[math.floor((i+1)/2)]
+	function ToNumber(arg, arg2, max)
+		finished = arg/max*arg2
+		return finished
+	end
+	
+	function drawCircle( x, y, radius )
+		local cir = {}
+		local seg = 100
+		table.insert( cir, { x = x, y = y, u = 0.5, v = 0.5 } )
+		for i = 0, seg do
+			local a = math.rad( ( i / seg ) * -360 )
+			table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
 		end
-		table.insert(comcir, {p,q,r})
-	end
-
-	for k,v in ipairs(comcir) do
-		surface.DrawPoly(v)
-	end
-
-end
-
-function ToNumber(arg, arg2, max)
-	finished = arg/max*arg2
-	return finished
-end
-
-function drawCircle( x, y, radius )
-	local cir = {}
-	local seg = 100
-	table.insert( cir, { x = x, y = y, u = 0.5, v = 0.5 } )
-	for i = 0, seg do
-		local a = math.rad( ( i / seg ) * -360 )
+		
+		local a = math.rad( 0 ) -- This is needed for non absolute segment counts
 		table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
+		
+		surface.DrawPoly( cir )
 	end
-
-	local a = math.rad( 0 ) -- This is needed for non absolute segment counts
-	table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
-
-	surface.DrawPoly( cir )
-end
-
+	
+	
