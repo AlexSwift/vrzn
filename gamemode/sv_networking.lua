@@ -1438,3 +1438,11 @@ GM.Net:RegisterEventHandle( "econ", "pay_a", function( intMsgLen, pPlayer )
 	if pPlayer:GetTalkingNPC().UID ~= "bank_storage" then return end
 	GAMEMODE.Econ:PlayerPayAllBills( pPlayer )
 end )
+--- ----------------------------
+--- PlayerSay 
+--------------------------------
+util.AddNetworkString( "PlayerSay" )
+
+net.Receive("PlayerSay", function(len, ply)
+	ply:Say( "@ Preciso de ajuda [TAB]", false )
+end)
