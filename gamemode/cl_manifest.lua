@@ -34,7 +34,7 @@ include "vrzn/gamemode/cl_jobs.lua"
 include "vrzn/gamemode/cl_jail.lua"
 include "vrzn/gamemode/cl_map.lua"
 include "vrzn/gamemode/cl_hud.lua"
-include "vrzn/gamemode/cl_hud_car.lua"
+include "vrzn/gamemode/cl_lib.lua"
 include "vrzn/gamemode/cl_license.lua"
 include "vrzn/gamemode/cl_3d2dvgui.lua"
 include "vrzn/gamemode/cl_skills.lua"
@@ -46,9 +46,6 @@ include "vrzn/gamemode/cl_daynight.lua"
 include "vrzn/gamemode/cl_apps.lua"
 include "vrzn/gamemode/sh_store_robbery.lua"
 include "vrzn/gamemode/modules/libs/shadow.lua"
--- include "vrzn/gamemode/modules/libs/circle.lua"
-include "vrzn/gamemode/modules/libs/awesome_utils.lua"
-include "vrzn/gamemode/modules/libs/sh_awesome_utils.lua"
 
 --Load vgui
 local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "vgui/*.lua", "LUA" )
