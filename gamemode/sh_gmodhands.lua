@@ -153,7 +153,7 @@ end
 							if ((ply.zone or 0) ~= k and (ply.zonename or "") ~= v.name) then
 								ply.zone = k
 								ply.zonename = v.name
-								TOAST:Create("Entrando em Nova Área", "" .. v.name, "coordinates.png", 3)
+								TOAST:Create("ENTRANDO EM", "" .. v.name, "materials/vgui/elements/coordinates.png", 3)
 							end
 							
 							if (ply.zone == k and not ply:GetPos():WithinAABox(v.from - Vector(0, 0, 60), v.to)) then
@@ -202,7 +202,7 @@ end
 				})
 				
 				surface.CreateFont("OswaldBold", {
-					font = "Oswald",
+					font = "Montserrat Bold",
 					size = 48,
 					weight = 600
 				})
@@ -243,9 +243,9 @@ end
 						BSHADOWS.BeginShadow()
 						draw.RoundedBox(8, ScrW() / 2 - ((tx > bx and tx or bx) + 64) / 2 - 32 , toast.h - 8, (tx > bx and tx or bx) + 112, (64 + 16) * toast.prg, Color(26,26,26))
 						BSHADOWS.EndShadow(1, 1, 2, 200)
-						tx, _ = draw.SimpleText(toast.title, "HUD::0.3vw", ScrW() / 2 + 32, toast.h + 16, Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+						tx, _ = draw.SimpleText(toast.title, "OswaldBold", ScrW() / 2 + 32, toast.h + 16, Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 						bx, _ = draw.SimpleText(toast.bottom, "HUD::0.2vw", ScrW() / 2 + 32, toast.h + 16 - (1 - toast.prg * 36), Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-						surface.SetMaterial(Material("ggui/land_" .. toast.icon))
+						surface.SetMaterial(Material(toast.icon))
 						surface.SetDrawColor(255, 255, 255, 255 * toast.prg)
 						surface.DrawTexturedRect(ScrW() / 2 - ((tx > bx and tx or bx) + 32) / 2 - (29 + 16) + 10, toast.h, 64, (64) * toast.prg)
 					end
