@@ -198,6 +198,7 @@ function GM.Camera:CalcView( pPlayer, vecOrigin, angAngs, intFOV )
 
 		return view
 	else
+		//
 		if MAIN_MOVIEMODE then
 			MovieMode_Pos = MovieMode_Pos +(vecOrigin -MovieMode_Pos) /32
 			MovieMode_Ang = MovieMode_Ang +(angAngs:Forward() -MovieMode_Ang) /32
@@ -214,7 +215,12 @@ function GM.Camera:CalcView( pPlayer, vecOrigin, angAngs, intFOV )
 end
 
 function GM.Camera:DrawCrosshair()
-	if self.m_conThirdPerson:GetInt() ~= 1 then return end
+	if self.m_conThirdPerson:GetInt() ~= 1 then 
+		surface.SetDrawColor(255, 255, 255, 100)
+		surface.SetMaterial( Material("materials/vgui/crosshair.png") )
+		surface.DrawTexturedRect(ScrW()/2 -8, ScrH()/2 -8, 16, 16)
+	
+		return end
 	if IsValid( LocalPlayer():GetActiveWeapon() ) and self.m_tblFirstPersonWeps[LocalPlayer():GetActiveWeapon():GetClass()] then return end
 	
 	local wide = 8 --crosshar size
@@ -225,9 +231,9 @@ function GM.Camera:DrawCrosshair()
 		mask = MASK_SHOT,
 	}.HitPos:ToScreen()
 
-	surface.SetDrawColor( 255, 0, 0, 255 )
-	surface.DrawRect( drawPos.x -(wide /2), drawPos.y, wide +1, 1 )
-	surface.DrawRect( drawPos.x, drawPos.y -(wide /2), 1, wide +1 )	
+	surface.SetDrawColor(255, 255, 255, 100)
+	surface.SetMaterial( Material("materials/vgui/crosshair.png") )
+	surface.DrawTexturedRect( drawPos.x-8, drawPos.y-8, 16, 16)
 end
 
 hook.Add( "HUDPaint", "ThirdpersonCrosshair", function()
