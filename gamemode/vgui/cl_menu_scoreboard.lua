@@ -64,8 +64,8 @@ function PANEL:DoRightPanel()
 	-- self.MotdPanel:OpenURL("https://monolithservers.com/motd")
 	self.MotdPanel:SetSize(442, 520)
 
-	local usergrp = {founder = true, manager = true, director = true, developer = true, senioradmin = true}
-	if (usergrp[LocalPlayer():GetUserGroup()]) then
+	-- local usergrp = {founder = true, manager = true, director = true, developer = true, senioradmin = true}
+	-- if (usergrp[LocalPlayer():GetUserGroup()]) then
 		self.p = vgui.Create("DButton", self)
 		self.p:SetPos(540 + 16 + 422 / 2 - 64, 595 + 42)
 		self.p:SetText("Preciso de ajuda.")
@@ -77,36 +77,11 @@ function PANEL:DoRightPanel()
 		end
 
 		self.p.DoClick = function(s)
-			local fram = vgui.Create("DFrame")
-			fram:SetSize(800, 550)
-			fram:SetTitle("MOTD Editor")
-			fram.HTML = vgui.Create("DTextEntry", fram)
-			fram.HTML:SetSize(800 - 32, 600 - 128 - 16)
-			fram.HTML:SetPos(16, 32)
-			fram.HTML:SetMultiline(true)
-			fram.HTML:SetTabbingDisabled(false)
-
-			http.Fetch("https://monolithservers.com/motd-html?time=" .. os.time(), function(b)
-				fram.HTML:SetText(b)
-			end)
-
-			fram.Send = vgui.Create("DButton", fram)
-			fram.Send:SetSize(800 - 32, 32)
-			fram.Send:SetPos(16, 550 - 32 - 16)
-			fram.Send:SetText("Save and broadcast")
-
-			fram.Send.DoClick = function()
-				net.Start("MOTDUpdate")
-				net.WriteString(fram.HTML:GetValue())
-				net.SendToServer()
-				fram:Close()
-			end
-
-			fram:Center()
-			fram:MakePopup()
+			net.Start("PlayerSay")
+			net.SendToServer()
 		end
 	end
-end
+-- end
 
 local back = Material("vgui/elements/tabbg.png")
 PANEL.Alpha = 0

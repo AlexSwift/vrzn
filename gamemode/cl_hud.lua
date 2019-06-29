@@ -96,17 +96,8 @@ function GM.HUD:Paint()
 		DrawMotionBlur( 0.055, 1, 0.001 )
 	end
 	
-	-- surface.SetDrawColor( 255, 255, 255, 255 )
-	-- surface.SetMaterial( self.m_matLogo )
-	-- surface.DrawTexturedRect( 0, 0, 88, 46 )
-	
-	
-	
 	GAMEMODE.Jail:PaintJailedHUD()
-	-- self:DrawCarHUD()
 	self:DrawChopShopOverlay()
-	-- DrawCardHud()
-	--self:DrawDeathOverlay()
 end
 
 function GM.HUD:Think()
@@ -416,65 +407,6 @@ surface.CreateFont( "HUD::0.075vw", {	font = "Montserrat Regular", size = 0.75 *
 surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
-
--- local function CreateZoneTimer()
--- 	timer.Create( "ZoneTimer", 1.5, 0, function() 
--- 		local ZoneTable = {}
--- 		for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
--- 			if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
--- 				ZoneTable = v
--- 				-- DrawTimerHud( v.Name, true)
--- 			end
--- 		end
--- 		DrawZoneHud( ZoneTable.Name, ZoneTable.Safe )
--- 	end )
--- end
--- hook.Add( "DrawZoneInfo", "Zone::Timer", CreateZoneTimer )
--- -- hook.Remove( "Move", "Timer Example")
-
--- -- timer.Create("ZoneChecker", 1, 0, function()
--- -- 	LocalPlayer():ChatPrint("timer 1 rodou")
--- -- 	for k, v in pairs( GAMEMODE.Config.tblZones2 ) do
--- -- 		if LocalPlayer():GetPos():WithinAABox(v.Min, v.Max) then
--- -- 			DrawZoneHud( v.Name, v.Safe )
--- -- 			-- DrawTimerHud( v.Name, true)
--- -- 		end
--- -- 	end
--- -- end)
-
--- -- hook.Add("Tick", "drawZones", function( a, b )
-
--- -- end)
-
--- function DrawZoneHud( Name, Safe )
--- 	hook.Add( "HUDPaint", "DrawZoneText", function()
--- 		if Safe then
--- 			surface.SetFont("HUD::0.3vw")
--- 			local w, h = surface.GetTextSize(Name)
--- 			draw.SimpleText( Name, "HUD::0.3vw", ScrW()/2 - w/2, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-
--- 			surface.SetFont("HUD::0.1vw")
--- 			local tw, th = surface.GetTextSize("OFF RP")
--- 			draw.SimpleText( "OFF RP", "HUD::0.1vw", ScrW()/2 - tw/2, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
--- 		else
--- 			surface.SetFont("HUD::0.2vw")
--- 			local w, h = surface.GetTextSize(Name)
--- 			-- draw.RoundedBox(16, ScrW() - w - 15 - 8, 2, w + 16, h + 4, Color(30,30,30,50) )
-
--- 			draw.SimpleText( Name, "HUD::0.2vw", ScrW() - w - 15, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-
--- 			surface.SetFont("HUD::0.1vw")
--- 			local tw, th = surface.GetTextSize("Área não dominada")
--- 			-- draw.SimpleText( "Área não dominada", "HUD::0.1vw", ScrW() - tw - 15, h, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
--- 		end
--- 		if timer.Exists("ZoneChecker") then 
--- 			LocalPlayer():ChatPrint("Removendo o timer 1")
--- 			timer.Remove("ZoneChecker")
--- 		else
--- 			timer.Start("ZoneChecker")
--- 		end
--- 	end )
--- end
 
 surface.CreateFont( "BSYS::CrateTimer", {
 	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
