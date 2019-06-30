@@ -757,7 +757,24 @@ function GM.Gui:ShowNPCSellMenu( strNPCID )
 	self.m_pnlNPCSellMenu:MakePopup()
 end
 
+bState = true
+
+function SetCalcView( pPlayer, vPos, aAngles, iFov )
+	if !bState then return end
+    local view = {}
+    -- print( (math.sin(RealTime()*7) +12) )
+    view.origin = Vector(13276, -9954, -260)
+	view.angles = Angle((math.sin(RealTime()*0.3) +12), (math.sin(RealTime()*0.3) -90), 0.000000)
+	view.fov = 75
+    view.drawviewer = true
+    -- PrintTable(view)
+    return view
+end
+hook.Add( "CalcView", "CharacterMenuCamera", SetCalcView )
+
 function GM.Gui:ShowCharacterSelection()
+	SetCalcView()
+
 	if ValidPanel( self.m_pnlCharCreate ) then
 		self.m_pnlCharCreate:Remove()
 	end
@@ -766,7 +783,7 @@ function GM.Gui:ShowCharacterSelection()
 		self.m_pnlCharSel:SetVisible( false )
 	end
 	
-	self.m_pnlCharSel = vgui.Create( "SRPCharacterSelection" )
+	self.m_pnlCharSel = vgui.Create( "AWESOME_CharacterScreen1" )
 	self.m_pnlCharSel:SetPos( 0, 0 )
 	self.m_pnlCharSel:SetSize( ScrW(), ScrH() )
 	self.m_pnlCharSel:Populate( GAMEMODE.Char:GetPlayerCharacters() )
@@ -783,7 +800,7 @@ function GM.Gui:ShowNewCharacterMenu()
 		self.m_pnlCharSel:SetVisible( false )
 	end
 
-	self.m_pnlCharCreate = vgui.Create( "SRPNewCharacterPanel" )
+	self.m_pnlCharCreate = vgui.Create( "AWESOME_CharCreate" )
 	self.m_pnlCharCreate:SetPos( 0, 0 )
 	self.m_pnlCharCreate:SetSize( ScrW(), ScrH() )
 	self.m_pnlCharCreate:SetVisible( true )
