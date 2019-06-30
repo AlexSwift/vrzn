@@ -2,7 +2,7 @@
 -----------JChat by JohnnyThunders------------ 
 ----------------------------------------------
 --[[
-if JChat then return end
+if JChat then return end]]--
 JChat = JChat or {} --Let's prevent any breaking.
 --Various data 
 
@@ -86,21 +86,21 @@ cvars.AddChangeCallback("jchat_maxlines", function(cvar, old, new)
 end)
 
 JChat.ChatColors = {
-	-- [":red:"] = Color(255, 0, 0),
-	-- [":green:"] = Color(0, 255, 0),
-	-- [":blue:"] = Color(0, 0, 255),
-	-- [":yellow:"] = Color(255, 255, 0),
-	-- [":black:"]= Color(0, 0, 0),
-	-- [":white:"] = Color(255, 255, 255),
-	-- [":grey:"] = Color(115, 115, 115),
-	-- [":gray:"] = Color(115, 115, 115), -- for the american spelling
-	-- [":lightblue:"] = Color(152, 245, 255),
-	-- [":aqua:"] = Color(127, 255, 212),
-	-- [":orange:"] = Color(205, 127, 50),
-	-- [":purple:"] = Color(127, 0, 255),
-	-- [":lightgreen:"] = Color(202, 255, 112),
-	-- [":pink:"] = Color(255, 20, 147),
-	-- [":darkred:"] = Color(139, 26, 26)
+	[":red:"] = Color(255, 0, 0),
+	[":green:"] = Color(0, 255, 0),
+	[":blue:"] = Color(0, 0, 255),
+	[":yellow:"] = Color(255, 255, 0),
+	[":black:"]= Color(0, 0, 0),
+	[":white:"] = Color(255, 255, 255),
+	[":grey:"] = Color(115, 115, 115),
+	[":gray:"] = Color(115, 115, 115), -- for the american spelling
+	[":lightblue:"] = Color(152, 245, 255),
+	[":aqua:"] = Color(127, 255, 212),
+	[":orange:"] = Color(205, 127, 50),
+	[":purple:"] = Color(127, 0, 255),
+	[":lightgreen:"] = Color(202, 255, 112),
+	[":pink:"] = Color(255, 20, 147),
+	[":darkred:"] = Color(139, 26, 26)
 }
 JChat.SentChatPrintLine = false
 

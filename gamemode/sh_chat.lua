@@ -61,13 +61,13 @@ else
 			return strText, -1
 		end
 		
-		--find = string.find(strText,"/a ")
-		--if find == 1 then
-		--	strText = string.sub(strText,find+3)
-		--	table.insert( tblArgs, Color(60, 200, 60) )
-		--	table.insert( tblArgs, "( Advertisement ) " )
-		--	return strText, -1
-		--end
+		find = string.find(strText,"/a ")
+		if find == 1 then
+			strText = string.sub(strText,find+3)
+			table.insert( tblArgs, Color(60, 200, 60) )
+			table.insert( tblArgs, "( Advertisement ) " )
+			return strText, -1
+		end
 		find = string.find( strText, "/broadcast" )
 		if find == 1 then
 			strText = string.sub( strText,find +11 )
