@@ -757,7 +757,7 @@ function GM.Gui:ShowNPCSellMenu( strNPCID )
 	self.m_pnlNPCSellMenu:MakePopup()
 end
 
-bState = true
+bState = false
 
 function SetCalcView( pPlayer, vPos, aAngles, iFov )
 	if !bState then return end

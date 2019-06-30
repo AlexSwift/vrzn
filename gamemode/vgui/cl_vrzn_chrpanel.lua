@@ -31,6 +31,7 @@ surface.CreateFont("CS::Label", { font = "Montserrat Bold", extended = false, si
 local PANEL = {}
 
 function PANEL:Init()
+    bState = true
     SetCalcView()
     self:SetTall( 64 )
     self.Icon = vgui.Create("DImage", self)
@@ -94,6 +95,7 @@ function PANEL:EnablePlayButton()
         draw.SimpleText("JOGAR", "CS::PlayButton", w/2, h/2, Color(26,26,26,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
     end
     CSPlayButton.DoClick = function()
+        CharacterCreationPreviewModel:Remove()
         bState = true
         GAMEMODE.Net:RequestSelectCharacter( self.CharacterID )
         local container = self:GetParent()
@@ -132,6 +134,7 @@ local bState = false
 
 local PANEL = {}
 function PANEL:Init()
+    bState = true
     self.SelectedCharacter = 0
     self.CharacterCards = {}
 
@@ -502,6 +505,7 @@ function PANEL:Init()
         end
     end
     self.DoneBtn.DoClick = function()
+        CharacterCreationPreviewModel:Remove()
         GAMEMODE.Net:RequestCreateCharacter{
 			Name = {
 				First = self.NameInput:GetValue(),
@@ -512,6 +516,7 @@ function PANEL:Init()
 			Skin = self.m_intSkin,
         }
         self:Remove()
+        bState = false
     end
 end
 
