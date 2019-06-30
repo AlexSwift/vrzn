@@ -226,19 +226,17 @@ local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
 }
 
     GM.Config.VIPGroups      = {
+
+}
+
+GM.Config.VIP2Groups      = {
+
+}
+
+GM.Config.VIP3Groups      = {
     ["founder"]              = true,
     ["developer"]            = true,
     ["superadmin"]           = false,
-    ["headofstaff"]          = false,
-    ["communitymanager"]     = false,
-    ["servermanager"]        = false,
-    ["headadmin"]            = false,
-    ["senioradmin"]          = false,
-    ["admin"]                = false,
-    ["moderator"]            = false,
-    ["vip"]                  = true,
-    ["tmod+"]                = true,
-    ["admin+"]               = true,
 }
 
 --[[ Item Limits ]]--
@@ -260,7 +258,7 @@ local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
 }
 
 --[[ Character Settings ]]--
-    GM.Config.MaxCharacters  = DEV_SERVER and 3 or 1
+    GM.Config.MaxCharacters  = DEV_SERVER and 3 or 3
     GM.Config.NameLength     = { First = 15, Last = 15 }
     GM.Config.StartingMoney  = { Wallet = 25000, Bank = 35000 }
     GM.Config.MaxCarryWeight = 600
