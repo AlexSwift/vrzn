@@ -55,10 +55,10 @@ if SERVER then
 
 	--[[ Map Settings ]]--
 	GM.Config.SpawnPoints = {
-		Vector( 3334.430176, 1229.166992 -185 ),
-		Vector( 3144.420166, 958.786621, -185 ),
-		Vector( 3132.640869, 891.414673, -185 ),
-		Vector( 3340.830078, 649.361145, -185 ),
+		Vector( 3334.430176, 1229.166992 -200 ),
+		Vector( 3144.420166, 958.786621, -200 ),
+		Vector( 3132.640869, 891.414673, -200 ),
+		Vector( 3340.830078, 649.361145, -200 ),
 	}
 
 	--[[ Register the car customs shop location ]]--
