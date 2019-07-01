@@ -98,18 +98,18 @@ function GM.Gui:Tick()
 	end
 end
 
-function GM.Gui:CreateMove( CUserCmd )
-	if not GAMEMODE.m_bInGame then return end
-	if not self.m_intLastScroll then self.m_intLastScroll = 0 end
+-- function GM.Gui:CreateMove( CUserCmd )
+-- 	if not GAMEMODE.m_bInGame then return end
+-- 	if not self.m_intLastScroll then self.m_intLastScroll = 0 end
 	
-	if CurTime() < self.m_intLastScroll then return end
+-- 	if CurTime() < self.m_intLastScroll then return end
 	
-	if CUserCmd:GetMouseWheel() > 0 then
-		self.m_intLastScroll = CurTime() +0.015
-	elseif CUserCmd:GetMouseWheel() < 0 then
-		self.m_intLastScroll = CurTime() +0.015
-	end
-end
+-- 	if CUserCmd:GetMouseWheel() > 0 then
+-- 		self.m_intLastScroll = CurTime() +0.015
+-- 	elseif CUserCmd:GetMouseWheel() < 0 then
+-- 		self.m_intLastScroll = CurTime() +0.015
+-- 	end
+-- end
 
 
 // Voice chat
@@ -253,7 +253,7 @@ end
 hook.Add( "InitPostEntity", "CreateVoiceVGUI", CreateVoiceVGUI )
 
 function GM.Gui:HUDShouldDraw( strName )
-	if strName == "CHudWeaponSelection" then return false end
+	-- if strName == "CHudWeaponSelection" then return false end
 end
 
 --Thanks gmod, this is a huge mess now
@@ -266,86 +266,6 @@ function GM.Gui:Think()
 	if ValidPanel( vgui.GetKeyboardFocus() ) then return end
 	if input.IsKeyDown( KEY_F4 ) then
 		KeyF4Menu = vgui.Create("ErisF4")
-	end
-	--Click
-	if input.IsKeyDown( KEY_ENTER ) then
-		if not self.m_tblKeyStates[KEY_ENTER] then
-			self.m_tblKeyStates[KEY_ENTER] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[KEY_ENTER] and CurTime() > self.m_tblKeyStates[KEY_ENTER] then
-			self.m_tblKeyStates[KEY_ENTER] = false
-		end
-	end
-
-	--Next
-	if input.IsKeyDown( KEY_RIGHT ) then
-		if not self.m_tblKeyStates[KEY_RIGHT] then
-			self.m_tblKeyStates[KEY_RIGHT] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[KEY_RIGHT] and CurTime() > self.m_tblKeyStates[KEY_RIGHT] then
-			self.m_tblKeyStates[KEY_RIGHT] = false
-		end
-	end
-
-	--Last
-	if input.IsKeyDown( KEY_LEFT ) then
-		if not self.m_tblKeyStates[KEY_LEFT] then
-			self.m_tblKeyStates[KEY_LEFT] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[KEY_LEFT] and CurTime() > self.m_tblKeyStates[KEY_LEFT] then
-			self.m_tblKeyStates[KEY_LEFT] = false
-		end
-	end
-
-	--Back page
-	if input.IsKeyDown( KEY_BACKSPACE ) then
-		if not self.m_tblKeyStates[KEY_BACKSPACE] then
-			self.m_tblKeyStates[KEY_BACKSPACE] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[KEY_BACKSPACE] and CurTime() > self.m_tblKeyStates[KEY_BACKSPACE] then
-			self.m_tblKeyStates[KEY_BACKSPACE] = false
-		end
-	end
-
-	--Back page
-	if input.IsMouseDown( MOUSE_4 ) then
-		if not self.m_tblKeyStates[MOUSE_4] then
-			self.m_tblKeyStates[MOUSE_4] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[MOUSE_4] and CurTime() > self.m_tblKeyStates[MOUSE_4] then
-			self.m_tblKeyStates[MOUSE_4] = false
-		end
-	end
-
-	--Keypad number Keys
-	for key = 37, 46 do
-		if input.IsKeyDown( key ) then
-			if not self.m_tblKeyStates[key] then
-				self.m_tblKeyStates[key] = CurTime() +self.m_intKeyDelay
-			end
-		else
-			if self.m_tblKeyStates[key] and CurTime() > self.m_tblKeyStates[key] then
-				self.m_tblKeyStates[key] = false
-			end
-		end
-	end
-
-	--Number row keys
-	for key = 1, 10 do
-		if input.IsKeyDown( key ) then
-			if not self.m_tblKeyStates[key] then
-				self.m_tblKeyStates[key] = CurTime() +self.m_intKeyDelay
-			end
-		else
-			if self.m_tblKeyStates[key] and CurTime() > self.m_tblKeyStates[key] then
-				self.m_tblKeyStates[key] = false
-			end
-		end
 	end
 end
 
