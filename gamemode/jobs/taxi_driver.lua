@@ -63,37 +63,6 @@ if SERVER then
 		GAMEMODE.Cars:PlayerStowJobCar( pPlayer, self.ParkingGaragePos )
 	end
 
-		hook.Add( "GamemodePlayerSendTextMessage", "TaxiJobTexting", function( pSender, strText, strNumberSendTo )
-		if strNumberSendTo ~= "Taxi" then return end
-		if pSender.m_intLastTowText and pSender.m_intLastTowText > CurTime() then
-			local time = math.Round( pSender.m_intLastTowText -CurTime() )
-			GAMEMODE.Net:SendTextMessage( pSender, "Taxi", "You must wait ".. time.. " seconds before you can send another message to a Taxi Driver." )
-			pSender:EmitSound( "taloslife/sms.mp3" )
-			return true
-		end
-		local sentTo = 0
-		strText = "Taxi call from ".. GAMEMODE.Player:GetGameVar(pSender, "phone_number").. "\n(".. pSender:Nick().. "):\n".. strText
-		for k, v in pairs( player.GetAll() ) do
-			if GAMEMODE.Jobs:GetPlayerJobID( v ) == JOB_TAXI then
-				GAMEMODE.Net:SendTextMessage( v, "Taxi Dispatch", strText )
-				v:EmitSound( "taloslife/sms.mp3" )
-				sentTo = sentTo +1
-			end
-		end
-
-		local respMsg = ""
-		if sentTo == 0 then
-			respMsg = "No Taxi services are available right now. Sorry!"
-		else
-			respMsg = "Your message was received by dispatch and sent to ".. sentTo.. " players."
-		end
-		
-		GAMEMODE.Net:SendTextMessage( pSender, "Taxi", respMsg )
-		pSender:EmitSound( "taloslife/sms.mp3" )
-		pSender.m_intLastTowText = CurTime() +60
-		return
-	end )
-
 	hook.Add( "PlayerEnteredVehicle", "TaxiCharge", function( pPlayer, entVehicle, intRole )
 		if IsValid( entVehicle:GetParent() ) and entVehicle:GetParent().IsTaxi then
 			entVehicle:GetParent().m_tblPlayers = entVehicle:GetParent().m_tblPlayers or {}

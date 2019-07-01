@@ -275,36 +275,6 @@ if SERVER then
 		GAMEMODE.Cars:PlayerStowJobCar( pPlayer, self.ParkingLotPos )
 	end
 
-	hook.Add( "GamemodePlayerSendTextMessage", "TowJobTexting", function( pSender, strText, strNumberSendTo )
-		if strNumberSendTo ~= "Roadside Assistance" then return end
-		if pSender.m_intLastTowText and pSender.m_intLastTowText > CurTime() then
-			local time = math.Round( pSender.m_intLastTowText -CurTime() )
-			GAMEMODE.Net:SendTextMessage( pSender, "Roadside Assistance", "You must wait ".. time.. " seconds before you can send another message to roadside assistance." )
-			pSender:EmitSound( "taloslife/sms.mp3" )
-			return true
-		end
-		local sentTo = 0
-		strText = "Roadside assistance call from ".. GAMEMODE.Player:GetGameVar(pSender, "phone_number").. "\n(".. pSender:Nick().. "):\n".. strText
-		for k, v in pairs( player.GetAll() ) do
-			if GAMEMODE.Jobs:GetPlayerJobID( v ) == JOB_TOW then
-				GAMEMODE.Net:SendTextMessage( v, "Tow Dispatch", strText )
-				v:EmitSound( "taloslife/sms.mp3" )
-				sentTo = sentTo +1
-			end
-		end
-
-		local respMsg = ""
-		if sentTo == 0 then
-			respMsg = "No roadside services are available right now. Sorry!"
-		else
-			respMsg = "Your message was received by dispatch and sent to ".. sentTo.. " players."
-		end
-		
-		GAMEMODE.Net:SendTextMessage( pSender, "Roadside Assistance", respMsg )
-		pSender:EmitSound( "taloslife/sms.mp3" )
-		pSender.m_intLastTowText = CurTime() +60
-		return
-	end )
 
 	hook.Add( "PlayerEnteredVehicle", "TowTips", function( pPlayer, entVeh, intRole )
 		if not entVeh.IsTow then return end

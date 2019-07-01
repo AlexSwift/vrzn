@@ -128,9 +128,9 @@ function GM:Tick()
 	self.Gui:Tick()
 end
 
-function GM:KeyPress( ... )
-	self.Gui:KeyPress( ... )
-end
+-- function GM:KeyPress( ... )
+-- 	self.Gui:KeyPress( ... )
+-- end
 
 function GM:CreateMove( ... )
 	self.Gui:CreateMove( ... )

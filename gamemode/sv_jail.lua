@@ -95,7 +95,7 @@ function GM.Jail:SendPlayerToJail( pPlayer )
 	pPlayer:StripWeapons()
 	pPlayer:SetPos( cellPos )
 	pPlayer:AddNote( "You have been sent to jail!" )
-	GAMEMODE.Phone:PlayerEndCall( pPlayer )
+	-- GAMEMODE.Phone:PlayerEndCall( pPlayer )
 	
 	return true
 end

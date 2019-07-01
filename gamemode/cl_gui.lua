@@ -10,13 +10,7 @@ GM.Gui.m_intKeyDelay = 0.15
 GM.Gui.m_tblNWMenus = (GAMEMODE or GM).Gui.m_tblNWMenus or {}
 GM.Gui.m_tblKeyStates = (GAMEMODE or GM).Gui.m_tblKeyStates or {}
 GM.Gui.m_tblVoicePanels = {}
-GM.Gui.m_tblDefPhoneApps = {
-	{ Name = "Phone", Icon = "santosrp/phone/phone_4.png", Panel = "SRPPhone_App_PhoneDialer" },
-	{ Name = "Contacts", Icon = "santosrp/phone/contacts.png", Panel = "SRPPhone_App_Contacts" },
-	{ Name = "Messages", Icon = "santosrp/phone/mms.png", Panel = "SRPPhone_App_Messages" },
-	{ Name = "Camera", Icon = "santosrp/phone/camera.png", Panel = "SRPPhone_App_Camera" },
-	{ Name = "Gallery", Icon = "santosrp/phone/gallery.png", Panel = "SRPPhone_App_Gallery" },
-}
+
 
 function GM.Gui:Initialize()
 	self:BuildCarShop()
@@ -29,7 +23,6 @@ function GM.Gui:Initialize()
 	self:BuildDrivingTestMenu()
 	self:BuildBankMenu()
 	self:BuildClothingMenu()
-	self:BuildPhoneMenu()
 	self:BuildCraftingMenus()
 	self:BuildChatRadioMenu()
 	self:BuildItemLockerMenu()
@@ -49,14 +42,6 @@ end
 
 function GM.Gui:ShowNWMenu( strID )
 	self.m_tblNWMenus[strID]:Open()
-end
-
-function GM.Gui:PhonePageBack()
-	self.m_pnlPhone:BackPage()
-end
-
-function GM.Gui:GetCurrentPhoneMenu()
-	return self.m_pnlPhone.m_pnlContent:GetCurrentMenu()
 end
 
 function GM.Gui:Tick()
@@ -113,36 +98,16 @@ function GM.Gui:Tick()
 	end
 end
 
-function GM.Gui:KeyPress( _, intKey )
-	if not GAMEMODE.m_bInGame then return end
-	if not ValidPanel( self.m_pnlPhone ) or not self.m_pnlPhone:IsVisible() then return end
-	if not self.m_intLastMouseClick then self.m_intLastMouseClick = 0 end
-	
-	if CurTime() > self.m_intLastMouseClick then
-		if intKey == IN_ATTACK2 then
-			self.m_pnlPhone:NextSelection()
-			self.m_intLastMouseClick = CurTime() +self.m_intKeyDelay
-		elseif intKey == IN_ATTACK then
-			self.m_pnlPhone:DoClick()
-			self.m_intLastMouseClick = CurTime() +self.m_intKeyDelay
-		end
-	end
-end
-
 function GM.Gui:CreateMove( CUserCmd )
 	if not GAMEMODE.m_bInGame then return end
 	if not self.m_intLastScroll then self.m_intLastScroll = 0 end
 	
-	if not ValidPanel( self.m_pnlPhone ) then return end
-	if not self.m_pnlPhone:IsVisible() then return end
 	if CurTime() < self.m_intLastScroll then return end
 	
 	if CUserCmd:GetMouseWheel() > 0 then
 		self.m_intLastScroll = CurTime() +0.015
-		self.m_pnlPhone:NextSelection()
 	elseif CUserCmd:GetMouseWheel() < 0 then
 		self.m_intLastScroll = CurTime() +0.015
-		self.m_pnlPhone:LastSelection()
 	end
 end
 
@@ -288,8 +253,6 @@ end
 hook.Add( "InitPostEntity", "CreateVoiceVGUI", CreateVoiceVGUI )
 
 function GM.Gui:HUDShouldDraw( strName )
-	if not ValidPanel( self.m_pnlPhone ) then return end
-	if not self.m_pnlPhone:IsVisible() then return end
 	if strName == "CHudWeaponSelection" then return false end
 end
 
@@ -299,25 +262,14 @@ function GM.Gui:Think()
 	if vgui.CursorVisible() then return end
 	if gui.IsGameUIVisible() then return end
 	
-	if input.IsKeyDown( KEY_UP ) then
-		if not self.m_tblKeyStates[KEY_UP] then
-			self.m_pnlPhone:Toggle()
-			self.m_tblKeyStates[KEY_UP] = CurTime() +self.m_intKeyDelay
-		end
-	else
-		if self.m_tblKeyStates[KEY_UP] and CurTime() > self.m_tblKeyStates[KEY_UP] then
-			self.m_tblKeyStates[KEY_UP] = false
-		end
-	end
 	
-	if not ValidPanel( self.m_pnlPhone ) then return end
-	if not self.m_pnlPhone:IsVisible() then return end
 	if ValidPanel( vgui.GetKeyboardFocus() ) then return end
-
+	if input.IsKeyDown( KEY_F4 ) then
+		KeyF4Menu = vgui.Create("ErisF4")
+	end
 	--Click
 	if input.IsKeyDown( KEY_ENTER ) then
 		if not self.m_tblKeyStates[KEY_ENTER] then
-			self.m_pnlPhone:DoClick()
 			self.m_tblKeyStates[KEY_ENTER] = CurTime() +self.m_intKeyDelay
 		end
 	else
@@ -329,7 +281,6 @@ function GM.Gui:Think()
 	--Next
 	if input.IsKeyDown( KEY_RIGHT ) then
 		if not self.m_tblKeyStates[KEY_RIGHT] then
-			self.m_pnlPhone:NextSelection()
 			self.m_tblKeyStates[KEY_RIGHT] = CurTime() +self.m_intKeyDelay
 		end
 	else
@@ -341,7 +292,6 @@ function GM.Gui:Think()
 	--Last
 	if input.IsKeyDown( KEY_LEFT ) then
 		if not self.m_tblKeyStates[KEY_LEFT] then
-			self.m_pnlPhone:LastSelection()
 			self.m_tblKeyStates[KEY_LEFT] = CurTime() +self.m_intKeyDelay
 		end
 	else
@@ -353,7 +303,6 @@ function GM.Gui:Think()
 	--Back page
 	if input.IsKeyDown( KEY_BACKSPACE ) then
 		if not self.m_tblKeyStates[KEY_BACKSPACE] then
-			self.m_pnlPhone:BackPage()
 			self.m_tblKeyStates[KEY_BACKSPACE] = CurTime() +self.m_intKeyDelay
 		end
 	else
@@ -365,7 +314,6 @@ function GM.Gui:Think()
 	--Back page
 	if input.IsMouseDown( MOUSE_4 ) then
 		if not self.m_tblKeyStates[MOUSE_4] then
-			self.m_pnlPhone:BackPage()
 			self.m_tblKeyStates[MOUSE_4] = CurTime() +self.m_intKeyDelay
 		end
 	else
@@ -378,7 +326,6 @@ function GM.Gui:Think()
 	for key = 37, 46 do
 		if input.IsKeyDown( key ) then
 			if not self.m_tblKeyStates[key] then
-				self.m_pnlPhone:NumberTyped( GAMEMODE.Util:EnumToKey(key, 37) )
 				self.m_tblKeyStates[key] = CurTime() +self.m_intKeyDelay
 			end
 		else
@@ -392,7 +339,6 @@ function GM.Gui:Think()
 	for key = 1, 10 do
 		if input.IsKeyDown( key ) then
 			if not self.m_tblKeyStates[key] then
-				self.m_pnlPhone:NumberTyped( GAMEMODE.Util:EnumToKey(key, 1) )
 				self.m_tblKeyStates[key] = CurTime() +self.m_intKeyDelay
 			end
 		else
@@ -893,17 +839,6 @@ function GM.Gui:BuildClothingMenu()
 	self.m_pnlClothingLockerMenu:Center()
 	self.m_pnlClothingLockerMenu:SetVisible( false )
 	self:RegisterNWMenu( "job_clothing_locker", self.m_pnlClothingLockerMenu )
-end
-
-function GM.Gui:BuildPhoneMenu()
-	if ValidPanel( self.m_pnlPhone ) then
-		self.m_pnlPhone:Remove()
-	end
-
-	self.m_pnlPhone = vgui.Create( "SRPPhoneMenu" )
-	self.m_pnlPhone:SetSize( 276, 500 )
-	self.m_pnlPhone:SetPos( ScrW() -self.m_pnlPhone:GetWide(), ScrH() )
-	self.m_pnlPhone:SetVisible( false )
 end
 
 function GM.Gui:BuildCraftingMenus()
