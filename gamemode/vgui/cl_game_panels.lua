@@ -1772,7 +1772,9 @@ end
 
 vgui.Register("AWESOME_Sidebar", PANEL)
 
-fCreateFont( tbl, "Header", "Galyon", 18, 500 )
+-- fCreateFont( tbl, "Header", "Galyon", 18, 500 )
+surface.CreateFont( "Header", {size = 18, weight = 600, font = "Montserrat Regular"} )
+
 
 local PANEL = {}
 local sCloseButton = Material("awesome/organisations/close-btns.png", "noclamp smoot")
