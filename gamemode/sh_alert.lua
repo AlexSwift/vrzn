@@ -4,7 +4,7 @@ ALERT = {}
 ALERT.__index = __index
 ALERT.Items = {}
 
-GAMEMODE.Config.tblZones            = {
+tblZones            = {
     
     
 }
@@ -33,11 +33,11 @@ end
 
 --LocalPlayer().zone = 0
 hook.Add("Think", "CheckToastInside", function(ply)
-    if (CLIENT and GAMEMODE.Config.tblZones[game.GetMap()] and #GAMEMODE.Config.tblZones[game.GetMap()] > 0) then
+    if (CLIENT and tblZones[game.GetMap()] and #tblZones[game.GetMap()] > 0) then
         local ply = LocalPlayer()
         ply.NoZone = true
         
-        for k, v in pairs(GAMEMODE.Config.tblZones[game.GetMap()]) do
+        for k, v in pairs(tblZones[game.GetMap()]) do
             if (ply:GetPos():WithinAABox(v.from - Vector(0, 0, 70), v.to)) then
                 ply.NoZone = false
                 
