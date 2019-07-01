@@ -459,7 +459,7 @@ function PANEL:Init()
     self.SkinLabel:SetText("Modelo do personagem")
     --
     self.m_pnlModelList = vgui.Create( "DPanelList", self.LeftNavButtonsContainer )
-	self.m_pnlModelList:SetTall( ScreenPercent(h,20) )
+	self.m_pnlModelList:SetTall( 50 )
     self.m_pnlModelList:DockMargin( 0, 0, 0, 15)
     self.m_pnlModelList:Dock(TOP)
 	self.m_pnlModelList:EnableHorizontal( true ) 
