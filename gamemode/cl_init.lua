@@ -132,9 +132,9 @@ end
 -- 	self.Gui:KeyPress( ... )
 -- end
 
-function GM:CreateMove( ... )
-	self.Gui:CreateMove( ... )
-end
+-- function GM:CreateMove( ... )
+-- 	self.Gui:CreateMove( ... )
+-- end
 
 function GM:HUDShouldDraw( ... )
 	if self.Gui:HUDShouldDraw( ... ) ~= nil then

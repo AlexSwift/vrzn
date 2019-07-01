@@ -81,7 +81,6 @@ function GM:Tick()
 	self.Weather:Tick()
 	self.FireSystem:Tick()
 	self.Econ:Tick()
-	self.StoreRobbery:Tick()
 end
 
 function GM:OnEntityCreated( eEnt )
@@ -91,10 +90,7 @@ end
 function GM:EntityRemoved( eEnt )
 	self.Inv:EntityRemoved( eEnt )
 	self.PropProtect:EntityRemoved( eEnt )
-	
-	if eEnt:IsPlayer() then
-		self.Phone:PlayerDisconnected( eEnt )
-	end
+
 end
 
 function GM:EntityKeyValue( eEnt, strKey, strValue )
@@ -222,11 +218,6 @@ function GM:PlayerCanHearPlayersVoice( pPlayer1, pPlayer2 )
 	if self.ChatRadio:PlayerCanHearPlayersVoice( pPlayer1, pPlayer2 ) then
 		return true
 	end
-
-	if self.Phone:PlayerCanHearPlayersVoice( pPlayer1, pPlayer2 ) then
-		return true
-	end
-
 	return ( pPlayer1:GetPos():Distance( pPlayer2:GetPos() ) <= 600 ), true
 end
 
