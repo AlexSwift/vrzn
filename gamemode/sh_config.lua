@@ -22,7 +22,7 @@ end
 --[[ User Group Settings ]]--
 local function GlowColour() return HSVToColor( CurTime() % 6 * 60, 1, 1 ) end
 local function epip() return HSVToColor( CurTime() % 6 * 80, 0, 1 )  end
-GM.Config.tblZones = {
+tblZones = {
 
 	rp_downtown_v2_insonic = {
 		{ 
