@@ -247,7 +247,7 @@ local function CreateVoiceVGUI()
 	g_VoicePanelList:ParentToHUD()
 	g_VoicePanelList:SetPos( ScrW() - 300, 100 )
 	g_VoicePanelList:SetSize( 250, ScrH() - 320 )
-	g_VoicePanelList:SetDrawBackground( false )
+	g_VoicePanelList:SetDrawBackground( false )	
 end
 
 hook.Add( "InitPostEntity", "CreateVoiceVGUI", CreateVoiceVGUI )
@@ -265,7 +265,7 @@ function GM.Gui:Think()
 	
 	if ValidPanel( vgui.GetKeyboardFocus() ) then return end
 	if input.IsKeyDown( KEY_F4 ) then
-		KeyF4Menu = vgui.Create("ErisF4")
+		-- KeyF4Menu = vgui.Create("ErisF4")
 	end
 end
 
