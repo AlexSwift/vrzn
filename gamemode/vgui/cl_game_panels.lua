@@ -1720,7 +1720,7 @@ function PANEL:AddMenu( Icon, Name, panel)
     self.Buttons[i] = self:Add("DButton")
     local dButton = self.Buttons[i]
     dButton.id = i
-    dButton:TDLib()
+    -- dButton:TDLib()
     dButton:Dock( TOP )
     dButton:DockMargin(16, 16, 16, 16)
     dButton:SetTall( 32 )
@@ -1773,64 +1773,122 @@ end
 vgui.Register("AWESOME_Sidebar", PANEL)
 
 -- fCreateFont( tbl, "Header", "Galyon", 18, 500 )
-surface.CreateFont( "Header", {size = 18, weight = 600, font = "Montserrat Regular"} )
+surface.CreateFont( "Header", {size = 22, weight = 400, font = "Montserrat Regular"} )
 
 
 local PANEL = {}
 local sCloseButton = Material("awesome/organisations/close-btns.png", "noclamp smoot")
 
 function PANEL:Init()
-    self.header = self:Add( "Panel" )
-    self.header:Dock( TOP )
-    self.header.Paint = function(pnl, w, h)
-        draw.RoundedBoxEx(8, 0, 0, w, h, Color(66,66,66), true, true, false, false)
-    end
+    self.Header = self:Add("DPanel")
+    self.Header:DockPadding(0, 0, 0, 0)
+    self.Header:Dock( TOP )
+    self.Header.Paint = function(pnl, w, h)
+        local aw, ah = pnl:LocalToScreen()
+        BSHADOWS.BeginShadow()
+        draw.RoundedBoxEx(8, aw, ah, w, h, Color( 26,26,26 ), true, true, false, false)
+        BSHADOWS.EndShadow(1, 1, 4, 100)
+	end
 
-    self.header.CloseBtn = self.header:Add("DButton")
-    self.header.CloseBtn:Dock( RIGHT )
-    self.header.CloseBtn.DoClick = function(pnl)
+    self.Title = self.Header:Add("DLabel")
+    self.Title:SetFont("Header")
+	self.Title:Dock( LEFT )
+	self.Title:SetTextInset(16,0)
+    self.Title:SetTextColor( Color( 255,255,255) )
+
+    self.Close = self.Header:Add("DButton")
+    self.Close:SetText("")
+    self.Close.DoClick = function(panel)
         self:Remove()
     end
-    self.header.CloseBtn:SetText("")
-    self.header.CloseBtn.margin = 6
-    self.header.CloseBtn.Paint = function(pnl, w, h)
-        local margin = pnl.margin
-        surface.SetDrawColor( Color(255,0,0) )
-        surface.SetMaterial( sCloseButton )
-        surface.DrawTexturedRect( margin, margin, w - ( margin * 2 ), h - ( margin * 2 ) )
+    self.Close.Paint = function( pnl, w, h )
+        draw.NoTexture()
+        surface.SetDrawColor( Color( 66, 66, 66 ) )
+        draw.RoundedBox(16, 0, 0, w, h, Color(255,0,0) )
     end
-
-    self.header.Title = self.header:Add("DLabel")
-    self.header.Title:Dock( LEFT )
-    self.header.Title:SetFont("AWORG::Header")
-    self.header.Title:SetTextColor( Color(255,255,255) )
-    self.header.Title:SetTextInset(16, 0)
-end
-function PANEL:SetTitle(Text)
-    self.header.Title:SetText(Text)
 end
 
-function PANEL:PerformLayout(w, h)
-    self.header:SetTall( 26 )
-    self.header.CloseBtn:SetWide( self.header:GetTall() )
-    self.header.Title:SizeToContents()
-
+function PANEL:SetTitle(text)
+    self.Title:SetText(text)
+    self.Title:SizeToContents()
 end
 
-function PANEL:Paint(w, h)
-    local aX, aY = self:LocalToScreen()
+function PANEL:SetIcon(bol)
+    if bol then
+		self.Favicon:SetSize( 32, 32 )
+		self.Favicon = self.Header:Add("DImage")
+		self.Favicon:Dock( LEFT )
+		self.Favicon:SetImage("awesome/aw64.png")
+		self.Favicon:DockMargin(0, 0, 16, 0)
+    else
+        self.Favicon:SetSize( 32, 32 )
+    end
+end
+function PANEL:PerformLayout( w, h)
+    self.Header:SetTall( 32 )
+    
+    self.Close:SetWide( 16 )
+	self.Close:SetTall( 16 )
+	self.Close:SetPos( self:GetWide() - 32, 16 - 8)
+end
 
+function PANEL:Paint(w,h)
+    local aw, ah = self:LocalToScreen()
     BSHADOWS.BeginShadow()
-        draw.RoundedBox(8, aX, aY, w, h, Color(0,0,0) )
-    BSHADOWS.EndShadow( 1, 2, 2 ) 
-
+    draw.RoundedBox(8, aw, ah, w, h, Color(26,26,26 ))
+    BSHADOWS.EndShadow(1, 2, 2)
 end
 
 
 vgui.Register("AWESOME_Frame", PANEL, "EditablePanel")
 
 
+local PANEL = {
 
+	Init = function( self )
+
+		self:SetContentAlignment( 4 )
+		self:SetTextInset( 5, 0 )
+		self:SetFont( "DermaDefaultBold" )
+
+	end,
+
+	DoClick = function( self )
+
+		self:GetParent():Toggle()
+
+	end,
+
+	UpdateColours = function( self, skin )
+
+		if ( !self:GetParent():GetExpanded() ) then
+			self:SetExpensiveShadow( 0, Color( 0, 0, 0, 200 ) )
+			return self:SetTextStyleColor( skin.Colours.Category.Header_Closed )
+		end
+
+		self:SetExpensiveShadow( 1, Color( 0, 0, 0, 100 ) )
+		return self:SetTextStyleColor( skin.Colours.Category.Header )
+
+	end,
+
+	Paint = function( self )
+
+		-- Do nothing!
+
+	end,
+
+	GenerateExample = function()
+
+		-- Do nothing!
+
+	end
+
+}
+
+derma.DefineControl( "DCategoryHeader", "Category Header", PANEL, "DButton" )
+
+
+-- vgui.Register("AWESOME_Category", PANEL, "DCollapsibleCategory")
 
 
 
