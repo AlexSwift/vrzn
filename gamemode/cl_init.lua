@@ -33,7 +33,7 @@ function GM:Load()
 	self.Cars:LoadCars()
 	self.Jobs:LoadJobs()
 	self.Econ:Load()
-	self.Weather:LoadTypes()
+	-- self.Weather:LoadTypes()
 	self.Apps:Load()
 end
 
@@ -46,22 +46,6 @@ function GM:Initialize( bReload )
 	self.Skills:Initialize()
 	self.NPC:Initialize()
 	self.Player:Initialize()
-end
-
-function GM:GamemodeSetupWorldFog( tblFogData )
-	return self.Weather:GamemodeSetupWorldFog( tblFogData )
-end
-
-function GM:GamemodeSetupSkyboxFog( ... )
-	return self.Weather:GamemodeSetupSkyboxFog( ... )
-end
-
-function GM:SetupWorldFog()
-	return self.DayNight:SetupWorldFog()
-end
-
-function GM:SetupSkyboxFog( ... )
-	return self.DayNight:SetupSkyboxFog( ... )
 end
 
 function GM:InitPostEntity()
@@ -92,14 +76,12 @@ function GM:HUDPaint()
 end
 
 function GM:RenderScreenspaceEffects()
-	self.Weather:RenderScreenspaceEffects()
 	self.Drugs:RenderScreenspaceEffects()
 	self.HUD:RenderScreenspaceEffects()
 end
 
 function GM:PostDrawTranslucentRenderables()
 	self.Property:PaintDoorText()
-	self.Weather:PostDrawTranslucentRenderables()
 	self.Buddy:PostDrawTranslucentRenderables()
 end
 
@@ -117,7 +99,7 @@ function GM:Think()
 	self.Gui:Think()
 	self.PacModels:UpdatePlayers()
 	self.PlayerAnims:ThinkPlayerBones()
-	self.Weather:Think()
+	-- self.Weather:Think()
 
 	if input.IsKeyDown( KEY_P ) and not vgui.CursorVisible() and not LocalPlayer():GetNWBool( "SeatBelt" ) then
 		LocalPlayer():ConCommand( "rp_seatbelt" )

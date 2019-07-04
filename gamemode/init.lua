@@ -15,7 +15,7 @@ gameevent.Listen "player_disconnect"
 
 function GM:Reinitialize( pPlayer, strCmd, tblArgs, bNoClients )
 	if not IsValid( ply ) or pPlayer:IsSuperAdmin() then
-		Msg( "Reinitializing gamemode...\n" )
+		Msg( "Requisição para reiniciar o servidor recebida....\n" )
 		self:Initialize()
 
 		if not bNoClients then
@@ -25,11 +25,11 @@ function GM:Reinitialize( pPlayer, strCmd, tblArgs, bNoClients )
 		end
 	end
 end
---concommand.Add( "__gamemode_reinitialize", function( pPlayer, strCmd, tblArgs ) GAMEMODE:Reinitialize( pPlayer, strCmd, tblArgs, false ) end )
---hook.Add( "OnReloaded", "Gamemode_AutoRefresh", function() GAMEMODE:Reinitialize( _, _, _, true ) end )
+concommand.Add( "__gamemode_reinitialize", function( pPlayer, strCmd, tblArgs ) GAMEMODE:Reinitialize( pPlayer, strCmd, tblArgs, false ) end )
+hook.Add( "OnReloaded", "Gamemode_AutoRefresh", function() GAMEMODE:Reinitialize( _, _, _, true ) end )
 
 function GM:Load()
-	self:PrintDebug( 0, "Loading Mika32" )
+	self:PrintDebug( 0, ".........CARREGANDO META FOLDERS DO SERVIDOR." )
 	self.Map:Load()
 	self.Jobs:LoadJobs()
 	self.Econ:Load()
@@ -37,7 +37,6 @@ function GM:Load()
 	self.Property:LoadProperties()
 	self.NPC:LoadNPCs()
 	self.Cars:LoadCars()
-	self.Weather:LoadTypes()
 	self.Apps:Load()
 end
 
@@ -49,7 +48,7 @@ function GM:Initialize()
 	self.NPC:Initialize()
 	self.Needs:Initialize()
 	self.Inv:Initialize()
-	self:PrintDebug( 0, "Mika Loaded!" )
+	self:PrintDebug( 0, ".........META FOLDERS CARREGADAS!" )
 
 	if not self.SQL:IsConnected() then
 		self.SQL:Connect( self.Config.SQLHostName, self.Config.SQLUserName, self.Config.SQLPassword, self.Config.SQLDBName )
@@ -57,7 +56,6 @@ function GM:Initialize()
 end
 
 function GM:InitPostEntity()
-	self.DayNight:InitPostEntity()
 	self.PropProtect:InitPostEntity()
 	self.Property:LoadMap()
 	self.NPC:InitPostEntity()
@@ -66,7 +64,6 @@ end
 
 function GM:Think()
 	self.PlayerAnims:ThinkPlayerBones()
-	self.DayNight:Think()
 end
 
 function GM:Tick()
@@ -78,7 +75,6 @@ function GM:Tick()
 	self.Cars:TickCarFuel()
 	self.Needs:Tick()
 	self.ChopShop:Tick()
-	self.Weather:Tick()
 	self.FireSystem:Tick()
 	self.Econ:Tick()
 end
@@ -134,8 +130,6 @@ function GM:PlayerInitialSpawn( pPlayer )
 	end
 	
 	self.Player:InitialSpawn( pPlayer )
-	self.Weather:PlayerInitialSpawn( pPlayer )
-	self.DayNight:PlayerInitialSpawn( pPlayer )
 end
 
 function GM:PlayerSpawn( pPlayer )
@@ -300,14 +294,6 @@ end
 
 function GM:GravGunPickupAllowed( pPlayer, eEnt )
 	return self.PropProtect:GravGunPickupAllowed( pPlayer, eEnt )
-end
-
-function GM:GamemodeUpdateMapLighting( ... )
-	return self.Weather:GamemodeUpdateMapLighting( ... )
-end
-
-function GM:GamemodeOnSkyboxUpdate( ... )
-	return self.Weather:GamemodeOnSkyboxUpdate( ... )
 end
 
 function GM:GamemodeOnCharacterDeath( pPlayer )
