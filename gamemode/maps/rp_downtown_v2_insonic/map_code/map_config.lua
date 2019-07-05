@@ -122,7 +122,3 @@ GM.Config.CarPreviewCamLen = 1.5
 
 --[[ Chop Shop ]]--
 GM.Config.ChopShop_ChopLocation = Vector( -5658.086914, -9473.299805, 348.023529 )
-
---[[ Weather & Day Night ]]--
-GM.Config.Weather_SkyZPos = 380
-GM.Config.FogLightingEnabled = true

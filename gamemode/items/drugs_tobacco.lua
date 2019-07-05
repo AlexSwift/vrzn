@@ -9,11 +9,14 @@
 
 
 local Item = {}
-Item.Name = "Cigarettes"
+Item.Name = "Cigarro Avulso"
+Item.F4 = false
+Item.Cat = "misc"
+Item.Rarity = "Normal"
 Item.Desc = "A pack of cigarettes"
 Item.Type = "type_drugs"
 Item.Model = "models/boxopencigshib.mdl"
-Item.Weight = 1
+Item.Weight = 0.05
 Item.Volume = 1
 Item.CanDrop = true
 Item.CanUse = true
@@ -27,11 +30,15 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
-Item.Name = "Cigar Box"
+Item.Name = "Caixa de cigarro"
+Item.Value = 666
+Item.F4 = true
+Item.Cat = "drugs"
+Item.Rarity = "Normal"
 Item.Desc = "A box of cigars"
 Item.Type = "type_drugs"
 Item.Model = "models/gibs/furniture_gibs/furniture_vanity01a_gib01.mdl"
-Item.Weight = 1
+Item.Weight = 0.1
 Item.Volume = 1
 Item.CanDrop = true
 Item.CanUse = true
@@ -40,6 +47,7 @@ Item.LimitID = "cigarettes"
 
 Item.OnUse = function( _, pPlayer )
 	GAMEMODE.Drugs:PlayerApplyEffect( pPlayer, "cigar", 5 *60, 1 )
+	GAMEMODE.Inv:GivePlayerItem( pPlayer, "Cigarro Avulso", 11 )
 end
 GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )

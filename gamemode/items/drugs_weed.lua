@@ -314,9 +314,15 @@ local weedGrowModels = {
 
 local Item = {}
 
-Item.Name = "Drying Rack"
+Item.Name = "Estante de secagem"
 
-Item.Desc = "A drying rack for cannabis."
+Item.Value = 666
+
+Item.F4 = true
+
+Item.Cat = "drugs"
+
+Item.Desc = "Estante de secagem pra maconha."
 
 Item.Type = "type_drugs"
 
@@ -370,9 +376,15 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 2, { ["vip"] = 1 } )
 
 local Item = {}
 
-Item.Name = "Trimming Machine"
+Item.Name = "Dichavador"
 
-Item.Desc = "An automatic trimming machine for dry cannabis."
+Item.Value = 666
+
+Item.F4 = true
+
+Item.Cat = "drugs"
+
+Item.Desc = "Uma máquina para dichavar maconha."
 
 Item.Type = "type_drugs"
 
@@ -434,15 +446,23 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 3, { ["vip"] = 1 } )
 
 local Item = {}
 
-Item.Name = "Cannabis Seeds (Low Quality)"
+Item.Name = "Semente de maconha (Baixa Qualidade)"
 
-Item.Desc = "A box of low quality marijuana seeds."
+Item.Value = 666
+
+Item.F4 = true
+
+Item.Cat = "drugs"
+
+Item.Desc = "Uma caixa de semente."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/seedbox.mdl"
 
-Item.Weight = 2
+Item.Value = 666
+
+Item.Weight = 0.1
 
 Item.Volume = 2
 
@@ -468,7 +488,7 @@ Item.DrugGrowthVars = {
 
 
 
-	GiveItem = "Fresh Cannabis (Low Quality)",
+	GiveItem = "Maconha não Dichavada (Baixa Qualidade)",
 
 	GiveItemAmount = 2,
 
@@ -540,15 +560,19 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 2, { ["vip"] = 2 } )
 
 local Item = {}
 
-Item.Name = "Fresh Cannabis (Low Quality)"
+Item.Name = "Maconha Solta (Baixa Qualidade)"
 
-Item.Desc = "Low grade marijuana, ready to dry."
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Tablet de baixa qualidade, pronto para secar."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -562,7 +586,7 @@ Item.LimitID = "fresh cannabis"
 
 Item.DryingRackTime = 30
 
-Item.DryingRackGiveItem = "Dry Cannabis (Low Quality)"
+Item.DryingRackGiveItem = "Baseado (Baixa Qualidade)"
 
 
 
@@ -594,15 +618,19 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 
-Item.Name = "Dry Cannabis (Low Quality)"
+Item.Name = "Maconha não Dichavada (Baixa Qualidade)"
 
-Item.Desc = "Low grade marijuana, ready to trim."
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Tablet de Baixa qualidade, pronto para dichavar."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -614,7 +642,7 @@ Item.LimitID = "dry cannabis"
 
 
 
-Item.TrimmerGiveItem = "Cannabis (Low Quality)"
+Item.TrimmerGiveItem = "Maconha Solta (Baixa qualidade)"
 
 Item.TrimmerGiveAmount = 4
 
@@ -648,15 +676,19 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 
-Item.Name = "Cannabis (Low Quality)"
+Item.Name = "Baseado (Baixa qualidade)"
 
-Item.Desc = "Low grade marijuana"
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Baseado prensado com cocô de cavalo"
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/smalldrugbag.mdl"
 
-Item.Weight = 1
+Item.Weight = 0.1
 
 Item.Volume = 1
 
@@ -710,15 +742,23 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 
-Item.Name = "Cannabis Seeds (Medium Quality)"
+Item.Name = "Semente de Maconha (Média Qualidade)"
 
-Item.Desc = "A box of medium quality marijuana seeds."
+Item.Value = 666
+
+Item.Rarity = "Raro"
+
+Item.F4 = true
+
+Item.Cat = "drugs"
+
+Item.Desc = "Sementes de qualidade mediana."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/seedbox.mdl"
 
-Item.Weight = 2
+Item.Weight = 0.1
 
 Item.Volume = 2
 
@@ -744,7 +784,7 @@ Item.DrugGrowthVars = {
 
 
 
-	GiveItem = "Fresh Cannabis (Medium Quality)",
+	GiveItem = "Maconha não dichavada (Qualidade Média)",
 
 	GiveItemAmount = 2,
 
@@ -816,15 +856,21 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Fresh Cannabis (Medium Quality)"
+Item.Name = "Maconha Solta (Qualidade Média)"
 
-Item.Desc = "Medium grade marijuana, ready to dry."
+Item.Rarity = "Raro"
+
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Tablet de qualidade média, pronto para secar."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -838,7 +884,7 @@ Item.LimitID = "fresh cannabis"
 
 Item.DryingRackTime = 30
 
-Item.DryingRackGiveItem = "Dry Cannabis (Medium Quality)"
+Item.DryingRackGiveItem = "Baseado (Qualidade Média)"
 
 
 
@@ -870,15 +916,19 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Dry Cannabis (Medium Quality)"
+Item.Name = "Maconha não Dichavada (Qualidade Média)"
 
-Item.Desc = "Medium grade marijuana, ready to trim."
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Tablet de qualidade média, pronto para secar."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -890,7 +940,7 @@ Item.LimitID = "dry cannabis"
 
 
 
-Item.TrimmerGiveItem = "Cannabis (Medium Quality)"
+Item.TrimmerGiveItem = "Maconha Solta (Qualidade Média)"
 
 Item.TrimmerGiveAmount = 4
 
@@ -924,15 +974,21 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Cannabis (Medium Quality)"
+Item.Name = "Baseado (Qualidade Média)"
 
-Item.Desc = "Medium grade marijuana"
+Item.Rarity = "Raro"
+
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Baseado de qualidade mediana"
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/smalldrugbag.mdl"
 
-Item.Weight = 1
+Item.Weight = 0.1
 
 Item.Volume = 1
 
@@ -986,15 +1042,23 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Cannabis Seeds (High Quality)"
+Item.Name = "Sementes de Maconha (Alta Qualidade)"
 
-Item.Desc = "A box of high quality marijuana seeds."
+Item.Value = 666
+
+Item.Rarity = "Épico"
+
+Item.F4 = true
+
+Item.Cat = "drugs"
+
+Item.Desc = "Isso é um grão divino."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/seedbox.mdl"
 
-Item.Weight = 2
+Item.Weight = 0.1
 
 Item.Volume = 2
 
@@ -1020,7 +1084,7 @@ Item.DrugGrowthVars = {
 
 
 
-	GiveItem = "Fresh Cannabis (High Quality)",
+	GiveItem = "Maconha não Dichavada (Alta Qualidade)",
 
 	GiveItemAmount = 2,
 
@@ -1092,15 +1156,21 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Fresh Cannabis (High Quality)"
+Item.Name = "Maconha Solta (Alta Qualidade)"
 
-Item.Desc = "High grade marijuana, ready to dry."
+Item.Rarity = "Épico"
+
+Item.F4 = false
+
+Item.Cat = "drugs"
+
+Item.Desc = "Pronto para secar."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -1114,7 +1184,7 @@ Item.LimitID = "fresh cannabis"
 
 Item.DryingRackTime = 30
 
-Item.DryingRackGiveItem = "Dry Cannabis (High Quality)"
+Item.DryingRackGiveItem = "Baseado (Alta Qualidade)"
 
 
 
@@ -1146,15 +1216,17 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Dry Cannabis (High Quality)"
+Item.Name = "Maconha não Dichavada (Alta Qualidade)"
 
-Item.Desc = "High grade marijuana, ready to trim."
+Item.F4 = false
+
+Item.Desc = "Pronto para dichavar"
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/drugbale_large.mdl"
 
-Item.Weight = 1
+Item.Weight = 4
 
 Item.Volume = 1
 
@@ -1166,7 +1238,7 @@ Item.LimitID = "dry cannabis"
 
 
 
-Item.TrimmerGiveItem = "Cannabis (High Quality)"
+Item.TrimmerGiveItem = "Maconha Solta (Alta Qualidade)"
 
 Item.TrimmerGiveAmount = 4
 
@@ -1200,15 +1272,19 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 
-Item.Name = "Cannabis (High Quality)"
+Item.Name = "Baseado (Alta Qualidade)"
 
-Item.Desc = "High grade marijuana"
+Item.F4 = false
+
+Item.Rarity = "Épico"
+
+Item.Desc = "Isso deve dar uma onda..."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/smalldrugbag.mdl"
 
-Item.Weight = 1
+Item.Weight = 0.1
 
 Item.Volume = 1
 
@@ -2026,15 +2102,19 @@ GM.Drugs:RegisterEffect( weedEffect )
 
 local Item = {}
 
-Item.Name = "Medical Marijuana"
+Item.Name = "Maconha dos ADEMIR"
 
-Item.Desc = "Medical grade marijuana"
+Item.F4 = false
+
+Item.Rarity = "Lendário"
+
+Item.Desc = "Porra, tu sai voando sem noclip."
 
 Item.Type = "type_drugs"
 
 Item.Model = "models/freeman/smalldrugbag.mdl"
 
-Item.Weight = 1
+Item.Weight = 0.1
 
 Item.Volume = 1
 

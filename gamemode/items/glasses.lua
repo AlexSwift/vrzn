@@ -6,6 +6,7 @@
 
 local Item = {}
 Item.Name = "Aviadores"
+Item.F4 = false
 Item.Desc = "Óculos de aviador."
 Item.Type = "type_clothing"
 Item.Model = "models/modified/aviators.mdl"
@@ -77,6 +78,7 @@ GM.Inv:RegisterItem( Item )
 for i = 1, 6 do
 	local Item = {}
 	Item.Name = "Óculos 1 (Skin ".. i.. ")"
+	Item.F4 = false
 	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses01.mdl"
@@ -151,6 +153,7 @@ end
 for i = 1, 8 do
 	local Item = {}
 	Item.Name = "Óculos 2 (Skin ".. i.. ")"
+	Item.F4 = false
 	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses_3.mdl"
@@ -225,6 +228,7 @@ end
 for i = 1, 5 do
 	local Item = {}
 	Item.Name = "Óculos 3 (Skin ".. i.. ")"
+	Item.F4 = false
 	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses02.mdl"
@@ -300,6 +304,7 @@ end
 for i = 1, 5 do
 	local Item = {}
 	Item.Name = "Óculos 4 (Skin ".. i.. ")"
+	Item.F4 = false
 	Item.Desc = "Um par de óculos."
 	Item.Type = "type_clothing"
 	Item.Model = "models/modified/glasses_4.mdl"

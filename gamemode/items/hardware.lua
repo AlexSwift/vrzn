@@ -7,7 +7,6 @@
 -----------------------------------------------------------------
 ]]--
 
-
 local Item = {}
 Item.Name = "Wood Plank"
 Item.Desc = "A piece of wood."

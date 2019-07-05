@@ -743,12 +743,12 @@ surface.CreateFont( "BSYS::CrateTimer", {
 		frame:SetSize( 932, 600 )
 		frame:Center()
 		frame:MakePopup()
-		frame:SetTitle("Menu VRZN")
+		frame:SetTitle("VRZN Menu")
 
 		local NavBar = vgui.Create( "AWESOME_Sidebar", frame )
 		NavBar:SetBody(frame)
 		NavBar:Dock( LEFT ) 
-		NavBar:AddMenu( "shop", "Loja de itens","AW_f4_SHOP")
+		NavBar:AddMenu( "entities", "Loja de itens","AW_f4_SHOP")
 		NavBar:SetActive( 1 )
 
 		

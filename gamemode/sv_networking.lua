@@ -359,6 +359,12 @@ GM.Net:RegisterEventHandle( "game", "npc_b", function( intMsgLen, pPlayer )
 	GAMEMODE.NPC:PlayerBuyNPCItem( pPlayer, net.ReadString(), net.ReadString(), net.ReadUInt(8) )
 end )
 
+--Player wants to buy an item from f4
+GM.Net:RegisterEventHandle( "game", "f4_b", function( intMsgLen, pPlayer )
+	local Name = net.ReadString()
+	GAMEMODE.Net:PlayerBuyF4Item( pPlayer, Name, net.ReadUInt(8) )
+end )
+
 --Player wants to sell an item to an npc
 GM.Net:RegisterEventHandle( "game", "npc_s", function( intMsgLen, pPlayer )
 	GAMEMODE.NPC:PlayerSellNPCItem( pPlayer, net.ReadString(), net.ReadString(), net.ReadUInt(8) )
@@ -621,6 +627,22 @@ function GM.Net:SendPlayerCraftEnd( pPlayer, strItemID )
 	self:FireEvent( pPlayer )
 end
 
+function GM.Net:PlayerBuyF4Item( pPlayer, strName, intPrice )
+		price = GAMEMODE.Econ:ApplyTaxToSum( "sales", intPrice )
+	
+	if not pPlayer:CanAfford( price ) then
+		pPlayer:AddNote( "You can't afford that!" )
+		return
+	end
+
+	if GAMEMODE.Inv:GivePlayerItem( pPlayer, strName, 1 ) then
+		pPlayer:TakeMoney( price )
+		pPlayer:AddNote( "Você comprou 1: " .. strName )
+		pPlayer:AddNote("O item está no seu inventário." )
+	else
+		pPlayer:AddNote( "Muito peso no inventário!" )
+	end
+end
 -- ----------------------------------------------------------------
 -- Trunk Netcode
 -- ----------------------------------------------------------------

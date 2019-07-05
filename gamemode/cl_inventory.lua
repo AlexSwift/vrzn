@@ -9,6 +9,7 @@
 
 
 GM.Inv = (GAMEMODE or GM).Inv or {}
+GM.Inv.Shop = {}
 GM.Inv.m_tblItemRegister = (GAMEMODE or GM).Inv.m_tblItemRegister or {}
 GM.Inv.m_tblItemLimits = (GAMEMODE or GM).Inv.m_tblItemLimits or {}
 GM.Inv.m_tblEquipmentSlots = {
@@ -220,3 +221,10 @@ function GM.Inv:ApplyPACModels( pPlayer )
 		end
 	end
 end
+
+-- for k, v in pairs( GAMEMODE.Inv.m_tblItemRegister) do
+-- 	PrintTable(v)
+-- end
+
+-- PrintTable( GAMEMODE.Inv.Shop )
+-- PrintTable( GAMEMODE.Inv.m_tblItemRegister )

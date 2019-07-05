@@ -57,22 +57,8 @@ local function PlayerCanDrinkItem( tblItem, pPlayer )
 end
 
 local Item = {}
-Item.Name = "Stove"
-Item.Desc = "A large gas range stove with built in oven."
-Item.Type = "type_food"
-Item.Model = "models/props_interiors/stove03_industrial.mdl"
-Item.Weight = 75
-Item.Volume = 60
-Item.HealthOverride = 1000
-Item.CanDrop = true
-Item.LimitID = "stove"
-Item.DropClass = "ent_stove"
-GM.Inv:RegisterItem( Item )
-GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 1 } )
-
-
-local Item = {}
 Item.Name = "Coffee Maker"
+Item.F4 = false
 Item.Desc = "A basic coffee maker."
 Item.Type = "type_food"
 Item.Model = "models/props_unique/coffeemachine01.mdl"
@@ -86,102 +72,10 @@ GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 1 } )
 
 
-local Item = {}
-Item.Name = "Cooking Pot"
-Item.Desc = "A large pot for cooking a variety of items in."
-Item.Type = "type_food"
-Item.Model = "models/props_c17/metalPot001a.mdl"
-Item.Weight = 15
-Item.Volume = 15
-Item.CanDrop = true
-Item.LimitID = "cooking pot"
-Item.DropClass = "ent_cooking_pot"
-GM.Inv:RegisterItem( Item )
-GM.Inv:RegisterItemLimit( Item.LimitID, 4, { ["vip"] = 2 } )
-
-
---[[ Raw Meats ]]--
-local Item = {}
-Item.Name = "Uncooked Beef"
-Item.Desc = "An uncooked serving of beef."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/bacon_2.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
-local Item = {}
-Item.Name = "Uncooked Bacon"
-Item.Desc = "An uncooked serving of bacon."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/bacon.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
-local Item = {}
-Item.Name = "Uncooked Bass"
-Item.Desc = "An uncooked bass."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/fishbass.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
-local Item = {}
-Item.Name = "Uncooked Catfish"
-Item.Desc = "An uncooked catfish."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/fishcatfish.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
-local Item = {}
-Item.Name = "Uncooked Rainbow Trout"
-Item.Desc = "An uncooked rainbow trout."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/fishrainbow.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
-local Item = {}
-Item.Name = "Uncooked Lobster"
-Item.Desc = "An uncooked lobster."
-Item.Type = "type_food"
-Item.Model = "models/foodnhouseholditems/lobster.mdl"
-Item.Weight = 1
-Item.Volume = 2
-Item.CanDrop = true
-Item.CanCook = true
-Item.DropClass = "prop_physics"
-GM.Inv:RegisterItem( Item )
-
-
 --[[ Drinks ]]--
 local Item = {}
 Item.Name = "Vinegar"
+Item.F4 = false
 Item.Desc = "A jar of vinegar."
 Item.Type = "type_food"
 Item.Model = "models/props_junk/glassjug01.mdl"
@@ -209,6 +103,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 2, { ["vip"] = 1 } )
 
 local Item = {}
 Item.Name = "Sugar"
+Item.F4 = false
 Item.Desc = "A box of sugar."
 Item.Type = "type_food"
 Item.Model = "models/props_lab/box01a.mdl"
@@ -228,6 +123,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Jo Jo's Cola"
+Item.F4 = false
 Item.Desc = "A 2 liter bottle of Jo Jo's Cola."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/colabig.mdl"
@@ -247,6 +143,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Sprunk Cola"
+Item.F4 = false
 Item.Desc = "A 2 liter bottle of Sprunk Cola."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/sprunk2.mdl"
@@ -266,6 +163,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Orange Juice"
+Item.F4 = false
 Item.Desc = "A carton of orange juice."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/juice.mdl"
@@ -285,6 +183,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Milk"
+Item.F4 = false
 Item.Desc = "A carton of milk."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/milk.mdl"
@@ -304,6 +203,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Coffee"
+Item.F4 = false
 Item.Desc = "A cup of hot coffee."
 Item.Type = "type_food"
 Item.Model = "models/shibcuppyhold.mdl"
@@ -323,6 +223,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Salt"
+Item.F4 = false
 Item.Desc = "A container of salt."
 Item.Type = "type_food"
 Item.Model = "models/props_junk/GlassBottle01a.mdl"
@@ -341,6 +242,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Cooking Oil"
+Item.F4 = false
 Item.Desc = "A container of cooking oil."
 Item.Type = "type_food"
 Item.Model = "models/props_junk/garbage_plasticbottle003a.mdl"
@@ -359,6 +261,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Ground Coffee"
+Item.F4 = false
 Item.Desc = "A container of ground coffee."
 Item.Type = "type_food"
 Item.Model = "models/props_c17/pottery01a.mdl"
@@ -378,6 +281,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 8, { ["vip"] = 4 } )
 
 local Item = {}
 Item.Name = "Filtered Water"
+Item.F4 = false
 Item.Desc = "A gallon jug of pure water."
 Item.Type = "type_food"
 Item.Model = "models/props_junk/garbage_milkcarton001a.mdl"
@@ -397,6 +301,7 @@ GM.Inv:RegisterItemLimit( Item.LimitID, 4 )
 --[[ Other ]]--
 local Item = {}
 Item.Name = "Doritos - Nacho Cheese"
+Item.F4 = false
 Item.Desc = "A bag of nacho cheese flavor Doritos."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipsdoritos.mdl"
@@ -412,6 +317,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Fritos - Original"
+Item.F4 = false
 Item.Desc = "A bag of original flavor Fritos."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipsfritos.mdl"
@@ -427,6 +333,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Fritos - BBQ"
+Item.F4 = false
 Item.Desc = "A bag of BBQ flavor Fritos."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipsfritosbbq.mdl"
@@ -442,6 +349,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Fritos - BBQ Hoops"
+Item.F4 = false
 Item.Desc = "A bag of BBQ flavor Fritos hoops."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipsfritoshoops.mdl"
@@ -457,6 +365,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Classic"
+Item.F4 = false
 Item.Desc = "A bag of classic flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays.mdl"
@@ -472,6 +381,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Salt & Vinegar"
+Item.F4 = false
 Item.Desc = "A bag of salt & vinegar flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays2.mdl"
@@ -487,6 +397,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Barbecue"
+Item.F4 = false
 Item.Desc = "A bag of barbecue flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays3.mdl"
@@ -502,6 +413,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Sour Cream & Onion"
+Item.F4 = false
 Item.Desc = "A bag of sour cream & onion flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays4.mdl"
@@ -517,6 +429,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Dill Pickle"
+Item.F4 = false
 Item.Desc = "A bag of dill pickle flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays5.mdl"
@@ -532,6 +445,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lays - Flamin' Hot"
+Item.F4 = false
 Item.Desc = "A bag of flamin' hot flavor Lays."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/chipslays6.mdl"
@@ -547,6 +461,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Apple Jacks"
+Item.F4 = false
 Item.Desc = "A box of Apple Jacks cereal."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/applejacks.mdl"
@@ -562,6 +477,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Honey Nut Cheerios"
+Item.F4 = false
 Item.Desc = "A box of Honey Nut Cheerios cereal."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/cheerios.mdl"
@@ -577,6 +493,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Corn Flakes"
+Item.F4 = false
 Item.Desc = "A box of Corn Flakes cereal."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/kellogscornflakes.mdl"
@@ -592,6 +509,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Panda Puffs"
+Item.F4 = false
 Item.Desc = "A box of Panda Puffs cereal."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/pandapuffs.mdl"
@@ -607,6 +525,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Frosted Mini-Wheats"
+Item.F4 = false
 Item.Desc = "A box of Frosted Mini-Wheats cereal."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/miniwheats.mdl"
@@ -622,6 +541,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Toblerone"
+Item.F4 = false
 Item.Desc = "A Toblerone candy bar."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/toblerone.mdl"
@@ -638,6 +558,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Jar of Pickles"
+Item.F4 = false
 Item.Desc = "A jar of pickles."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/picklejar.mdl"
@@ -654,6 +575,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Kinder Surprise"
+Item.F4 = false
 Item.Desc = "A Kinder Surprise candy egg."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/kindersurprise.mdl"
@@ -670,6 +592,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Cookies"
+Item.F4 = false
 Item.Desc = "A package of cookies."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/cookies.mdl"
@@ -685,6 +608,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Watermelon"
+Item.F4 = false
 Item.Desc = "A watermelon."
 Item.Type = "type_food"
 Item.Model = "models/props_junk/watermelon01.mdl"
@@ -701,6 +625,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Orange"
+Item.F4 = false
 Item.Desc = "An orange."
 Item.Type = "type_food"
 Item.Model = "models/props/cs_italy/orange.mdl"
@@ -717,6 +642,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Banana"
+Item.F4 = false
 Item.Desc = "A banana."
 Item.Type = "type_food"
 Item.Model = "models/props/cs_italy/bananna.mdl"
@@ -733,6 +659,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Bunch of Bananas"
+Item.F4 = false
 Item.Desc = "A bunch of bananas."
 Item.Type = "type_food"
 Item.Model = "models/props/cs_italy/bananna_bunch.mdl"
@@ -748,6 +675,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Potato"
+Item.F4 = false
 Item.Desc = "A fresh potato."
 Item.Type = "type_food"
 Item.Model = "models/props_phx/misc/potato.mdl"
@@ -764,6 +692,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Egg"
+Item.F4 = false
 Item.Desc = "A fresh chicken egg."
 Item.Type = "type_food"
 Item.Model = "models/props_phx/misc/egg.mdl"
@@ -780,6 +709,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Cheese"
+Item.F4 = false
 Item.Desc = "A box of cheese."
 Item.Type = "type_food"
 Item.Model = "models/props_lab/box01a.mdl"
@@ -796,6 +726,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Lettuce"
+Item.F4 = false
 Item.Desc = "A head of lettuce."
 Item.Type = "type_food"
 Item.Model = "models/foodnhouseholditems/cabbage1.mdl"
@@ -812,6 +743,7 @@ GM.Inv:RegisterItem( Item )
 
 local Item = {}
 Item.Name = "Box of Flour"
+Item.F4 = false
 Item.Desc = "A box of flour."
 Item.Type = "type_food"
 Item.Model = "models/props_lab/box01a.mdl"
