@@ -1,5 +1,5 @@
 if SERVER then
-	require('mysqloo')
+	require('mysqloo');
 
 	local streakSQL = mysqloo.connect(GM.Config.SQLHostName, GM.Config.SQLUserName, GM.Config.SQLPassword, GM.Config.SQLDBName)
 
