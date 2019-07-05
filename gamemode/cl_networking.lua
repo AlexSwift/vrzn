@@ -235,6 +235,14 @@ function GM.Net:RequestBuyNPCItem( strNPCID, strItemID, intAmount )
 	self:FireEvent()
 end
 
+--Player wants to buy an item from F4
+function GM.Net:RequestBuyF4Item( strName, intPrice )
+	self:NewEvent( "game", "f4_b" )
+		net.WriteString( strName )
+		net.WriteUInt( intPrice, 8 )
+	self:FireEvent()
+end
+
 --Player wants to sell an item to an npc
 function GM.Net:RequestSellNPCItem( strNPCID, strItemID, intAmount )
 	self:NewEvent( "game", "npc_s" )
