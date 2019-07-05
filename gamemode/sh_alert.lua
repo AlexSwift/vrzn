@@ -4,9 +4,57 @@ ALERT = {}
 ALERT.__index = __index
 ALERT.Items = {}
 
-tblZones            = {
-    
-    
+tblZones = {
+
+	rp_downtown_v2_insonic = {
+		{ 
+		name                   = "Cassino",
+		from                   = Vector(-5690, -8366, -200),
+		to                     = Vector(-3637, -7172, 500)
+		},
+		{
+		name                   = "Bairro Capitalista",
+		from                   = Vector(-5722, -7150, -200),
+		to                     = Vector( 1087, -4340, 500)
+		},
+		{
+		name                   = "Zona Sul",
+		from                   = Vector(1156, -7372, -200),
+		to                     = Vector(3784, -4916, 300)
+		},
+		{
+		name                   = "Praia",
+		from                   = Vector(7564, -4769, -200),
+		to                     = Vector(1983, -664, 500)
+		},
+		{
+		name                   = "Bairro do trabalhador",
+		from                   = Vector(1346, -2092, -200),
+		to                     = Vector(-341, -616, 500)
+		},
+		{
+		name                   = "Centro da cidade",
+		from                   = Vector(-2895, -2415, -200),
+		to                     = Vector(-1040, 942, 500)
+		},
+		{
+		name                   = "Bairro Gole de Skol",
+		from                   = Vector(-9, 424, -200),
+		to                     = Vector(1510, 4223, 500)
+		},
+		{
+		name                   = "Bairro do Vazio",
+		from                   = Vector( 1786, 2528, -200),
+		to                     = Vector( 4600, 4194, 500 )
+		},
+		{ 
+		name                   = "Área do Spawn",
+		from                   = Vector(3647, 1959, -200),
+		to                     = Vector(2016, 128, 500)
+		}
+				
+	}
+
 }
 function ALERT:Create(tt, bt, ic, t, ply)
     if (CLIENT) then
