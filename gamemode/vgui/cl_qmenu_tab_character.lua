@@ -132,107 +132,29 @@ function Panel:Init()
 	self.m_pnlAltSlot:SetSlotID( "AltWeapon" )
 
 	self.m_pnlHeadSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlHeadSlot:SetTitle( "Cabeça" )
+	self.m_pnlHeadSlot:SetTitle( "" )
 	self.m_pnlHeadSlot:SetSlotID( "Head" )
 
 	self.m_pnlEyesSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlEyesSlot:SetTitle( "Olhos" )
+	self.m_pnlEyesSlot:SetTitle( "" )
 	self.m_pnlEyesSlot:SetSlotID( "Eyes" )
 
 	self.m_pnlFaceSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlFaceSlot:SetTitle( "Face" )
+	self.m_pnlFaceSlot:SetTitle( "" )
 	self.m_pnlFaceSlot:SetSlotID( "Face" )
 
 	self.m_pnlNeckSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlNeckSlot:SetTitle( "Pescoço" )
+	self.m_pnlNeckSlot:SetTitle( "" )
 	self.m_pnlNeckSlot:SetSlotID( "Neck" )
 
 	self.m_pnlBackSlot = vgui.Create( "SRPEquipSlot", self.m_pnlSlotContainer )
-	self.m_pnlBackSlot:SetTitle( "Costas" )
+	self.m_pnlBackSlot:SetTitle( "" )
 	self.m_pnlBackSlot:SetSlotID( "Back" )
-
-	-- self.m_pnlCharModel.DrawLimbCard = self.DrawLimbCard
-	-- function self.m_pnlCharModel:Paint( intW, intH )
-	-- 	surface.SetDrawColor( self.m_colBG )
-	-- 	surface.DrawRect( 0, 0, intW, intH )
-
-	-- 	if not IsValid( self.m_entModel ) then return end
-	-- 	local x, y = self:LocalToScreen( 0, 0 )
-
-	-- 	local ang = Angle( 0, 0, 0 )
-	-- 	local camPos = (ang:Forward() *130) +(ang:Up() *-1) +(ang:Right() *3)
-	-- 	cam.Start3D( camPos, (ang:Forward()*-1):Angle(), 16, x, y, intW, intH, 1 )
-	-- 		cam.IgnoreZ( true )
-	-- 		render.SuppressEngineLighting( true )
-	-- 		render.SetLightingOrigin( self.m_entModel:GetPos() )
-	-- 		render.ResetModelLighting( 1, 1, 1 )
-	-- 		render.SetColorModulation( 1, 1, 1 )
-	-- 		render.SetBlend( 1 )
-
-	-- 		self:DrawModel()
-
-	-- 		render.SuppressEngineLighting( false )
-	-- 		cam.IgnoreZ( false )
-	-- 	cam.End3D()
-
-	-- 	self.m_entModel:FrameAdvance( (RealTime() -self.m_intLastPaint) *1 )
-
-	-- 	draw.SimpleText(
-	-- 		self.m_strFirstName.. " ".. self.m_strLastName,
-	-- 		"CharacterDisplayFont",
-	-- 		intW /2,
-	-- 		intH /2,
-	-- 		Color( 255, 255, 255, 255 ),
-	-- 		TEXT_ALIGN_CENTER,
-	-- 		TEXT_ALIGN_CENTER
-	-- 	)
-
-	-- 	local cardWide = 96
-	-- 	local cardTall = 24
-	-- 	self:DrawLimbCard( HITGROUP_HEAD, 5, 5, cardWide, cardTall )
-	-- 	self:DrawLimbCard( HITGROUP_CHEST, (intW /2) -(cardWide /2), intH *0.275, cardWide, cardTall )
-
-	-- 	self:DrawLimbCard( HITGROUP_LEFTARM, 5, intH *0.175, cardWide, cardTall )
-	-- 	self:DrawLimbCard( HITGROUP_RIGHTARM, intW -cardWide -5, intH *0.175, cardWide, cardTall )
-
-	-- 	self:DrawLimbCard( HITGROUP_LEFTLEG, 5, intH *0.6175, cardWide, cardTall )
-	-- 	self:DrawLimbCard( HITGROUP_RIGHTLEG, intW -cardWide -5, intH *0.6175, cardWide, cardTall )
-
-	-- 	self.m_intLastPaint = RealTime()
-	-- end
 
 	self.m_pnlSkillList = vgui.Create( "SRP_ScrollPanel", self )
 	self.m_tblSkillCards1 = {}
 	self.m_tblSkillCards = {}
-		
-	-- self.m_pnlHealthBar = vgui.Create( "SRP_Progress", self.m_pnlCharModel )
-	-- self.m_pnlHealthBar:SetBarColor( Color(220, 50, 50, 255) )
-	-- self.m_pnlHealthBar.Think = function()
-	-- 	self.m_pnlHealthBar:SetFraction( LocalPlayer():Health() /100 )
-	-- end
-	-- self.m_pnlHealthBar.PaintOver = function( _, intW, intH )
-	-- 	draw.SimpleTextOutlined(
-	-- 		"Health",
-	-- 		"EquipSlotFont",
-	-- 		5, intH /2,
-	-- 		color_white,
-	-- 		TEXT_ALIGN_LEFT,
-	-- 		TEXT_ALIGN_CENTER,
-	-- 		1,
-	-- 		color_black
-	-- 	)
-
-	-- 	draw.SimpleTextOutlined(
-	-- 		"(".. LocalPlayer():Health().. "/100)",
-	-- 		"EquipSlotFont",
-	-- 		intW -5, intH /2,
-	-- 		color_white,
-	-- 		TEXT_ALIGN_RIGHT,
-	-- 		TEXT_ALIGN_CENTER,
-	-- 		1,
-	-- 		color_black
-	-- 	)
-	-- end
+	
 end
 
 local MAT_BLEED = Material( "icon16/bullet_red.png" )
@@ -302,14 +224,9 @@ function Panel:PerformLayout( intW, intH )
 		pnl:Dock( TOP )
 	end
 
-	-- self.m_pnlHealthBar:SetSize( self.m_pnlCharModel:GetWide(), 20 )
-	-- self.m_pnlHealthBar:SetPos( 0, self.m_pnlSkillList:GetTall() -self.m_pnlHealthBar:GetTall() )
-
 	self.m_pnlSlotContainer:SetPos( 0, 0 )
-	-- self.m_pnlSlotContainer:Dock( BOTTOM )
 	self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
 
-	-- local y = 5
 	
 	self.m_pnlPrimarySlot:SetSize( self.m_pnlCharModel:GetSize()/2-15, 100 )
 	self.m_pnlPrimarySlot:SetPos( 5, self.m_pnlSlotContainer:GetTall() -self.m_pnlPrimarySlot:GetTall() -5 )

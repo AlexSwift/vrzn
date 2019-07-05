@@ -1497,13 +1497,24 @@ function Panel:SetTitle( strText )
 end
 
 function Panel:Paint( intW, intH )
-	-- surface.SetDrawColor( 50, 50, 50, 200 )
-	-- self:GetItemTable()
-	-- print(self:GetItemTable())
-	-- -- surface.DrawRect( 0, 0, intW, intH )
-	-- -- print (GAMEMODE.Inv:GetItem( strText ))
-	-- local color =  Color( 0,0,0,255)
-	-- draw.RoundedBox(4, 0, 0, intW, intH, color )
+	surface.SetDrawColor( 255, 255, 255, 120 )
+	if self.m_strSlotID == "Head" then
+		surface.SetMaterial( Material("materials/vgui/icons/equip_"..self.m_strSlotID ..".png") )
+		surface.DrawTexturedRect(21, 21, 32, 32)
+	elseif self.m_strSlotID == "Eyes" then
+		surface.SetMaterial( Material("materials/vgui/icons/equip_"..self.m_strSlotID ..".png") )
+		surface.DrawTexturedRect(21, 21, 32, 32)
+	elseif self.m_strSlotID == "Face" then
+		surface.SetMaterial( Material("materials/vgui/icons/equip_"..self.m_strSlotID ..".png") )
+		surface.DrawTexturedRect(21, 21, 32, 32)
+	elseif self.m_strSlotID == "Neck" then
+		surface.SetMaterial( Material("materials/vgui/icons/equip_"..self.m_strSlotID ..".png") )
+		surface.DrawTexturedRect(21, 21, 32, 32)
+	elseif self.m_strSlotID == "Back" then
+		surface.SetMaterial( Material("materials/vgui/icons/equip_"..self.m_strSlotID ..".png") )
+		surface.DrawTexturedRect(21, 21, 32, 32)
+	end
+
 	if self.m_strItemID ~= "" then
 		local color = GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity]
 		draw.RoundedBox(4, 0, 0, intW, intH, color )
@@ -1511,7 +1522,7 @@ function Panel:Paint( intW, intH )
 		local color = Color(255,255,255,10)
 		draw.RoundedBox(4, 0, 0, intW, intH, color )
 	end
-	surface.SetDrawColor( 0, 0, 0, 255 )
+
 end
 
 function Panel:PaintOver( intW, intH )
