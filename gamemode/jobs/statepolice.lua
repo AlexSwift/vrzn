@@ -1,24 +1,20 @@
 --[[
 	Name: police.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 --Job protocols start at 50 to save space for other things in the gamemode
 GM.Net:AddProtocol( "police", 51 )
-GM.ChatRadio:RegisterChannel( 1, "Police", false )
-GM.ChatRadio:RegisterChannel( 2, "Police Encrypted", true )
+GM.ChatRadio:RegisterChannel( 1, "Polícia", false )
+GM.ChatRadio:RegisterChannel( 2, "Polícia (Seguro)", true )
 
 local Job = {}
 Job.ID = 55
 Job.Enum = "JOB_STATE_POLICE"
 Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
-Job.Name = "State Police"
+Job.Name = "Polícia Estadual"
 Job.WhitelistName = "statepolice"
 Job.PlayerModel = {
 	Male_Fallback = "models/gta5/player/deputy.mdl",
@@ -69,7 +65,7 @@ Job.PatrolTaurusID = "taurus_201_copsp"
 function Job:OnPlayerJoinJob( pPlayer )
 	pPlayer.m_bJobCivModelOverload = false
 	pPlayer:SetArmor(100)
-	pPlayer:AddNote("You are now wearing light kevlar.")
+	pPlayer:AddNote("Você colocou seu kevlar leve agora.")
 end
 
 function Job:OnPlayerQuitJob( pPlayer )
@@ -77,7 +73,7 @@ function Job:OnPlayerQuitJob( pPlayer )
 	pPlayer.m_intSelectedJobModelSkin = nil
 	pPlayer.m_tblSelectedJobModelBGroups = {}
 	pPlayer:SetArmor(0)
-	pPlayer:AddNote("Your light kevlar has been removed.")
+	pPlayer:AddNote("Você tirou seu kevlar leve agora.")
 
 	local curCar = GAMEMODE.Cars:GetCurrentPlayerCar( pPlayer )
 	if curCar and curCar.Job and curCar.Job == JOB_STATE_POLICE then
@@ -159,10 +155,44 @@ if SERVER then
 
 	hook.Add( "PlayerEnteredVehicle", "CopComputerHint", function( pPlayer, entVeh, intRole )
 		if entVeh.IsCopCar then
-			pPlayer:AddNote( "Press 'R' to open your police computer" )
+			pPlayer:AddNote( "Aperte 'R' para abrir o computador da polícia" )
 		end
 	end )
 
+	hook.Add( "GamemodePlayerSendTextMessage", "PoliceJobTexting", function( pSender, strText, strNumberSendTo )
+		if strNumberSendTo ~= "911" then return end
+		if pSender.m_intLast911 and pSender.m_intLast911 > CurTime() then
+			local time = math.Round( pSender.m_intLast911 -CurTime() )
+			GAMEMODE.Net:SendTextMessage( pSender, "911", "Você deve aguardar ".. time.. " segundos antes de requisitar ajuda novamente." )
+			pSender:EmitSound( "taloslife/sms.mp3" )
+			return true
+		end
+
+		local sentTo = 0
+		strText = "911 from ".. GAMEMODE.Player:GetGameVar(pSender, "phone_number").. "\
+(".. pSender:Nick().. "):\
+".. strText
+		for k, v in pairs( player.GetAll() ) do
+			if not GAMEMODE.Jobs:GetPlayerJob( v ) then continue end
+			if GAMEMODE.Jobs:GetPlayerJob( v ).Receives911Messages then
+				GAMEMODE.Net:SendTextMessage( v, "Dispatch", strText )
+				v:EmitSound( "taloslife/sms.mp3" )
+				sentTo = sentTo +1
+			end
+		end
+
+		local respMsg = ""
+		if sentTo == 0 then
+			respMsg = "Náo há serviços de emergência disponiveis agora. Foi mal..."
+		else
+			respMsg = "Sua mensagem foi enviada para  ".. sentTo.. " players."
+		end
+		
+		GAMEMODE.Net:SendTextMessage( pSender, "911", respMsg )
+		pSender:EmitSound( "taloslife/sms.mp3" )
+		pSender.m_intLast911 = CurTime() +GAMEMODE.Config.Text911CoolDown
+		return true
+	end )
 
 	hook.Add( "GamemodeOnPlayerJailBreak", "AlertPolice", function( pJailedPlayer )
 		local str = ("%s has escaped from jail!"):format( pJailedPlayer:Nick() )
@@ -181,7 +211,7 @@ if SERVER then
 		entCar:SetBodygroup( 1, 1 )
 		
 		entCar.IsCopCar = true
-		pPlayer:AddNote( "Your spawned your Dodge Charger: Patrol vehicle!" )
+		pPlayer:AddNote( "Você pegou seu Dodge Charger: Patrol vehicle!" )
 	end
 
 	function Job:OnPlayerSpawnPatrolDodgeCharger( pPlayer, entCar )
@@ -189,7 +219,7 @@ if SERVER then
 		entCar:SetBodygroup( 1, 1 )
 		
 		entCar.IsCopCar = true
-		pPlayer:AddNote( "Your spawned your Dodge Charger: Patrol vehicle!" )
+		pPlayer:AddNote( "Você pegou seu Dodge Charger: Patrol vehicle!" )
 	end
 	
 	--Player wants to spawn a patrol dodge charger

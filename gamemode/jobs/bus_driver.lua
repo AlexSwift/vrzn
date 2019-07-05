@@ -1,12 +1,8 @@
 --[[
 	Name: bus_driver.lua
------------------------------------------------------------------
--- @package     VrZn - Custom Gamemode (SRP BASE)
--- @author     Nodge
--- @build       Beta 1
------------------------------------------------------------------
+	For: TalosLife
+	By: TalosLife
 ]]--
-
 
 GM.ChatRadio:RegisterChannel( 9, "City Bus Services", false )
 

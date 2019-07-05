@@ -10,7 +10,7 @@ local Job = {}
 Job.ID = 28
 Job.Enum = "JOB_ROADWORKER"
 Job.TeamColor = Color( 191, 129, 13, 255 )
-Job.Name = "City Worker"
+Job.Name = "Funcionario da Prefeitura"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 190 },
 	{ PlayTime = 4 *(60 *60), Pay = 235 },
@@ -76,7 +76,7 @@ end
 	end
 
 	function Job:OnPlayerSpawnTruck( pPlayer, entCar )
-		pPlayer:AddNote( "Your spawned your Utility truck!" )
+		pPlayer:AddNote( "Você spawnou seu carro de Utilidades!" )
 	end
 
 	--Player wants to spawn an garbage truck

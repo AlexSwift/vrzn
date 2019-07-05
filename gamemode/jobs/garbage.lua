@@ -8,9 +8,9 @@
 
 local Job = {}
 Job.ID = 23
-Job.Enum = "JOB_SANITATION"
+Job.Enum = "JOB_LIXEIRO"
 Job.TeamColor = Color( 191, 129, 13, 255 )
-Job.Name = "Sanitation Worker"
+Job.Name = "Lixeiro"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 190 },
 	{ PlayTime = 4 *(60 *60), Pay = 235 },
@@ -27,7 +27,7 @@ end
 
 function Job:OnPlayerQuitJob( pPlayer )
 	local curCar = GAMEMODE.Cars:GetCurrentPlayerCar( pPlayer )
-	if curCar and curCar.Job and curCar.Job == JOB_SANITATION then
+	if curCar and curCar.Job and curCar.Job == JOB_LIXEIRO then
 		curCar:Remove()
 	end
 end
@@ -88,7 +88,7 @@ end
 		RF:AddAllPlayers()
 
 
-		pPlayer:AddNote( "Your spawned your Sanitation truck!" )
+		pPlayer:AddNote( "Você spawnou seu caminhão limpeza!" )
 	end
 
 	--Player wants to spawn an garbage truck

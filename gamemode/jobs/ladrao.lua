@@ -1,16 +1,16 @@
 --[[
-	Name: civilian.lua
+	Name: ladrao.lua
 	For: TalosLife
 	By: TalosLife
 ]]--
 
 local Job = {}
-Job.ID = 1
-Job.Enum = "JOB_CIVILIAN"
+Job.ID = 14
+Job.Enum = "JOB_ASSALTANTE"
 Job.TeamColor = Color( 255, 255, 255, 255 )
-Job.Name = "Cidadão"
+Job.Name = "Ladrão"
 Job.Pay = {
-	{ PlayTime = 0, Pay = 15 },
+	{ PlayTime = 0, Pay = 0 },
 }
 
 function Job:OnPlayerJoinJob( pPlayer )

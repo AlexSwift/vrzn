@@ -6,8 +6,9 @@
 
 --Job protocols start at 50 to save space for other things in the gamemode
 GM.Net:AddProtocol( "police", 51 )
-GM.ChatRadio:RegisterChannel( 1, "Police", false )
-GM.ChatRadio:RegisterChannel( 2, "Police Encrypted", true )
+GM.ChatRadio:RegisterChannel( 1, "Polícia", false )
+GM.ChatRadio:RegisterChannel( 2, "Polícia (Seguro)", true )
+
 local Job = {}
 Job.ID = 21
 Job.Enum = "JOB_SWAT"
@@ -61,7 +62,7 @@ Job.CarSpawns = GM.Config.CopCarSpawns
 function Job:OnPlayerJoinJob( pPlayer )
 	pPlayer.m_bJobCivModelOverload = false
 	pPlayer:SetArmor(250)
-	pPlayer:AddNote("You are now wearing heavy kevlar.")
+	pPlayer:AddNote("Agora você está usando um kevlar pesado.")
 end
 
 function Job:OnPlayerQuitJob( pPlayer )
@@ -69,7 +70,7 @@ function Job:OnPlayerQuitJob( pPlayer )
 	pPlayer.m_intSelectedJobModelSkin = nil
 	pPlayer.m_tblSelectedJobModelBGroups = {}
 	pPlayer:SetArmor(0)
-	pPlayer:AddNote("Your heavy kevlar has been removed.")
+	pPlayer:AddNote("Seu kevlar pesado foi removido.")
 
 	local curCar = GAMEMODE.Cars:GetCurrentPlayerCar( pPlayer )
 	if curCar and curCar.Job and curCar.Job == JOB_SWAT then
@@ -148,7 +149,7 @@ if SERVER then
 		end
 
 		entCar.IsCopCar = true
-		pPlayer:AddNote( "You spawned your state police car!" )
+		pPlayer:AddNote( "Você spawnou sua viatura!" )
 	end
 
 	--Player wants to spawn a cop car
@@ -186,9 +187,45 @@ if SERVER then
 	end )
 
 
+	hook.Add( "GamemodePlayerSendTextMessage", "PoliceJobTexting", function( pSender, strText, strNumberSendTo )
+		if strNumberSendTo ~= "911" then return end
+		if pSender.m_intLast911 and pSender.m_intLast911 > CurTime() then
+			local time = math.Round( pSender.m_intLast911 -CurTime() )
+			GAMEMODE.Net:SendTextMessage( pSender, "911", "Você deve aguardar ".. time.. " segundos antes de pedir mais uma vez ajuda." )
+			pSender:EmitSound( "taloslife/sms.mp3" )
+			return true
+		end
+
+		local sentTo = 0
+		strText = "911 de ".. GAMEMODE.Player:GetGameVar(pSender, "phone_number").. "\
+(".. pSender:Nick().. "):\
+".. strText
+		for k, v in pairs( player.GetAll() ) do
+			if not GAMEMODE.Jobs:GetPlayerJob( v ) then continue end
+			if GAMEMODE.Jobs:GetPlayerJob( v ).Receives911Messages then
+				GAMEMODE.Net:SendTextMessage( v, "Dispatch", strText )
+				v:EmitSound( "taloslife/sms.mp3" )
+				sentTo = sentTo +1
+			end
+		end
+
+		local respMsg = ""
+		if sentTo == 0 then
+			respMsg = "Não há nenhum policial no momento. Lamentamos o inconveniente!"
+		else
+			respMsg = "Você enviou um pedido de ajuda à ".. sentTo.. " policiais."
+		end
+		
+		GAMEMODE.Net:SendTextMessage( pSender, "911", respMsg )
+		pSender:EmitSound( "taloslife/sms.mp3" )
+		pSender.m_intLast911 = CurTime() +GAMEMODE.Config.Text911CoolDown
+		return true
+	end )
+
+
 
 	hook.Add( "GamemodeOnPlayerJailBreak", "AlertPolice", function( pJailedPlayer )
-		local str = ("%s has escaped from jail!"):format( pJailedPlayer:Nick() )
+		local str = ("%s fugiu da cadeia!"):format( pJailedPlayer:Nick() )
 		for k, v in pairs( player.GetAll() ) do
 			if v == pJailedPlayer then continue end
 			if GAMEMODE.Jobs:GetPlayerJobID( v ) ~= JOB_SWAT then continue end
