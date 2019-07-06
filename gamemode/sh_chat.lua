@@ -1,36 +1,36 @@
 GM.Chat = {}
 if SERVER then
 	function GM.Chat:PlayerSay( pPlayer, strText, bTeamOnly )
-		if strText:sub( 1, 5 ) == "/ads " and not bTeamOnly then
-			if pPlayer:CanAfford( GAMEMODE.Config.AdvertPrice ) then
-				pPlayer:TakeMoney( GAMEMODE.Config.AdvertPrice )
-				pPlayer:AddNote( "Your advertisement cost you $".. string.Comma(GAMEMODE.Config.AdvertPrice) )
+		if strText:sub( 1, 5 ) == "/ad " and not bTeamOnly then
+			-- if pPlayer:CanAfford( GAMEMODE.Config.AdvertPrice ) then
+				-- pPlayer:TakeMoney( GAMEMODE.Config.AdvertPrice )
+				-- pPlayer:AddNote( "Your advertisement cost you $".. string.Comma(GAMEMODE.Config.AdvertPrice) )
 				return strText
-			else
-				pPlayer:AddNote( "Advertisements cost $".. string.Comma(GAMEMODE.Config.AdvertPrice).. ". You can't afford that." )
-				return ""
-			end
-		elseif strText == "/unstuck" then
+			-- else
+			-- 	pPlayer:AddNote( "Advertisements cost $".. string.Comma(GAMEMODE.Config.AdvertPrice).. ". You can't afford that." )
+			-- 	return ""
+			-- end
+		elseif strText == "/preso" then
 			if GAMEMODE.Jail:IsPlayerInJail( pPlayer ) then
-				pPlayer:AddNote( "You may not use that command while in jail!" )
+				pPlayer:AddNote( "Não pode utilizar na jail!" )
 				return ""
 			end
 			if pPlayer:InVehicle() then
-				pPlayer:AddNote( "You may not use that command while in a vehicle!" )
+				pPlayer:AddNote( "Saia do veículo primeiro.!" )
 				return ""
 			end
 			if pPlayer.m_intLastUnstuckTime then
 				if pPlayer.m_intLastUnstuckTime > CurTime() then
 					local time = math.Round( pPlayer.m_intLastUnstuckTime -CurTime() )
-					pPlayer:AddNote( "You must wait ".. time.. " seconds before trying this command again." )
+					pPlayer:AddNote( "Espere ".. time.. " segundos antes de executar novamente." )
 					return ""
 				end
 			end
 			GAMEMODE.Util:UnstuckPlayer( pPlayer )
 			pPlayer.m_intLastUnstuckTime = CurTime() +30
-			pPlayer:AddNote( "You should now be unstuck!" )
+			pPlayer:AddNote( "Você agora deve estar livre.!" )
 			return ""
-		elseif strText:sub( 1, 11 ) == "/broadcast " and not bTeamOnly then
+		elseif strText:sub( 1, 11 ) == "/transmitir " and not bTeamOnly then
 			if GAMEMODE.Jobs:GetPlayerJobID( pPlayer ) == JOB_MAYOR then return strText else return "" end
 		end
 		return strText or ""
@@ -42,7 +42,7 @@ else
 			strText = string.sub( strText, find +2 )
 			strText = string.Trim( strText )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( OOC ) " )
+			table.insert( tblArgs, "( GERAL ) " )
 			return strText, -1
 		end
 		find = string.find( strText, "/ooc" )
@@ -50,14 +50,14 @@ else
 			strText = string.sub( strText, find +5 )
 			strText = string.Trim( strText )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( OOC ) " )
+			table.insert( tblArgs, "( GERAL ) " )
 			return strText, -1
 		end
-		find = string.find( strText, "/ads" )
+		find = string.find( strText, "/ad" )
 		if find == 1 then
 			strText = string.sub( strText,find +5 )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( Advertisement ) " )
+			table.insert( tblArgs, "( ADVERT ) " )
 			return strText, -1
 		end
 		
@@ -65,14 +65,14 @@ else
 		if find == 1 then
 			strText = string.sub(strText,find+3)
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( Advertisement ) " )
+			table.insert( tblArgs, "( ADVERT ) " )
 			return strText, -1
 		end
-		find = string.find( strText, "/broadcast" )
+		find = string.find( strText, "/transmitir" )
 		if find == 1 then
 			strText = string.sub( strText,find +11 )
 			table.insert( tblArgs, Color(60, 200, 60) )
-			table.insert( tblArgs, "( Mayor Broadcast ) " )
+			table.insert( tblArgs, "( Anúncio do prefeito ) " )
 			return strText, -1
 		end		
 		return strText, 500
@@ -88,7 +88,7 @@ else
 		
 		if bTeamOnly then
 			if pPlayer == LocalPlayer() then
-				chat.AddText( Color(255, 100, 100), "Please speak in regular chat. You are using team chat." )
+				chat.AddText( Color(255, 100, 100), "Por favor, utilize o chat normal ( Y )" )
 			end
 			return true
 		end
@@ -99,10 +99,6 @@ else
 			end
 		end
 		
-		if bIsDead then
-			table.insert( tab, Color(255, 30, 40) )
-			table.insert( tab, "*DEAD* " )
-		end
 		if IsValid( pPlayer ) then
 			table.insert( tab, pPlayer )
 		else

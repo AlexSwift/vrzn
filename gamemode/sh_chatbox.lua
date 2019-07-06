@@ -5,7 +5,6 @@
 if JChat then return end]]--
 JChat = JChat or {} --Let's prevent any breaking.
 --Various data 
-
 if SERVER then
 	local meta = FindMetaTable("Player")
 	local oldprintmessage = meta.PrintMessage
@@ -52,7 +51,7 @@ usermessage.Hook("JChat.UseIcons", function(um)
 end)
 
 do
-	surface.SetFont(JChat.ChatFont)
+	surface.SetFont("Chatbox2")
 	local w, h = surface.GetTextSize("0")
 	JChat.LineSpacing = h + 2
 end
@@ -67,7 +66,7 @@ end)
 
 cvars.AddChangeCallback("jchat_chatfont", function(cvar, old, new)
 	JChat.ChatFont = new
-	surface.SetFont(new)
+	surface.SetFont("Chatbox2")
 	local _, h = surface.GetTextSize("O")
 	JChat.LineSpacing = h + 2
 	RunConsoleCommand("jchat_maxlines", GetConVar("jchat_maxlines"):GetInt())
@@ -123,7 +122,7 @@ function JChat.GetLastColor(linedata)
 end
 
 function JChat.WrapString(linedata, maxwidth)
-	surface.SetFont(JChat.ChatFont)
+	surface.SetFont("Chatbox2")
 	local linewidth = 0
 	local packedlines = {}
 	local linenumber = 1
@@ -158,7 +157,7 @@ end
 local a = 255
 
 function JChat.ChatboxPanel:DrawLine(num, data)
-	surface.SetFont(JChat.ChatFont)
+	surface.SetFont("Chatbox")
 	local linewidth = 0
 	local num = num - 1
 	local w, h = 0, 0
@@ -212,8 +211,9 @@ end
 
 function JChat.ChatboxPanel:Paint()
 	if self.TextEntry then
-		surface.SetDrawColor(Color(50, 50, 50, (self.TextEntry:IsVisible() and 150 or 0))) --Darkish transparent grey
-		surface.DrawRect(0, 0, self:GetWide(), self:GetTall())
+		-- surface.SetDrawColor(Color(50, 50, 50, (self.TextEntry:IsVisible() and 150 or 0))) --Darkish transparent grey
+		-- surface.DrawRect(0, 0, self:GetWide(), self:GetTall())
+		draw.RoundedBox(4, 0, 0, self:GetWide(), self:GetTall(), Color(26, 26, 26, (self.TextEntry:IsVisible() and 200 or 0)) )
 		for k, v in ipairs(self.ChatLines) do
 			self:DrawLine(k, v)
 		end
@@ -249,7 +249,7 @@ timer.Simple(0, function()
 	JChat.ChatBox.TextEntry:SetPos(10, JChat.MaxLines * JChat.LineSpacing + 15)
 	JChat.ChatBox.TextEntry:SetSize(JChat.ChatBox:GetWide(), 20)
 	JChat.ChatBox.TextEntry:SetAllowNonAsciiCharacters(true)
-	JChat.ChatBox.TextEntry:SetTextInset(0, 0)
+	JChat.ChatBox.TextEntry:SetTextInset(10, 0)
 	JChat.ChatBox.TextEntry:SetVisible(false)
 	JChat.ChatBox.TextEntry.IsTeamChat = false
 	JChat.ChatBox.TextEntry.OnMouseWheeled = function(self, dir)
@@ -282,11 +282,12 @@ timer.Simple(0, function()
 		end
 	end
 	JChat.ChatBox.TextEntry.Paint = function(self)
-			surface.SetDrawColor(color_black)
-			surface.DrawRect(0, 0, self:GetWide(), self:GetTall())
-			surface.SetDrawColor(color_white)
-			surface.DrawRect(1, 1, self:GetWide() - 2, self:GetTall() - 2)
-			self:DrawTextEntryText(Color(0, 0, 0), Color(255, 255, 255), Color(0, 0, 0))
+			-- surface.SetDrawColor(color_black)
+			-- surface.DrawRect(0, 0, self:GetWide(), self:GetTall())
+			-- surface.SetDrawColor(color_white)
+			-- surface.DrawRect(1, 1, self:GetWide() - 2, self:GetTall() - 2)
+			draw.RoundedBox(8, 0, 0, self:GetWide(), self:GetTall(), Color(26,26,26) )
+			self:DrawTextEntryText(Color(255,255,255,255), Color(255, 255, 100), Color(255,255,100))
 	end
 	JChat.ChatBox.TextEntry.OnEnter = function(self)
 		if self:GetText():Trim() ~= "" then
@@ -345,7 +346,7 @@ timer.Simple(0, function()
 							table.insert(args, string.sub(s, start))
 							s = ""
 						end
-						surface.SetFont(JChat.ChatFont)
+						surface.SetFont("Chatbox2")
 						local w, _ = surface.GetTextSize(s)
 						local singlew, _ = surface.GetTextSize("O")
 						if w >= JChat.ChatBox:GetWide() then
