@@ -78,7 +78,7 @@ else
 		return strText, 500
 	end
 	
-	function GM.Chat:OnPlayerChat( pPlayer, strText, bTeamOnly, bIsDead )
+	function GM.Chat:OnPlayerChat( pPlayer, strText, bTeamOnly )
 		if not IsValid( LocalPlayer() ) then return end
 		local pos = LocalPlayer():GetPos()
 		local otherpos = IsValid( pPlayer ) and pPlayer:GetPos() or Vector( 0 )
@@ -99,18 +99,23 @@ else
 			end
 		end
 		
-		if bIsDead then
-			table.insert( tab, Color(255, 30, 40) )
-			table.insert( tab, "*DEAD* " )
-		end
+		local firstName = GAMEMODE.Player:GetSharedGameVar( pPlayer, "name_first" )
+		local lastName = GAMEMODE.Player:GetSharedGameVar( pPlayer, "name_last" )
+		
 		if IsValid( pPlayer ) then
-			table.insert( tab, pPlayer )
+			table.insert( tab, firstName .. " ".. lastName )
 		else
 			table.insert( tab, Color(0, 0, 0) )
 			table.insert( tab, "Console" )
 		end
+		local chatTags = userGroupTag( pPlayer )
+
+		table.insert( tab, Color(255,255,255) )
+		table.insert( tab, " (")
+		table.insert( tab, chatTags.col )
+		table.insert( tab, chatTags.name )
 		table.insert( tab, Color(255, 255, 255) )
-		table.insert( tab, ": "..strText )
+		table.insert( tab, ") : "..strText )
 		chat.AddText( unpack( tab ) )
 		return true
 	end
