@@ -264,9 +264,6 @@ function GM.Gui:Think()
 	
 	
 	if ValidPanel( vgui.GetKeyboardFocus() ) then return end
-	if input.IsKeyDown( KEY_F4 ) then
-		-- KeyF4Menu = vgui.Create("ErisF4")
-	end
 end
 
 function GM:OnContextMenuOpen()

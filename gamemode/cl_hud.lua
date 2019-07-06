@@ -402,7 +402,8 @@ local vw = ScrW() / 10
 local pah = ScrH() * 6.666666666666667 / 100
 local paw = ScrW() * 3.75 / 100
 // ZONES HUD + SCREEN SIZED FONTS
-
+surface.CreateFont( "Chatbox", {font = "Montserrat Regular", size = 16,	weight = 500, antialias = true } )
+surface.CreateFont( "Chatbox2", {font = "Montserrat Bold", size = 16,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.075vw", {	font = "Montserrat Regular", size = 0.75 * vw,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )

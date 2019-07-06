@@ -1807,16 +1807,16 @@ function PANEL:Init()
 	self.Title:SetTextInset(16,0)
     self.Title:SetTextColor( Color( 255,255,255) )
 
-    self.Close = self.Header:Add("DButton")
-    self.Close:SetText("")
-    self.Close.DoClick = function(panel)
-        self:Remove()
-    end
-    self.Close.Paint = function( pnl, w, h )
-        draw.NoTexture()
-        surface.SetDrawColor( Color( 66, 66, 66 ) )
-        draw.RoundedBox(16, 0, 0, w, h, Color(255,0,0) )
-    end
+    -- self.Close = self.Header:Add("DButton")
+    -- self.Close:SetText("")
+    -- self.Close.DoClick = function(panel)
+    --     self:Remove()
+    -- end
+    -- self.Close.Paint = function( pnl, w, h )
+    --     draw.NoTexture()
+    --     surface.SetDrawColor( Color( 66, 66, 66 ) )
+    --     draw.RoundedBox(16, 0, 0, w, h, Color(255,0,0) )
+    -- end
 end
 
 function PANEL:SetTitle(text)
@@ -1838,9 +1838,9 @@ end
 function PANEL:PerformLayout( w, h)
     self.Header:SetTall( 32 )
     
-    self.Close:SetWide( 16 )
-	self.Close:SetTall( 16 )
-	self.Close:SetPos( self:GetWide() - 32, 16 - 8)
+    -- self.Close:SetWide( 16 )
+	-- self.Close:SetTall( 16 )
+	-- self.Close:SetPos( self:GetWide() - 32, 16 - 8)
 end
 
 function PANEL:Paint(w,h)
