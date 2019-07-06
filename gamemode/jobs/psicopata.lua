@@ -9,10 +9,13 @@ Job.ID = 16
 Job.Enum = "JOB_PSICOPATA"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Psicopata (VIP)"
+Job.Cat = "bad"
+Job.Vip = true
 Job.Pay = {
 	{ PlayTime = 0, Pay = 5 },
 	{ PlayTime = 12*( 60*60 ), Pay = 15},
 	{ PlayTime = 24*( 60*60 ), Pay = 25},
+	{ PlayTime = 24*( 60*60 ), Pay = 35},
 }
 Job.PlayerModel = {
 	Male_Fallback = "models/players/mj_dbd_guam.mdl",

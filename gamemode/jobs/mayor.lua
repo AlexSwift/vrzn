@@ -11,6 +11,7 @@ Job.ID = 12
 Job.Enum = "JOB_MAYOR"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Prefeito"
+Job.Cat = "law"
 Job.DefaultChatRadioChannel = 1
 Job.ChannelKeys = {
     [2] = true, -- Dá Acesso ao canal 2

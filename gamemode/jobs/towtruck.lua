@@ -11,6 +11,7 @@ Job.ID = 6
 Job.Enum = "JOB_TOW"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Tiozinho do Reboque"
+	Job.Cat = "citizen"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 35 },
 	{ PlayTime = 4 *(60 *60), Pay = 55 },

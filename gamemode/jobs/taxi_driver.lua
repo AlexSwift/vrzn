@@ -11,6 +11,7 @@ Job.ID = 5
 Job.Enum = "JOB_TAXI"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Taxista"
+Job.Cat = "citizen"
 Job.ParkingGaragePos = GM.Config.TaxiParkingZone
 Job.Pay = {
 	{ PlayTime = 0, Pay = 28 },

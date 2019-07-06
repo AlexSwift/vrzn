@@ -16,8 +16,9 @@ Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
 Job.Name = "Polícia"
 Job.WhitelistName = "police"
+Job.Cat = "law"
 Job.PlayerModel = {
-	Male_Fallback = "models/player/santos/cop/Male_02_santosrp.mdl",
+	Male_Fallback = "models/player/santos/cop/Male_02.mdl",
 	Female_Fallback = "models/portal/player/female_police02.mdl",
 
 	Male = {

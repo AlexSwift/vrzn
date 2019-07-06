@@ -15,6 +15,7 @@ Job.Enum = "JOB_STATE_POLICE"
 Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
 Job.Name = "Polícia Estadual"
+Job.Cat = "law"
 Job.WhitelistName = "statepolice"
 Job.PlayerModel = {
 	Male_Fallback = "models/gta5/player/deputy.mdl",

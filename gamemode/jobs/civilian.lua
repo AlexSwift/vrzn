@@ -9,7 +9,11 @@ Job.ID = 1
 Job.Enum = "JOB_CIVILIAN"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Cidadão"
+Job.Cat = "citizen"
 Job.Pay = {
+	{ PlayTime = 0, Pay = 15 },
+	{ PlayTime = 0, Pay = 15 },
+	{ PlayTime = 0, Pay = 15 },
 	{ PlayTime = 0, Pay = 15 },
 }
 

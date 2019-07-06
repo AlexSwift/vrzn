@@ -9,11 +9,13 @@ Job.ID = 13
 Job.Enum = "JOB_SSERVICE"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Serviço Secreto"
+Job.Cat = "law"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 180 },
 	{ PlayTime = 4 *(60 *60), Pay = 225 },
 	{ PlayTime = 12 *(60 *60), Pay = 285 },
 	{ PlayTime = 24 *(60 *60), Pay = 350 },
+	{ PlayTime = 24 *(60 *60), Pay = 400 },
 }
 Job.PlayerCap = GM.Config.Job_SService_PlayerCap or { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
 Job.HasChatRadio = false

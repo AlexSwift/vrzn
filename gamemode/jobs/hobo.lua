@@ -9,6 +9,7 @@ Job.ID = 15
 Job.Enum = "JOB_HOBO"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Mendigo"
+Job.Cat = "citizen"
 Job.PlayerModel = {
     Male_Fallback = "models/player/corpse1.mdl",
     Female_Fallback = "models/player/skeleton.mdl",
@@ -21,6 +22,9 @@ Job.PlayerModel = {
     },
 }
 Job.Pay = {
+	{ PlayTime = 0, Pay = 0 },
+	{ PlayTime = 0, Pay = 0 },
+	{ PlayTime = 0, Pay = 0 },
 	{ PlayTime = 0, Pay = 0 },
 }
 
