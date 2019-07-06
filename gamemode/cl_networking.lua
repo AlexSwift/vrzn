@@ -118,6 +118,13 @@ end
 GM.Net:AddProtocol( "game", 0 )
 GM.Net:AddProtocol( "ent", 255 )
 
+--Player wants to get a job from F4 menu
+function GM.Net:RequestJobChange( intJobID )
+	self:NewEvent( "game", "f4_j" )
+		net.WriteUInt( intJobID, 8 )
+	self:FireEvent()
+end
+
 --Player is ready for initial game data
 function GM.Net:SendPlayerReady()
 	self:NewEvent( "game", "ready" )

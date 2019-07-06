@@ -140,6 +140,12 @@ end
 GM.Net:AddProtocol( "game", 0 )
 GM.Net:AddProtocol( "ent", 255 )
 
+--Player wants to change a job from F4
+GM.Net:RegisterEventHandle( "game", "f4_j", function( intMsgLen, pPlayer )
+	GAMEMODE.Jobs:SetPlayerJob( pPlayer, net.ReadUInt(8) )
+	-- GAMEMODE.NPC:PlayerBuyNPCItem( pPlayer, net.ReadString(), net.ReadString(),  )
+end )
+
 --Player is ready for initial game data
 GM.Net:RegisterEventHandle( "game", "ready", function( intMsgLen, pPlayer )
 	GAMEMODE.Player:PlayerReadyForData( pPlayer )
