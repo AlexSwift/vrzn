@@ -67,6 +67,45 @@ function PANEL:Init()
         self.ShipmentCat:SetContents( self.ShipmentList )	
         ------------------
     end
+    --...........Munição.................................................
+    self.AmmoCat = vgui.Create( "DCollapsibleCategory", self.Container )
+    self.AmmoCat:SetExpanded( 0 )
+    self.AmmoCat:SetLabel( "" )
+    self.AmmoCat.Header:SetTall(26)	
+    self.AmmoCat.Header.Paint = function(pnl, w, h)
+        if pnl:IsHovered() then
+            draw.RoundedBox( 5, 0, 0, w, h, Color(26,26,26) )
+        else
+            draw.RoundedBox( 5, 0, 0, w, h, Color(19,19,19) )
+        end
+        if self.AmmoCat:GetExpanded() then
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+            -- surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+        else
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/right-pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+        end
+    end
+    self.AmmoCat.Header.PaintOver = function()
+        draw.SimpleText("Munição", "f4_Cat", 16, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+    end
+    self.AmmoCat.Paint = function() end
+    
+    ------------------
+    self.AmmoList = vgui.Create("AWESOME_Grid")
+    self.AmmoList:Dock(FILL)
+    self.AmmoList:DockMargin(2, 10, 2, 0)
+    self.AmmoList:SetColumns( 2 )
+    self.AmmoList:SetHorizontalMargin( 10 )
+    self.AmmoList:SetVerticalMargin( 10 )
+    self.AmmoList.Paint = nil
+    ------------------
+    self.AmmoCat:SetContents( self.AmmoList )	
+    ------------------
+    
     
     
     --............ENTIDADE................................................
@@ -226,6 +265,68 @@ function PANEL:Populate( tblItems )
                     surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, (self.BuyButton:GetTall()/2)+6, 24, 24)
                 end
                 self.BuyButton.DoClick = function()
+                    GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
+                end	
+                -----
+                self.Icon = self.IconPanel:Add("DModelPanel")
+                self.Icon:Dock(FILL)
+                self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
+                self.Icon:SetModel( v.Model )
+                self.Icon:SetLookAng( Angle(26.631, -41.827, 0.000) )
+                self.Icon:SetCamPos( Vector(-54.672073, 48.589230, 46.368576 ) )
+                self.Icon:SetFOV(35.637013445461)
+                self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
+                function self.Icon:LayoutEntity( Entity ) return end
+                ----
+                self.Label = self.EntityWrapper:Add( "DLabel" )
+                self.Label:Dock(TOP)
+                self.Label:SetFont("f4_Label")
+                self.Label:SetTextColor( Color(255,255,255) )
+                self.Label:SetText( v.Name )
+                self.Label:SetTextInset(2, 1)
+                self.Label:SizeToContentsY(1)
+                ----
+                self.PriceLabel = self.EntityWrapper:Add( "DLabel" )
+                self.PriceLabel:Dock(TOP)
+                self.PriceLabel:SetFont("f4_Price")
+                self.PriceLabel:SetTextColor( Color(0,255,78) )
+                self.PriceLabel:SetText("R$ " .. string.Comma( v.Price ) )
+                self.PriceLabel:SetTextInset(2, 0)
+                self.PriceLabel:SizeToContentsY(2)
+                --[ ]--
+            end
+            if strCategory == "ammo" then
+                --[ ammo category ]----------------------
+                self.AmmoWrapper = vgui.Create("DPanel")
+                self.AmmoWrapper:SetTall(60)
+                self.AmmoWrapper.Paint = function(pnl,w,h)
+                    draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                end
+                self.AmmoList:AddCell(self.AmmoWrapper)
+                
+                self.IconPanel = self.AmmoWrapper:Add("DPanel")
+                self.IconPanel:Dock(LEFT)
+                self.IconPanel:SetWide( 60 )
+                self.IconPanel.Paint = function( pnl, w, h)
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
+                end
+                
+                self.BuyButton = self.AmmoWrapper:Add("DButton")
+                self.BuyButton:Dock(RIGHT)
+                self.BuyButton:SetWide( 60 )
+                self.BuyButton:SetText("")
+                self.BuyButton.Paint = function( pnl, w, h )
+                    if pnl:IsHovered() then
+                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
+                    else
+                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
+                    end
+                    surface.SetDrawColor(255, 255, 255, 255)
+                    surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
+                    surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, (self.BuyButton:GetTall()/2)+6, 24, 24)
+                end
+                self.BuyButton.DoClick = function()
+                    GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
                 end	
                 -----
                 self.Icon = self.IconPanel:Add("DModelPanel")
@@ -285,6 +386,7 @@ function PANEL:Populate( tblItems )
                     surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, self.BuyButton:GetTall()/2-12, 24, 24)
                 end
                 self.BuyButton.DoClick = function()
+                    GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
                 end	
                 -----
                 self.Icon = self.IconPanel:Add("DModelPanel")
@@ -404,6 +506,7 @@ function PANEL:Populate( tblItems )
                 surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, self.BuyButton:GetTall()/2-12, 24, 24)
             end
             self.BuyButton.DoClick = function()
+                GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
             end	
             -----
             self.Icon = self.IconPanel:Add("DModelPanel")
@@ -445,6 +548,9 @@ function PANEL:PerformLayout(w, h )
         self.ShipmentCat:DockMargin(8, 10, 8, 0)
         self.ShipmentCat:Dock(TOP)
     end
+    self.AmmoCat:DockMargin(8, 10, 8, 0)
+    self.AmmoCat:Dock(TOP)
+    
     self.EntityCat:DockMargin(8, 10, 8, 0)
     self.EntityCat:Dock(TOP)
     
@@ -465,7 +571,7 @@ vgui.Register("AW_f4_SHOP", PANEL, "DPanel")
 -- JOBS PANEL
 --------------------------------------------------------
 surface.CreateFont( "f4_Job", {	font = "Montserrat Bold", extended = false, size = 28, weight = 400, antialias = true, } )
-surface.CreateFont( "f4_Salary", {	font = "Montserrat Regular", extended = false, size = 28, weight = 400, antialias = true, } )
+surface.CreateFont( "f4_Salary", {	font = "Montserrat Regular", extended = false, size = 26, weight = 400, antialias = true, } )
 local PANEL = {}
 function PANEL:Init()
     self.Container = vgui.Create("DScrollPanel", self)
@@ -507,17 +613,17 @@ function PANEL:Init()
         draw.SimpleText("Civis", "f4_Cat", 16, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
     end
     self.CitizenCat.Paint = function() end
-        ------------------
-        self.CivilList = vgui.Create("AWESOME_Grid")
-        self.CivilList:Dock(FILL)
-        self.CivilList:DockMargin(2, 10, 2, 0)
-        self.CivilList:SetColumns( 2 )
-        self.CivilList:SetHorizontalMargin( 10 )
-        self.CivilList:SetVerticalMargin( 10 )
-        self.CivilList.Paint = nil
-        ------------------
-        self.CitizenCat:SetContents( self.CivilList )	
-        ------------------
+    ------------------
+    self.CivilList = vgui.Create("AWESOME_Grid")
+    self.CivilList:Dock(FILL)
+    self.CivilList:DockMargin(2, 10, 2, 0)
+    self.CivilList:SetColumns( 2 )
+    self.CivilList:SetHorizontalMargin( 10 )
+    self.CivilList:SetVerticalMargin( 10 )
+    self.CivilList.Paint = nil
+    ------------------
+    self.CitizenCat:SetContents( self.CivilList )	
+    ------------------
     
     --..........................................................................................................................................
     self.LawCat = vgui.Create( "DCollapsibleCategory", self.Container )
@@ -558,43 +664,81 @@ function PANEL:Init()
     self.LawCat:SetContents( self.LawList )	
     ------------------
     
-        --...........................................................................................................................................
-        self.BadCat = vgui.Create( "DCollapsibleCategory", self.Container )
-        self.BadCat:SetExpanded( 0 )
-        self.BadCat:SetLabel( "" )
-        self.BadCat.Header:SetTall(26)	
-        self.BadCat.Header.Paint = function(pnl, w, h)
-            if pnl:IsHovered() then
-                draw.RoundedBox( 5, 0, 0, w, h, Color(26,26,26) )
-            else
-                draw.RoundedBox( 5, 0, 0, w, h, Color(19,19,19) )
-            end
-            if self.BadCat:GetExpanded() then
-                surface.SetDrawColor(255, 255, 255, 255)
-                surface.SetMaterial( Material("materials/vgui/f4/pointer.png") )
-                surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
-                -- surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
-            else
-                surface.SetDrawColor(255, 255, 255, 255)
-                surface.SetMaterial( Material("materials/vgui/f4/right-pointer.png") )
-                surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
-            end
+    --...........................................................................................................................................
+    self.BadCat = vgui.Create( "DCollapsibleCategory", self.Container )
+    self.BadCat:SetExpanded( 0 )
+    self.BadCat:SetLabel( "" )
+    self.BadCat.Header:SetTall(26)	
+    self.BadCat.Header.Paint = function(pnl, w, h)
+        if pnl:IsHovered() then
+            draw.RoundedBox( 5, 0, 0, w, h, Color(26,26,26) )
+        else
+            draw.RoundedBox( 5, 0, 0, w, h, Color(19,19,19) )
         end
-        self.BadCat.Header.PaintOver = function()
-            draw.SimpleText("Fora da lei", "f4_Cat", 16, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        if self.BadCat:GetExpanded() then
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+            -- surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+        else
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/right-pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
         end
-        self.BadCat.Paint = function() end
-        ------------------
-        self.BadList = vgui.Create("AWESOME_Grid")
-        self.BadList:Dock(FILL)
-        self.BadList:DockMargin(2, 10, 2, 0)
-        self.BadList:SetColumns( 2 )
-        self.BadList:SetHorizontalMargin( 10 )
-        self.BadList:SetVerticalMargin( 10 )
-        self.BadList.Paint = nil
-        ------------------
-        self.BadCat:SetContents( self.BadList )	
-        ------------------
+    end
+    self.BadCat.Header.PaintOver = function()
+        draw.SimpleText("Fora da lei", "f4_Cat", 16, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+    end
+    self.BadCat.Paint = function() end
+    ------------------
+    self.BadList = vgui.Create("AWESOME_Grid")
+    self.BadList:Dock(FILL)
+    self.BadList:DockMargin(2, 10, 2, 0)
+    self.BadList:SetColumns( 2 )
+    self.BadList:SetHorizontalMargin( 10 )
+    self.BadList:SetVerticalMargin( 10 )
+    self.BadList.Paint = nil
+    ------------------
+    self.BadCat:SetContents( self.BadList )	
+    ------------------
+    
+    --...........................................................................................................................................
+    self.AnyCat = vgui.Create( "DCollapsibleCategory", self.Container )
+    self.AnyCat:SetExpanded( 0 )
+    self.AnyCat:SetLabel( "" )
+    self.AnyCat.Header:SetTall(26)	
+    self.AnyCat.Header.Paint = function(pnl, w, h)
+        if pnl:IsHovered() then
+            draw.RoundedBox( 5, 0, 0, w, h, Color(26,26,26) )
+        else
+            draw.RoundedBox( 5, 0, 0, w, h, Color(19,19,19) )
+        end
+        if self.AnyCat:GetExpanded() then
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+            -- surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+        else
+            surface.SetDrawColor(255, 255, 255, 255)
+            surface.SetMaterial( Material("materials/vgui/f4/right-pointer.png") )
+            surface.DrawTexturedRect(w - 32, h/2 - 8, 16, 16)
+        end
+    end
+    self.AnyCat.Header.PaintOver = function()
+        draw.SimpleText("Outros", "f4_Cat", 16, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+    end
+    self.AnyCat.Paint = function() end
+    ------------------
+    self.AnyList = vgui.Create("AWESOME_Grid")
+    self.AnyList:Dock(FILL)
+    self.AnyList:DockMargin(2, 10, 2, 0)
+    self.AnyList:SetColumns( 2 )
+    self.AnyList:SetHorizontalMargin( 10 )
+    self.AnyList:SetVerticalMargin( 10 )
+    self.AnyList.Paint = nil
+    ------------------
+    self.AnyCat:SetContents( self.AnyList )	
+    ------------------
     for k, v in pairs( self.TblJob ) do
         if v.Cat == "law" then 
             --[ Cat Law ]--
@@ -602,6 +746,11 @@ function PANEL:Init()
             self.LawJobsWrapper:SetTall(80)
             self.LawJobsWrapper.Paint = function(pnl,w,h)
                 draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
             end
             self.LawList:AddCell(self.LawJobsWrapper)
             
@@ -654,8 +803,8 @@ function PANEL:Init()
             self.Label:SetFont("f4_Job")
             self.Label:SetTextColor( Color(255,255,255) )
             self.Label:SetText( v.Name )
-            self.Label:SetTextInset(2, 1)
-            self.Label:SizeToContentsY(1)
+            self.Label:SetTextInset(2, 10)
+            self.Label:SizeToContentsY(9)
             ----
             self.SalaryLabel = self.LawJobsWrapper:Add( "DLabel" )
             self.SalaryLabel:Dock(BOTTOM)
@@ -670,6 +819,11 @@ function PANEL:Init()
             self.CivilJobsWrapper:SetTall(80)
             self.CivilJobsWrapper.Paint = function(pnl,w,h)
                 draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
             end
             self.CivilList:AddCell(self.CivilJobsWrapper)
             
@@ -720,8 +874,8 @@ function PANEL:Init()
             self.Label:SetFont("f4_Job")
             self.Label:SetTextColor( Color(255,255,255) )
             self.Label:SetText( v.Name )
-            self.Label:SetTextInset(2, 1)
-            self.Label:SizeToContentsY(1)
+            self.Label:SetTextInset(2, 10)
+            self.Label:SizeToContentsY(9)
             ----
             self.SalaryLabel = self.CivilJobsWrapper:Add( "DLabel" )
             self.SalaryLabel:Dock(BOTTOM)
@@ -736,6 +890,11 @@ function PANEL:Init()
             self.BadJobsWrapper:SetTall(80)
             self.BadJobsWrapper.Paint = function(pnl,w,h)
                 draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
             end
             self.BadList:AddCell(self.BadJobsWrapper)
             
@@ -786,10 +945,81 @@ function PANEL:Init()
             self.Label:SetFont("f4_Job")
             self.Label:SetTextColor( Color(255,255,255) )
             self.Label:SetText( v.Name )
-            self.Label:SetTextInset(2, 1)
-            self.Label:SizeToContentsY(1)
+            self.Label:SetTextInset(2, 10)
+            self.Label:SizeToContentsY(9)
             ----
             self.SalaryLabel = self.BadJobsWrapper:Add( "DLabel" )
+            self.SalaryLabel:Dock(BOTTOM)
+            self.SalaryLabel:SetFont("f4_Salary")
+            self.SalaryLabel:SetTextColor( Color(0,255,78) )
+            self.SalaryLabel:SetText("R$ " .. v.Pay[1].Pay .. " ~ "  .. v.Pay[3].Pay)
+            self.SalaryLabel:SetTextInset(2, 0)
+            self.SalaryLabel:SizeToContentsY(2)
+        else
+            --[ Cat Any ]--
+            self.AnyJobsWrapper = vgui.Create("DPanel")
+            self.AnyJobsWrapper:SetTall(80)
+            self.AnyJobsWrapper.Paint = function(pnl,w,h)
+                draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
+            end
+            self.AnyList:AddCell(self.AnyJobsWrapper)
+            
+            self.IconPanel = self.AnyJobsWrapper:Add("DPanel")
+            self.IconPanel:Dock(LEFT)
+            self.IconPanel:SetWide( 80 )
+            self.IconPanel.Paint = function( pnl, w, h)
+                draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
+            end
+            
+            self.BecomeButton = self.AnyJobsWrapper:Add("DButton")
+            self.BecomeButton:Dock(RIGHT)
+            self.BecomeButton:SetWide( 80 )
+            self.BecomeButton:SetText("")
+            self.BecomeButton.Paint = function( pnl, w, h )
+                if pnl:IsHovered() then
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
+                else
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
+                end
+                draw.SimpleText("ENTRAR", "f4_Label", w/2, h/2, COLOR_WHITE, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            end
+            self.BecomeButton.DoClick = function()
+                GAMEMODE.Net:RequestJobChange( v.ID )
+                self:GetParent():Remove()
+            end	
+            -----
+            self.Icon = self.IconPanel:Add("DModelPanel")
+            self.Icon:Dock(FILL)
+            self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
+            self.PlayerSex = GAMEMODE.Player:GetSharedGameVar(LocalPlayer(), "char_sex", 0) == 0 and "Male" or "Female" == "Male"
+            self.Icon:SetModel( GAMEMODE.Player:GetGameVar("char_model_base", "") )
+            if v.PlayerModel then
+                if self.PlayerSex == "Male" then
+                    self.Icon:SetModel( v.PlayerModel.Male_Fallback )
+                else
+                    self.Icon:SetModel( v.PlayerModel.Female_Fallback )
+                end
+            end
+            self.Icon:SetLookAng( Angle(-16.247819900513, -183.70745849609, 0) )
+            self.Icon:SetCamPos( Vector(75.659217834473, -4.6951079368591, 41.876625061035) )
+            self.Icon:SetFOV(15.096068545287)
+            self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
+            function self.Icon:LayoutEntity( Entity ) return end
+            ----
+            self.Label = self.AnyJobsWrapper:Add( "DLabel" )
+            self.Label:Dock(TOP)
+            self.Label:SetFont("f4_Job")
+            self.Label:SetTextColor( Color(255,255,255) )
+            self.Label:SetText( v.Name )
+            self.Label:SetTextInset(2, 10)
+            self.Label:SizeToContentsY(9)
+            ----
+            self.SalaryLabel = self.AnyJobsWrapper:Add( "DLabel" )
             self.SalaryLabel:Dock(BOTTOM)
             self.SalaryLabel:SetFont("f4_Salary")
             self.SalaryLabel:SetTextColor( Color(0,255,78) )
@@ -813,6 +1043,9 @@ function PANEL:PerformLayout( w, h )
     
     self.BadCat:DockMargin(8, 10, 8, 0)
     self.BadCat:Dock(TOP)
+
+    self.AnyCat:DockMargin(8, 10, 8, 0)
+    self.AnyCat:Dock(TOP)
     
     self.LawCat:DockMargin(8, 10, 8, 0)
     self.LawCat:Dock(TOP)
