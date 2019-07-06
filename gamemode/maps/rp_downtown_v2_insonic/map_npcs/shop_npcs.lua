@@ -6,13 +6,13 @@
 
 GAMEMODE.Map:RegisterNPCSpawn{
 	UID = "car_dealer",
-	pos = { Vector( -9288.436523, -10911.519531, 488.031250 ) },
-	angs = { Angle( 0, -90, 0 ) },
+	pos = { Vector( -2323.991455, -4601.780762, -195.968750 ) },
+	angs = { Angle( 0, -30 , 0 ) },
 }
 
 GAMEMODE.Map:RegisterNPCSpawn{
 	UID = "car_spawn",
-	pos = { Vector( -4601.084961, 2092.480225, 290 ) },
+	pos = { Vector( -2160.647461, -4606.367676, -195.968750 ) },
 	angs = { Angle( 0, 90, 0 ) },
 }
 

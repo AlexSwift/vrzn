@@ -27,3 +27,9 @@ GAMEMODE.Map:RegisterNPCSpawn{
 	pos = { Vector( -3342.782959, -1788.928101, -195.968750 ) },
 	angs = { Angle( 0, 0, 0 ) },
 }
+
+-- GAMEMODE.Map:RegisterNPCSpawn{
+-- 	UID = "car_spawner",
+-- 	pos = { Vector( -2160.647461, -4606.367676, -195.968750 ) },
+-- 	angs = { Angle( 0, -30 , 0 ) },
+-- }

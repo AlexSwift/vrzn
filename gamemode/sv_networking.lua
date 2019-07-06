@@ -736,16 +736,16 @@ end )
 --Player wants to spawn a car
 GM.Net:RegisterEventHandle( "veh", "sp", function( intMsgLen, pPlayer )
 	local carID = net.ReadString()
-
-	if not pPlayer:WithinTalkingRange() then return end
-	if pPlayer:GetTalkingNPC().UID ~= "car_spawn" then return end
+	print("Tentativa iniciada")
+	-- if not pPlayer:WithinTalkingRange() then return end
+	-- if pPlayer:GetTalkingNPC().UID ~= "car_dealer" then return end
 	GAMEMODE.Cars:PlayerSpawnCar( pPlayer, carID )
 end )
 
 --Player wants to stow a car
 GM.Net:RegisterEventHandle( "veh", "st", function( intMsgLen, pPlayer )
-	if not pPlayer:WithinTalkingRange() then return end
-	if pPlayer:GetTalkingNPC().UID ~= "car_spawn" then return end
+	-- if not pPlayer:WithinTalkingRange() then return end
+	-- if pPlayer:GetTalkingNPC().UID ~= "car_dealer" then return end
 	GAMEMODE.Cars:PlayerStowCar( pPlayer )
 end )
 

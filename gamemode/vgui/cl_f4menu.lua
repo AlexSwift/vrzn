@@ -232,14 +232,84 @@ end
 function PANEL:Populate( tblItems )
     for k, v in pairs( tblItems ) do
         local strCategory = v.Cat
-        
-        if strCategory == "shipment" then
+        print( v.Cat )
+        if strCategory == "ammo" then
+            --[ ammo category ]----------------------
+            self.AmmoWrapper = vgui.Create("DPanel")
+            self.AmmoWrapper:SetTall(60)
+            self.AmmoWrapper.Paint = function(pnl,w,h)
+                draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
+            end
+            self.AmmoList:AddCell(self.AmmoWrapper)
+            
+            self.IconPanel = self.AmmoWrapper:Add("DPanel")
+            self.IconPanel:Dock(LEFT)
+            self.IconPanel:SetWide( 60 )
+            self.IconPanel.Paint = function( pnl, w, h)
+                draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
+            end
+            
+            self.BuyButton = self.AmmoWrapper:Add("DButton")
+            self.BuyButton:Dock(RIGHT)
+            self.BuyButton:SetWide( 60 )
+            self.BuyButton:SetText("")
+            self.BuyButton.Paint = function( pnl, w, h )
+                if pnl:IsHovered() then
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
+                else
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
+                end
+                surface.SetDrawColor(255, 255, 255, 255)
+                surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
+                surface.DrawTexturedRect( 30-12, 15+6, 24, 24)
+            end
+            self.BuyButton.DoClick = function()
+                GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
+            end	
+            -----
+            self.Icon = self.IconPanel:Add("DModelPanel")
+            self.Icon:Dock(FILL)
+            self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
+            self.Icon:SetModel( v.Model )
+            self.Icon:SetLookAng( Angle(26.631, -41.827, 0.000) )
+            self.Icon:SetCamPos( Vector(-54.672073, 48.589230, 46.368576 ) )
+            self.Icon:SetFOV(35.637013445461)
+            self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
+            function self.Icon:LayoutEntity( Entity ) return end
+            ----
+            self.Label = self.AmmoWrapper:Add( "DLabel" )
+            self.Label:Dock(TOP)
+            self.Label:SetFont("f4_Label")
+            self.Label:SetTextColor( Color(255,255,255) )
+            self.Label:SetText( v.Name )
+            self.Label:SetTextInset(2, 1)
+            self.Label:SizeToContentsY(1)
+            ----
+            self.PriceLabel = self.AmmoWrapper:Add( "DLabel" )
+            self.PriceLabel:Dock(TOP)
+            self.PriceLabel:SetFont("f4_Price")
+            self.PriceLabel:SetTextColor( Color(0,255,78) )
+            self.PriceLabel:SetText("R$ " .. string.Comma( v.Price ) )
+            self.PriceLabel:SetTextInset(2, 0)
+            self.PriceLabel:SizeToContentsY(2)
+            --[ ]--
+        elseif strCategory == "shipment" then
             if self.PlayerJob == "Vendedor de Armas" then
                 --[ shipment category ]----------------------
                 self.EntityWrapper = vgui.Create("DPanel")
                 self.EntityWrapper:SetTall(60)
                 self.EntityWrapper.Paint = function(pnl,w,h)
                     draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                    if v.Vip then
+                        surface.SetDrawColor(255, 255, 255, 90)
+                        surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                        surface.DrawTexturedRect(0, 0, w, h)
+                    end
                 end
                 self.ShipmentList:AddCell(self.EntityWrapper)
                 
@@ -262,7 +332,7 @@ function PANEL:Populate( tblItems )
                     end
                     surface.SetDrawColor(255, 255, 255, 255)
                     surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
-                    surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, (self.BuyButton:GetTall()/2)+6, 24, 24)
+                    surface.DrawTexturedRect( 30-12, 15+6, 24, 24)
                 end
                 self.BuyButton.DoClick = function()
                     GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
@@ -295,132 +365,81 @@ function PANEL:Populate( tblItems )
                 self.PriceLabel:SizeToContentsY(2)
                 --[ ]--
             end
-            if strCategory == "ammo" then
-                --[ ammo category ]----------------------
-                self.AmmoWrapper = vgui.Create("DPanel")
-                self.AmmoWrapper:SetTall(60)
-                self.AmmoWrapper.Paint = function(pnl,w,h)
-                    draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+        elseif strCategory == "entity" then
+            --[ entity category ]--
+            self.EntityWrapper = vgui.Create("DPanel")
+            self.EntityWrapper:SetTall(60)
+            self.EntityWrapper.Paint = function(pnl,w,h)
+                draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
                 end
-                self.AmmoList:AddCell(self.AmmoWrapper)
-                
-                self.IconPanel = self.AmmoWrapper:Add("DPanel")
-                self.IconPanel:Dock(LEFT)
-                self.IconPanel:SetWide( 60 )
-                self.IconPanel.Paint = function( pnl, w, h)
-                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
-                end
-                
-                self.BuyButton = self.AmmoWrapper:Add("DButton")
-                self.BuyButton:Dock(RIGHT)
-                self.BuyButton:SetWide( 60 )
-                self.BuyButton:SetText("")
-                self.BuyButton.Paint = function( pnl, w, h )
-                    if pnl:IsHovered() then
-                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
-                    else
-                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
-                    end
-                    surface.SetDrawColor(255, 255, 255, 255)
-                    surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
-                    surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, (self.BuyButton:GetTall()/2)+6, 24, 24)
-                end
-                self.BuyButton.DoClick = function()
-                    GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
-                end	
-                -----
-                self.Icon = self.IconPanel:Add("DModelPanel")
-                self.Icon:Dock(FILL)
-                self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
-                self.Icon:SetModel( v.Model )
-                self.Icon:SetLookAng( Angle(26.631, -41.827, 0.000) )
-                self.Icon:SetCamPos( Vector(-54.672073, 48.589230, 46.368576 ) )
-                self.Icon:SetFOV(35.637013445461)
-                self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
-                function self.Icon:LayoutEntity( Entity ) return end
-                ----
-                self.Label = self.EntityWrapper:Add( "DLabel" )
-                self.Label:Dock(TOP)
-                self.Label:SetFont("f4_Label")
-                self.Label:SetTextColor( Color(255,255,255) )
-                self.Label:SetText( v.Name )
-                self.Label:SetTextInset(2, 1)
-                self.Label:SizeToContentsY(1)
-                ----
-                self.PriceLabel = self.EntityWrapper:Add( "DLabel" )
-                self.PriceLabel:Dock(TOP)
-                self.PriceLabel:SetFont("f4_Price")
-                self.PriceLabel:SetTextColor( Color(0,255,78) )
-                self.PriceLabel:SetText("R$ " .. string.Comma( v.Price ) )
-                self.PriceLabel:SetTextInset(2, 0)
-                self.PriceLabel:SizeToContentsY(2)
-                --[ ]--
-            elseif strCategory == "entity" then
-                --[ entity category ]--
-                self.EntityWrapper = vgui.Create("DPanel")
-                self.EntityWrapper:SetTall(60)
-                self.EntityWrapper.Paint = function(pnl,w,h)
-                    draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
-                end
-                self.EntityList:AddCell(self.EntityWrapper)
-                
-                self.IconPanel = self.EntityWrapper:Add("DPanel")
-                self.IconPanel:Dock(LEFT)
-                self.IconPanel:SetWide( 60 )
-                self.IconPanel.Paint = function( pnl, w, h)
-                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
-                end
-                
-                self.BuyButton = self.EntityWrapper:Add("DButton")
-                self.BuyButton:Dock(RIGHT)
-                self.BuyButton:SetWide( 60 )
-                self.BuyButton:SetText("")
-                self.BuyButton.Paint = function( pnl, w, h )
-                    if pnl:IsHovered() then
-                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
-                    else
-                        draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
-                    end
-                    surface.SetDrawColor(255, 255, 255, 255)
-                    surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
-                    surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, self.BuyButton:GetTall()/2-12, 24, 24)
-                end
-                self.BuyButton.DoClick = function()
-                    GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
-                end	
-                -----
-                self.Icon = self.IconPanel:Add("DModelPanel")
-                self.Icon:Dock(FILL)
-                self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
-                self.Icon:SetModel( v.Model )
-                self.Icon:SetLookAng( Angle(26.631, -41.827, 0.000) )
-                self.Icon:SetCamPos( Vector(-54.672073, 48.589230, 46.368576 ) )
-                self.Icon:SetFOV(35.637013445461)
-                self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
-                function self.Icon:LayoutEntity( Entity ) return end
-                ----
-                self.Label = self.EntityWrapper:Add( "DLabel" )
-                self.Label:Dock(TOP)
-                self.Label:SetFont("f4_Label")
-                self.Label:SetTextColor( Color(255,255,255) )
-                self.Label:SetText( v.Name )
-                self.Label:SetTextInset(2, 1)
-                self.Label:SizeToContentsY(1)
-                ----
-                self.PriceLabel = self.EntityWrapper:Add( "DLabel" )
-                self.PriceLabel:Dock(TOP)
-                self.PriceLabel:SetFont("f4_Price")
-                self.PriceLabel:SetTextColor( Color(0,255,78) )
-                self.PriceLabel:SetText("R$ " .. string.Comma( v.Price ) )
-                self.PriceLabel:SetTextInset(2, 0)
-                self.PriceLabel:SizeToContentsY(2)
             end
+            self.EntityList:AddCell(self.EntityWrapper)
+            
+            self.IconPanel = self.EntityWrapper:Add("DPanel")
+            self.IconPanel:Dock(LEFT)
+            self.IconPanel:SetWide( 60 )
+            self.IconPanel.Paint = function( pnl, w, h)
+                draw.RoundedBoxEx(4, 0, 0, w, h, Color(66,66,66), true, false, true, false)
+            end
+            
+            self.BuyButton = self.EntityWrapper:Add("DButton")
+            self.BuyButton:Dock(RIGHT)
+            self.BuyButton:SetWide( 60 )
+            self.BuyButton:SetText("")
+            self.BuyButton.Paint = function( pnl, w, h )
+                if pnl:IsHovered() then
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,200,78), false, true, false, true)
+                else
+                    draw.RoundedBoxEx(4, 0, 0, w, h, Color(0,255,78), false, true, false, true)
+                end
+                surface.SetDrawColor(255, 255, 255, 255)
+                surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
+                surface.DrawTexturedRect( 30-12, 15+6, 24, 24)
+            end
+            self.BuyButton.DoClick = function()
+                GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
+            end	
+            -----
+            self.Icon = self.IconPanel:Add("DModelPanel")
+            self.Icon:Dock(FILL)
+            self.Icon:SetSize( self.IconPanel:GetWide(), self.IconPanel:GetTall() )
+            self.Icon:SetModel( v.Model )
+            self.Icon:SetLookAng( Angle(26.631, -41.827, 0.000) )
+            self.Icon:SetCamPos( Vector(-54.672073, 48.589230, 46.368576 ) )
+            self.Icon:SetFOV(35.637013445461)
+            self.Icon:SetAmbientLight( Color( 255, 255, 255, 255 ) )
+            function self.Icon:LayoutEntity( Entity ) return end
+            ----
+            self.Label = self.EntityWrapper:Add( "DLabel" )
+            self.Label:Dock(TOP)
+            self.Label:SetFont("f4_Label")
+            self.Label:SetTextColor( Color(255,255,255) )
+            self.Label:SetText( v.Name )
+            self.Label:SetTextInset(2, 1)
+            self.Label:SizeToContentsY(1)
+            ----
+            self.PriceLabel = self.EntityWrapper:Add( "DLabel" )
+            self.PriceLabel:Dock(TOP)
+            self.PriceLabel:SetFont("f4_Price")
+            self.PriceLabel:SetTextColor( Color(0,255,78) )
+            self.PriceLabel:SetText("R$ " .. string.Comma( v.Price ) )
+            self.PriceLabel:SetTextInset(2, 0)
+            self.PriceLabel:SizeToContentsY(2)
         elseif v.Cat == "drugs" then
             --[ DORGAS ]--
             self.DrugsWrapper = vgui.Create("DPanel")
             self.DrugsWrapper:SetTall(60)
             self.DrugsWrapper.Paint = function(pnl,w,h)
                 draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
             end
             self.DrugsList:AddCell(self.DrugsWrapper)
             
@@ -443,7 +462,7 @@ function PANEL:Populate( tblItems )
                 end
                 surface.SetDrawColor(255, 255, 255, 255)
                 surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
-                surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, self.BuyButton:GetTall()/2-12, 24, 24)
+                surface.DrawTexturedRect( 30-12, 15+6, 24, 24)
             end
             self.BuyButton.DoClick = function()
                 GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
@@ -481,6 +500,11 @@ function PANEL:Populate( tblItems )
             self.MiscWrapper:SetTall(60)
             self.MiscWrapper.Paint = function(pnl,w,h)
                 draw.RoundedBox(4	, 0, 0, w, h, Color(19,19,19) )
+                if v.Vip then
+                    surface.SetDrawColor(255, 255, 255, 90)
+                    surface.SetMaterial(Material("materials/vgui/f4/vip_badge.png"))
+                    surface.DrawTexturedRect(0, 0, w, h)
+                end
             end
             self.MiscList:AddCell(self.MiscWrapper)
             
@@ -503,7 +527,7 @@ function PANEL:Populate( tblItems )
                 end
                 surface.SetDrawColor(255, 255, 255, 255)
                 surface.SetMaterial( Material("materials/vgui/icons/buy.png") )
-                surface.DrawTexturedRect(self.BuyButton:GetWide()/2 -12, self.BuyButton:GetTall()/2-12, 24, 24)
+                surface.DrawTexturedRect( 30-12, 15+6, 24, 24)
             end
             self.BuyButton.DoClick = function()
                 GAMEMODE.Net:RequestBuyF4Item( v.Name, v.Price )
@@ -1043,7 +1067,7 @@ function PANEL:PerformLayout( w, h )
     
     self.BadCat:DockMargin(8, 10, 8, 0)
     self.BadCat:Dock(TOP)
-
+    
     self.AnyCat:DockMargin(8, 10, 8, 0)
     self.AnyCat:Dock(TOP)
     

@@ -99,24 +99,6 @@ if SERVER then
 		end
 	end )
 
-	--[[hook.Add( "EntityTakeDamage", "RagdollHitAndRuns", function( pPlayer, pDamageInfo )
-		local eEnt = pDamageInfo:GetAttacker()
-		if not pPlayer:IsPlayer() then return end
-		
-		if eEnt:GetClass() == "prop_vehicle_jeep" and not pPlayer:InVehicle() and not pPlayer.m_bBecomeRagdollOnExit then
-			if pPlayer:IsUncon() then return end
-
-			local vel = eEnt:GetVelocity():Length()
-			if vel > 100 then
-				local ragEnt = pPlayer:BecomeRagdoll( 10 )
-				for i = 0, ragEnt:GetPhysicsObjectCount() -1 do
-					local phys = ragEnt:GetPhysicsObjectNum( i )
-					phys:ApplyForceCenter( (eEnt:GetVelocity():GetNormalized() *-768) +Vector( 0, 0, 1500 ) )
-				end
-			end
-		end
-	end )]]--
-
 	timer.Create( "WheelSparks", 0.25, 0, function()
 		local car
 		for k, v in pairs( player.GetAll() ) do
@@ -142,6 +124,19 @@ if SERVER then
 			end
 		end
 	end )
+
+	function PlayerLeaveVehicleOn( pPlayer, entVehicle, intRole )
+		entVehicle:StopSound( "car_starter" )
+		if entVehicle.m_intEngineOn then
+			pPlayer:AddNote("Você deixou o motor ligado!")
+	
+			timer.Simple(1, function()
+				entVehicle:StartEngine(true)
+			end)
+		end
+		g_PlayerVehicles[pPlayer] = nil
+	end
+	hook.Add( "PlayerLeaveVehicle", "TurnCarOff", PlayerLeaveVehicleOn )
 else
 	local sendState = false
 	hook.Add( "Tick", "CarStater_Key", function()
