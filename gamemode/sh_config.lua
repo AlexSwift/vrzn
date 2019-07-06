@@ -63,6 +63,13 @@ GM.Config.VIP3Groups      = {
 	["superadmin"]           = false,
 }
 
+GM.Config.VIP4Groups      = {
+	["founder"]              = true,
+	["developer"]            = true,
+	["superadmin"]           = false,
+}
+
+
 --[[ Item Limits ]]--
 GM.Config.MaxItemLimit   = 64
 GM.Config.GroupExtraMaxItems            = {

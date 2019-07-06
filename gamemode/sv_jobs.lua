@@ -58,9 +58,34 @@ function GM.Jobs:GetJobByID( intJobID )
 end
 
 function GM.Jobs:SetPlayerJob( pPlayer, intJobID, bNoNote )
+	local PlayerGroup = pPlayer:GetUserGroup()
+	local IsVip = 0
+	print( intJobID )
+	
+		if GAMEMODE.Config.VIPGroups[PlayerGroup] then
+			IsVip = 1
+		end
+
+		if GAMEMODE.Config.VIP2Groups[PlayerGroup] then 
+			IsVip = 2
+		end
+
+		if GAMEMODE.Config.VIP3Groups[PlayerGroup] then 	
+			IsVip = 3
+		end	
+		if GAMEMODE.Config.VIP4Groups[PlayerGroup] then 	
+			IsVip = 4
+		end	
+
+	if GAMEMODE.Jobs:GetJobByID( intJobID ).Vip and IsVip == 0 then 
+		pPlayer:AddNote( "Job para vips :( ." )
+		pPlayer:AddNote("!vip no chat ou no nosso discord para ver os pacotes VIP")
+		return 
+	end
+
 	if self:GetJobByID( intJobID ).WhitelistName then
 		if not self:IsPlayerWhitelisted( pPlayer, intJobID ) then
-			pPlayer:AddNote( "Apply For This Job @ https://discord.gg/Pu8JnW9" )
+			pPlayer:AddNote( "Este job está em modo WhiteList, Aplique em nosso discord." )
 			return
 		end
 	end
@@ -85,11 +110,11 @@ function GM.Jobs:SetPlayerJob( pPlayer, intJobID, bNoNote )
 	else --fallback to civ
 		GAMEMODE.Jobs:GetJobByID( JOB_CIVILIAN ):PlayerSetModel( pPlayer )
 	end
-
+	pPlayer:Kill()
 	hook.Call( "GamemodePlayerSetJob", GAMEMODE, pPlayer, intJobID )
 
 	if not bNoNote then
-		pPlayer:AddNote( "You are now a ".. self:GetJobByID(intJobID).Name.. "!" )
+		pPlayer:AddNote( "Você agora é um ".. self:GetJobByID(intJobID).Name.. "!" )
 	end
 	
 	pPlayer:StripWeapons()
