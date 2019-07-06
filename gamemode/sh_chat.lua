@@ -1,4 +1,19 @@
 GM.Chat = {}
+
+local customNames = customNames or {}
+customNames['founder'] = { name = "Dono", col = Color(250,220,0), staff = true }
+customNames['superadmin'] = { name = "Super Admin", col = Color(250,0,217), staff = true }
+customNames['admin'] = { name = "Administrador", col = Color(10,116,255), staff = true }
+customNames['moderador'] = { name = "Moderador", col = Color(10,255,10), staff = true }
+customNames['helper'] = { name = "Escravo", col = Color(10,200,200), staff = true }
+customNames['user'] = { name = "Usuário", col = Color(10,10,250), staff = false }
+
+
+function userGroupTag(ply)
+	local newTable = customNames[ply:GetUserGroup()]
+	return newTable
+end
+
 if SERVER then
 	function GM.Chat:PlayerSay( pPlayer, strText, bTeamOnly )
 		if strText:sub( 1, 5 ) == "/ads " and not bTeamOnly then
@@ -101,7 +116,7 @@ else
 		
 		local firstName = GAMEMODE.Player:GetSharedGameVar( pPlayer, "name_first" )
 		local lastName = GAMEMODE.Player:GetSharedGameVar( pPlayer, "name_last" )
-		
+
 		if IsValid( pPlayer ) then
 			table.insert( tab, firstName .. " ".. lastName )
 		else
