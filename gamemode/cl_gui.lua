@@ -45,27 +45,7 @@ function GM.Gui:ShowNWMenu( strID )
 end
 
 function GM.Gui:Tick()
-	if input.IsKeyDown( KEY_V ) then
-		if not ValidPanel( self.m_pnlCarRadioMenu ) then
-			self.m_pnlCarRadioMenu = vgui.Create( "SRPRadioRadialMenu" )
-			self.m_pnlCarRadioMenu:SetSize( 340, 340 )
-			self.m_pnlCarRadioMenu:Center()
-
-			--Some kind of mouse bug?
-			self.m_pnlCarRadioMenu:MakePopup()
-			self.m_pnlCarRadioMenu:SetVisible( false )
-		end
-
-		if IsValid( LocalPlayer():GetVehicle() ) and LocalPlayer():GetVehicle():GetClass() ~= "prop_vehicle_jeep" then return end
-		if self.m_pnlCarRadioMenu:IsVisible() or vgui.CursorVisible() or not LocalPlayer():InVehicle() then return end
-		if ValidPanel( vgui.GetKeyboardFocus() ) then return end
-		self.m_pnlCarRadioMenu:Open()	
-	else
-		if ValidPanel( self.m_pnlCarRadioMenu ) then
-			self.m_pnlCarRadioMenu:Close()
-		end
-	end
-
+	
 	if input.IsKeyDown( KEY_T ) then
 		if not ValidPanel( self.m_pnlActMenu ) then
 			self.m_pnlActMenu = vgui.Create( "SRPActRadialMenu" )
