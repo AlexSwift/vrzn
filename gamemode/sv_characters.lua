@@ -181,6 +181,7 @@ function GM.Char:OnPlayerSelectCharacter( pPlayer, intCharID, tblChar )
 	GAMEMODE.Player:SetSharedGameVar( pPlayer, "name_last", tblChar.Name.Last, true )
 	GAMEMODE.Player:SetSharedGameVar( pPlayer, "char_id", intCharID, true )
 	GAMEMODE.Player:SetSharedGameVar( pPlayer, "char_sex", tblChar.Sex, true )
+	GAMEMODE.Player:SetSharedGameVar( pPlayer, "group_id", tblChar.Group, true )
 
 	--Apply any saved equipment slots
 	for slotName, data in pairs( GAMEMODE.Inv.m_tblEquipmentSlots ) do
