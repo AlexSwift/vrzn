@@ -52,6 +52,7 @@ function GM.SQL:InitGamemodeTables()
 		`money_bank` INT(10) UNSIGNED NOT NULL DEFAULT '0',
 		`vehicles` LONGTEXT NULL,
 		`created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		`group_id` INT(255) NOT NULL DEFAULT '0',
 		PRIMARY KEY (`id`),
 		INDEX `player_id` (`player_id`),
 		INDEX `first_name_last_name` (`first_name`, `last_name`)
@@ -195,6 +196,7 @@ function GM.SQL:LoadPlayerCharacters( pPlayer, funcOnLoaded )
 					Bank = v.money_bank,
 				},
 				Vehicles = util.JSONToTable( v.vehicles or "" ),
+				Group = v.group_id,
 			}
 			
 			characters[v.id] = char
