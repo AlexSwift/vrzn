@@ -14,6 +14,7 @@ sound.Add{
 	pitch = 100,
 	sound = "taloslife/car_starter.wav"
 }
+local vehState = nil
 
 if SERVER then
 	util.AddNetworkString "srp_carstarter"
@@ -26,14 +27,19 @@ if SERVER then
 
 	hook.Add( "PlayerEnteredVehicle", "TurnCarOff", function( pPlayer, entVehicle, intRole )
 		if entVehicle:GetClass() == "prop_vehicle_prisoner_pod" then return end
+		pPlayer:AddNote( "Segure [ i ] Para Ligar/Desligar o motor." )
 		g_PlayerVehicles[pPlayer] = { State = 0 }
-		pPlayer:AddNote( "Push and hold 'i' to start/stop your car." )
-		pPlayer:AddNote( "Hold 'V' to change the Radio Station" )
 	end )
 
 	hook.Add( "PlayerLeaveVehicle", "TurnCarOff", function( pPlayer, entVehicle, intRole )
+	
 		entVehicle:StopSound( "car_starter" )
+
+		if pPlayer:GetVehicle():IsEngineStarted() then
+			pPlayer:AddNote("O motor continua ligado!")
+		end
 		g_PlayerVehicles[pPlayer] = nil
+
 	end )
 
 	net.Receive( "srp_carstarter", function( intMsgLen, pPlayer )
@@ -42,8 +48,9 @@ if SERVER then
 
 	hook.Add( "Tick", "CarStater", function()
 		for pl, data in pairs( g_PlayerVehicles ) do
+
 			if not IsValid( pl ) or not pl:GetVehicle() then g_PlayerVehicles[pl] = nil continue end
-			
+
 			if data.State == VEHICLE_STARTING then
 				pl:GetVehicle():Fire( "HandBrakeOn", "1" )
 			end
@@ -54,15 +61,16 @@ if SERVER then
 					data.StartTime = CurTime()
 					pl:GetVehicle():EmitSound( "car_starter" )
 
-					if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
-					if pl:GetVehicle():GetFuel() < 1 then return end
+					-- ATUALIZAR PRO VCMOD if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
+					-- ATUALIZAR PRO VCMOD if pl:GetVehicle():GetFuel() < 1 then return end
 				elseif data.State == VEHICLE_STARTING then
-					if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
-					if pl:GetVehicle():GetFuel() < 1 then return end
+					-- ATUALIZAR PRO VCMOD  if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
+					-- ATUALIZAR PRO VCMOD if pl:GetVehicle():GetFuel() < 1 then return end
 					
 					if not data.ExtraTime then
-						local max = GAMEMODE.Cars:GetCarMaxHealth( pl:GetVehicle() )
-						local time = (max -GAMEMODE.Cars:GetCarHealth(pl:GetVehicle())) /max
+						-- ATUALIZAR PRO VCMOD  local max = GAMEMODE.Cars:GetCarMaxHealth( pl:GetVehicle() )
+						-- ATUALIZAR PRO VCMOD local time = (max -GAMEMODE.Cars:GetCarHealth(pl:GetVehicle())) /max
+						local time = 0.1
 						data.ExtraTime = (VEHCILE_START_DURATION *1) *math.Rand(time *5.8, time *6.3)
 					end
 					
@@ -99,44 +107,33 @@ if SERVER then
 		end
 	end )
 
-	timer.Create( "WheelSparks", 0.25, 0, function()
-		local car
-		for k, v in pairs( player.GetAll() ) do
-			if not GAMEMODE.Cars:PlayerHasCar( v ) then continue end
-			car = GAMEMODE.Cars:GetCurrentPlayerCar( v )
+	-- timer.Create( "WheelSparks", 0.25, 0, function()
+	-- 	local car
+	-- 	for k, v in pairs( player.GetAll() ) do
+	-- 		if not GAMEMODE.Cars:PlayerHasCar( v ) then continue end
+	-- 		car = GAMEMODE.Cars:GetCurrentPlayerCar( v )
 
-			if not car.m_tblWheelHealth then continue end
-			for idx, health in pairs( car.m_tblWheelHealth ) do
-				local wheel = car:GetWheel( idx )
+	-- 		if not car.m_tblWheelHealth then continue end
+	-- 		for idx, health in pairs( car.m_tblWheelHealth ) do
+	-- 			local wheel = car:GetWheel( idx )
 				
-				if IsValid( wheel ) and health <= 0 then
-					if wheel:GetAngleVelocity():Length() <= 50 then continue end
-					local pos, _, onGround = car:GetWheelContactPoint( idx )
-					if not onGround then continue end
+	-- 			if IsValid( wheel ) and health <= 0 then
+	-- 				if wheel:GetAngleVelocity():Length() <= 50 then continue end
+	-- 				local pos, _, onGround = car:GetWheelContactPoint( idx )
+	-- 				if not onGround then continue end
 					
-					local effect = EffectData()
-					effect:SetStart( pos )
-					effect:SetOrigin( pos )
-					effect:SetScale( 0.5 )
-					effect:SetNormal( car:GetVelocity():GetNormal() *-1 )
-					util.Effect( "ManhackSparks", effect )
-				end
-			end
-		end
-	end )
+	-- 				local effect = EffectData()
+	-- 				effect:SetStart( pos )
+	-- 				effect:SetOrigin( pos )
+	-- 				effect:SetScale( 0.5 )
+	-- 				effect:SetNormal( car:GetVelocity():GetNormal() *-1 )
+	-- 				util.Effect( "ManhackSparks", effect )
+	-- 			end
+	-- 		end
+	-- 	end
+	-- end )
 
-	function PlayerLeaveVehicleOn( pPlayer, entVehicle, intRole )
-		entVehicle:StopSound( "car_starter" )
-		if entVehicle.m_intEngineOn then
-			pPlayer:AddNote("Você deixou o motor ligado!")
-	
-			timer.Simple(1, function()
-				entVehicle:StartEngine(true)
-			end)
-		end
-		g_PlayerVehicles[pPlayer] = nil
-	end
-	hook.Add( "PlayerLeaveVehicle", "TurnCarOff", PlayerLeaveVehicleOn )
+
 else
 	local sendState = false
 	hook.Add( "Tick", "CarStater_Key", function()

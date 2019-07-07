@@ -61,7 +61,7 @@ GM.Config.GlobalLoadout = {
 }
 
 --[[ Car Settings ]]--
-GM.Config.UseCustomVehicleDamage = true
+GM.Config.UseCustomVehicleDamage = false
 GM.Config.BaseCarFuelConsumption = 35
 
 --[[ Property Settings ]]--

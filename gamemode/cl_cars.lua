@@ -88,32 +88,3 @@ function GM.Cars:GetCarHealth( entCar )
 	return GAMEMODE.Config.UseCustomVehicleDamage and entCar:GetNWInt( "CarHealth", 0 ) or entCar:GetNWInt( "VC_Health", 0 )
 end
 
---Returns the max health of the given vehicle
-function GM.Cars:GetCarMaxHealth( entCar )
-	return GAMEMODE.Config.UseCustomVehicleDamage and GAMEMODE.Config.MaxCarHealth or entCar:GetNWInt( "VC_MaxHealth", 0 )
-end
-
---[[ Car Fuel ]]--
-function GM.Cars:UpdateCarFuel( intEntIndex, intFuel, intMaxFuel )
-	self.m_tblFuelCache[intEntIndex] = {
-		Fuel = intFuel,
-		MaxFuel = intMaxFuel,
-	}
-end
-
-function GM.Cars:EntityRemoved( eEnt )
-	if eEnt:IsVehicle() and self.m_tblFuelCache[eEnt:EntIndex()] then
-		self.m_tblFuelCache[eEnt:EntIndex()] = nil
-	end
-end
-
-local carMeta = debug.getregistry().Vehicle
-function carMeta:GetFuel()
-	if not GAMEMODE.Cars.m_tblFuelCache[self:EntIndex()] then return 10 end
-	return GAMEMODE.Cars.m_tblFuelCache[self:EntIndex()].Fuel or 10
-end
-
-function carMeta:GetMaxFuel()
-	if not GAMEMODE.Cars.m_tblFuelCache[self:EntIndex()] then return 10 end
-	return GAMEMODE.Cars.m_tblFuelCache[self:EntIndex()].MaxFuel or 10
-end

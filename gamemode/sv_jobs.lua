@@ -62,20 +62,9 @@ function GM.Jobs:SetPlayerJob( pPlayer, intJobID, bNoNote )
 	local IsVip = 0
 	print( intJobID )
 	
-		if GAMEMODE.Config.VIPGroups[PlayerGroup] then
-			IsVip = 1
-		end
-
-		if GAMEMODE.Config.VIP2Groups[PlayerGroup] then 
-			IsVip = 2
-		end
-
-		if GAMEMODE.Config.VIP3Groups[PlayerGroup] then 	
-			IsVip = 3
-		end	
-		if GAMEMODE.Config.VIP4Groups[PlayerGroup] then 	
-			IsVip = 4
-		end	
+	if pPlayer:CheckGroup( "vip" ) then
+		IsVip = 1
+	end
 
 	if GAMEMODE.Jobs:GetJobByID( intJobID ).Vip and IsVip == 0 then 
 		pPlayer:AddNote( "Job para vips :( ." )

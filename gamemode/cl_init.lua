@@ -58,9 +58,9 @@ function GM:OnEntityCreated( eEnt )
 	self.Player:OnEntityCreated( eEnt )
 end
 
-function GM:EntityRemoved( eEnt )
-	self.Cars:EntityRemoved( eEnt )
-end
+-- function GM:EntityRemoved( eEnt )
+-- 	self.Cars:EntityRemoved( eEnt )
+-- end
 
 function GM:player_disconnect( tblData )
 	self.Player:EntityRemoved( util.SteamIDTo64(tblData.networkid) )
@@ -101,9 +101,9 @@ function GM:Think()
 	self.PlayerAnims:ThinkPlayerBones()
 	-- self.Weather:Think()
 
-	if input.IsKeyDown( KEY_P ) and not vgui.CursorVisible() and not LocalPlayer():GetNWBool( "SeatBelt" ) then
-		LocalPlayer():ConCommand( "rp_seatbelt" )
-	end
+	-- if input.IsKeyDown( KEY_P ) and not vgui.CursorVisible() and not LocalPlayer():GetNWBool( "SeatBelt" ) then
+	-- 	LocalPlayer():ConCommand( "rp_seatbelt" )
+	-- end
 end
 
 function GM:Tick()

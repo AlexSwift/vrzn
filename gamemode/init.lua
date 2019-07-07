@@ -72,7 +72,7 @@ function GM:Tick()
 	self.License:Tick()
 	self.Drugs:Tick()
 	self.Jobs:Tick()
-	self.Cars:TickCarFuel()
+	-- self.Cars:TickCarFuel()
 	self.Needs:Tick()
 	self.ChopShop:Tick()
 	self.FireSystem:Tick()
@@ -93,11 +93,11 @@ function GM:EntityKeyValue( eEnt, strKey, strValue )
 end
 
 
-function GM:ShouldCollide( eEnt1, eEnt2 )
-	if eEnt1:IsVehicle() or eEnt2:IsVehicle() then
-		return self.Cars:ShouldCollide( eEnt1, eEnt2 )
-	end
-end
+-- function GM:ShouldCollide( eEnt1, eEnt2 )
+-- 	-- if eEnt1:IsVehicle() or eEnt2:IsVehicle() then
+-- 	-- 	return self.Cars:ShouldCollide( eEnt1, eEnt2 )
+-- 	-- end
+-- end
 
 function GM:ShutDown()
 	self.SQL:ShutDown()
@@ -242,7 +242,6 @@ function GM:PlayerCanPickupWeapon( pPlayer, entWep )
 end
 
 function GM:KeyPress( pPlayer, intKey )
-	self.SeatBelts:KeyPress( pPlayer, intKey )
 
 	if intKey == IN_USE and pPlayer:KeyDown( IN_WALK ) then
 		local ent = util.TraceLine{
@@ -272,11 +271,11 @@ end
 function GM:PlayerEnteredVehicle( pPlayer, entVeh )
 	self.Cars:PlayerEnteredVehicle( pPlayer, entVeh )
 	self.License:PlayerEnteredVehicle( pPlayer, entVeh )
-	self.SeatBelts:PlayerEnteredVehicle( pPlayer, entVeh )
+	-- self.SeatBelts:PlayerEnteredVehicle( pPlayer, entVeh )
 end
 
 function GM:PlayerLeaveVehicle( pPlayer, entVeh )
-	self.SeatBelts:PlayerLeaveVehicle( pPlayer, entVeh )
+	-- self.SeatBelts:PlayerLeaveVehicle( pPlayer, entVeh )
 end
 
 function GM:PlayerSpawnedVehicle( pPlayer, entVeh )
