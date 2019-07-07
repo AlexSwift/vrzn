@@ -799,7 +799,7 @@ function PANEL:Init()
             end
             self.BecomeButton.DoClick = function()
                 GAMEMODE.Net:RequestJobChange( v.ID )
-                self:GetParent():Remove()
+                RunConsoleCommand( "open_f4_menu", 0 )
             end	
             -----
             self.Icon = self.IconPanel:Add("DModelPanel")
@@ -872,7 +872,7 @@ function PANEL:Init()
             end
             self.BecomeButton.DoClick = function()
                 GAMEMODE.Net:RequestJobChange( v.ID )
-                self:GetParent():Remove()
+                RunConsoleCommand( "open_f4_menu", 0 )
             end	
             -----
             self.Icon = self.IconPanel:Add("DModelPanel")
@@ -943,7 +943,7 @@ function PANEL:Init()
             end
             self.BecomeButton.DoClick = function()
                 GAMEMODE.Net:RequestJobChange( v.ID )
-                self:GetParent():Remove()
+                RunConsoleCommand( "open_f4_menu", 0 )
             end	
             -----
             self.Icon = self.IconPanel:Add("DModelPanel")
@@ -1014,7 +1014,7 @@ function PANEL:Init()
             end
             self.BecomeButton.DoClick = function()
                 GAMEMODE.Net:RequestJobChange( v.ID )
-                self:GetParent():Remove()
+                RunConsoleCommand( "open_f4_menu", 0 )
             end	
             -----
             self.Icon = self.IconPanel:Add("DModelPanel")

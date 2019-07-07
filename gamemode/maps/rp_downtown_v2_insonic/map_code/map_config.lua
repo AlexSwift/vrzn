@@ -11,10 +11,10 @@ if SERVER then
 	
 	--[[ Car Dealer Settings ]]--
 	GM.Config.CarSpawns = {
-		{ Vector( -1774., -5505, -195 ), Angle( 0, 0, 0 ) },
-		{ Vector( -1792, -5290, -195 ), Angle( 0, 0, 0 ) },
-		{ Vector( -1765, -5060, -195 ), Angle( 0, 0, 0 ) },
-		{ Vector(  -1768, -4830, -195 ), Angle( 0, 0, 0 ) },
+		{ Vector( -1774., -5505, -195 ), Angle( 0, -180, 0 ) },
+		{ Vector( -1792, -5290, -195 ), Angle( 0,  -180, 0 ) },
+		{ Vector( -1765, -5060, -195 ), Angle( 0,  -180, 0 ) },
+		{ Vector(  -1768, -4830, -195 ), Angle( 0,  -180, 0 ) },
 		{ Vector( -2208, -4831, -195 ), Angle( 0, -150, 0 ) },
 		{ Vector( -2198, -5060, -195 ), Angle( 0, -150, 0 ) },
 		{ Vector( -2207, -5284, -195 ), Angle( 0, -150, 0 ) },
