@@ -91,9 +91,10 @@ GM.Config.GroupExtraMaxItems            = {
 --[[ Character Settings ]]--
 GM.Config.MaxCharacters  = DEV_SERVER and 3 or 3
 GM.Config.NameLength     = { First = 15, Last = 15 }
-GM.Config.StartingMoney  = { Wallet = 25000, Bank = 35000 }
-GM.Config.MaxCarryWeight = 600
-GM.Config.MaxCarryVolume = 1000
+GM.Config.StartingMoney  = { Wallet = 10000, Bank = 5000 }
+GM.Config.MaxCarryWeight = 30
+GM.Config.MaxCarryVolume = 99999
+GM.Config.DropMoneyOnDeath = 0
 
 --Player models allowed in character creation
 GM.Config.PlayerModels   = {

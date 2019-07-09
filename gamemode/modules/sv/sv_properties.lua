@@ -28,7 +28,7 @@ function GM.Property:LoadProperties()
 	GM:PrintDebug( 0, "->LOADING PROPERTIES" )
 
 	local map = game.GetMap():gsub( ".bsp", "" )
-	local path = GM.Config.GAMEMODE_PATH.. "maps/".. map.. "/properties/"
+	local path = GM.Config.GAMEMODE_PATH.. "core/maps/".. map.. "/properties/"
 
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )

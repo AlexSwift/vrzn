@@ -14,13 +14,13 @@ GM.NPC.m_tblNPCRegister = {}
 function GM.NPC:LoadNPCs()
 	GM:PrintDebug( 0, "->LOADING NPCs" )
 
-	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "npcs/*.lua", "LUA" )
+	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "core/npcs/*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
 
 	for k, v in pairs( foundFiles ) do
 		GM:PrintDebug( 0, "\tLoading ".. v )
-		include( GM.Config.GAMEMODE_PATH.. "npcs/".. v )
-		AddCSLuaFile( GM.Config.GAMEMODE_PATH.. "npcs/".. v )
+		include( GM.Config.GAMEMODE_PATH.. "core/npcs/".. v )
+		AddCSLuaFile( GM.Config.GAMEMODE_PATH.. "core/npcs/".. v )
 	end
 
 	GM:PrintDebug( 0, "->NPCs LOADED" )

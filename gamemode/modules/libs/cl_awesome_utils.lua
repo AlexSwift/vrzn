@@ -3,6 +3,7 @@
 ---@ Author: Nodge
 ---@ Função de tempo removida da lib MRP
 -----------------------------
+print("as")
 function AWDrawTimeCountdown( Initial, Final, Colour)
     hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
         local start, finish = Initial, Final

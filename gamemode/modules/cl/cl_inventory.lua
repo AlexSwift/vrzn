@@ -28,12 +28,12 @@ GM.Inv.m_tblEquipmentSlots = {
 function GM.Inv:LoadItems()
 	GM:PrintDebug( 0, "->LOADING ITEMS" )
 
-	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "items/*.lua", "LUA" )
+	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "core/items/*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
 
 	for k, v in pairs( foundFiles ) do
 		GM:PrintDebug( 0, "\tLoading ".. v )
-		include( GM.Config.GAMEMODE_PATH.. "items/".. v )
+		include( GM.Config.GAMEMODE_PATH.. "core/items/".. v )
 	end
 
 	GM:PrintDebug( 0, "->ITEMS LOADED" )

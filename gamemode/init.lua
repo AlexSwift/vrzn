@@ -7,7 +7,9 @@
 -----------------------------------------------------------------
 ]]--
 
-
+include"shared.lua"
+include "vrzn/gamemode/libraries/sv_mysql.lua"
+include "vrzn/gamemode/libraries/sv_mysql_player.lua"
 include "sh_init.lua"
 DeriveGamemode("sandbox")
 

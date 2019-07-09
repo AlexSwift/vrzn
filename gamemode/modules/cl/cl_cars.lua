@@ -17,12 +17,12 @@ GM.Cars.m_tblFuelCache = (GAMEMODE or GM).Cars.m_tblFuelCache or {}
 function GM.Cars:LoadCars()
 	GM:PrintDebug( 0, "->LOADING CARS" )
 
-	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "cars/*.lua", "LUA" )
+	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "core/carros/*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
 
 	for k, v in pairs( foundFiles ) do
 		GM:PrintDebug( 0, "\tLoading ".. v )
-		include( GM.Config.GAMEMODE_PATH.. "cars/".. v )
+		include( GM.Config.GAMEMODE_PATH.. "core/carros/".. v )
 	end
 
 	GM:PrintDebug( 0, "->CARS LOADED" )

@@ -33,7 +33,7 @@ function GM.Map:LoadMapProps()
 	GAMEMODE:PrintDebug( 0, "->LOADING MAP PROPS" )
 
 	local map = game.GetMap():gsub(".bsp", "")
-	local path = GAMEMODE.Config.GAMEMODE_PATH.. "maps/".. map.. "/map_props/"
+	local path = GAMEMODE.Config.GAMEMODE_PATH.. "core/maps/".. map.. "/map_props/"
 
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GAMEMODE:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
@@ -95,7 +95,7 @@ function GM.Map:LoadMapNPCs()
 	GAMEMODE:PrintDebug( 0, "->LOADING MAP NPCs" )
 
 	local map = game.GetMap():gsub(".bsp", "")
-	local path = GAMEMODE.Config.GAMEMODE_PATH.. "maps/".. map.. "/map_npcs/"
+	local path = GAMEMODE.Config.GAMEMODE_PATH.. "core/maps/".. map.. "/map_npcs/"
 
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GAMEMODE:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
@@ -141,7 +141,7 @@ function GM.Map:LoadMapCode()
 	GM:PrintDebug( 0, "->LOADING MAP CODE" )
 
 	local map = game.GetMap():gsub(".bsp", "")
-	local path = GM.Config.GAMEMODE_PATH.. "maps/".. map.. "/map_code/"
+	local path = GM.Config.GAMEMODE_PATH.. "core/maps/".. map.. "/map_code/"
 
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )

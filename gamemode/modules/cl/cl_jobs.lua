@@ -14,12 +14,12 @@ GM.Jobs.m_tblJobs = (GAMEMODE or GM).m_tblJobs or {}
 function GM.Jobs:LoadJobs()
 	GM:PrintDebug( 0, "->LOADING JOBS" )
 
-	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "jobs/*.lua", "LUA" )
+	local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "core/jobs/*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
 
 	for k, v in pairs( foundFiles ) do
 		GM:PrintDebug( 0, "\tLoading ".. v )
-		include( GM.Config.GAMEMODE_PATH.. "jobs/".. v )
+		include( GM.Config.GAMEMODE_PATH.. "core/jobs/".. v )
 	end
 
 	GM:PrintDebug( 0, "->JOBS LOADED" )

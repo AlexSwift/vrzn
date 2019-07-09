@@ -22,7 +22,7 @@ function GM.Map:LoadMapCode()
 	GM:PrintDebug( 0, "->LOADING MAP CODE" )
 
 	local map = game.GetMap():gsub(".bsp", "")
-	local path = GM.Config.GAMEMODE_PATH.. "maps/".. map.. "/map_code/"
+	local path = GM.Config.GAMEMODE_PATH.. "core/maps/".. map.. "/map_code/"
 
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )

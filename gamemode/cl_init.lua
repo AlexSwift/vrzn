@@ -6,7 +6,7 @@
 -- @build       Beta 1
 -----------------------------------------------------------------
 ]]--
-
+include"shared.lua"
 DeriveGamemode("sandbox")
 DEFINE_BASECLASS("gamemode_sandbox")
 
