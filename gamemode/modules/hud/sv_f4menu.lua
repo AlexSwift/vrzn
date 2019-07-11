@@ -4,7 +4,8 @@ function GM:ShowSpare2(ply)
     ply:ConCommand("open_f4_menu")
 end
 
-
+function AddNoteAll()
+end
 -- local status = net.ReadBit()
 
 -- 	if (F4Menu == nil) then

@@ -3,11 +3,11 @@
 		by: Asriel + CodeRed
 
 ]]--
-GM.Name 	= "santosrp"
-GM.Author 	= "Goat & Watsky"
-GM.Email 	= "support@sinfulgaming.xyz"
-GM.Website 	= "sinfulgaming.xyz"
-GM.ID 		= file.Read("id.txt", "DATA")
+GM.Name 	= "VrZn"
+GM.Author 	= "Nodge"
+GM.Email 	= "wbm.nodge@gmail.com"
+GM.Website 	= "vrzn.mjsv.us"
+
 
 GM.BaseDirectory = GM.FolderName .. "/gamemode/"
 
@@ -36,11 +36,12 @@ end
 
 function GM:OnReloaded()
 	if SERVER then
-		AddNoteAll("Updating serverside, you may experience some lag", 2, 10)
+		AddNoteAll("O servidor está passando por uma atualização rápida.", 2, 5)
+		AddNoteAll("Você vai sentir um pouco de lag.", 2, 10)
 		self.NPC:Initialize()
 	else
-		GAMEMODE.HUD:AddNote("Updating clientside, you may experience some lag", 2, 10)
-		--self.NPC:Initialize() duplicate
+		GAMEMODE.HUD:AddNote("Estamos atualizando o servidor.", 2, 5)
+		GAMEMODE.HUD:AddNote("Lag durante o processo é normal :) .", 2, 5)
 	end
 end
 

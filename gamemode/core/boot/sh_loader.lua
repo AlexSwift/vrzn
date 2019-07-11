@@ -1,8 +1,11 @@
 --[[
-	© 2018 Sinful Gaming, do not share, re-distribute or modify
-
-	without permission of its author (isaac.duarte@live.com)
-]]
+	Name: sh_loader.lua
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
+]]--
 local file = file
 
 local FILE_CLIENT = 0x0
@@ -43,24 +46,26 @@ local function LoadFolder(sFolder, tExcludeDir)
   end
 end
 
-function GM._Core.LoadLibaries()
-  LoadFolder(GM.BaseDirectory.. "libraries")
+function GM._Core.LoadLibs()
+  GM:PrintCore("...CARREGANDO BIBLIOTECAS......................")
+  LoadFolder(GM.BaseDirectory.. "libs")
+  GM:PrintCore(".........................PRONTO................")
 end
 
 function GM._Core.LoadConfig()
-  GM:PrintCore("..........CARREGANDO ARQUIVOS DE CONFIGURAÇÃO..........")
+  GM:PrintCore("...CARREGANDO ARQUIVOS DE CONFIGURAÇÃO.........")
   LoadFolder(GM.BaseDirectory.. "config")
-  GM:PrintCore(".........................PRONTO........................")
+  GM:PrintCore(".........................PRONTO................")
 end
 
 function GM._Core.LoadCore()
-  GM:PrintCore("..........CARREGANDO ARQUIVOS DE BOOT..........")
+  GM:PrintCore("...CARREGANDO ARQUIVOS DE BOOT.................")
   LoadFolder(GM.BaseDirectory.. "core", {boot = true})
   GM:PrintCore(".....................PRONTO....................")
 end
 
 function GM._Core.LoadModules()
-  GM:PrintCore("....................MÓDULOS....................")
+  GM:PrintCore("...MÓDULOS....................................")
   LoadFolder(GM.BaseDirectory.. "modules", {
     day_night = true
   })

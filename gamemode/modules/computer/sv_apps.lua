@@ -1,5 +1,5 @@
 --[[
-	Name: cl_apps.lua
+	Name: sv_apps.lua
 -----------------------------------------------------------------
 -- @package     VrZn - Custom Gamemode (SRP BASE)
 -- @author     Nodge
@@ -19,13 +19,14 @@ end
 function GM.Apps:LoadComputerApps()
 	GM:PrintDebug( 0, "->LOADING COMPUTER APPS" )
 
-	local path = GM.Config.GAMEMODE_PATH.. "apps/computer/"
+	local path = GM.Config.GAMEMODE_PATH.. "core/apps/computer/"
 	local foundFiles, foundFolders = file.Find( path.. "*.lua", "LUA" )
 	GM:PrintDebug( 0, "\tFound ".. #foundFiles.. " files." )
 
 	for k, v in pairs( foundFiles ) do
 		GM:PrintDebug( 0, "\tLoading ".. v )
 		include( path.. v )
+		AddCSLuaFile( path.. v )
 	end
 
 	GM:PrintDebug( 0, "->COMPUTER APPS LOADED" )

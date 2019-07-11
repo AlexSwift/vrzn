@@ -1,8 +1,12 @@
 --[[
-	© 2018 Sinful Gaming, do not share, re-distribute or modify
+	Name: sh_boot.lua
+-----------------------------------------------------------------
+-- @package     VrZn - Custom Gamemode (SRP BASE)
+-- @author     Nodge
+-- @build       Beta 1
+-----------------------------------------------------------------
+]]--
 
-	without permission of its author (isaac.duarte@live.com)
-]]
 GM._Core = GM._Core or {}
 
 include("sh_loader.lua")
@@ -10,23 +14,17 @@ include("sh_loader.lua")
 if SERVER then
   AddCSLuaFile("sh_loader.lua")
   AddCSLuaFile "vrzn/gamemode/config/sh_config.lua"
-  AddCSLuaFile "vrzn/gamemode/libraries/sh_util.lua"
-  AddCSLuaFile "vrzn/gamemode/libraries/sh_pacmodels.lua"
   include "vrzn/gamemode/config/sh_config.lua"
-  include "vrzn/gamemode/libraries/sh_util.lua"
-  include "vrzn/gamemode/libraries/sh_pacmodels.lua"
+  
+  AddCSLuaFile "vrzn/gamemode/dependency/sh_util.lua"
+  include "vrzn/gamemode/dependency/sh_util.lua"
+
+  AddCSLuaFile "vrzn/gamemode/dependency/sh_pacmodels.lua"
+  include "vrzn/gamemode/dependency/sh_pacmodels.lua"
   
   include "vrzn/gamemode/config/sv_config.lua"
   include "vrzn/gamemode/modules/sv_firesystem.lua"
-
   include "vrzn/gamemode/modules/sv_pvs_buffer.lua"
-
-  
-  --Load vgui
-  local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "vgui/*.lua", "LUA" )
-  for k, v in pairs( foundFiles ) do
-    AddCSLuaFile( GM.Config.GAMEMODE_PATH.. "vgui/".. v )
-  end
 
   --Add resources
   local function FilesInDir( strDir, b )
@@ -53,15 +51,12 @@ end
 
 if CLIENT then
   include "vrzn/gamemode/config/sh_config.lua"
-  include "vrzn/gamemode/libraries/sh_util.lua"
-  include "vrzn/gamemode/libraries/sh_pacmodels.lua"
-
-  local foundFiles, foundFolders = file.Find( GM.Config.GAMEMODE_PATH.. "vgui/*.lua", "LUA" )
-  for k, v in pairs( foundFiles ) do
-    include( GM.Config.GAMEMODE_PATH.. "vgui/".. v )
-  end
-
+  include "vrzn/gamemode/dependency/sh_util.lua"
+  include "vrzn/gamemode/dependency/sh_pacmodels.lua"
 end
+
+GM._Core.LoadLibs()
+hook.Run("GM._Core.PostLibsLoaded")
 
 GM._Core.LoadCore()
 hook.Run("GM._Core.PostCoreLoaded")
@@ -82,7 +77,7 @@ GM.Website 	= "http://mjsv.us"
 
 
 function GM:PrintDebug( intLevel, ... )
-	print( ... )
+	-- print( ... )
 end
 
 

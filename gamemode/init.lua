@@ -8,9 +8,8 @@
 ]]--
 
 include"shared.lua"
-include "vrzn/gamemode/libraries/sv_mysql.lua"
-include "vrzn/gamemode/libraries/sv_mysql_player.lua"
-include "sh_init.lua"
+include "vrzn/gamemode/dependency/sv_mysql.lua"
+include "vrzn/gamemode/dependency/sv_mysql_player.lua"
 DeriveGamemode("sandbox")
 
 gameevent.Listen "player_disconnect"
