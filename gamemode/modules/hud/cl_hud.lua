@@ -731,3 +731,417 @@ surface.CreateFont( "BSYS::CrateTimer", {
 		
 		surface.DrawPoly( cir )
 	end
+local GamemodeStarted = 0
+
+local function init()
+
+	// Materials
+	local iconLicense 	= Material("shrun/license.png", "noclamp smooth")
+	local iconWanted 	= Material("shrun/wanted.png", "noclamp smooth")
+
+	// init
+	local clip1_max = 0
+	local ammo_max = 0
+	local clip2_max = 0
+	local weapon = ""
+	local fpssmooth = 0
+
+	// init darkrp
+	local jobchange
+
+	// settings
+	local dataFile = "Vrzn_hud.txt"
+	local data = {}
+	data.enabled = 1
+
+	// Reads or creates dataFile with default settings
+	if file.Exists(dataFile, "DATA") then
+		data = util.JSONToTable(file.Read(dataFile, "DATA"))
+	else // No file exists? no problem!
+		file.Write(dataFile, util.TableToJSON(data, true))
+	end
+
+	// Updates file and re-triggers
+	concommand.Add("Vrzn_hud", function(ply, cmd, arg)
+		if arg[1] then
+			data.enabled = tonumber(arg[1])
+			file.Write(dataFile, util.TableToJSON(data))
+		end
+	end)
+
+	// recursive iteration function
+	local function parentMeDaddy(entity)
+		if entity:GetParent():IsValid() then // Does this entity have a parent?
+			return parentMeDaddy(entity:GetParent())
+		end
+		return entity
+	end
+
+	// recursive iteration function
+	function draw.StatusBar(x, y, w, h, colour, value, max, leftString, rightString, hide, centerString)
+
+		draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme:Transparency(colour, .1))
+
+		local limitedValue = value
+		if limitedValue >= max then
+			limitedValue = max
+		end
+
+		if not hide or value > 0 then
+
+			if w/max*limitedValue >= 1 then
+				draw.RoundedBox(Vrzn.theme.round, x, y, w/max*limitedValue, h, Vrzn.theme:Transparency(colour, .5))
+			end
+
+			draw.SimpleText(
+					leftString,
+					"Description",
+					x + h/4,
+					y + h/2,
+					Vrzn.theme.txt,
+					TEXT_ALIGN_LEFT,
+					TEXT_ALIGN_CENTER
+			)
+
+			if not isstring(rightString) then
+				rightString = value
+			end
+
+			draw.SimpleText(
+					rightString,
+					"Description",
+					x + w - h/4,
+					y + h/2,
+					Vrzn.theme.txt,
+					TEXT_ALIGN_RIGHT,
+					TEXT_ALIGN_CENTER
+			)
+
+			if centerString then
+				draw.SimpleText(
+						centerString,
+						"Description",
+						x + w/2,
+						y + h/2,
+						Vrzn.theme.txt,
+						TEXT_ALIGN_CENTER,
+						TEXT_ALIGN_CENTER
+				)
+			end
+		end
+
+	end
+
+	// hook
+	hook.Add("GamemodeGameStatusChanged", "Start hud", function()
+	hook.Add("HUDPaint", "HUD_dosmoothstuff", function()
+
+		// Calculate FPS
+		local fps = 1 / RealFrameTime()
+		fpssmooth = fpssmooth + (fps - fpssmooth)/(fps/4)
+
+		// Calculate Velocity
+		local velocity = math.Round(parentMeDaddy(LocalPlayer()):GetVelocity():Length())
+
+		// Show HUD
+		if data.enabled != 0 and LocalPlayer():Health() > 0 then
+
+			// Reset texture
+			surface.SetTexture(0)
+
+			///////////////
+			// Left side //
+			///////////////
+			local w = 20*Vrzn.theme.rem
+			local h = 6*Vrzn.theme.rem
+			local x = Vrzn.theme.rem
+			local y = ScrH() - h - Vrzn.theme.rem
+
+			// Extra push for other addons
+			hudW = x + w
+			hudH = h + Vrzn.theme.rem
+
+			Vrzn.BottomLeftHeight = hudH;
+
+			// Background
+			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme:Transparency(Vrzn.theme.bg, .9))
+			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bg)
+
+			// NOIS CORRE MUITO VIADO
+			-- draw.StatusBar(
+			-- 		x + .5*Vrzn.theme.rem,
+			-- 		y + .5*Vrzn.theme.rem,
+			-- 		w - Vrzn.theme.rem,
+			-- 		1.5*Vrzn.theme.rem,
+			-- 		Vrzn.theme.green,
+			-- 		velocity,
+			-- 		1500,
+			-- 		"KPH: " .. math.Round(velocity*3600*0.0000254*0.75),
+			-- 		"MPH: " .. math.Round(velocity*3600/63360*0.75)
+			-- )
+
+			// XP
+			draw.StatusBar(
+					x + .5*Vrzn.theme.rem,
+					y + 2.8*Vrzn.theme.rem,
+					w/2 - .75*Vrzn.theme.rem,
+					1.5*Vrzn.theme.rem,
+					Vrzn.theme.green,
+					GAMEMODE.Skills:GetPlayerXP("1 Nível do Personagem"),
+					150,
+					"XP"
+			)
+
+			// Nível
+			draw.StatusBar(
+					x + w/2 + .25*Vrzn.theme.rem,
+					y + 2.8*Vrzn.theme.rem,
+					w/2 - .75*Vrzn.theme.rem,
+					1.5*Vrzn.theme.rem,
+					Vrzn.theme.green,
+					GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem"),
+					GAMEMODE.Skills:GetMaxLevel("1 Nível do Personagem"),
+					"Nível"
+			)
+
+			// Health/Armour background
+			draw.RoundedBox(Vrzn.theme.round, x, y + h - 2.5*Vrzn.theme.rem, w, 2.5*Vrzn.theme.rem, Vrzn.theme:Transparency(Vrzn.theme.bgAlternative, .75))
+			draw.RoundedBox(Vrzn.theme.round, x, y + h - 2.5*Vrzn.theme.rem, w, 2.5*Vrzn.theme.rem, Vrzn.theme.bgAlternative)
+
+			// Health
+			draw.StatusBar(
+					x + .5*Vrzn.theme.rem,
+					y + h - 2*Vrzn.theme.rem,
+					w - 7.5*Vrzn.theme.rem,
+					1.5*Vrzn.theme.rem,
+					Vrzn.theme.red,
+					LocalPlayer():Health(),
+					LocalPlayer():GetMaxHealth(),
+					"HP"
+			)
+
+			// Armour
+			draw.StatusBar(
+					x + w - 6.5*Vrzn.theme.rem,
+					y + h - 2*Vrzn.theme.rem,
+					6*Vrzn.theme.rem,
+					1.5*Vrzn.theme.rem,
+					Vrzn.theme.blue,
+					LocalPlayer():Armor(),
+					100,
+					"COLETE",
+					NULL,
+					true
+			)
+
+			////////////////
+			// Right side //
+			////////////////
+			local w = 20*Vrzn.theme.rem
+			local h = 2.5*Vrzn.theme.rem
+			local x = ScrW() - w - Vrzn.theme.rem
+			local y = ScrH() - h - Vrzn.theme.rem
+			Vrzn.BottomRightHeight = h + Vrzn.theme.rem;
+
+			// Background
+			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bg)
+
+			// Primary clip
+			local clip1 = 0
+			if LocalPlayer():GetActiveWeapon():IsWeapon() then
+				clip1 = LocalPlayer():GetActiveWeapon():Clip1()
+			end
+			if clip1 > clip1_max or LocalPlayer():GetActiveWeapon() != weapon then
+				clip1_max = clip1
+			end
+
+			draw.StatusBar(
+					x + .5*Vrzn.theme.rem,
+					y + .5*Vrzn.theme.rem,
+					w - 10*Vrzn.theme.rem,
+					h - Vrzn.theme.rem,
+					Vrzn.theme.blue,
+					clip1,
+					clip1_max,
+					"Clip",
+					NULL,
+					true
+			)
+
+			// Primary ammo
+			local ammo = 0
+			if LocalPlayer():GetActiveWeapon():IsWeapon() then
+				ammo = LocalPlayer():GetAmmoCount(LocalPlayer():GetActiveWeapon():GetPrimaryAmmoType())
+			end
+			if ammo > ammo_max or LocalPlayer():GetActiveWeapon() != weapon then
+				ammo_max = ammo
+			end
+
+			draw.StatusBar(
+					x + w - 9*Vrzn.theme.rem,
+					y + .5*Vrzn.theme.rem,
+					5*Vrzn.theme.rem,
+					h - Vrzn.theme.rem,
+					Vrzn.theme.blue,
+					ammo,
+					ammo_max,
+					"Ammo",
+					NULL,
+					true
+			)
+
+			// Secondary clip
+			local clip2 = 0
+			if LocalPlayer():GetActiveWeapon():IsWeapon() then
+				clip2 = LocalPlayer():GetAmmoCount(LocalPlayer():GetActiveWeapon():GetSecondaryAmmoType())
+			end
+			if clip2 > clip2_max or LocalPlayer():GetActiveWeapon() != weapon then
+				clip2_max = clip2
+			end
+
+			draw.StatusBar(
+					x + w - 3.5*Vrzn.theme.rem,
+					y + .5*Vrzn.theme.rem,
+					3*Vrzn.theme.rem,
+					h - Vrzn.theme.rem,
+					Vrzn.theme.yellow,
+					clip2,
+					clip2_max,
+					"Alt",
+					NULL,
+					true
+			)
+
+			// set weapon
+			weapon = LocalPlayer():GetActiveWeapon()
+
+			// DarkRP
+
+				local obj = LocalPlayer()
+				// Left Side
+				local w = 20*Vrzn.theme.rem
+				local h = 2.5*Vrzn.theme.rem
+				local x = Vrzn.theme.rem
+				local y = ScrH() - h - hudH
+
+				// Extra push for other addons
+				hudH = hudH + 2.5*Vrzn.theme.rem
+				Vrzn.BottomLeftHeight = hudH;
+
+				// Background
+				draw.RoundedBox(Vrzn.theme.round, x, y, w, h + .5*Vrzn.theme.rem, Vrzn.theme.bg)
+				draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bgAlternative)
+
+				// Timers
+				if jobchange != GAMEMODE.Jobs:GetPlayerJob( obj ) then // Has the player changed job?
+					jobchange = GAMEMODE.Jobs:GetPlayerJob( obj )
+					timer.Create(LocalPlayer():SteamID() .. "jobtimer", GAMEMODE.Config.JobPayInterval, 0, function() end)
+					timer.Create(LocalPlayer():SteamID() .. "changetimer", GAMEMODE.Config.JobPayInterval, 0, function()
+						timer.Remove(LocalPlayer():SteamID() .. "changetimer")
+					end)
+				end
+
+				// Current job
+				local ChangeJobTime = 1
+				local ChangeJobTimeMax = 1
+				if timer.Exists(LocalPlayer():SteamID() .. "changetimer") then
+					ChangeJobTime = 30 - timer.TimeLeft(LocalPlayer():SteamID() .. "changetimer")
+					ChangeJobTimeMax = 30
+				end
+				local salary1 = GAMEMODE.Jobs:GetPlayerJob( obj ).Pay[1]
+				local salary2 = GAMEMODE.Jobs:GetPlayerJob( obj ).Pay[4]
+				draw.StatusBar(
+						x + .5*Vrzn.theme.rem,
+						y + .5*Vrzn.theme.rem,
+						w/2 - .75*Vrzn.theme.rem,
+						1.5*Vrzn.theme.rem,
+						Vrzn.theme.blue,
+						ChangeJobTime,
+						ChangeJobTimeMax,
+						GAMEMODE.Jobs:GetPlayerJob( obj ).Name,
+						string.Comma("R$ " .. salary1.Pay) .. " ~ " .. string.Comma("R$ " .. salary2.Pay) 
+						-- GAMEMODE.Jobs:GetPlayerJob( obj )
+				)
+
+				// Wallet
+				draw.StatusBar(
+						x + w/2 + .25*Vrzn.theme.rem,
+						y + .5*Vrzn.theme.rem,
+						w/2 - 4.75*Vrzn.theme.rem,
+						1.5*Vrzn.theme.rem,
+						Vrzn.theme.blue,
+						GAMEMODE.Config.JobPayInterval - timer.TimeLeft(LocalPlayer():SteamID() .. "jobtimer"),
+						GAMEMODE.Config.JobPayInterval,
+						"",
+						"",
+						false,
+						string.Comma("R$ " .. LocalPlayer():GetMoney() )
+
+				)
+
+				// Icon - License
+				surface.SetDrawColor(Vrzn.theme.bg)
+				-- if LocalPlayer():getDarkRPVar("HasGunlicense") then
+					surface.SetDrawColor(Vrzn.theme.yellow)
+				-- end
+				surface.SetMaterial(iconLicense)
+				surface.DrawTexturedRect(x + w - 4*Vrzn.theme.rem, y + .5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem)
+
+				// Icon - Wanted
+				surface.SetDrawColor(Vrzn.theme.bg)
+				-- if LocalPlayer():getDarkRPVar("wanted") then
+					surface.SetDrawColor(Vrzn.theme.red)
+				-- end
+
+				surface.SetMaterial(iconWanted)
+				surface.DrawTexturedRect(x + w - 2*Vrzn.theme.rem, y + .5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem)
+
+
+				// Hunger mod
+			
+
+					local w = 20*Vrzn.theme.rem
+					local h = 2.5*Vrzn.theme.rem
+					local x = Vrzn.theme.rem
+					local y = ScrH() - h - hudH + .5*Vrzn.theme.rem
+
+					// Extra push for other addons
+					hudH = hudH + h - .5*Vrzn.theme.rem
+					Vrzn.BottomLeftHeight = hudH;
+
+					// Background
+					draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bgAlternative)
+
+					draw.StatusBar(
+							x + .5*Vrzn.theme.rem,
+							y + .5*Vrzn.theme.rem,
+							w - Vrzn.theme.rem,
+							h - Vrzn.theme.rem,
+							Vrzn.theme.yellow,
+							GAMEMODE.Needs:GetNeed("Hunger"),
+							GAMEMODE.Needs:GetNeedData("Hunger").Max,
+							"Fome"
+					)
+
+
+		end
+
+	end)
+	end)
+		-- HUDShouldDraw
+		local HideElements = {"CHudHealth", "CHudBattery", "CHudAmmo", "CHudSecondaryAmmo", "DarkRP_HUD", "DarkRP_Hungermod"}
+		local function HUDShouldDraw(Element)
+			if data.enabled != 0 and table.HasValue(HideElements, Element) then return false end
+			if not LocalPlayer():GetCharacterID() then return false end
+		end
+		hook.Add( "HUDShouldDraw", "HUDShouldDraw", HUDShouldDraw )
+	
+	end
+	
+	
+	
+	
+	hook.Add("Initialize", "VrznHUD", init)
+	-- if LocalPlayer():GetCharacterID() ~= 0 then
+	-- 	
+	-- end

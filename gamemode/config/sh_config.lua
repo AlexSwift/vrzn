@@ -13,6 +13,7 @@ DEV_SERVER= false
 GM.Config = {}
 GM.Config.GAMEMODE_PATH  = "vrzn/gamemode/"
 GM.Config.DeathWaitTime  = 1 *10 --Time to wait for insta-death countdown
+GM.Config.JobPayInterval = 5 *60
 
 --[[ ConVars ]]--
 if CLIENT then

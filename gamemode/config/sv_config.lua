@@ -125,7 +125,7 @@ GM.Config.DetailPropFadeMin = 1024
 GM.Config.DetailPropFadeMax = 1700
 
 --[[ Job Settings ]]--
-GM.Config.JobPayInterval = 12 *60 --How often players should get paid
+GM.Config.JobPayInterval = 5 *60 --How often players should get paid
 GM.Config.EMSReviveBonus = 100 --How much money to give an EMS player when they revive someone
 GM.Config.FireBonus = 100 --How much money to give a firefighter player when they put out enough fires
 GM.Config.FireExtinguishBonusCount = 50 --How many fires a player must put out before they get paid the bonus
