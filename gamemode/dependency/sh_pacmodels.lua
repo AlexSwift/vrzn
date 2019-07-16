@@ -220,7 +220,7 @@ if CLIENT then
 
 		for k, v in pairs(player.GetAll()) do
 			if v:GetColor().a < 255 then
-				if v:IsUncon() then continue end
+				-- if v:IsUncon() then continue end
 
 				local use = v.pac_parts
 				if not use then
@@ -233,7 +233,7 @@ if CLIENT then
 
 				v.IsInvis = true
 			elseif v:GetColor().a == 255 then
-				if v:IsUncon() then continue end
+				-- if v:IsUncon() then continue end
 
 				if v.IsInvis then
 					self:InvalidatePlayerOutfits(v)
@@ -262,35 +262,35 @@ if CLIENT then
 			end
 
 			--Ragdoll outfits
-			ragdoll = v:GetRagdoll()
+			-- ragdoll = v:GetRagdoll()
 
-			if IsValid(v:GetRagdollEntity()) then
-				ragdoll = v:GetRagdollEntity()
-			end
+			-- if IsValid(v:GetRagdollEntity()) then
+			-- 	ragdoll = v:GetRagdollEntity()
+			-- end
 
 			if v.AttachPACPart then
-				if not v:Alive() or IsValid(ragdoll) and not v.pac_ignored then
+				if not v:Alive() and not v.pac_ignored then
 					pac.IgnoreEntity(v)
-				elseif v:Alive() and not IsValid(ragdoll) and v.pac_ignored then
+				elseif v:Alive() and v.pac_ignored then
 					pac.UnIgnoreEntity(v)
 				end
 			end
 
-			if IsValid(ragdoll) and not ragdoll.m_bPacApplied then
+			-- if IsValid(ragdoll) and not ragdoll.m_bPacApplied then
 				for slotName, _ in pairs(GAMEMODE.Inv.m_tblEquipmentSlots) do
 					item = GAMEMODE.Inv:GetItem(GAMEMODE.Player:GetSharedGameVar(v, "eq_slot_" .. slotName, ""))
 					if not item or not item.PacOutfit then continue end
 
-					if not ragdoll.AttachPACPart then
-						pac.SetupENT(ragdoll)
-						ragdoll:SetPACDrawDistance(GetConVarNumber("srp_pac_drawrange"))
-					end
+					-- if not ragdoll.AttachPACPart then
+						-- pac.SetupENT(ragdoll)
+						-- ragdoll:SetPACDrawDistance(GetConVarNumber("srp_pac_drawrange"))
+					-- end
 
-					ragdoll:AttachPACPart(GAMEMODE.PacModels:GetOutfitForModel(item.PacOutfit, v:GetModel()), nil, true)
+					-- ragdoll:AttachPACPart(GAMEMODE.PacModels:GetOutfitForModel(item.PacOutfit, v:GetModel()), nil, true)
 				end
 
-				ragdoll.m_bPacApplied = true
-			end
+				-- ragdoll.m_bPacApplied = true
+			-- end
 		end
 	end
 end
