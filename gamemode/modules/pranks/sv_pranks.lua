@@ -59,10 +59,10 @@ end
 -- 	end )
 -- end )
 
-hook.Add( "GamemodeCanPlayerSetJob", "UpdateCopList", function( pPlayer, intJobID )
-	GAMEMODE.Net:UpdateCopList()
-end)
+-- hook.Add( "GamemodeCanPlayerSetJob", "UpdateCopList", function( pPlayer, intJobID )
+-- 	GAMEMODE.Net:UpdateCopList()
+-- end)
 
-hook.Add( "PlayerDisconnected", "UpdateCopList", function( pPlayer )
-	GAMEMODE.Net:UpdateCopList()
-end)
+-- hook.Add( "PlayerDisconnected", "UpdateCopList", function( pPlayer )
+-- 	GAMEMODE.Net:UpdateCopList()
+-- end)
