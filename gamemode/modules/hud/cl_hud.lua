@@ -413,6 +413,7 @@ surface.CreateFont( "BSYS::CrateTimer", {
 	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
 	
 	hook.Add( "Think", "OpenCrateDerma", function()
+
 		local eTraceHit = LocalPlayer():GetEyeTrace()
 		if !eTraceHit.Entity:IsValid() then return end
 		-- if eTraceHit == nil then return end
@@ -553,21 +554,7 @@ surface.CreateFont( "BSYS::CrateTimer", {
 							mw:Remove()
 						end
 					end
-					
-					-- local cdc = mw:Add("DButton")
-					-- cdc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-					-- cdc:Dock(TOP)
-					-- cdc:SetTall(40)
-					-- cdc:SetTextColor( Color(255,255,255) )
-					-- cdc:SetFont("DoorMenuButtonFont")
-					-- cdc:SetText("Trancar todas as portas")
-					-- cdc.Paint = function(pnl, w, h)
-					-- 	local aX, aY = pnl:LocalToScreen()
-					-- 	BSHADOWS.BeginShadow()
-					-- 	draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-					-- 	BSHADOWS.EndShadow(1, 1, 2, 200)
-					-- end
-					
+
 					local cb = vgui.Create("SRP_Button", mw)
 					cb:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
 					cb:Dock(TOP)
@@ -598,550 +585,122 @@ surface.CreateFont( "BSYS::CrateTimer", {
 	surface.CreateFont( "DoorMenuButtonFont", {size = 32, weight = 400, font = "Montserrat Regular"} )
 	surface.CreateFont( "DoorMenuFont2", {size = 26, weight = 400, font = "Montserrat Regular"} )
 	
+	local HudMargin = 20
+	surface.CreateFont( "XPHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 28,	weight = 500,	antialias = true,	} )
+	surface.CreateFont( "NameHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 36,	weight = 500,	antialias = true,	} )
+	surface.CreateFont( "MoneyHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 36,	weight = 500,	antialias = true,	} )
+	surface.CreateFont( "BankHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 34,	weight = 500,	antialias = true,	} )
+	surface.CreateFont( "SalaryHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 22,	weight = 500,	antialias = true,	} )	
+
 	
+
+	function AwDownload(filename, url, callback, errorCallback)
+		local path = "threebow/downloads/"..filename
+		local dPath = "data/"..path
 	
+		if(file.Exists(path, "DATA")) then return callback(dPath) end
+		if(!file.IsDir(string.GetPathFromFilename(path), "DATA")) then file.CreateDir(string.GetPathFromFilename(path)) end
 	
+		errorCallback = errorCallback || function(reason)
+			error("Threebow Lib: Download de arquivo falho ("..url..") ("..reason..")")
+		end
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	-- LIB SPACE
-	-----------------------------
-	---@ Awesome Derma/Client LIB
-	---@ Author: Nodge
-	---@ Função de tempo removida da lib MRP
-	-----------------------------
-	function AWDrawTimeCountdown( Initial, Final, Colour)
-		hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
-			local start, finish = Initial, Final
-			local curTime = CurTime()
-			local scrW, scrH = ScrW(), ScrH()
-			
-			if finish > curTime then
-				local fraction = 1 - math.TimeFraction(start, finish, curTime)
-				local alpha = fraction * 255
-				
-				if alpha > 0 then
-					running = true
-					local w, h = scrW * 0.35, 28
-					local x, y = (scrW * 0.5) - (w * 0.5), (scrH * 0.725) - (h * 0.5)
-					
-					surface.SetDrawColor(35, 35, 35, 255)
-					-- surface.DrawRect(x, y, w, h)
-					draw.RoundedBox(8, x, y, w, h, Color(35, 35, 35, 255) )
-					
-					surface.SetDrawColor(0, 0, 0, 120)
-					-- surface.DrawOutlinedRect(x, y, w, h)
-					draw.RoundedBox(8, x, y, w, h, Color(0, 0, 0, 255) )
-					
-					surface.SetDrawColor( 0, 0, 0, 255 )
-					-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-					draw.RoundedBox(8, x+4, y+4,  (w * fraction) - 8, h - 8, Color( 26,26,26,255 ) )
-					
-					-- surface.SetDrawColor( Color.r, Color.g, Color.b, Color.a )
-					-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-					draw.RoundedBox(8, x + 4,y  + 4,  (w * fraction) - 8, h - 8, Colour)
-					
-					surface.SetFont("MRP_ActionText")
-					local boxX, boxY = scrW / 2, scrH * 0.1
-					
-					
-					-- draw.SimpleText("Tempo Restante", "PropProtectFont", x + 2, y - 22, color_black)
-					draw.SimpleText("Tempo Restante", "PropProtectFont", x, y - 24, color_white)
-					
-					local remainingTime = string.FormattedTime(math.max(finish - curTime, 0), "%02i:%02i:%02i")
-					-- draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 22, color_black, TEXT_ALIGN_RIGHT)
-					draw.SimpleText(remainingTime, "PropProtectFont", x + w, y - 24, color_white, TEXT_ALIGN_RIGHT)
-				end
-			end
+		http.Fetch(url, function(body, size, headers, code)
+			if(code != 200) then return errorCallback(code) end
+			file.Write(path, body)
+			callback(dPath)
+		end, errorCallback)
+	end
+
+	hook.Add("GamemodeGameStatusChanged", "DrawHudAfterLoading", function()
+		local steamid = LocalPlayer():SteamID64()
+		if steamid == "1234567890" then steamid = "76561198119350635" end
+
+		awcache.AvatarLoader.GetMaterial( steamid, function(mat)
+			awcache.AvatarLoader.CachedMaterials[steamid] = mat
 		end)
-	end
-	-----------------------------
-	---@ Awesome Derma/Client LIB
-	---@ Author: Nodge
-	---@ Desenha um arco vazado, baseado na hud do DayZ
-	-----------------------------
-	
-	function drawArc( x, y, radius, thickness, start, endp )
-		local outcir = {}
-		local incir = {}
 		
-		local start = math.floor(start)
-		local endp = math.floor(endp)
+		local AwMaterialAvatar = awcache.AvatarLoader.CachedMaterials[steamid]
 		
-		
-		if (start>endp) then
-			local swap = endp
-			endp = start
-			start = swap
-		end
-		
-		local inr = radius - thickness
-		for i = start, endp do
-			local a = math.rad(i)
-			table.insert(incir, {x = x+(math.cos(a))*inr, y = y+(-math.sin(a))*inr})
-		end
-		
-		for i = start, endp do
-			local a = math.rad(i)
-			table.insert(outcir, {x = x+(math.cos(a))*radius, y = y+(-math.sin(a))*radius})
-		end
-		
-		local comcir = {}
-		for i=0,#incir*2 do
-			local p,q,r
-			p = outcir[math.floor(i/2)+1]
-			r = incir[math.floor((i+1)/2)+1]
-			if (i%2) == 0 then
-				q = outcir[math.floor((i+1)/2)]
-			else
-				q = incir[math.floor((i+1)/2)]
-			end
-			table.insert(comcir, {p,q,r})
-		end
-		
-		for k,v in ipairs(comcir) do
-			surface.DrawPoly(v)
-		end
-		
-	end
-	
-	function ToNumber(arg, arg2, max)
-		finished = arg/max*arg2
-		return finished
-	end
-	
-	function drawCircle( x, y, radius )
-		local cir = {}
-		local seg = 100
-		table.insert( cir, { x = x, y = y, u = 0.5, v = 0.5 } )
-		for i = 0, seg do
-			local a = math.rad( ( i / seg ) * -360 )
-			table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
-		end
-		
-		local a = math.rad( 0 ) -- This is needed for non absolute segment counts
-		table.insert( cir, { x = x + math.sin( a ) * radius, y = y + math.cos( a ) * radius, u = math.sin( a ) / 2 + 0.5, v = math.cos( a ) / 2 + 0.5 } )
-		
-		surface.DrawPoly( cir )
-	end
-local GamemodeStarted = 0
+		hook.Add("HUDPaint", "Testing", function()
+			local NicePlayerName = string.Explode( " ", LocalPlayer():Nick() )
 
-local function init()
+			local Health = LocalPlayer():Health()
+			local MaxHealth = LocalPlayer():GetMaxHealth()
 
-	// Materials
-	local iconLicense 	= Material("shrun/license.png", "noclamp smooth")
-	local iconWanted 	= Material("shrun/wanted.png", "noclamp smooth")
+			local Armor = LocalPlayer():Armor()
+			local MaxArmor = 100
 
-	// init
-	local clip1_max = 0
-	local ammo_max = 0
-	local clip2_max = 0
-	local weapon = ""
-	local fpssmooth = 0
+			local Level = GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem")
+			local XP = GAMEMODE.Skills:GetPlayerXP("1 Nível do Personagem") - GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
+			local BaseXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
+			local MaxXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") ) - BaseXP
+			
+			local job = GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() )
+			local salary1 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[1].Pay )
+			local salary2 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[4].Pay )
 
-	// init darkrp
-	local jobchange
+			local Money = "R$ " .. string.VrznMoney( LocalPlayer():GetMoney() )
+			local Bank = "R$ " .. string.VrznMoney( LocalPlayer():GetBankMoney() )
 
-	// settings
-	local dataFile = "Vrzn_hud.txt"
-	local data = {}
-	data.enabled = 1
-
-	// Reads or creates dataFile with default settings
-	if file.Exists(dataFile, "DATA") then
-		data = util.JSONToTable(file.Read(dataFile, "DATA"))
-	else // No file exists? no problem!
-		file.Write(dataFile, util.TableToJSON(data, true))
-	end
-
-	// Updates file and re-triggers
-	concommand.Add("Vrzn_hud", function(ply, cmd, arg)
-		if arg[1] then
-			data.enabled = tonumber(arg[1])
-			file.Write(dataFile, util.TableToJSON(data))
-		end
-	end)
-
-	// recursive iteration function
-	local function parentMeDaddy(entity)
-		if entity:GetParent():IsValid() then // Does this entity have a parent?
-			return parentMeDaddy(entity:GetParent())
-		end
-		return entity
-	end
-
-	// recursive iteration function
-	function draw.StatusBar(x, y, w, h, colour, value, max, leftString, rightString, hide, centerString)
-
-		draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme:Transparency(colour, .1))
-
-		local limitedValue = value
-		if limitedValue >= max then
-			limitedValue = max
-		end
-
-		if not hide or value > 0 then
-
-			if w/max*limitedValue >= 1 then
-				draw.RoundedBox(Vrzn.theme.round, x, y, w/max*limitedValue, h, Vrzn.theme:Transparency(colour, .5))
-			end
-
-			draw.SimpleText(
-					leftString,
-					"Description",
-					x + h/4,
-					y + h/2,
-					Vrzn.theme.txt,
-					TEXT_ALIGN_LEFT,
-					TEXT_ALIGN_CENTER
-			)
-
-			if not isstring(rightString) then
-				rightString = value
-			end
-
-			draw.SimpleText(
-					rightString,
-					"Description",
-					x + w - h/4,
-					y + h/2,
-					Vrzn.theme.txt,
-					TEXT_ALIGN_RIGHT,
-					TEXT_ALIGN_CENTER
-			)
-
-			if centerString then
-				draw.SimpleText(
-						centerString,
-						"Description",
-						x + w/2,
-						y + h/2,
-						Vrzn.theme.txt,
-						TEXT_ALIGN_CENTER,
-						TEXT_ALIGN_CENTER
-				)
-			end
-		end
-
-	end
-
-	// hook
-	hook.Add("GamemodeGameStatusChanged", "Start hud", function()
-	hook.Add("HUDPaint", "HUD_dosmoothstuff", function()
-
-		// Calculate FPS
-		local fps = 1 / RealFrameTime()
-		fpssmooth = fpssmooth + (fps - fpssmooth)/(fps/4)
-
-		// Calculate Velocity
-		local velocity = math.Round(parentMeDaddy(LocalPlayer()):GetVelocity():Length())
-
-		// Show HUD
-		if data.enabled != 0 and LocalPlayer():Health() > 0 then
-
-			// Reset texture
-			surface.SetTexture(0)
-
-			///////////////
-			// Left side //
-			///////////////
-			local w = 20*Vrzn.theme.rem
-			local h = 6*Vrzn.theme.rem
-			local x = Vrzn.theme.rem
-			local y = ScrH() - h - Vrzn.theme.rem
-
-			// Extra push for other addons
-			hudW = x + w
-			hudH = h + Vrzn.theme.rem
-
-			Vrzn.BottomLeftHeight = hudH;
-
-			// Background
-			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme:Transparency(Vrzn.theme.bg, .9))
-			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bg)
-
-			// NOIS CORRE MUITO VIADO
-			-- draw.StatusBar(
-			-- 		x + .5*Vrzn.theme.rem,
-			-- 		y + .5*Vrzn.theme.rem,
-			-- 		w - Vrzn.theme.rem,
-			-- 		1.5*Vrzn.theme.rem,
-			-- 		Vrzn.theme.green,
-			-- 		velocity,
-			-- 		1500,
-			-- 		"KPH: " .. math.Round(velocity*3600*0.0000254*0.75),
-			-- 		"MPH: " .. math.Round(velocity*3600/63360*0.75)
-			-- )
-
-			// XP
-			draw.StatusBar(
-					x + .5*Vrzn.theme.rem,
-					y + 2.8*Vrzn.theme.rem,
-					w/2 - .75*Vrzn.theme.rem,
-					1.5*Vrzn.theme.rem,
-					Vrzn.theme.green,
-					GAMEMODE.Skills:GetPlayerXP("1 Nível do Personagem"),
-					150,
-					"XP"
-			)
-
-			// Nível
-			draw.StatusBar(
-					x + w/2 + .25*Vrzn.theme.rem,
-					y + 2.8*Vrzn.theme.rem,
-					w/2 - .75*Vrzn.theme.rem,
-					1.5*Vrzn.theme.rem,
-					Vrzn.theme.green,
-					GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem"),
-					GAMEMODE.Skills:GetMaxLevel("1 Nível do Personagem"),
-					"Nível"
-			)
-
-			// Health/Armour background
-			draw.RoundedBox(Vrzn.theme.round, x, y + h - 2.5*Vrzn.theme.rem, w, 2.5*Vrzn.theme.rem, Vrzn.theme:Transparency(Vrzn.theme.bgAlternative, .75))
-			draw.RoundedBox(Vrzn.theme.round, x, y + h - 2.5*Vrzn.theme.rem, w, 2.5*Vrzn.theme.rem, Vrzn.theme.bgAlternative)
-
-			// Health
-			draw.StatusBar(
-					x + .5*Vrzn.theme.rem,
-					y + h - 2*Vrzn.theme.rem,
-					w - 7.5*Vrzn.theme.rem,
-					1.5*Vrzn.theme.rem,
-					Vrzn.theme.red,
-					LocalPlayer():Health(),
-					LocalPlayer():GetMaxHealth(),
-					"HP"
-			)
-
-			// Armour
-			draw.StatusBar(
-					x + w - 6.5*Vrzn.theme.rem,
-					y + h - 2*Vrzn.theme.rem,
-					6*Vrzn.theme.rem,
-					1.5*Vrzn.theme.rem,
-					Vrzn.theme.blue,
-					LocalPlayer():Armor(),
-					100,
-					"COLETE",
-					NULL,
-					true
-			)
-
-			////////////////
-			// Right side //
-			////////////////
-			local w = 20*Vrzn.theme.rem
-			local h = 2.5*Vrzn.theme.rem
-			local x = ScrW() - w - Vrzn.theme.rem
-			local y = ScrH() - h - Vrzn.theme.rem
-			Vrzn.BottomRightHeight = h + Vrzn.theme.rem;
-
-			// Background
-			draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bg)
-
-			// Primary clip
-			local clip1 = 0
-			if LocalPlayer():GetActiveWeapon():IsWeapon() then
-				clip1 = LocalPlayer():GetActiveWeapon():Clip1()
-			end
-			if clip1 > clip1_max or LocalPlayer():GetActiveWeapon() != weapon then
-				clip1_max = clip1
-			end
-
-			draw.StatusBar(
-					x + .5*Vrzn.theme.rem,
-					y + .5*Vrzn.theme.rem,
-					w - 10*Vrzn.theme.rem,
-					h - Vrzn.theme.rem,
-					Vrzn.theme.blue,
-					clip1,
-					clip1_max,
-					"Clip",
-					NULL,
-					true
-			)
-
-			// Primary ammo
-			local ammo = 0
-			if LocalPlayer():GetActiveWeapon():IsWeapon() then
-				ammo = LocalPlayer():GetAmmoCount(LocalPlayer():GetActiveWeapon():GetPrimaryAmmoType())
-			end
-			if ammo > ammo_max or LocalPlayer():GetActiveWeapon() != weapon then
-				ammo_max = ammo
-			end
-
-			draw.StatusBar(
-					x + w - 9*Vrzn.theme.rem,
-					y + .5*Vrzn.theme.rem,
-					5*Vrzn.theme.rem,
-					h - Vrzn.theme.rem,
-					Vrzn.theme.blue,
-					ammo,
-					ammo_max,
-					"Ammo",
-					NULL,
-					true
-			)
-
-			// Secondary clip
-			local clip2 = 0
-			if LocalPlayer():GetActiveWeapon():IsWeapon() then
-				clip2 = LocalPlayer():GetAmmoCount(LocalPlayer():GetActiveWeapon():GetSecondaryAmmoType())
-			end
-			if clip2 > clip2_max or LocalPlayer():GetActiveWeapon() != weapon then
-				clip2_max = clip2
-			end
-
-			draw.StatusBar(
-					x + w - 3.5*Vrzn.theme.rem,
-					y + .5*Vrzn.theme.rem,
-					3*Vrzn.theme.rem,
-					h - Vrzn.theme.rem,
-					Vrzn.theme.yellow,
-					clip2,
-					clip2_max,
-					"Alt",
-					NULL,
-					true
-			)
-
-			// set weapon
-			weapon = LocalPlayer():GetActiveWeapon()
-
-			// DarkRP
-
-				local obj = LocalPlayer()
-				// Left Side
-				local w = 20*Vrzn.theme.rem
-				local h = 2.5*Vrzn.theme.rem
-				local x = Vrzn.theme.rem
-				local y = ScrH() - h - hudH
-
-				// Extra push for other addons
-				hudH = hudH + 2.5*Vrzn.theme.rem
-				Vrzn.BottomLeftHeight = hudH;
-
-				// Background
-				draw.RoundedBox(Vrzn.theme.round, x, y, w, h + .5*Vrzn.theme.rem, Vrzn.theme.bg)
-				draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bgAlternative)
-
-				// Timers
-				if jobchange != GAMEMODE.Jobs:GetPlayerJob( obj ) then // Has the player changed job?
-					jobchange = GAMEMODE.Jobs:GetPlayerJob( obj )
-					timer.Create(LocalPlayer():SteamID() .. "jobtimer", GAMEMODE.Config.JobPayInterval, 0, function() end)
-					timer.Create(LocalPlayer():SteamID() .. "changetimer", GAMEMODE.Config.JobPayInterval, 0, function()
-						timer.Remove(LocalPlayer():SteamID() .. "changetimer")
-					end)
+			// AVATAR
+			AwMaskInverse(
+				function()
+					surface.SetDrawColor(255, 255, 255, 255)
+					-- surface.DrawRect(HudMargin/2, ScrH() - HudMargin - 110, 150, (1 - XP/MaxXP) * 120)
+					AwArc(50 + HudMargin, ScrH() - 50 - HudMargin, 0, (1 - XP/MaxXP) * 360, 58, Color(255,255,255), 30, "XPBar")
 				end
-
-				// Current job
-				local ChangeJobTime = 1
-				local ChangeJobTimeMax = 1
-				if timer.Exists(LocalPlayer():SteamID() .. "changetimer") then
-					ChangeJobTime = 30 - timer.TimeLeft(LocalPlayer():SteamID() .. "changetimer")
-					ChangeJobTimeMax = 30
+				,
+				function()
+					AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 55, Color(67, 255, 124))
 				end
-				local salary1 = GAMEMODE.Jobs:GetPlayerJob( obj ).Pay[1]
-				local salary2 = GAMEMODE.Jobs:GetPlayerJob( obj ).Pay[4]
-				draw.StatusBar(
-						x + .5*Vrzn.theme.rem,
-						y + .5*Vrzn.theme.rem,
-						w/2 - .75*Vrzn.theme.rem,
-						1.5*Vrzn.theme.rem,
-						Vrzn.theme.blue,
-						ChangeJobTime,
-						ChangeJobTimeMax,
-						GAMEMODE.Jobs:GetPlayerJob( obj ).Name,
-						string.Comma("R$ " .. salary1.Pay) .. " ~ " .. string.Comma("R$ " .. salary2.Pay) 
-						-- GAMEMODE.Jobs:GetPlayerJob( obj )
-				)
+			)
 
-				// Wallet
-				draw.StatusBar(
-						x + w/2 + .25*Vrzn.theme.rem,
-						y + .5*Vrzn.theme.rem,
-						w/2 - 4.75*Vrzn.theme.rem,
-						1.5*Vrzn.theme.rem,
-						Vrzn.theme.blue,
-						GAMEMODE.Config.JobPayInterval - timer.TimeLeft(LocalPlayer():SteamID() .. "jobtimer"),
-						GAMEMODE.Config.JobPayInterval,
-						"",
-						"",
-						false,
-						string.Comma("R$ " .. LocalPlayer():GetMoney() )
+			AwMask( 
+				function()
+					AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 50, Color(255,0,0))
+					
+				end
+			, 
+				function()
+					surface.SetDrawColor(255, 255, 255, 255)
+					if AwMaterialAvatar then
+						surface.SetMaterial( AwMaterialAvatar )
+					end
+					surface.DrawTexturedRect(HudMargin, ScrH() - HudMargin - 100 , 100, 100)
+				end
+			)
 
-				)
+			// Nível :)
+			AwCircle( Circle["XPBar"].x, Circle["XPBar"].y, 15, Color(26,26,26))
+			draw.SimpleText(GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem"), "XPHudLabel", Circle["XPBar"].x, Circle["XPBar"].y-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
-				// Icon - License
-				surface.SetDrawColor(Vrzn.theme.bg)
-				-- if LocalPlayer():getDarkRPVar("HasGunlicense") then
-					surface.SetDrawColor(Vrzn.theme.yellow)
-				-- end
-				surface.SetMaterial(iconLicense)
-				surface.DrawTexturedRect(x + w - 4*Vrzn.theme.rem, y + .5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem)
-
-				// Icon - Wanted
-				surface.SetDrawColor(Vrzn.theme.bg)
-				-- if LocalPlayer():getDarkRPVar("wanted") then
-					surface.SetDrawColor(Vrzn.theme.red)
-				-- end
-
-				surface.SetMaterial(iconWanted)
-				surface.DrawTexturedRect(x + w - 2*Vrzn.theme.rem, y + .5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem, 1.5*Vrzn.theme.rem)
-
-
-				// Hunger mod
+			// Nome
+			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 17, ScrH() - HudMargin - 99, Color(50,50,50), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 16, ScrH() - HudMargin - 100, COLOR_WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
 			
 
-					local w = 20*Vrzn.theme.rem
-					local h = 2.5*Vrzn.theme.rem
-					local x = Vrzn.theme.rem
-					local y = ScrH() - h - hudH + .5*Vrzn.theme.rem
-
-					// Extra push for other addons
-					hudH = hudH + h - .5*Vrzn.theme.rem
-					Vrzn.BottomLeftHeight = hudH;
-
-					// Background
-					draw.RoundedBox(Vrzn.theme.round, x, y, w, h, Vrzn.theme.bgAlternative)
-
-					draw.StatusBar(
-							x + .5*Vrzn.theme.rem,
-							y + .5*Vrzn.theme.rem,
-							w - Vrzn.theme.rem,
-							h - Vrzn.theme.rem,
-							Vrzn.theme.yellow,
-							GAMEMODE.Needs:GetNeed("Hunger"),
-							GAMEMODE.Needs:GetNeedData("Hunger").Max,
-							"Fome"
-					)
-
-
-		end
-
+			// HP
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, 200, 12, Color(46,46,46))
+			if Health > MaxHealth then Health = 100 end
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, (Health/MaxHealth) * 200, 12, Color(255,56,56))
+			
+			// Armor
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, 200, 12, Color(46,46,46))
+			if Armor > MaxArmor then Armor = 100 end
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, (Armor/MaxArmor) * 200, 12, Color(82,192,249))
+			
+			// Monetary
+			surface.SetFont("BankHudLabel")
+			local bw, bh = surface.GetTextSize(Bank)
+			draw.SimpleText(Money, "MoneyHudLabel", HudMargin, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			-- draw.SimpleText("+ " .. salary1 .. "/hr", "SalaryHudLabel", HudMargin + bw + 6, bh, Color(255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+				
+		end)
 	end)
-	end)
-		-- HUDShouldDraw
-		local HideElements = {"CHudHealth", "CHudBattery", "CHudAmmo", "CHudSecondaryAmmo", "DarkRP_HUD", "DarkRP_Hungermod"}
-		local function HUDShouldDraw(Element)
-			if data.enabled != 0 and table.HasValue(HideElements, Element) then return false end
-			if not LocalPlayer():GetCharacterID() then return false end
-		end
-		hook.Add( "HUDShouldDraw", "HUDShouldDraw", HUDShouldDraw )
-	
+
+	function hudrefresh()
+		hook.Run("GamemodeGameStatusChanged")
 	end
-	
-	
-	
-	
-	hook.Add("Initialize", "VrznHUD", init)
-	-- if LocalPlayer():GetCharacterID() ~= 0 then
-	-- 	
-	-- end
+		concommand.Add("restorehud", hudrefresh)
