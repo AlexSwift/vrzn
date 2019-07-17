@@ -1,6 +1,6 @@
 local tag = "AFK"
 afk = afk or {}
-afk.AFKTime = CreateConVar("sv_afktimeout", "90", {FCVAR_ARCHIVE, FCVAR_REPLICATED, FCVAR_NOTIFY}, "The time it takes for a player to become AFK while inactive.")
+afk.AFKTime = CreateConVar("sv_afktimeout", "120", {FCVAR_ARCHIVE, FCVAR_REPLICATED, FCVAR_NOTIFY}, "Tempo pra ativar a HUD AFK de um jogador..")
 local PLAYER = FindMetaTable("Player")
 
 function PLAYER:IsAFK()
@@ -69,7 +69,7 @@ elseif CLIENT then
     afk.When = CurTime() + afk.AFKTime:GetInt()
 
     if afk.Is and afk.Network then
-      chat.AddText(Color(100, 255, 100, 255), "Welcome back", Color(50, 200, 50, 255), "!", Color(255, 255, 255, 255), " You were away for ", Color(200, 200, 255, 255), string.NiceTime(_G.MYAFKTIME or 0), Color(100, 255, 100, 255), ".")
+      chat.AddText(Color(100, 255, 100, 255), "Olá!", Color(50, 200, 50, 255), "!", Color(255, 255, 255, 255), " Você esteve afk por: ", Color(0, 2555, 78, 255), string.TimeFormated(_G.MYAFKTIME or 0), Color(100, 255, 100, 255), ".")
       net.Start(tag)
       net.WriteBool(false)
       net.SendToServer()
@@ -132,14 +132,14 @@ elseif CLIENT then
   end)
 
   surface.CreateFont(tag, {
-    font = "Roboto Condensed",
-    size = 36,
+    font = "Montserrat Bold",
+    size = 38,
     italic = true,
     weight = 800
   })
 
   surface.CreateFont(tag .. "Normal", {
-    font = "Roboto Bk",
+    font = "Montserrat Regular",
     size = 48,
     italic = false,
     weight = 800
@@ -150,15 +150,15 @@ elseif CLIENT then
   end
 
   local function DrawTranslucentText(txt, x, y, a, col)
-    surface.SetTextPos(x + 2, y + 2)
-    surface.SetTextColor(Color(0, 0, 0, 127 * (a / 255)))
-    surface.DrawText(txt)
+    -- surface.SetTextPos(x + 2, y + 2)
+    -- surface.SetTextColor(Color(255,255,255) )
+    -- surface.DrawText(txt)
     surface.SetTextPos(x, y)
 
     if col then
-      surface.SetTextColor(Color(col.r, col.g, col.b, 190 * (a / 255)))
+      surface.SetTextColor(Color(col.r, col.g, col.b, 255 ))
     else
-      surface.SetTextColor(Color(255, 255, 255, 190 * (a / 255)))
+      surface.SetTextColor(Color(255, 255, 255, 255) )
     end
 
     surface.DrawText(txt)
@@ -201,19 +201,21 @@ elseif CLIENT then
         timeString = timeString .. s .. " second" .. plural(s)
         ]]
     _G.MYAFKTIME = AFKTime
-    local timeString = string.NiceTime(AFKTime)
+    local timeString = string.TimeFormated(AFKTime)
     surface.SetFont(tag)
-    local txt = "You've been away for"
+    local txt = "TEMPO AFK"
     local txtW, txtH = surface.GetTextSize(txt)
     surface.SetFont(tag .. "Normal")
     local timeW, timeH = surface.GetTextSize(timeString)
     local wH = txtH + timeH
     surface.SetDrawColor(Color(0, 0, 0, 127 * (a / 255)))
-    surface.DrawRect(0, ScrH() * 0.5 * 0.5 - wH * 0.5 - txtH * 0.33, ScrW(), wH + txtH * 0.33 * 2 - 3)
+    -- draw.RoundedBox(cornerRadius, x, y, width, height, color)
+    draw.RoundedBox(8, ScrW()/2 - (txtW) , ScrH() * 0.5 * 0.5 - wH * 0.5 - txtH * 0.33, txtW*2, wH + txtH * 0.33 * 2 - 3, Color(26, 26, 26) )
+    -- surface.DrawRect(0, ScrH() * 0.5 * 0.5 - wH * 0.5 - txtH * 0.33, ScrW(), wH + txtH * 0.33 * 2 - 3)
     surface.SetFont(tag)
     DrawTranslucentText(txt, ScrW() / 2 - txtW / 2, ScrH() / 2 / 2 - wH / 2, a * 0.5)
     surface.SetFont(tag .. "Normal")
-    DrawTranslucentText(timeString, ScrW() / 2 - timeW / 2, ScrH() / 2 / 2 - wH / 2 + txtH, a, Color(197, 167, 255))
+    DrawTranslucentText(timeString, ScrW() / 2 - timeW / 2, ScrH() / 2 / 2 - wH / 2 + txtH, a, Color(0,255,78))
   end)
 
   local afkrings_convar = CreateClientConVar("afkrings", "1")
@@ -222,8 +224,8 @@ elseif CLIENT then
   local rt_name = "afkrings_rt" -- ..os.time()
 
   surface.CreateFont(font_name, {
-    font = "Roboto Thin",
-    size = 55,
+    font = "Montserrat Bold",
+    size = 32,
     weight = 800
   })
 
@@ -399,8 +401,8 @@ elseif CLIENT then
     render.Clear(0, 0, 0, 150)
     surface.SetFont(font_name)
     surface.SetTextColor(Color(255, 255, 255))
-    surface.SetTextPos(30, -1)
-    surface.DrawText("AFK")
+    surface.SetTextPos(30, 10)
+    surface.DrawText("OFF-RP | AUSENTE")
     cam.End2D()
     render.OverrideAlphaWriteEnable(false)
     render.PopRenderTarget()
@@ -458,16 +460,10 @@ elseif CLIENT then
     for _, ply in ipairs(afk_players) do
       if not ply:IsValid() then continue end
       local ply_pos = ply:GetPos()
-      if (ply_pos:Distance(ppos) > distance and ply ~= LocalPlayer()) or ply:IsDormant() or not ply:IsAFK() or ply:IsUncon() or ply:GetColor().a < 255 or IsValid(ply:GetVehicle()) or (HnS and HnS.InGame and HnS.InGame(ply)) or (ply_pos:DistToSqr(loc_pos) > (2000) ^ 2) then continue end
+      if (ply_pos:Distance(ppos) > distance and ply ~= LocalPlayer()) or ply:IsDormant() or not ply:IsAFK() or ply:GetColor().a < 255 or IsValid(ply:GetVehicle()) or (HnS and HnS.InGame and HnS.InGame(ply)) or (ply_pos:DistToSqr(loc_pos) > (2000) ^ 2) then continue end
       local bounds_min, bounds_max = ply:WorldSpaceAABB()
       local bounds_scale = bounds_max - bounds_min
       local ring_pos = ply_pos + Vector(0, 0, (bounds_scale.z) / math.Clamp(2 - math.abs(math.sin((RealTime()) * 0.65)), 1.5, 2))
-
-      if not ply:Alive() then
-        local rag = ply:GetRagdollEntity()
-        if not IsValid(rag) then continue end
-        ring_pos = rag:GetPos() + Vector(0, 0, (bounds_scale.z) / math.Clamp(2 - math.abs(math.sin((RealTime()) * 0.65)), 1.5, 2))
-      end
 
       m_rings:Identity()
       m_rings:Translate(ring_pos)
