@@ -37,3 +37,4 @@ hook.Add( "GamemodeDefineGameVars", "DefineCharacterVars", function()
 		GAMEMODE.Player:DefineSharedGameVar( "eq_slot_".. slotName, "", "String", true )
 	end
 end )
+
