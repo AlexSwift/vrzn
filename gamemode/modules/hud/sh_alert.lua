@@ -135,7 +135,7 @@ if CLIENT then
     end
     
     surface.CreateFont("Oswald", {
-        font = "Oswald",
+        font = "Montserrat Regular",
         size = 32,
         weight = 100
     })
@@ -180,7 +180,7 @@ if CLIENT then
                 draw.RoundedBox(8, ScrW() / 2 - ((tx > bx and tx or bx) + 64) / 2 - 32 , toast.h - 8, (tx > bx and tx or bx) + 112, (64 + 16) * toast.prg, Color(26,26,26))
                 BSHADOWS.EndShadow(1, 1, 2, 200)
                 tx, _ = draw.SimpleText(toast.title, "OswaldBold", ScrW() / 2 + 32, toast.h + 16, Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-                bx, _ = draw.SimpleText(toast.bottom, "HUD::0.2vw", ScrW() / 2 + 32, toast.h + 16 - (1 - toast.prg * 36), Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                bx, _ = draw.SimpleText(toast.bottom, "HUD::0.2vw", ScrW() / 2 + 16, toast.h + 16 - (1 - toast.prg * 36), Color(235, 235, 235, 255 * toast.prg), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
                 surface.SetMaterial(Material(toast.icon))
                 surface.SetDrawColor(255, 255, 255, 255 * toast.prg)
                 surface.DrawTexturedRect(ScrW() / 2 - ((tx > bx and tx or bx) + 32) / 2 - (29 + 16) + 10, toast.h, 64, (64) * toast.prg)
