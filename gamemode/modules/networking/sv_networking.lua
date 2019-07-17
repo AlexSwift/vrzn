@@ -824,6 +824,21 @@ GM.Net:RegisterEventHandle( "cop_computer", "d", function( intMsgLen, pPlayer )
 	GAMEMODE.License:PlayerDotLicense( pPlayer, net.ReadEntity(), net.ReadString() )
 end )
 
+
+-- GM.Net:RegisterEventHandle( "jobs", "promote_cop", function( intMsgLen, pPlayer )
+-- 	GAMEMODE.PoliceRanks:Promote(pPlayer, net.ReadEntity())
+-- end )
+
+-- GM.Net:RegisterEventHandle( "jobs", "demote_cop", function( intMsgLen, pPlayer )
+-- 	GAMEMODE.PoliceRanks:Demote(pPlayer, net.ReadEntity())
+-- end )
+
+-- function GM.Net:UpdateCopList()
+-- 	self:NewEvent( "jobs", "update_cop" )
+-- 	self:BroadcastEvent()
+-- end
+
+
 -- ----------------------------------------------------------------
 -- Ticket Netcode
 -- ----------------------------------------------------------------

@@ -346,6 +346,19 @@ function GM.Net:RequestDropMoney( intAmount, bOwnerless )
 	self:FireEvent()
 end
 
+
+-- function GM.Net:PromotePoliceRank(pTarget)
+-- 	self:NewEvent("jobs", "promote_cop")
+-- 	net.WriteEntity(pTarget)
+-- 	self:FireEvent()
+-- end
+
+-- function GM.Net:DemotePoliceRank(pTarget)
+-- 	self:NewEvent("jobs", "demote_cop")
+-- 	net.WriteEntity(pTarget)
+-- 	self:FireEvent()
+-- end
+
 -- ----------------------------------------------------------------
 -- Clothing Shop Netcode
 -- ----------------------------------------------------------------
