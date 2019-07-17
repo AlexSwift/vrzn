@@ -85,14 +85,14 @@ function GM.Buddy:PostDrawTranslucentRenderables()
 		
 		if self:IsBuddyWith( v ) then
 			parceiro = true
-			ent = IsValid( v:GetRagdoll() ) and v:GetRagdoll() or v
+			ent =  v
 			if ent:GetPos():DistToSqr( myPos ) > GAMEMODE.Config.RenderDist_Level2 ^2 then continue end
 			pos = ent:LocalToWorld( ent:OBBCenter() ) +offset
 			cam.Start3D2D( pos, ang, 0.035 )
 				self:PaintBuddyCard( v )
 			cam.End3D2D()
 		else
-			ent = IsValid( v:GetRagdoll() ) and v:GetRagdoll() or v
+			ent =  v
 			if ent:GetPos():DistToSqr( myPos ) > 350 ^2 then continue end
 			pos = ent:LocalToWorld( ent:OBBCenter() ) +offset
 			cam.Start3D2D( pos, ang, 0.035 )
