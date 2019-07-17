@@ -49,7 +49,7 @@ function Panel:Init()
 
 			curXP = curXP -baseXP
 			targetXP = targetXP -baseXP
-			self.m_pnlXPLabel:SetText( curXP.. "XP / ".. targetXP.. "XP" )
+			self.m_pnlXPLabel:SetText( "Nível " .. GAMEMODE.Skills:GetPlayerLevel(self.m_strSkillName) .. " ( "..curXP.. "XP / ".. targetXP.. "XP )" )
 			self:InvalidateLayout()
 		end
 	end
