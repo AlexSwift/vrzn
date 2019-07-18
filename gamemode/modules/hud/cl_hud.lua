@@ -588,7 +588,7 @@ surface.CreateFont( "BSYS::CrateTimer", {
 	local HudMargin = 20
 	surface.CreateFont( "XPHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 28,	weight = 500,	antialias = true,	} )
 	surface.CreateFont( "NameHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 36,	weight = 500,	antialias = true,	} )
-	surface.CreateFont( "MoneyHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 36,	weight = 500,	antialias = true,	} )
+	surface.CreateFont( "MoneyHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 28,	weight = 500,	antialias = true,	} )
 	surface.CreateFont( "BankHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 34,	weight = 500,	antialias = true,	} )
 	surface.CreateFont( "SalaryHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 22,	weight = 500,	antialias = true,	} )	
 
@@ -621,7 +621,9 @@ surface.CreateFont( "BSYS::CrateTimer", {
 		end)
 		
 		local AwMaterialAvatar = awcache.AvatarLoader.CachedMaterials[steamid]
-		
+		local  SmoothXpBar = 0
+		local  SmoothHpBar = 0
+		local  SmoothArmorBar = 0
 		hook.Add("HUDPaint", "Testing", function()
 			local NicePlayerName = string.Explode( " ", LocalPlayer():Nick() )
 
@@ -644,11 +646,14 @@ surface.CreateFont( "BSYS::CrateTimer", {
 			local Bank = "R$ " .. string.VrznMoney( LocalPlayer():GetBankMoney() )
 
 			// AVATAR
+
+			SmoothXpBar=Lerp(2*RealFrameTime(),SmoothXpBar,(1 - XP/MaxXP) * 360)
+
 			AwMaskInverse(
 				function()
 					surface.SetDrawColor(255, 255, 255, 255)
 					-- surface.DrawRect(HudMargin/2, ScrH() - HudMargin - 110, 150, (1 - XP/MaxXP) * 120)
-					AwArc(50 + HudMargin, ScrH() - 50 - HudMargin, 0, (1 - XP/MaxXP) * 360, 58, Color(255,255,255), 30, "XPBar")
+					AwArc(50 + HudMargin, ScrH() - 50 - HudMargin, 0, SmoothXpBar, 58, Color(255,255,255), 30, "XPBar")
 				end
 				,
 				function()
@@ -683,18 +688,21 @@ surface.CreateFont( "BSYS::CrateTimer", {
 			// HP
 			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, 200, 12, Color(46,46,46))
 			if Health > MaxHealth then Health = 100 end
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, (Health/MaxHealth) * 200, 12, Color(255,56,56))
+			SmoothHpBar = Lerp( 5 * RealFrameTime(), SmoothHpBar, (Health/MaxHealth) * 200)
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, SmoothHpBar, 12, Color(255,56,56))
 			
 			// Armor
 			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, 200, 12, Color(46,46,46))
 			if Armor > MaxArmor then Armor = 100 end
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, (Armor/MaxArmor) * 200, 12, Color(82,192,249))
+			SmoothArmorBar = Lerp( 5 * RealFrameTime(), SmoothArmorBar, (Armor/MaxArmor) * 200)
+			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, SmoothArmorBar, 12, Color(82,192,249))
 			
 			// Monetary
 			surface.SetFont("BankHudLabel")
 			local bw, bh = surface.GetTextSize(Bank)
-			draw.SimpleText(Money, "MoneyHudLabel", HudMargin, 0, Color(255,255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-			draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			draw.SimpleText(Money, "MoneyHudLabel", HudMargin + 100 + 16, ScrH() - bh - HudMargin + 5, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			draw.SimpleText(" - ".. salary1 .. "/hr", "MoneyHudLabel", HudMargin + 100 + bw, ScrH() - bh - HudMargin + 5, Color(0,255,78, 100), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+			-- draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 			-- draw.SimpleText("+ " .. salary1 .. "/hr", "SalaryHudLabel", HudMargin + bw + 6, bh, Color(255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 				
 		end)
