@@ -118,28 +118,11 @@ awcache.ImageLoader.GetMaterial("U9mYfWV", function(mat)
 	awcache.UI.Materials.topazio = mat
 end)
 
+awcache.ImageLoader.GetMaterial("rGOfzhd", function(mat)
+	awcache.UI.Materials.aim = mat
+end)
+
 awcache.ImageLoader.GetMaterial("zCx6wL5", function(mat)
 	awcache.UI.Materials.gunlicense = mat
 end)
 
-
--- net.Receive("SpawnAvatars", function()
--- 	for k, v in pairs( player.GetAll()) do
--- 		print(v)
--- 		awcache.AvatarLoader.GetMaterial( v:SteamID64(), function(mat)
--- 			awcache.AvatarLoader.CachedMaterials[v:SteamID64()] = mat
--- 		end)
--- 	end
--- end)
-
-
-hook.Add("HUDPaint", "VrznTest", function()
-	-- local steamid = LocalPlayer():SteamID64()
-	-- if steamid == "1234567890" then steamid = "76561198119350635" end
-	-- -- PrintTable(awcache.AvatarLoader.CachedMaterials)
-	-- -- print( awcache.UI.Materials.refresh)
-	-- surface.SetDrawColor(255, 255, 255, 255)
-	-- -- surface.SetMaterial( awcache.AvatarLoader.CachedMaterials[steamid] )
-	-- surface.DrawTexturedRect(0, 0, 100, 100)
-end)
-hook.Remove("HUDPaint", "VrznTest")
