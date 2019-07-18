@@ -66,10 +66,12 @@ function WeaponSelection:Draw()
 	TitleOffset = offset
 	local Translations = {}
 	Translations["weapon_physgun"] = "Physgun";
+	Translations["weapon_physcannon"] = "Gravity Gun";
 	Translations["weapon_idcard"] = "Identidade";
 	Translations["none"] = "Mãos";
 	Translations["gmod_camera"] = "Câmera";
 	Translations["weapon_fists"] = "Punhos";
+	Translations["weapon_srphands"] = "Mãos";
 
 	for k, v in pairs(Weapons) do
 		-- print( v:GetPrintName() )
