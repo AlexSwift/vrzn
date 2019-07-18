@@ -51,23 +51,22 @@ GM.Config.UserGroupConfig= {
 }
 
 GM.Config.VIPGroups      = {
+	["topazio"] = true,
 	
 }
 
 GM.Config.VIP2Groups      = {
+	["safira"] = true,
 	
 }
 
 GM.Config.VIP3Groups      = {
-	["founder"]              = true,
-	["developer"]            = true,
-	["superadmin"]           = false,
+	["ametista"] = true
 }
 
 GM.Config.VIP4Groups      = {
 	["founder"]              = true,
-	["developer"]            = true,
-	["superadmin"]           = false,
+	["developer"]            = true
 }
 
 
@@ -542,6 +541,13 @@ GM.Config.Job_SService_PlayerCap        = {
 	MaxEnd    = 60 --At or above this number of total players, the job cap will be at the Max set value
 }
 GM.Config.SSApplyInterval= 2 *60
+
+-- [[ Job VIP Increase ]]--
+GM.Config.PaymentIncrease = {}
+GM.Config.PaymentIncrease["topázio"] = 10
+GM.Config.PaymentIncrease["safira"] = 20
+GM.Config.PaymentIncrease["ametista"] = 30
+GM.Config.PaymentIncrease["ruby"] = 30
 
 --[[ Property Settings ]]--
 GM.Config.PropertyEvictTime             = 60 *60 --Time in seconds after being billed for a property to evict the owner

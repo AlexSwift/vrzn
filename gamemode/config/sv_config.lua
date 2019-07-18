@@ -53,10 +53,10 @@ GM.Config.ServerNetPool = {
 --[[ Global Loadout Settings ]]--
 GM.Config.GlobalLoadout = {
 	"weapon_physgun",
+	"weapon_physcannon",
 	"weapon_keys",
 	"weapon_srphands",
 	"weapon_idcard",
-	"weapon_fists",
 	"gmod_tool"
 }
 
