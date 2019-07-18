@@ -1,5 +1,5 @@
 --[[
-	Name: sv_player.lua
+Name: sv_player.lua
 -----------------------------------------------------------------
 -- @package     VrZn - Custom Gamemode (SRP BASE)
 -- @author     Nodge
@@ -22,25 +22,25 @@ function GM.Player:Spawn( pPlayer )
 		pPlayer:AllowFlashlight( false )
 		return
 	end
-
+	
 	pPlayer:UnSpectate()
 	pPlayer:Freeze( false )
 	pPlayer:InitializeHands( "male07" )
 	pPlayer:AllowFlashlight( true )
 	self:UpdatePlayerMoveSpeed( pPlayer )
-
+	
 	if not GAMEMODE.Jobs:PlayerHasJob( pPlayer ) then
 		GAMEMODE.Jobs:SetPlayerJob( pPlayer, JOB_CIVILIAN, true ) --This shouldn't be needed, but just in case
 	else --Setjob calls loadout, so do this so it doesn't happen twice in this case
 		hook.Call( "PlayerLoadout", GAMEMODE, pPlayer )
-
+		
 		if GAMEMODE.Jobs:GetPlayerJob( pPlayer ).PlayerSetModel then
 			GAMEMODE.Jobs:GetPlayerJob( pPlayer ):PlayerSetModel( pPlayer )
 		else --fallback to civ
 			GAMEMODE.Jobs:GetJobByID( JOB_CIVILIAN ):PlayerSetModel( pPlayer )
 		end
 	end
-
+	
 	--Find a spot to put them
 	local foundSpot
 	for k, v in pairs( GAMEMODE.Config.SpawnPoints ) do
@@ -50,15 +50,15 @@ function GM.Player:Spawn( pPlayer )
 				found[idx] = nil
 			end
 		end
-
+		
 		if table.Count( found ) == 0 then foundSpot = v break end
 	end
-
+	
 	if not foundSpot then
 		local vec, _ = table.Random( GAMEMODE.Config.SpawnPoints )
 		foundSpot = vec
 	end
-
+	
 	pPlayer:SetPos( foundSpot )
 	pPlayer:SetHealth( 100 )
 end
@@ -66,14 +66,14 @@ end
 function GM.Player:Loadout( pPlayer )
 	local job = GAMEMODE.Jobs:GetPlayerJob( pPlayer )
 	if not job then return end
-
+	
 	for k, v in pairs( GAMEMODE.Config.GlobalLoadout ) do
 		pPlayer:Give( v )
 	end
 	
 	job:PlayerLoadout( pPlayer )
 	GAMEMODE.Inv:PlayerLoadout( pPlayer )
-
+	
 	pPlayer:SelectWeapon( "weapon_srphands" )
 end
 
@@ -86,18 +86,18 @@ end
 -- ----------------------------------------------------------------
 function GM.Player:UpdatePlayerMoveSpeed( pPlayer )
 	local newWalk, newRun = GAMEMODE.Config.DefWalkSpeed, GAMEMODE.Config.DefRunSpeed
-
+	
 	if pPlayer.m_tblSpeedFlags then
 		for k, v in pairs( pPlayer.m_tblSpeedFlags ) do
 			newWalk = newWalk +v[1]
 			newRun = newRun +v[2]
 		end
 	end
-
+	
 	if newWalk > newRun then
 		newRun = newWalk
 	end
-
+	
 	pPlayer:SetWalkSpeed( math.max(newWalk, 45) )
 	pPlayer:SetRunSpeed( math.max(newRun, 45) )
 end
@@ -129,7 +129,7 @@ function GM.Player:ClearMoveSpeedModifiers( pPlayer )
 	for k, v in pairs( pPlayer.m_tblSpeedFlags ) do
 		self:RemoveMoveSpeedModifier( pPlayer, k, true )
 	end
-
+	
 	self:UpdatePlayerMoveSpeed( pPlayer )
 end
 
@@ -139,14 +139,14 @@ end
 function GM.Player:PlayerReadyForData( pPlayer )
 	if pPlayer.m_bGamemodeDataLoaded then return end
 	pPlayer.m_bGamemodeDataLoaded = true
-
+	
 	GAMEMODE:PrintDebug( 0, tostring(pPlayer).. " is ready to load game data." )
-
+	
 	self:LoadGameData( pPlayer, function()
 		if not IsValid( pPlayer ) then return end --wow, lamer
 		GAMEMODE:PrintDebug( 0, tostring(pPlayer).. " had their game data loaded." )
 		hook.Call( "GamemodeOnPlayerReady", GAMEMODE, pPlayer )
-
+		
 		--send them all of their characters in a short format for view in the selection menu
 		GAMEMODE.Net:SendPlayerCharacters( pPlayer )
 	end )
@@ -162,9 +162,9 @@ function GM.Player:LoadGameData( pPlayer, funcCallback )
 		GameVars = {}, --Shared vars from server to this client
 		SharedGameVars = {}, --Shared vars from server to all clients about this client
 	}
-
+	
 	self.m_tblPlayerData[pPlayer:SteamID64()] = dataProto
-
+	
 	GAMEMODE.SQL:LoadPlayerID( pPlayer, function( intID )
 		if not IsValid( pPlayer ) then return end
 		
@@ -187,11 +187,11 @@ end
 function GM.Player:DefineGameVar( pPlayer, strVar, vaValue, strType, bDontNetwork )
 	if not pPlayer:GetGamemodeData() then return end
 	pPlayer:GetGamemodeData().GameVars[strVar] = { Type = strType, Value = vaValue, Defualt = vaValue }
-
+	
 	if not bDontNetwork then
 		GAMEMODE.Net:UpdateGameVar( pPlayer, strVar )
 	end
-
+	
 	GAMEMODE:PrintDebug( 0, tostring(pPlayer).. "::Game var ".. strVar.. " was defined." )
 end
 
@@ -211,7 +211,7 @@ function GM.Player:SetGameVar( pPlayer, strVar, vaValue, bDontNetwork )
 	if not pPlayer:GetGamemodeData() then return end
 	if not pPlayer:GetGamemodeData().GameVars[strVar] then return end
 	pPlayer:GetGamemodeData().GameVars[strVar].Value = vaValue
-
+	
 	if not bDontNetwork then
 		GAMEMODE.Net:UpdateGameVar( pPlayer, strVar )
 	end
@@ -225,11 +225,11 @@ end
 function GM.Player:DefineSharedGameVar( pPlayer, strVar, vaValue, strType, bDontNetwork )
 	if not pPlayer:GetGamemodeData() then return end
 	pPlayer:GetGamemodeData().SharedGameVars[strVar] = { Type = strType, Value = vaValue, Defualt = vaValue }
-
+	
 	if not bDontNetwork then
 		GAMEMODE.Net:UpdateSharedGameVar( pPlayer, strVar )
 	end
-
+	
 	GAMEMODE:PrintDebug( 0, tostring(pPlayer).. "::Shared game var ".. strVar.. " was defined." )
 end
 
@@ -249,7 +249,7 @@ function GM.Player:SetSharedGameVar( pPlayer, strVar, vaValue, bDontNetwork )
 	if not pPlayer:GetGamemodeData() then return end
 	if not pPlayer:GetGamemodeData().SharedGameVars[strVar] then return end
 	pPlayer:GetGamemodeData().SharedGameVars[strVar].Value = vaValue
-
+	
 	if not bDontNetwork then
 		GAMEMODE.Net:UpdateSharedGameVar( pPlayer, strVar )
 	end
@@ -309,19 +309,19 @@ function pmeta:AddMoney( intAmount )
 	char.Money.Wallet = char.Money.Wallet +intAmount
 	GAMEMODE.Player:SetGameVar( self, "money_wallet", char.Money.Wallet )
 	GAMEMODE.SQL:MarkDiffDirty( self, "money_wallet" )
-
+	
 	return true
 end
 
 function pmeta:TakeMoney( intAmount )
 	if not self:HasValidCharacter() then return false end
 	local char = self:GetGamemodeData().Characters[self:GetCharacterID()]
-
+	
 	if char.Money.Wallet -intAmount < 0 then return false end
 	char.Money.Wallet = char.Money.Wallet -intAmount
 	GAMEMODE.Player:SetGameVar( self, "money_wallet", char.Money.Wallet )
 	GAMEMODE.SQL:MarkDiffDirty( self, "money_wallet" )
-
+	
 	return true
 end
 
@@ -341,14 +341,14 @@ function pmeta:AddBankMoney( intAmount )
 	char.Money.Bank = char.Money.Bank +intAmount
 	GAMEMODE.Player:SetGameVar( self, "money_bank", char.Money.Bank )
 	GAMEMODE.SQL:MarkDiffDirty( self, "money_bank" )
-
+	
 	return true
 end
 
 function pmeta:TakeBankMoney( intAmount )
 	if not self:HasValidCharacter() then return false end
 	local char = self:GetGamemodeData().Characters[self:GetCharacterID()]
-
+	
 	if char.Money.Bank -intAmount < 0 then return false end
 	char.Money.Bank = char.Money.Bank -intAmount
 	GAMEMODE.Player:SetGameVar( self, "money_bank", char.Money.Bank )
@@ -383,7 +383,7 @@ pmeta.RealNick = g_OldNick
 function pmeta:Nick()
 	local first = GAMEMODE.Player:GetSharedGameVar( self, "name_first" )
 	local last = GAMEMODE.Player:GetSharedGameVar( self, "name_last" )
-
+	
 	if not first or first == "" then
 		return g_OldNick( self )
 	else
@@ -396,7 +396,7 @@ pmeta.RealName = g_OldNick
 function pmeta:Name()
 	local first = GAMEMODE.Player:GetSharedGameVar( self, "name_first" )
 	local last = GAMEMODE.Player:GetSharedGameVar( self, "name_last" )
-
+	
 	if not first or first == "" then
 		return g_OldName( self )
 	else
@@ -410,7 +410,7 @@ pmeta.RealGetName = g_OldGetName
 function pmeta:GetName()
 	local first = GAMEMODE.Player:GetSharedGameVar( self, "name_first" )
 	local last = GAMEMODE.Player:GetSharedGameVar( self, "name_last" )
-
+	
 	if not first or first == "" then
 		return g_OldGetName( self )
 	else
@@ -425,7 +425,7 @@ function pmeta:IsSuperAdmin( ... )
 	if self:CheckGroup( "community_manager" ) then
 		return true
 	end
-
+	
 	return g_IsSuperAdmin( self, ... )
 end]]--
 
@@ -449,7 +449,7 @@ if g_CheckGroup then
 		if strName == "ruby" and GAMEMODE.Config.VIP4Groups[self:GetUserGroup()] then
 			return true
 		end
-
+		
 		return g_CheckGroup( self, strName, ... )
 	end
 end
@@ -463,7 +463,7 @@ end )
 concommand.Add( "srp_dev_remove", function( pPlayer, strCmd, tblArgs )
 	if not pPlayer:IsAdmin() then return end
 	local trEnt = pPlayer:GetEyeTrace().Entity
-
+	
 	if IsValid( trEnt ) and not trEnt:IsPlayer() then
 		trEnt:Remove()
 	end
@@ -472,7 +472,7 @@ end )
 concommand.Add( "srp_dev_change_player_name", function( pPlayer, strCmd, tblArgs )
 	if not pPlayer:IsSuperAdmin() then return end
 	local targetSID = tostring( tblArgs[1] or "" )
-
+	
 	local foundPlayer
 	for k, v in pairs( player.GetAll() ) do
 		if v:SteamID() == targetSID then
@@ -480,26 +480,26 @@ concommand.Add( "srp_dev_change_player_name", function( pPlayer, strCmd, tblArgs
 			break
 		end
 	end	
-
+	
 	if not IsValid( foundPlayer ) then
 		pPlayer:PrintMessage( HUD_PRINTCONSOLE, "Unable to locate a player with that steam id!" )
 		return
 	end
-
+	
 	if not foundPlayer:HasValidCharacter() then
 		pPlayer:PrintMessage( HUD_PRINTCONSOLE, "That player has not loaded a character yet!" )
 		return
 	end
-
+	
 	local nameFirst, nameLast = tostring( tblArgs[2] or "" ), tostring( tblArgs[3] or "" )
-
+	
 	if nameFirst:len() <= 0 or nameLast:len() <= 0 then
 		pPlayer:PrintMessage( HUD_PRINTCONSOLE, "Cannot set a zero-length name!" )
 		return
 	end
-
+	
 	pPlayer:PrintMessage( HUD_PRINTCONSOLE, "Changing ".. foundPlayer:Nick().. "'s name to ".. nameFirst.. " ".. nameLast.. "!" )
-
+	
 	local id = GAMEMODE.SQL:GetPlayerPoolID( foundPlayer:SteamID64() )
 	GAMEMODE.SQL:UpdateCharacterFirstName( id, foundPlayer:GetCharacterID(), nameFirst )
 	GAMEMODE.SQL:UpdateCharacterLastName( id, foundPlayer:GetCharacterID(), nameLast )
@@ -507,4 +507,88 @@ concommand.Add( "srp_dev_change_player_name", function( pPlayer, strCmd, tblArgs
 	GAMEMODE.Player:SetSharedGameVar( foundPlayer, "name_last", nameLast )	
 	foundPlayer:GetCharacter().Name.First = nameFirst 
 	foundPlayer:GetCharacter().Name.Last = nameLast
+end )
+
+
+
+
+
+
+
+
+local licted={}
+
+local meta = FindMetaTable( "Player" )
+
+
+util.AddNetworkString( "VrZn::UpdateLictedTbl" )
+util.AddNetworkString( "VrZn::LicTedPlayerSpawn" )
+
+
+function meta:sendnetmsgkek( tblname, bolololo )
+	net.Start("VrZn::UpdateLictedTbl")
+	net.WriteString(tblname)
+	net.WriteEntity(self)
+	net.WriteBool(bolololo)
+	net.Broadcast()
+end
+
+function meta:SetLicense(bBool)
+	licted[self:SteamID64()]["License"] = bBool
+	self:sendnetmsgkek("License",bBool)
+end
+
+function meta:SetWanted(bBool)
+    licted[self:SteamID64()]["Wanted"] = bBool
+    self:sendnetmsgkek("Wanted",bBool)
+end
+
+function meta:MakePlayerWanted(time)
+
+	self:SetWanted( true )
+	self:AddNote("Você está sendo procurado pela polícia!")
+
+    timer.Create( "vrzn::RemoveWanted"..tostring(self:SteamID64()), time, 1, function()
+		self:SetWanted( false )
+		self:AddNote("Você não está mais procurado!")
+    end )
+
+end
+
+local function spawn( len, pPlayer )
+	licted[pPlayer:SteamID64()]={}
+	pPlayer:SetLicense(false)
+	pPlayer:SetWanted(false)
+	
+end
+
+net.Receive("VrZn::LicTedPlayerSpawn",spawn)
+
+concommand.Add( "jesuscristoladrao", function( ply, cmd, args )
+	PrintTable(licted)
+end )
+
+
+concommand.Add( "vrzn_wanted", function( ply, cmd, args )
+	if GAMEMODE.Jobs:GetPlayerJob( ply ).Cat ~= "law" then
+		print("Você não tem autoridade para emitr um mandato.")
+		return 
+	end
+	
+	for k, v in pairs( player.GetAll( ) ) do
+		local _find = string.find( string.lower( v:Nick( ) ), string.lower( args[ 1 ] ) );
+		
+		if ( !_find ) then
+			continue;
+		else
+			_match = v;
+			break;
+		end
+	end
+	if ( IsValid( _match ) && _match:IsPlayer( ) && _match ~= ply) then
+		_match:MakePlayerWanted( 300 )
+		ply:AddNote(_match:Nick() .. " Está sendo procurado.")
+	else
+		ply:AddNote("Jogador não encontrado")
+	end
 end )
