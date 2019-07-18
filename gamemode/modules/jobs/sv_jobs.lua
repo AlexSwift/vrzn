@@ -254,13 +254,31 @@ function GM.Jobs:Tick()
 
 	for k, v in pairs( player.GetAll() ) do
 		if not self:PlayerHasJob( v ) then continue end
-
+		local newpayt = 0
 		local pay = self:GetPlayerPay( v )
 		local payt = GAMEMODE.Econ:ApplyTaxToSum( "income_".. self:GetPlayerJobID(v), pay, true )
-
-		v:AddBankMoney( payt )
-		v:AddNote( "You received a paycheck from your job!" )
-		v:AddNote( "$".. string.Comma(payt).. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% tax) was transfered to your bank account." )
+		if v:CheckGroup( "topázio" ) then
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+		elseif v:CheckGroup( "safira" ) then
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+		elseif v:CheckGroup( "ametista" ) then
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+		elseif v:CheckGroup( "ruby" ) then
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+		else
+			 newpayt = payt
+		end
+		if newpayt ~= payt then
+			print( newpayt )
+			print( payt )
+			v:AddNote( "Você recebeu seu pagamento (+VIP)!" )
+		else
+			v:AddNote( "Você recebeu seu salário!" )
+		end
+			v:AddBankMoney( newpayt )
+			v:AddNote( "R$".. string.Comma(newpayt).. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% Importo)" )
+		-- v:AddNote( "Seu salário chegou no banco!" )
+		-- v:AddNote( "R$".. string.Comma(payt).. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% Importo)" )
 	end
 end
 
