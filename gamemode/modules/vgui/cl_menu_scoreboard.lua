@@ -163,7 +163,7 @@ function TIE:Paint(w, h)
 	-- surface.DrawTexturedRect(0, 0, w, h)
 	draw.RoundedBox(8, 0, 0, w, h, Color(46,46,46))
 
-	if (IsValid(self.Player)) then
+	if GAMEMODE.Jobs:GetPlayerJob(self.Player).Name then
 		if self.Player:Team() then
 			self.PColor = Color(235,235,235)
 		else
@@ -173,7 +173,7 @@ function TIE:Paint(w, h)
 		if (self.Player:Nick() ~= "" and not input.IsKeyDown(KEY_SPACE)) then
 			draw.SimpleText(self.Player:Nick(), "HUD::0.1vw", 58, 18, Color(self.PColor.r, self.PColor.g, self.PColor.b, self:GetParent():GetParent().Alpha), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 		else
-			draw.SimpleText(self.Player:Nick() .." - ".. GAMEMODE.Jobs:GetPlayerJob( self.Player ).Name, "HUD::0.1vw", 58, 18, Color(self.PColor.r, self.PColor.g, self.PColor.b, self:GetParent():GetParent().Alpha), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+			draw.SimpleText(self.Player:Nick() .." - ".. (GAMEMODE.Jobs:GetPlayerJob( self.Player ).Name or "Conectando"), "HUD::0.1vw", 58, 18, Color(self.PColor.r, self.PColor.g, self.PColor.b, self:GetParent():GetParent().Alpha), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
 		end
 
 		draw.SimpleText(self.Player:Ping(), "HUD::0.1vw", w - 44, 18, Color(180, 180, 180), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
