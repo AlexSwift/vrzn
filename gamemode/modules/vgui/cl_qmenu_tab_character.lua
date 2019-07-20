@@ -53,7 +53,6 @@ function Panel:Init()
 			self:InvalidateLayout()
 		end
 	end
-	
 end
 
 function Panel:Think()
@@ -63,7 +62,7 @@ function Panel:Think()
 		self.m_pnlLevelLabel:SetText( "Level: ".. self.m_intLastLevel )
 		self:InvalidateLayout()
 	end
-	
+
 end
 
 function Panel:SetSkill( strSkill, tblData )
@@ -75,6 +74,7 @@ function Panel:SetSkill( strSkill, tblData )
 	end
 	self.m_strSkillName = strSkill
 	self.m_tblSkill = tblData
+
 	self:InvalidateLayout()
 end
 
@@ -101,11 +101,106 @@ function Panel:PerformLayout( intW, intH )
 	self.m_pnlXPLabel:SizeToContents()
 	self.m_pnlXPLabel:SetPos( x +((intW -x -padding) /2) -(self.m_pnlXPLabel:GetWide() /2), y )
 
-	
 
 end
 vgui.Register( "SRPSkillInfoCard", Panel, "EditablePanel" )
 
+local Panel = {}
+
+function Panel:Init()
+	
+	self.m_pnlNameLabelZero = vgui.Create( "DLabel", self )
+	-- self.m_pnlNameLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	self.m_pnlNameLabelZero:SetTextColor( Color(255, 255, 255, 255) )
+	self.m_pnlNameLabelZero:SetFont( "NameLabel" )
+
+	self.m_pnlLevelLabelZero = vgui.Create( "DLabel", self )
+	-- self.m_pnlLevelLabel:SetExpensiveShadow( 2, Color(0, 0, 0, 255) )
+	self.m_pnlLevelLabelZero:SetTextColor( Color(255, 255, 255, 255) )
+	self.m_pnlLevelLabelZero:SetFont( "SubLabel" )
+
+	self.m_pnlXPBarZero = vgui.Create( "SRP_Progress", self )
+	self.m_pnlXPBarZero:SetBarColor( Color(4,236,86) )
+	self.m_pnlXPBarZero.Think = function()
+		local curXP = zrmdata.xp
+		local baseXP = 0
+		local targetXP = zrmine.config.Pickaxe_Lvl[zrmdata.lvl].NextXP
+
+		curXP = curXP -baseXP
+		targetXP = targetXP -baseXP
+		self.m_pnlXPBarZero:SetFraction( curXP /targetXP )
+	end
+
+	self.m_pnlXPLabelZero = vgui.Create( "DLabel", self )
+	self.m_pnlXPLabelZero:SetTextColor( Color(255, 255, 255, 255) )
+	self.m_pnlXPLabelZero:SetFont( "SubLabel" )
+	self.m_pnlXPLabelZero.Think = function()
+			self.m_intLastXPZero = zrmdata.xp
+			local curXP = zrmdata.xp
+			local baseXP = 0
+			local targetXP = zrmine.config.Pickaxe_Lvl[zrmdata.lvl].NextXP
+
+			curXP = curXP -baseXP
+			targetXP = targetXP -baseXP
+			self.m_pnlXPLabelZero:SetText( "Nível " .. zrmdata.lvl .. " ( "..curXP.. "XP / ".. targetXP.. "XP )" )
+			self:InvalidateLayout()
+	end
+	
+end
+
+function Panel:Think()
+
+
+
+
+	if self.m_intLastLevelZero ~= zrmdata.lvl then
+		self.m_intLastLevelZero = zrmdata.lvl
+		self.m_pnlLevelLabelZero:SetText( "Level: ".. self.m_intLastLevelZero )
+	end
+
+	self:InvalidateLayout()
+end
+
+
+function Panel:Paint( intW, intH )
+	draw.RoundedBox(20, 0, 0, intW, intH, Color(45, 45, 45) )
+	-- surface.SetDrawColor( 50, 50, 50, 200 )
+	-- surface.DrawRect( 0, 0, intW, intH )
+end
+
+function Panel:SetSkill( strSkill, str2)
+	
+	self.m_pnlNameLabelZero:SetText( strSkill )
+	self.m_strSkillNameZero = strSkill
+	self.m_tblSkillZero = {}
+	self:InvalidateLayout()
+
+end
+
+
+function Panel:PerformLayout( intW, intH )
+
+	
+	local paddingZero = 5
+	self.m_pnlNameLabelZero:SizeToContents()
+	self.m_pnlNameLabelZero:SetPos( intW/2 - self.m_pnlNameLabelZero:GetWide()/2, (intH /2) -self.m_pnlNameLabelZero:GetTall() - 5 )
+
+	local xZero, yZero = self.m_pnlNameLabelZero:GetPos()
+	self.m_pnlLevelLabelZero:SizeToContents()
+	self.m_pnlLevelLabelZero:SetPos( xZero, yZero +self.m_pnlNameLabelZero:GetTall() +paddingZero )
+
+	self.m_pnlXPBarZero:SetPos( intW/2 - self.m_pnlXPBarZero:GetWide()/2, yZero +self.m_pnlNameLabelZero:GetTall() +paddingZero )
+	xZero, yZero = self.m_pnlXPBarZero:GetPos()
+	self.m_pnlXPBarZero:SetSize( intW -xZero -paddingZero, 25 )
+
+	self.m_pnlXPLabelZero:SizeToContents()
+	self.m_pnlXPLabelZero:SetPos( xZero +((intW -xZero -paddingZero) /2) -(self.m_pnlXPLabelZero:GetWide() /2), yZero )
+
+
+
+
+end
+vgui.Register( "SRPSkillInfoCard2", Panel, "EditablePanel" )
 -- ----------------------------------------------------------------
 
 local Panel = {}
@@ -153,7 +248,8 @@ function Panel:Init()
 
 	self.m_pnlSkillList = vgui.Create( "SRP_ScrollPanel", self )
 	self.m_tblSkillCards1 = {}
-	self.m_tblSkillCards = {}
+	self.m_tblSkillCards3 = {}
+	self.m_tblSkillCards = {}	
 	
 end
 
@@ -182,9 +278,14 @@ function Panel:Refresh()
 
 	self.m_tblSkillCards1 = {}
 	self.m_tblSkillCards = {}
+	self.m_tblSkillCard3 = {}
 	for k, v in SortedPairs( GAMEMODE.Skills:GetSkills() ) do
 		self:CreateSkillCard( k, v )
 	end
+	self:CreateSkillCard("Mineração", "")
+	
+	-- if IsValid(self.skilpnl3) then self.skilpnl3:Remove() end
+		
 end
 
 function Panel:CreateSkillCard( strSkill, tblSkillData )
@@ -195,6 +296,14 @@ function Panel:CreateSkillCard( strSkill, tblSkillData )
 		self.m_pnlSkillList:AddItem( pnl2 )
 		table.insert( self.m_tblSkillCards1, pnl2 )
 		return pnl2
+	elseif strSkill == "Mineração" then
+		if IsValid(pnl3) then pnl3:Remove() end
+		pnl3 = vgui.Create("SRPSkillInfoCard2", self.m_pnlSkillList)
+		pnl3:SetSkill( strSkill, "..." )
+		pnl3.m_pnlParentMenu = self
+		self.m_pnlSkillList:AddItem( pnl3 )
+		table.insert( self.m_tblSkillCards3, pnl3 )
+		return pnl3
 	else
 		local pnl = vgui.Create( "SRPSkillInfoCard", self.m_pnlSkillList )
 		pnl:SetSkill( strSkill, tblSkillData )
@@ -203,6 +312,15 @@ function Panel:CreateSkillCard( strSkill, tblSkillData )
 		table.insert( self.m_tblSkillCards, pnl )
 		return pnl
 	end
+
+	-- return self.skilpnl3
+
+
+	
+end
+
+function Panel:CreateAddonsCard()
+
 end
 
 function Panel:PerformLayout( intW, intH )
@@ -223,6 +341,11 @@ function Panel:PerformLayout( intW, intH )
 		pnl:SetTall( 64 )
 		pnl:Dock( TOP )
 	end
+
+	
+	pnl3:DockMargin( 0, 0, 0, 5)
+	pnl3:SetTall( 64 )
+	pnl3:Dock( TOP )
 
 	self.m_pnlSlotContainer:SetPos( 0, 0 )
 	self.m_pnlSlotContainer:SetSize( self.m_pnlCharModel:GetSize() )
