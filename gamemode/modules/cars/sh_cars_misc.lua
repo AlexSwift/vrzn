@@ -26,6 +26,7 @@ if SERVER then
 	local VEHICLE_STARTED = 2
 
 	hook.Add( "PlayerEnteredVehicle", "TurnCarOff", function( pPlayer, entVehicle, intRole )
+		print("teste")
 		if entVehicle:GetClass() == "prop_vehicle_prisoner_pod" then return end
 		pPlayer:AddNote( "Segure [ i ] Para Ligar/Desligar o motor." )
 		g_PlayerVehicles[pPlayer] = { State = 0 }
