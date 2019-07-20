@@ -124,9 +124,8 @@ if SERVER then
 
 	function Job:PlayerLoadout( pPlayer )
 		pPlayer:Give( "weapon_handcuffer" )
-		pPlayer:Give( "weapon_ticket_giver" )
+		-- pPlayer:Give( "weapon_ticket_giver" )
 		pPlayer:Give( "policebadgewallet" )
-		pPlayer:Give( "dradio" )
 	end
 
 	function Job:OnPlayerSpawnCopCar( pPlayer, entCar )
@@ -180,41 +179,6 @@ if SERVER then
 		if entVeh.IsCopCar then
 			pPlayer:AddNote( "Aperte 'R' para abrir o computador da polícia." )
 		end
-	end )
-
-	hook.Add( "GamemodePlayerSendTextMessage", "PoliceJobTexting", function( pSender, strText, strNumberSendTo )
-		if strNumberSendTo ~= "911" then return end
-		if pSender.m_intLast911 and pSender.m_intLast911 > CurTime() then
-			local time = math.Round( pSender.m_intLast911 -CurTime() )
-			GAMEMODE.Net:SendTextMessage( pSender, "911", "Você deve esperar ".. time.. " segundos antes de pedir outra mensagem de ajuda." )
-			pSender:EmitSound( "taloslife/sms.mp3" )
-			return true
-		end
-
-		local sentTo = 0
-		strText = "911 from ".. GAMEMODE.Player:GetGameVar(pSender, "phone_number").. "\
-(".. pSender:Nick().. "):\
-".. strText
-		for k, v in pairs( player.GetAll() ) do
-			if not GAMEMODE.Jobs:GetPlayerJob( v ) then continue end
-			if GAMEMODE.Jobs:GetPlayerJob( v ).Receives911Messages then
-				GAMEMODE.Net:SendTextMessage( v, "Dispatch", strText )
-				v:EmitSound( "taloslife/sms.mp3" )
-				sentTo = sentTo +1
-			end
-		end
-
-		local respMsg = ""
-		if sentTo == 0 then
-			respMsg = "Náo há serviços de emergência disponiveis agora. Foi mal..."
-		else
-			respMsg = "Sua mensagem foi enviada para  ".. sentTo.. " players."
-		end
-		
-		GAMEMODE.Net:SendTextMessage( pSender, "911", respMsg )
-		pSender:EmitSound( "taloslife/sms.mp3" )
-		pSender.m_intLast911 = CurTime() +GAMEMODE.Config.Text911CoolDown
-		return true
 	end )
 
 	hook.Add( "GamemodeOnPlayerJailBreak", "AlertPolice", function( pJailedPlayer )
