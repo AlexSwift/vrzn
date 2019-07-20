@@ -8,7 +8,7 @@ GM.Needs = (GAMEMODE or GM).Needs or {}
 GM.Needs.m_tblNeeds = (GAMEMODE or GM).Needs.m_tblNeeds or {}
 
 function GM.Needs:Initialize()
-	self:RegisterNeed( "Hunger", 500 )
+	self:RegisterNeed( "Hunger", 300 )
 	self:RegisterNeed( "Stamina", 100 )
 end
 
