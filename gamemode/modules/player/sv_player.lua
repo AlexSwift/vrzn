@@ -510,85 +510,53 @@ concommand.Add( "srp_dev_change_player_name", function( pPlayer, strCmd, tblArgs
 end )
 
 
-
-
-
-
-
-
-local licted={}
-
-local meta = FindMetaTable( "Player" )
-
-
-util.AddNetworkString( "VrZn::UpdateLictedTbl" )
-util.AddNetworkString( "VrZn::LicTedPlayerSpawn" )
-
-
-function meta:sendnetmsgkek( tblname, bolololo )
-	net.Start("VrZn::UpdateLictedTbl")
-	net.WriteString(tblname)
-	net.WriteEntity(self)
-	net.WriteBool(bolololo)
-	net.Broadcast()
+function MakeNotWeird( ply, bol )
+	if bol then
+		if (ply.sg_invisible) then
+			serverguard.command.Run(ply, "cloak", true)
+		else
+			serverguard.command.Run(ply, "cloak", true)
+		end
+	else
+		if (ply.sg_invisible) then
+			serverguard.command.Run(ply, "cloak", true)
+		else
+			serverguard.command.Run(ply, "cloak", true)
+		end
+	end
 end
+hook.Add( "PlayerNoClip", "MakeNotWeird", MakeNotWeird )
 
-function meta:SetLicense(bBool)
-	licted[self:SteamID64()]["License"] = bBool
-	self:sendnetmsgkek("License",bBool)
-end
 
-function meta:SetWanted(bBool)
-    licted[self:SteamID64()]["Wanted"] = bBool
-    self:sendnetmsgkek("Wanted",bBool)
-end
 
-function meta:MakePlayerWanted(time)
 
-	self:SetWanted( true )
-	self:AddNote("Você está sendo procurado pela polícia!")
 
-    timer.Create( "vrzn::RemoveWanted"..tostring(self:SteamID64()), time, 1, function()
-		self:SetWanted( false )
-		self:AddNote("Você não está mais procurado!")
-    end )
 
-end
 
-local function spawn( len, pPlayer )
-	licted[pPlayer:SteamID64()]={}
-	pPlayer:SetLicense(false)
-	pPlayer:SetWanted(false)
-	
-end
-
-net.Receive("VrZn::LicTedPlayerSpawn",spawn)
-
-concommand.Add( "jesuscristoladrao", function( ply, cmd, args )
-	PrintTable(licted)
-end )
 
 
 concommand.Add( "vrzn_wanted", function( ply, cmd, args )
-	if GAMEMODE.Jobs:GetPlayerJob( ply ).Cat ~= "law" then
-		print("Você não tem autoridade para emitr um mandato.")
-		return 
-	end
+	print("COMANDO")
+-- if GAMEMODE.Jobs:GetPlayerJob( ply ).Cat ~= "law" then
+-- 	print("Você não tem autoridade para emitr um mandato.")
+-- 	return 
+-- end
+
+for k, v in pairs( player.GetAll( ) ) do
+	local _find = string.find( string.lower( v:Nick( ) ), string.lower( args[ 1 ] ) );
 	
-	for k, v in pairs( player.GetAll( ) ) do
-		local _find = string.find( string.lower( v:Nick( ) ), string.lower( args[ 1 ] ) );
-		
-		if ( !_find ) then
-			continue;
-		else
-			_match = v;
-			break;
-		end
-	end
-	if ( IsValid( _match ) && _match:IsPlayer( ) && _match ~= ply) then
-		_match:MakePlayerWanted( 300 )
-		ply:AddNote(_match:Nick() .. " Está sendo procurado.")
+	if ( !_find ) then
+		continue;
 	else
-		ply:AddNote("Jogador não encontrado")
+		_match = v;
+		break;
 	end
+end
+if ( IsValid( _match ) && _match:IsPlayer( ) && _match ~= ply) then
+	_match:MakePlayerWanted( 180, args[2] )
+	ply:AddNote("Player: " .. _match:Nick() .. " Motivo: " .. args[2] )
+	ply:AddNote(_match:Nick() .. " Está sendo procurado.")
+else
+	ply:AddNote("Jogador não encontrado")
+end
 end )
