@@ -15,15 +15,15 @@ MapProp.m_tblRemove = {
 
 	--jail doors
 	
-	{ class = "prop_dynamic", pos = Vector('-7281.000000 10378.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7440.000000 10378.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7599.000000 10378.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7758.000000 10378.000000 -724.000000') },
-	{ class = "prop_dynamic", pos = Vector('-7763.000000 10566.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7604.000000 10566.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7445.000000 10566.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7286.000000 10566.000000 -723.979980') },
-	{ class = "prop_dynamic", pos = Vector('-7866.000000 10473.000000 -716.000000') },
+	-- { class = "prop_dynamic", pos = Vector('-7281.000000 10378.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7440.000000 10378.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7599.000000 10378.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7758.000000 10378.000000 -724.000000') },
+	-- { class = "prop_dynamic", pos = Vector('-7763.000000 10566.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7604.000000 10566.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7445.000000 10566.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7286.000000 10566.000000 -723.979980') },
+	-- { class = "prop_dynamic", pos = Vector('-7866.000000 10473.000000 -716.000000') },
 	
 	}
 
