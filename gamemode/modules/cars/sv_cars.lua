@@ -284,7 +284,7 @@ function GM.Cars:PlayerSpawnCar( pPlayer, strCarUID )
 	local curCar = self:GetCurrentPlayerCar( pPlayer )
 	if IsValid( curCar ) then
 		if not GAMEMODE.Util:VectorInRange( curCar:GetPos(), GAMEMODE.Config.CarGarageBBox.Min, GAMEMODE.Config.CarGarageBBox.Max ) then
-			pPlayer:AddNote( "Your current car is not in the garage zone!" )
+			pPlayer:AddNote( "Seu carro não está no estacionamento!" )
 			return false
 		else
 			self:SaveCarStats( pPlayer, curCar )
@@ -294,15 +294,15 @@ function GM.Cars:PlayerSpawnCar( pPlayer, strCarUID )
 
 	local spawnPos, spawnAngs = GAMEMODE.Util:FindSpawnPoint( GAMEMODE.Config.CarSpawns, 80 )
 	if not spawnPos then
-		pPlayer:AddNote( "Unable to find a spawn point for your car." )
-		pPlayer:AddNote( "Wait for the area to clear and try again." )
+		pPlayer:AddNote( "Estacionamento lotado?" )
+		pPlayer:AddNote( "Espere liberarem as vagas." )
 		return false
 	end
 	
 	local car = self:SpawnPlayerVehicle( pPlayer, newCar, spawnPos, spawnAngs, function( pOwner, entCar, tblData )
 		pOwner.m_entCurrentCar = entCar
 		pOwner:SetNWEntity( "CurrentCar", entCar )
-		pOwner:AddNote( "You spawned your car!" )
+		pOwner:AddNote( "Você spawnou seu carro!" )
 	end )
 
 	return true
@@ -318,7 +318,7 @@ function GM.Cars:PlayerSpawnJobCar( pPlayer, strJobCarID, tblSpawnPoints, tblSto
 	if IsValid( curCar ) then
 		if tblStowBox then
 			if not GAMEMODE.Util:VectorInRange( curCar:GetPos(), tblStowBox.Min, tblStowBox.Max ) then
-				pPlayer:AddNote( "Your current car is not in the garage zone!" )
+				pPlayer:AddNote( "Seu carro não está no estacionamento!" )
 				return false, self.SPAWN_ERR_NOT_IN_BBOX
 			else
 				self:SaveCarStats( pPlayer, curCar )
@@ -332,8 +332,8 @@ function GM.Cars:PlayerSpawnJobCar( pPlayer, strJobCarID, tblSpawnPoints, tblSto
 
 	local spawnPos, spawnAngs = GAMEMODE.Util:FindSpawnPoint( tblSpawnPoints, 80 )
 	if not spawnPos then
-		pPlayer:AddNote( "Unable to find a spawn point for your car." )
-		pPlayer:AddNote( "Wait for the area to clear and try again." )
+		pPlayer:AddNote( "Estacionamento lotado?." )
+		pPlayer:AddNote( "Espere liberarem uma vaga." )
 		return false, self.SPAWN_ERR_NO_SPAWNS
 	end
 
