@@ -9,6 +9,8 @@
 include"shared.lua"
 DeriveGamemode("sandbox")
 DEFINE_BASECLASS("gamemode_sandbox")
+file.CreateDir("awavatar")
+file.CreateDir("awcache")
 
 gameevent.Listen "player_disconnect"
 
