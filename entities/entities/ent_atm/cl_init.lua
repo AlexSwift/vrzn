@@ -21,7 +21,7 @@ function ENT:Initialize()
 	self.m_pnlMenu:SetPos( -(self.m_pnlMenu:GetWide() +1), -(self.m_pnlMenu:GetTall() +1) )
 
 	self.m_pnlKeypad = vgui3D.Create( "SRPATMKeypad" )
-	self.m_pnlKeypad:SetSize( 335, 271 )
+	self.m_pnlKeypad:SetSize( 380, 271 )
 	self.m_pnlKeypad:SetEntity( self )
 	self.m_pnlKeypad:SetPaintedManually( true )
 	self.m_pnlKeypad:SetMouseInputEnabled( false )
