@@ -11,9 +11,9 @@
 vgui.GetWorldPanel():SetWorldClicker( false )  ---?
 
 GM.Camera = {}
-GM.Camera.m_conThirdPerson = CreateClientConVar( "srp_cam_third", 0, true, false )
-GM.Camera.m_conSideMove = CreateClientConVar( "srp_cam_side", 24, true, false )
-GM.Camera.m_conBackMove = CreateClientConVar( "srp_cam_back", 72, true, false )
+GM.Camera.m_conThirdPerson = CreateClientConVar( "vrzn_cam_mode", 0, true, false )
+GM.Camera.m_conSideMove = CreateClientConVar( "vrzn_cam_side", 24, true, false )
+GM.Camera.m_conBackMove = CreateClientConVar( "vrzn_cam_back", 72, true, false )
 
 --Table of weapon classes that will force the camera to first person when active
 GM.Camera.m_tblFirstPersonWeps = {
@@ -133,7 +133,7 @@ function GM.Camera:CalcView( pPlayer, vecOrigin, angAngs, intFOV )
 	--Toggle the thirdperson convar
 	if input.IsKeyDown( KEY_F1 ) and (not IsValid(vgui.GetKeyboardFocus())) then
 		if not keyStateC then
-			RunConsoleCommand( "srp_cam_third", self.m_conThirdPerson:GetInt() == 1 and "0" or "1" )
+			RunConsoleCommand( "vrzn_cam_mode", self.m_conThirdPerson:GetInt() == 1 and "0" or "1" )
 			keyStateC = true
 		end
 	else
