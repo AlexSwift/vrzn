@@ -7,10 +7,10 @@
 -----------------------------------------------------------------
 ]]--
 
-
-surface.CreateFont( "ATMBtnFont", {font = "DermaLarge", size = 64} )
-surface.CreateFont( "ATMBtnFont2", {font = "DermaLarge", size = 48} )
-surface.CreateFont( "ATMDrawFont", {font = "DebugFixed", size = 28} )
+surface.CreateFont( "ATMTitleFont", {font = "Montserrat Bold", size = 48} )
+surface.CreateFont( "ATMBtnFont", {font = "Montserrat Bold", size = 64} )
+surface.CreateFont( "ATMBtnFont2", {font = "Montserrat Bold", size = 48} )
+surface.CreateFont( "ATMDrawFont", {font = "Montserrat Bold", size = 28} )
 
 local Panel = {}
 function Panel:Init()
@@ -144,23 +144,29 @@ function Panel:RightBtnClick( intKey )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 29, 0, 255, 255 )
-	surface.DrawRect( 0, 0, intW, intH )
+	surface.SetDrawColor( 255, 255, 255, 255 )
+	surface.SetMaterial( Material("materials/vgui/elements/atmbg.png") )
+	surface.DrawTexturedRect(-40, 0, 560, 480)
+	surface.SetDrawColor(0, 0, 0, 255)
 
 	draw.SimpleText(
-		"ATM",
-		"DermaLarge",
+		"BANCO DO BRASIL",
+		"ATMTitleFont",
 		(intW /2),
-		8,
-		Color(255, 255, 255, 255),
+		0,
+		Color(42, 69, 140, 255),
 		TEXT_ALIGN_CENTER
 	)
 
 	local x, y = self:GetParent():GetParent().m_pnlBtnContainerLeft:GetPos()
 	local w, h = self:GetParent():GetParent().m_pnlBtnContainerLeft:GetSize()
+	
+
 	--left top btn
+
+	-- draw.RoundedBoxEx(4, -2, y, 176, 28, Color(26,26,26), false, true, false, true)
 	draw.SimpleText(
-		"<-Deposit",
+		"<~ [Depósito]",
 		"ATMDrawFont",
 		0,
 		y,
@@ -168,9 +174,11 @@ function Panel:Paint( intW, intH )
 		TEXT_ALIGN_LEFT
 	)
 
+
 	--left bottom btn
+	-- draw.RoundedBoxEx(4, -2, y+h-28, 230, 28, Color(26,26,26), false, true, false, true)
 	draw.SimpleText(
-		"<-Account Balance",
+		"<~ [Saldo da conta]",
 		"ATMDrawFont",
 		0,
 		y +h,
@@ -180,24 +188,14 @@ function Panel:Paint( intW, intH )
 	)
 
 	--right top btn
+	-- draw.RoundedBoxEx(4, intW-175, y, 176, 28, Color(26,26,26), true, false, true, false)
 	draw.SimpleText(
-		"Withdraw->",
+		"[Saque] ~>",
 		"ATMDrawFont",
 		intW,
 		y,
 		Color(255, 255, 255, 255),
 		TEXT_ALIGN_RIGHT
-	)
-
-	--right bottom btn
-	draw.SimpleText(
-		"Transfer->",
-		"ATMDrawFont",
-		intW,
-		y +h,
-		Color(255, 255, 255, 255),
-		TEXT_ALIGN_RIGHT,
-		TEXT_ALIGN_BOTTOM
 	)
 end
 vgui.Register( "SRPATMHomePage", Panel, "EditablePanel" )
@@ -245,20 +243,23 @@ function Panel:RightBtnClick( intKey )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 29, 0, 255, 255 )
-	surface.DrawRect( 0, 0, intW, intH )
+	surface.SetDrawColor( 255, 255, 255, 255 )
+	surface.SetMaterial( Material("materials/vgui/elements/atmbg.png") )
+	surface.DrawTexturedRect(-40, 0, 560, 480)
+	surface.SetDrawColor(0, 0, 0, 255)
+
 
 	draw.SimpleText(
-		"Deposit - Enter Amount",
-		"DermaLarge",
+		"DEPOSITO BB",
+		"ATMTitleFont",
 		(intW /2),
-		8,
-		Color(255, 255, 255, 255),
+		0,
+		Color(42, 69, 140, 255),
 		TEXT_ALIGN_CENTER
 	)
 
 	draw.SimpleText(
-		"$".. string.Comma(self.m_strAmount),
+		"R$ ".. string.Comma(self.m_strAmount),
 		"ATMDrawFont",
 		(intW /2),
 		(intH /2),
@@ -271,7 +272,7 @@ function Panel:Paint( intW, intH )
 	local w, h = self:GetParent():GetParent().m_pnlBtnContainerLeft:GetSize()
 	--left top btn
 	draw.SimpleText(
-		"<-Back",
+		"<~ [Voltar]",
 		"ATMDrawFont",
 		0,
 		y,
@@ -335,19 +336,22 @@ function Panel:RightBtnClick( intKey )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 29, 0, 255, 255 )
-	surface.DrawRect( 0, 0, intW, intH )
+	surface.SetDrawColor( 255, 255, 255, 255 )
+	surface.SetMaterial( Material("materials/vgui/elements/atmbg.png") )
+	surface.DrawTexturedRect(-40, 0, 560, 480)
+	surface.SetDrawColor(0, 0, 0, 255)
+
 	draw.SimpleText(
-		"Withdraw - Enter Amount",
-		"DermaLarge",
+		"SAQUE BB",
+		"ATMTitleFont",
 		(intW /2),
-		8,
-		Color(255, 255, 255, 255),
+		0,
+		Color(42, 69, 140, 255),
 		TEXT_ALIGN_CENTER
 	)
 
 	draw.SimpleText(
-		"$".. string.Comma(self.m_strAmount),
+		"R$ ".. string.Comma(self.m_strAmount),
 		"ATMDrawFont",
 		(intW /2),
 		(intH /2),
@@ -360,7 +364,7 @@ function Panel:Paint( intW, intH )
 	local w, h = self:GetParent():GetParent().m_pnlBtnContainerLeft:GetSize()
 	--left top btn
 	draw.SimpleText(
-		"<-Back",
+		"<~ [Voltar]",
 		"ATMDrawFont",
 		0,
 		y,
@@ -369,7 +373,7 @@ function Panel:Paint( intW, intH )
 	)
 	--left center btn
 	draw.SimpleText(
-		"<-$100",
+		"<~ [R$ 100]",
 		"ATMDrawFont",
 		0,
 		(y *2 +h) /2,
@@ -379,7 +383,7 @@ function Panel:Paint( intW, intH )
 	)
 	--left bottom btn
 	draw.SimpleText(
-		"<-$500",
+		"<~ [R$ 500]",
 		"ATMDrawFont",
 		0,
 		y +h,
@@ -389,7 +393,7 @@ function Panel:Paint( intW, intH )
 	)
 	--right top btn
 	draw.SimpleText(
-		"$1,000->",
+		"[R$ 1,000] ~>",
 		"ATMDrawFont",
 		intW,
 		y,
@@ -398,7 +402,7 @@ function Panel:Paint( intW, intH )
 	)
 	--right center btn
 	draw.SimpleText(
-		"$5,000->",
+		"[R$ 5,000] ~>",
 		"ATMDrawFont",
 		intW,
 		(y *2 +h) /2,
@@ -408,7 +412,7 @@ function Panel:Paint( intW, intH )
 	)
 	--right bottom btn
 	draw.SimpleText(
-		"$10,000->",
+		"[R$ 10,000] ~>",
 		"ATMDrawFont",
 		intW,
 		y +h,
@@ -438,20 +442,23 @@ function Panel:RightBtnClick( intKey )
 end
 
 function Panel:Paint( intW, intH )
-	surface.SetDrawColor( 29, 0, 255, 255 )
-	surface.DrawRect( 0, 0, intW, intH )
+	surface.SetDrawColor( 255, 255, 255, 255 )
+	surface.SetMaterial( Material("materials/vgui/elements/atmbg.png") )
+	surface.DrawTexturedRect(-40, 0, 560, 480)
+	surface.SetDrawColor(0, 0, 0, 255)
+
 
 	draw.SimpleText(
-		"Account Overview",
-		"ATMDrawFont",
+		" SALDO / EXTRATO",
+		"ATMTitleFont",
 		(intW /2),
-		8,
-		Color(255, 255, 255, 255),
+		0,
+		Color(42, 69, 140, 255),
 		TEXT_ALIGN_CENTER
 	)
 
 	draw.SimpleText(
-		"Current Balance:",
+		"Saldo Atual:",
 		"ATMDrawFont",
 		(intW /2),
 		(intH /2) -16,
@@ -459,7 +466,7 @@ function Panel:Paint( intW, intH )
 		TEXT_ALIGN_CENTER
 	)
 	draw.SimpleText(
-		"$".. string.Comma( GAMEMODE.Player:GetGameVar("money_bank", 0) ),
+		"R$ ".. string.Comma( GAMEMODE.Player:GetGameVar("money_bank", 0) ),
 		"ATMDrawFont",
 		(intW /2),
 		(intH /2) +16,
@@ -471,7 +478,7 @@ function Panel:Paint( intW, intH )
 	local w, h = self:GetParent():GetParent().m_pnlBtnContainerLeft:GetSize()
 	--left top btn
 	draw.SimpleText(
-		"<-Back",
+		"<~ [Voltar]",
 		"ATMDrawFont",
 		0,
 		y,
