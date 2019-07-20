@@ -268,6 +268,11 @@ function GM.Jobs:Tick()
 		else
 			 newpayt = payt
 		end
+		if v:IsAFK() then 
+			v:AddNote("Você não recebeu seu salário (AFK)")
+			print(v:Nick() .. " Não recebeu o salário por estar AFK")
+			return 
+		end
 		if newpayt ~= payt then
 			print( newpayt )
 			print( payt )
@@ -276,7 +281,7 @@ function GM.Jobs:Tick()
 			v:AddNote( "Você recebeu seu salário!" )
 		end
 			v:AddBankMoney( newpayt )
-			v:AddNote( "R$".. string.Comma(newpayt).. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% Importo)" )
+			v:AddNote( "R$".. string.Comma(newpayt).. " Foram adicionados a sua conta do banco " .. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% Imposto)" )
 		-- v:AddNote( "Seu salário chegou no banco!" )
 		-- v:AddNote( "R$".. string.Comma(payt).. " (".. 100 *GAMEMODE.Econ:GetTaxRate("income_".. self:GetPlayerJobID(v)).. "% Importo)" )
 	end
