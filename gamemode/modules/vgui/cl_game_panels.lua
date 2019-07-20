@@ -1516,7 +1516,7 @@ function Panel:Paint( intW, intH )
 	end
 
 	if self.m_strItemID ~= "" then
-		local color = GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity]
+		local color = GAMEMODE.Config.tblItemRarity[self.m_tblItem.Rarity] Color(255,255,255)
 		draw.RoundedBox(4, 0, 0, intW, intH, color )
 	else
 		local color = Color(255,255,255,10)
