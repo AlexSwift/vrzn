@@ -684,6 +684,23 @@ surface.CreateFont( "BSYS::CrateTimer", {
 			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 17, ScrH() - HudMargin - 99, Color(50,50,50), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
 			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 16, ScrH() - HudMargin - 100, COLOR_WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
 			
+			// FOME
+				-- draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, Color(26,26,26))
+			local hungerfraction = (GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0)  / GAMEMODE.Needs.m_tblNeeds["Hunger"].Max ) - 0.66666666666667
+
+			AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255, 50))
+			-- print(  )
+			AwMask(
+				function()
+				-- AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255))
+				draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 5, (ScrH() - HudMargin - 65) + ( ScrH() / (ScrH() - HudMargin - 65 ) * hungerfraction), 40, 40 *hungerfraction, Color(26,26,26))
+				end,
+				function()
+					AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(122, 75, 53))
+				end
+			)
+			
+			
 
 			// HP
 			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, 200, 12, Color(46,46,46))
