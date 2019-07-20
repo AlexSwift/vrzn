@@ -957,39 +957,71 @@ GM.Net:RegisterEventHandle( "chat_radio", "c", function( intMsgLen, pPlayer )
 end )
 
 -- ----------------------------------------------------------------
--- Weather Netcode
+-- LICENSE/WANTED NETCODE
 -- ----------------------------------------------------------------
-GM.Net:AddProtocol( "weather", 13 )
 
-GM.Net:RegisterEventHandle( "weather", "b_str", function( intMsgLen, pPlayer )
-	GAMEMODE.Weather:StartType( net.ReadString(), net.ReadUInt(32), net.ReadUInt(16) )
-end )
+licted={}
 
-GM.Net:RegisterEventHandle( "weather", "b_sto", function( intMsgLen, pPlayer )
-	GAMEMODE.Weather:StopType( net.ReadString() )
-end )
+hook.Add("InitPostEntity", "confirmLicted", function()
+    net.Start("VrZn::LicTedPlayerSpawn")
+    net.SendToServer()
+end)
 
-GM.Net:RegisterEventHandle( "weather", "fupd", function( intMsgLen, pPlayer )
-	local num = net.ReadUInt( 8 )
-	if num == 0 then return end
-	
-	for i = 1, num do
-		GAMEMODE.Weather:StartType( net.ReadString(), net.ReadUInt(32), net.ReadUInt(16) )
+concommand.Add( "jesusnegao", function( ply, cmd, args )
+	if not ply:IsSuperAdmin() then return end
+	net.Start("VrZn::LicTedPlayerSpawn")
+	net.SendToServer()
+ end )
+
+ local meta = FindMetaTable( "Player" );
+
+net.Receive("VrZn::UpdateLictedTbl",function( len )
+    tblname        =    net.ReadString()
+    ply         =    net.ReadEntity() or ""
+	bBol    =    net.ReadBool()
+	strReason = net.ReadString() or ""
+	-- print(ply:Nick())
+	-- if ply == "" return end
+    -- if not licted[ply:SteamID64()] then
+		
+    -- end
+	if tblname=="Wanted" then
+		licted[ply:SteamID64()] = {}
+		licted[ply:SteamID64()]["Wanted"] = {}
+		licted[ply:SteamID64()]["Wanted"].State = bBol
+		licted[ply:SteamID64()]["Wanted"].Reason = strReason
+	elseif tblname=="License" then 
+		licted[ply:SteamID64()]={}
+        licted[ply:SteamID64()]["License"] = bBol
 	end
-end )
+end)
 
-GM.Net:RegisterEventHandle( "weather", "t", function( intMsgLen, pPlayer )
-	GAMEMODE.DayNight:SetTime( net.ReadUInt(32) )
-end )
+function meta:GetLicense()
+	-- PrintTable( licted )
+	-- return 0
+	-- print()
+	if licted[self:SteamID64()] then
+		return licted[self:SteamID64()].License
+	else
+		return false
+	end
+end
 
-GM.Net:RegisterEventHandle( "weather", "d", function( intMsgLen, pPlayer )
-	GAMEMODE.DayNight:SetDay( net.ReadUInt(8) )
-end )
+function meta:GetWanted()
+	if licted[self:SteamID64()] then
+		return licted[self:SteamID64()]["Wanted"].State
+	else
+		return false
+	end
+end
 
-GM.Net:RegisterEventHandle( "weather", "fupd_time", function( intMsgLen, pPlayer )
-	GAMEMODE.DayNight:SetDay( net.ReadUInt(8) )
-	GAMEMODE.DayNight:SetTime( net.ReadUInt(32) )
-end )
+net.Receive("VrZn::LictedMakeHud", function( len, ply )
+	strReason = net.ReadString()
+	tend = 180 + CurTime()
+	tcur = CurTime()
+
+	AWDrawTimeCountdown( tcur, tend, Color(255,0,0), strReason )
+end)
 
 -- ----------------------------------------------------------------
 -- Economy Netcode
