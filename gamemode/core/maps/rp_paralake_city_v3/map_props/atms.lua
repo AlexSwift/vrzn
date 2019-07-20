@@ -9,19 +9,15 @@ MapProp.ID = "atms"
 MapProp.m_tblSpawn = {}
 MapProp.m_tblAtms = {
 	--not already in the map
-	{ pos = Vector(-11247.223633, 10560.978516, 64.547211), ang = Angle(0, -180, 0) }, --gas station 1
-	{ pos = Vector(-6707.320801, 895.032715, 292.359436), ang = Angle(0, 90, 0) }, --gas station 2
-	{ pos = Vector(-8570.160156, -7071.170410, 292.548340), ang = Angle(0, -90, 0) }, --gas station 3
+	{ pos = Vector(-3085.9670410156, -2169.42578125, -158.76905822754), ang = Angle(0, 90, 0) }, --banco 1
+	{ pos = Vector(-3083.4348144531, -1168.6611328125, -158.74320983887), ang = Angle(0, -90, 0) }, --banco 2
+	
+	{ pos = Vector(1926.8018798828, 958.48559570313, -158.72264099121), ang = Angle(0, 90, 0) }, -- spawn
 
-	{ pos = Vector(-4991.748535, 4383.073242, 288.273590), ang = Angle(0, 90, 0) }, --bank 1
-	{ pos = Vector(-5089.097168, 4383.164551, 288.308563), ang = Angle(0, 90, 0) }, --bank 2
-	{ pos = Vector(-5177.820313, 4383.110840, 288.428131), ang = Angle(0, 90, 0) }, --bank 3
+	{ pos = Vector(-2029.4252929688, -658.63043212891, -159.76434326172), ang = Angle(0, 0, 0) }, -- McDonalds
 
-	{ pos = Vector(-11227.102539, 5691.736816, 192.397003), ang = Angle(0, 180, 0) }, --restaurant 1
-	{ pos = Vector(-11733.568359, -13839.225586, 288.525055), ang = Angle(0, -90, 0) }, --restaurant 2
-	{ pos = Vector(3871.145264, 9537.702148, 80.440491), ang = Angle(0, 0, 0) }, --restaurant 3
+	{ pos = Vector(-4625.5180664063, -7231.14453125, -159.72248840332), ang = Angle(0, -180, 0) }, --cassino
 
-	{ pos = Vector(-8735.236328, -10966.860352, 464.549896), ang = Angle(0, -180, 0) }, --car dealer
 }
 
 function MapProp:CustomSpawn()
