@@ -117,8 +117,11 @@ function GM.Skills:OnPlayerLevelUp( pPlayer, strSkill, intOldLevel, intNewLevel 
 			saveTable.Skills[strSkill] = maxXP
 		end
 	end
-
-	pPlayer:AddNote( "You leveled up your ".. strSkill.. " skill!" )
+	if strSkill ~= "1 Nível do Personagem" then
+		pPlayer:AddNote( "Você subiu de nível em ".. strSkill )
+	else
+		pPlayer:AddNote( "Seu personagem subiu de nível" )
+	end
 	hook.Call( "GamemodePlayerLevelUpSkill", GAMEMODE, pPlayer, strSkill, intOldLevel, intNewLevel )
 end
 
