@@ -33,8 +33,6 @@ awcache.UI.Materials = {
 	refresh = Material("error"),
 	loading = Material("error")
 }
-file.CreateDir("awavatar")
-file.CreateDir("awcache")
 function awcache.ImageLoader.GetMaterial(id, callback)
 	--First check if the ID is cached
 	if awcache.ImageLoader.CachedMaterials[id] ~= nil then
