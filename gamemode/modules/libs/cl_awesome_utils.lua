@@ -132,7 +132,17 @@ end
 ---@ Author: Nodge
 ---@ Função de tempo removida da lib MRP
 -----------------------------
-function AWDrawTimeCountdown( Initial, Final, Colour)
+function LerpColor(t, c1, c2)
+	local c3 = Color(0, 0, 0)
+	c3.r = Lerp(t, c1.r, c2.r)
+	c3.g = Lerp(t, c1.g, c2.g)
+	c3.b = Lerp(t, c1.b, c2.b)
+	c3.a = Lerp(t, c1.a, c2.a)
+
+	return c3
+end
+
+function AWDrawTimeCountdown( Initial, Final, Colour, str)
 	hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
 		local start, finish = Initial, Final
 		local curTime = CurTime()
@@ -144,7 +154,7 @@ function AWDrawTimeCountdown( Initial, Final, Colour)
 			
 			if alpha > 0 then
 				running = true
-				local w, h = scrW * 0.35, 28
+				local w, h = scrW * 0.25, 28
 				local x, y = (scrW * 0.5) - (w * 0.5), (scrH * 0.725) - (h * 0.5)
 				
 				surface.SetDrawColor(35, 35, 35, 255)
@@ -157,13 +167,13 @@ function AWDrawTimeCountdown( Initial, Final, Colour)
 				
 				surface.SetDrawColor( 0, 0, 0, 255 )
 				-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-				draw.RoundedBox(8, x+4, y+4,  (w * fraction) - 8, h - 8, Color( 26,26,26,255 ) )
+				draw.RoundedBox(8, x+4, y+4,  (w * fraction), h - 8, Color( 26,26,26,255 ) )
 				
 				-- surface.SetDrawColor( Color.r, Color.g, Color.b, Color.a )
 				-- surface.DrawRect(x + 4, y + 4, (w * fraction) - 8, h - 8)
-				draw.RoundedBox(8, x + 4,y  + 4,  (w * fraction) - 8, h - 8, Colour)
+				draw.RoundedBox(8, x + 4,y  + 4,  (w * fraction), h - 8, LerpColor(fraction, Color(121, 252, 161), Colour ))
 				
-				surface.SetFont("MRP_ActionText")
+				surface.SetFont("HUD::0.2vw")
 				local boxX, boxY = scrW / 2, scrH * 0.1
 				
 				
@@ -176,61 +186,6 @@ function AWDrawTimeCountdown( Initial, Final, Colour)
 			end
 		end
 	end)
-end
-
------------------------------
----@ Awesome Derma/Client LIB
----@ Author: Nodge
----@ Desenha um arco vazado, baseado na hud do DayZ
------------------------------
-
-function drawArc( x, y, radius, thickness, start, endp )
-	local outcir = {}
-	local incir = {}
-	
-	local start = math.floor(start)
-	local endp = math.floor(endp)
-	
-	
-	if (start>endp) then
-		local swap = endp
-		endp = start
-		start = swap
-	end
-	
-	local inr = radius - thickness
-	for i = start, endp do
-		local a = math.rad(i)
-		table.insert(incir, {x = x+(math.cos(a))*inr, y = y+(-math.sin(a))*inr})
-	end
-	
-	for i = start, endp do
-		local a = math.rad(i)
-		table.insert(outcir, {x = x+(math.cos(a))*radius, y = y+(-math.sin(a))*radius})
-	end
-	
-	local comcir = {}
-	for i=0,#incir*2 do
-		local p,q,r
-		p = outcir[math.floor(i/2)+1]
-		r = incir[math.floor((i+1)/2)+1]
-		if (i%2) == 0 then
-			q = outcir[math.floor((i+1)/2)]
-		else
-			q = incir[math.floor((i+1)/2)]
-		end
-		table.insert(comcir, {p,q,r})
-	end
-	
-	for k,v in ipairs(comcir) do
-		surface.DrawPoly(v)
-	end
-	
-end
-
-function ToNumber(arg, arg2, max)
-	finished = arg/max*arg2
-	return finished
 end
 
 function AwCircle(x, y, r, col)
@@ -246,3 +201,11 @@ function AwCircle(x, y, r, col)
     draw.NoTexture()
     surface.DrawPoly(circle)
 end
+
+function testartimer()
+	initil = CurTime()
+	final = CurTime()+60
+	AWDrawTimeCountdown( initil, final, Color(255,0,0))
+end
+
+concommand.Add("testetimer", testartimer)
