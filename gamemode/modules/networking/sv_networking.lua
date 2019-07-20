@@ -1204,54 +1204,129 @@ function GM.Net:SendPlayerChatRadioChannel( pPlayer, intChan )
 end
 
 -- ----------------------------------------------------------------
--- Weather Netcode
+-- WANRED/LICENSE Netcode
 -- ----------------------------------------------------------------
-GM.Net:AddProtocol( "weather", 13 )
+util.AddNetworkString( "VrZn::UpdateLictedTbl" )
+util.AddNetworkString( "VrZn::LictedMakeHud" )
+util.AddNetworkString( "VrZn::LicTedPlayerSpawn" )
 
-function GM.Net:BroadcastWeatherStart( strTypeID )
-	self:NewEvent( "weather", "b_str" )
-		net.WriteString( strTypeID )
-		net.WriteUInt( GAMEMODE.Weather:GetActiveTypeData(strTypeID).Start, 32 )
-		net.WriteUInt( GAMEMODE.Weather:GetActiveTypeData(strTypeID).RunTime, 16 )
-	self:BroadcastEvent()
+local licted={}
+
+local meta = FindMetaTable( "Player" )
+
+function meta:sendplayerpolicecheck( tblname, bBool, strReason )
+	-- print("<POLICE CHECK>")
+	-- print( tblName )
+	-- print( bBool )
+	-- print( strReason )
+	-- print("</PoliceCheck>")
+	net.Start("VrZn::UpdateLictedTbl")
+	net.WriteString(tblname)
+	net.WriteEntity(self)
+	net.WriteBool(bBool)
+	net.WriteString(strReason or "")
+	net.Broadcast()
+	if bBool == true then
+		net.Start("VrZn::LictedMakeHud")
+		net.WriteString( strReason or "")
+		net.Send(self)
+	end
 end
 
-function GM.Net:BroadcastWeatherStop( strTypeID )
-	self:NewEvent( "weather", "b_sto" )
-		net.WriteString( strTypeID )
-	self:BroadcastEvent()
+function meta:SetLicense(bBool)
+	licted[self:SteamID64()]["License"] = bBool
+	self:sendplayerpolicecheck("License",bBool)
 end
 
-function GM.Net:SendClientWeatherUpdate( pPlayer )
-	self:NewEvent( "weather", "fupd" )
-		net.WriteUInt( table.Count(GAMEMODE.Weather.m_tblActiveTypes), 8 )
-		for k, v in pairs( GAMEMODE.Weather.m_tblActiveTypes ) do
-			net.WriteString( k )
-			net.WriteUInt( v.Start, 32 )
-			net.WriteUInt( v.RunTime, 16 )			
+function meta:SetWanted(bBool, strReason)
+
+	if not IsValid(licted) then
+		print("licted not valid")
+		licted = {}
+		licted[self:SteamID64()] = {}
+	end
+		licted[self:SteamID64()]["Wanted"] = {}
+		licted[self:SteamID64()]["Wanted"].State = bBool
+		licted[self:SteamID64()]["Wanted"].Reason = strReason or ""
+		self:sendplayerpolicecheck("Wanted",bBool, strReason or "")
+end
+
+local function spawn( len, pPlayer )
+	licted[pPlayer:SteamID64()] = {}
+	pPlayer:SetLicense(false)
+	pPlayer:SetWanted(false)
+
+end
+
+function meta:MakePlayerWanted(time, strReason)
+
+	print("<MAKE PLAYER WANTED>")
+	print( time )
+	-- print( bBool )
+	print( strReason )
+	print("</MakePlayerWanted>")
+
+	self:SetWanted( true, strReason )
+	self:AddNote("Você está sendo procurado pela polícia!")
+	self:AddNote("Motivo: " .. strReason)
+	
+
+    timer.Create( "vrzn::RemoveWanted"..tostring(self:SteamID64()), time, 1, function()
+		self:SetWanted( false )
+		self:AddNote("Você não está mais procurado!")
+		spawn( "", self )
+    end )
+
+end
+
+concommand.Add( "jesuscristoladrao", function( ply, cmd, args )
+	PrintTable(licted)
+end )
+
+net.Receive("VrZn::LicTedPlayerSpawn",spawn)
+
+
+
+function ChatMakeWanted( ply, text )
+//// Do /commands privatly, !commands publicly //
+	local _cmd = "wanted";
+	local _bSlash = string.StartWith( text, "/" .. _cmd )
+	local _bExclaim = string.StartWith( text, "!" .. _cmd )
+	local _argstbl = string.Explode( " ", text )
+
+	if ( _bSlash || _bExclaim ) then
+		// Heres where you can call your data.
+		local _arg = _argstbl[2];
+
+		local _match = NULL;
+		for k, v in pairs( player.GetAll( ) ) do
+			local _find = string.find( string.lower( v:Nick( ) ), string.lower( _arg ) );
+			if ( !_find ) then
+				continue;
+			else
+				_match = v;
+				break;
+			end
 		end
-	self:FireEvent( pPlayer )
-end
 
-function GM.Net:BroadcastTimeUpdate()
-	self:NewEvent( "weather", "t" )
-		net.WriteUInt( GAMEMODE.DayNight:GetTime(), 32 )
-	self:BroadcastEvent()
-end
+		if !( _match ) then return end
 
-function GM.Net:BroadcastDayUpdate()
-	self:NewEvent( "weather", "d" )
-		net.WriteUInt( GAMEMODE.DayNight:GetDay(), 8 )
-	self:BroadcastEvent()
-end
+		local _reason = table.concat( _argstbl," ", 3, #_argstbl )
+		
+		print( _match:Nick() )
+		print( _reason )
 
-function GM.Net:SendTimeFullUpdate( pPlayer )
-	self:NewEvent( "weather", "fupd_time" )
-		net.WriteUInt( GAMEMODE.DayNight:GetDay(), 8 )
-		net.WriteUInt( GAMEMODE.DayNight:GetTime(), 32 )
-	self:FireEvent( pPlayer )
-end
+		-- _match:MakePlayerWanted( 300, _reason )
+		_match:MakePlayerWanted( 180, _reason )
+		_match:ConCommand( "vrzn_wanted" .. _match:Nick() .. " " .. _reason )
 
+
+		if ( !_bExclaim ) then
+			return"";
+		end
+	end
+end
+hook.Add("PlayerSay", "vrzn.ChatCommands", ChatMakeWanted )
 -- ----------------------------------------------------------------
 -- Economy Netcode
 -- ----------------------------------------------------------------
