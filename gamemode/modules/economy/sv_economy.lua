@@ -19,7 +19,7 @@ hook.Add( "GamemodePlayerSelectCharacter", "NetworkEconData", function( pPlayer 
 		if not IsValid( pPlayer ) then return end
 		for k, v in pairs( GAMEMODE.Econ.m_tblBills ) do
 			if GAMEMODE.Econ:PlayerHasUnpaidBillsOfType( pPlayer, k ) then
-				pPlayer:AddNote( "You currently have unpaid bills! Be sure to pay for them at the bank.", NOTIFY_ERROR, 20 )
+				pPlayer:AddNote( "Você tem contas a pagar! Visite o banco.", NOTIFY_ERROR, 20 )
 				break
 			end
 		end
@@ -105,7 +105,7 @@ function GM.Econ:LoadAutoBills()
 			bill = true
 		end
 
-		if bill then pPlayer:AddNote( "You have new car insurance bills waiting at the bank." ) end
+		if bill then pPlayer:AddNote( "Você precisa pagar seu IPVA no banco." ) end
 	end )
 
 	self:RegisterAutoBill( "bill_property", GM.Config.PropertyTaxInterval, function( pPlayer )
@@ -117,8 +117,8 @@ function GM.Econ:LoadAutoBills()
 			local billCost = GAMEMODE.Econ:ApplyTaxToSum( "prop_".. data.Cat, data.Price *GAMEMODE.Config.PropertyTaxScale )
 			self:IssuePlayerBill(
 				pPlayer,
-				"property",
-				"Property Tax: ".. data.Name,
+				"Propriedade",
+				"Taxa: ".. data.Name,
 				billCost,
 				0,
 				{ Shared = {PropertyID = v} }
@@ -126,7 +126,7 @@ function GM.Econ:LoadAutoBills()
 			bill = true
 		end
 
-		if bill then pPlayer:AddNote( "You have new property bills waiting at the bank." ) end
+		if bill then pPlayer:AddNote( "Pague a taxa de aluguel no banco." ) end
 	end )
 end
 
@@ -162,7 +162,7 @@ function GM.Econ:PlayerPayBill( pPlayer, intBillIDX )
 	if not typeData then return false end
 	
 	if not pPlayer:CanAfford( billData.Cost ) then
-		pPlayer:AddNote( "You cannot afford to pay that bill!" )
+		pPlayer:AddNote( "Você não pode pagar essa conta!" )
 		return false
 	end
 
@@ -171,7 +171,7 @@ function GM.Econ:PlayerPayBill( pPlayer, intBillIDX )
 	table.remove( saveTable.Bills, intBillIDX )
 	GAMEMODE.SQL:MarkDiffDirty( pPlayer, "data_store", "Bills" )
 	GAMEMODE.Net:SendPlayerBills( pPlayer )
-	pPlayer:AddNote( "You paid off a bill for $".. string.Comma(billData.Cost).. "!" )
+	pPlayer:AddNote( "Você pagou uma conta de R$".. string.Comma(billData.Cost).. "!" )
 	return true
 end
 
@@ -186,7 +186,7 @@ function GM.Econ:PlayerPayAllBills( pPlayer )
 	if total <= 0 then return end
 
 	if not pPlayer:CanAfford( total ) then
-		pPlayer:AddNote( "You cannot afford to pay all of your bills!" )
+		pPlayer:AddNote( "Você não consegue pagar por isso!" )
 		return false
 	end
 
@@ -199,7 +199,7 @@ function GM.Econ:PlayerPayAllBills( pPlayer )
 	saveTable.Bills = {}
 	GAMEMODE.SQL:MarkDiffDirty( pPlayer, "data_store", "Bills" )
 	GAMEMODE.Net:SendPlayerBills( pPlayer )
-	pPlayer:AddNote( "You paid all of your bills for $".. string.Comma(total).. "!" )
+	pPlayer:AddNote( "Você pagou tudo por R$".. string.Comma(total).. "!" )
 	return true
 end
 
@@ -273,8 +273,8 @@ end
 
 hook.Add( "GamemodeCanPlayerBuyProperty", "Bills_UnpiadBlockPurchase", function( pPlayer, strPropName )
 	if GAMEMODE.Econ:PlayerHasUnpaidBillsOfType( pPlayer, "property" ) then
-		pPlayer:AddNote( "You currently have unpaid property taxes!" )
-		pPlayer:AddNote( "You must pay your bills before you can purchase a new property." )
+		pPlayer:AddNote( "Você tem contas a pagar no banco!" )
+		pPlayer:AddNote( "Você precisa pagar suas contas no banco antes de fazer isso." )
 		return false
 	end
 end )

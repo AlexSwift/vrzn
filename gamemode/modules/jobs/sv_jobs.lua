@@ -260,11 +260,11 @@ function GM.Jobs:Tick()
 		if v:CheckGroup( "topázio" ) then
 			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
 		elseif v:CheckGroup( "safira" ) then
-			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["safira"]) / 100 )
 		elseif v:CheckGroup( "ametista" ) then
-			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["ametista"]) / 100 )
 		elseif v:CheckGroup( "ruby" ) then
-			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["topázio"]) / 100 )
+			 newpayt = payt + ( (payt * GAMEMODE.Config.PaymentIncrease["ruby"]) / 100 )
 		else
 			 newpayt = payt
 		end
@@ -276,7 +276,7 @@ function GM.Jobs:Tick()
 		if newpayt ~= payt then
 			print( newpayt )
 			print( payt )
-			v:AddNote( "Você recebeu seu pagamento (+VIP)!" )
+			v:AddNote( "Você recebeu seu salário (+VIP)!" )
 		else
 			v:AddNote( "Você recebeu seu salário!" )
 		end

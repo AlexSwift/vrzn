@@ -8,7 +8,7 @@ GM.Needs = (GAMEMODE or GM).Needs or {}
 GM.Needs.m_tblNeeds = (GAMEMODE or GM).Needs.m_tblNeeds or {}
 
 function GM.Needs:Initialize()
-	self:RegisterNeed( "Hunger", "Você morreu de fome!", "Você está morrendo de fome!", 500, 2, 1, 50 )
+	self:RegisterNeed( "Hunger", "Você morreu de fome!", "Você está morrendo de fome!", 100, 2, 1, 50 )
 end
 
 function GM.Needs:RegisterNeed( strNeedID, strDeathMessage, strNeedMessage, intMaxAmount, intDecayScale, intDamageAmount, vaDecayInterval )
