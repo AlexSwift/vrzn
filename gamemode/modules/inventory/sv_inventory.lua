@@ -807,8 +807,11 @@ function GM.Inv:PlayerDropMoney( pPlayer, intAmount, bOwnerless )
 	
 	if not pPlayer:CanAfford( intAmount ) then
 		intAmount = pPlayer:GetMoney()
+		pPlayer:AddNote("Tudo que você tem: R$" ..  intAmount)
 	end
-	if intAmount <= 0 then return false end
+	if intAmount <= 0 then 
+		pPlayer:AddNote("Você não tem dinheiro")
+	return false end
 	pPlayer:TakeMoney( intAmount )
 	
 	local ent = ents.Create( "ent_money" )
@@ -831,7 +834,7 @@ function ChatDropMoney( ply, text )
         if ( _bSlash || _bExclaim ) then
             // Heres where you can call your data.
             local _arg = _argstbl[2];
-            ply:ChatPrint("Você dropou: " .. _arg)
+            -- ply:ChatPrint("Você dropou: " .. _arg)
 			local money = tonumber(_arg, 10)
 			if money == nil then ply:AddNote("Especifique um valor") return end
 			if money > 9999999 then ply:AddNote("Vá com calma") return end

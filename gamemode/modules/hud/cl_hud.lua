@@ -686,20 +686,26 @@ surface.CreateFont( "BSYS::CrateTimer", {
 			
 			// FOME
 				-- draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, Color(26,26,26))
-			local hungerfraction = (GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0)  / GAMEMODE.Needs.m_tblNeeds["Hunger"].Max ) - 0.66666666666667
+			local hungerfraction = 1 - (GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0)  / GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
 
 			AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255, 50))
-			-- print(  )
-			AwMask(
-				function()
-				-- AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255))
-				draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 5, (ScrH() - HudMargin - 65) + ( ScrH() / (ScrH() - HudMargin - 65 ) * hungerfraction), 40, 40 *hungerfraction, Color(26,26,26))
+			-- print( "Fraction: " .. hungerfraction )
+			-- print( "Hunger: " .. GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0) )
+			-- print( "Max Hunger: " .. GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
+			
+			
+				AwMask(
+					function()
+					AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255))
 				end,
 				function()
-					AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(122, 75, 53))
+					-- AwCircle( HudMargin + 316 + 25, ScrH() - HudMargin - 45 , 20, Color(122, 75, 53))
+					draw.RoundedBox(0, HudMargin + 316 + 5, (ScrH() - HudMargin - 65) + (42* hungerfraction), 40, 41, Color(122, 75, 53))
 				end
 			)
-			
+			surface.SetDrawColor(255, 255, 255, 255)
+			surface.SetMaterial(awcache.UI.Materials.hunger)
+			surface.DrawTexturedRect(HudMargin + 322, (ScrH() - HudMargin - 59), 32, 32)
 			
 
 			// HP
@@ -716,7 +722,7 @@ surface.CreateFont( "BSYS::CrateTimer", {
 			
 			// Monetary
 			surface.SetFont("BankHudLabel")
-			local bw, bh = surface.GetTextSize(Bank)
+			local bw, bh = surface.GetTextSize( Money )
 			draw.SimpleText(Money, "MoneyHudLabel", HudMargin + 100 + 16, ScrH() - bh - HudMargin + 5, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 			draw.SimpleText(" - ".. salary1 .. "/hr", "MoneyHudLabel", HudMargin + 100 + bw, ScrH() - bh - HudMargin + 5, Color(0,255,78, 100), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 			-- draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
