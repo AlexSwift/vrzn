@@ -49,7 +49,7 @@ Job.Pay = {
 	{ PlayTime = 12 *(60 *60), Pay = 170 },
 	{ PlayTime = 24 *(60 *60), Pay = 250 },
 }
-Job.PlayerCap =  { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
+Job.PlayerCap =  { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.HasChatRadio = true
 Job.DefaultChatRadioChannel = 1
 Job.ChannelKeys = {

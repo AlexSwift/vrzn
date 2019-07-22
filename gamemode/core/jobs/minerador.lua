@@ -16,6 +16,7 @@ Job.Pay = {
 	{ PlayTime = 0, Pay = 25 },
 	{ PlayTime = 0, Pay = 30 },
 }
+Job.PlayerCap = { Min = 4, MinStart = 4, Max = 4, MaxEnd = 4 }
 
 function Job:OnPlayerJoinJob( pPlayer )
 end

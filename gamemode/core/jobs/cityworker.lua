@@ -18,7 +18,7 @@ Job.Pay = {
 	{ PlayTime = 12 *(60 *60), Pay = 275 },
 	{ PlayTime = 24 *(60 *60), Pay = 365 },
 }
-Job.PlayerCap = GM.Config.Job_Roadworker_PlayerCap or { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
+Job.PlayerCap = GM.Config.Job_Roadworker_PlayerCap or { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.ParkingLotPos = GM.Config.TowParkingZone
 Job.TruckSpawns = GM.Config.TowCarSpawns
 Job.CarID = "c5500tdm"

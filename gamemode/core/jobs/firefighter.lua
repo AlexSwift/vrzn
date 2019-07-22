@@ -16,6 +16,7 @@ Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Bombeiro"
 Job.Cat = "law"
 Job.WhitelistName = "bombeiro"
+Job.PlayerCap = { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.PlayerModel = {
 	Male_Fallback = "models/player/portal/male_01_fireman.mdl",
 	Female_Fallback = "models/player/portal/male_07_fireman.mdl",

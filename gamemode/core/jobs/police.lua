@@ -43,7 +43,7 @@ Job.Pay = {
 	{ PlayTime = 12 *(60 *60), Pay = 800 },
 	{ PlayTime = 24 *(60 *60), Pay = 1000 },
 }
-Job.PlayerCap = GM.Config.Job_Police_PlayerCap or { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
+Job.PlayerCap = GM.Config.Job_Police_PlayerCap or { Min = 8, MinStart = 8, Max = 8, MaxEnd = 8 }
 Job.HasChatRadio = false
 Job.DefaultChatRadioChannel = 1
 Job.ChannelKeys = {

@@ -22,6 +22,7 @@ Job.PlayerCap = GM.Config.Job_Garbage_PlayerCap or { Min = 2, MinStart = 8, Max 
 Job.ParkingLotPos = GM.Config.TowParkingZone
 Job.TruckSpawns = GM.Config.TowCarSpawns
 Job.CarID = "JOB_CITYWORKER"
+Job.PlayerCap = { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 
 function Job:OnPlayerJoinJob( pPlayer )
 end

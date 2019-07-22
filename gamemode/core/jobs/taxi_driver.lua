@@ -19,7 +19,7 @@ Job.Pay = {
 	{ PlayTime = 12 *(60 *60), Pay = 74 },
 	{ PlayTime = 24 *(60 *60), Pay = 95 },
 }
-Job.PlayerCap = GM.Config.Job_Taxi_PlayerCap or { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
+Job.PlayerCap = GM.Config.Job_Taxi_PlayerCap or { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.HasChatRadio = true
 Job.DefaultChatRadioChannel = 8
 Job.ChannelKeys = {}

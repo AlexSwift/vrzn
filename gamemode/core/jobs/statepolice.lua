@@ -14,7 +14,7 @@ Job.ID = 55
 Job.Enum = "JOB_STATE_POLICE"
 Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
-Job.Name = "Polícia Estadual"
+Job.Name = "Polícia Federal"
 Job.Cat = "law"
 Job.WhitelistName = "statepolice"
 Job.PlayerModel = {
@@ -49,7 +49,7 @@ Job.Pay = {
 	{ PlayTime = 12 *(60 *60), Pay = 170 },
 	{ PlayTime = 24 *(60 *60), Pay = 250 },
 }
-Job.PlayerCap = GM.Config.Job_Police_PlayerCap or { Min = 2, MinStart = 8, Max = 6, MaxEnd = 60 }
+Job.PlayerCap = GM.Config.Job_Police_PlayerCap or { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.HasChatRadio = false
 Job.DefaultChatRadioChannel = 1
 Job.ChannelKeys = {

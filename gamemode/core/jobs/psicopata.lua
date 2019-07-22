@@ -9,6 +9,7 @@ Job.ID = 16
 Job.Enum = "JOB_PSICOPATA"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Psicopata"
+Job.PlayerCap = { Min = 1, MinStart = 1, Max = 1, MaxEnd = 1 }
 Job.Cat = "bad"
 Job.Vip = true
 Job.Pay = {

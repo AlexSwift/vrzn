@@ -10,6 +10,7 @@ Job.Enum = "JOB_HOBO"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Mendigo"
 Job.Cat = "citizen"
+Job.PlayerCap = { Min = 4, MinStart = 4, Max = 4, MaxEnd = 4 }
 Job.PlayerModel = {
     Male_Fallback = "models/player/corpse1.mdl",
     Female_Fallback = "models/player/skeleton.mdl",

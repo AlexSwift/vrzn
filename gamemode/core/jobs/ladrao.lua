@@ -10,6 +10,7 @@ Job.Enum = "JOB_ASSALTANTE"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Ladrão"
 Job.Cat = "bad"
+Job.PlayerCap = { Min = 5, MinStart = 5, Max = 5, MaxEnd = 5 }
 Job.Pay = {
 	{ PlayTime = 0, Pay = 0 },
 	{ PlayTime = 0, Pay = 0 },
