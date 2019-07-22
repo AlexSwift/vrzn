@@ -124,3 +124,15 @@ awcache.ImageLoader.GetMaterial("zCx6wL5", function(mat)
 	awcache.UI.Materials.gunlicense = mat
 end)
 
+awcache.ImageLoader.GetMaterial("e3th6SA", function(mat)
+	awcache.UI.Materials.hunger = mat
+end)
+
+awcache.ImageLoader.GetMaterial("7NQfBmo", function(mat)
+	awcache.UI.Materials.printerbatterycircle = mat
+end)
+
+awcache.ImageLoader.GetMaterial("f8M8fIF", function(mat)
+	awcache.UI.Materials.printerbattery = mat
+end)
+
