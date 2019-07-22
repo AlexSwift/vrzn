@@ -30,16 +30,16 @@ end
 ]]--
 
 local Item = {}
-Item.Name = "Radio civ estacionaria"
-Item.Desc = "Use isso em sua loja para se comunicar com seus amigos ou para tocar musica"
+Item.Name = "VRZN Printer"
+Item.Desc = "Cuidado, essa coisa explode"
 Item.Type = "type_electronics"
-Item.Model = "models/gspeak/militaryradio.mdl"
+Item.Model = "models/eliteroleplay/moneyprinter/moneyprinter.mdl"
 Item.Weight = 1
 Item.Volume = 2
 Item.HealthOverride = 3000
 Item.CanDrop = true
-Item.LimitID = "stational radiociv"
-Item.DropClass = "radio_ent_civ"
+Item.LimitID = "adv_moneyprinter"
+Item.DropClass = "adv_moneyprinter"
 GM.Inv:RegisterItem( Item )
 GM.Inv:RegisterItemLimit( Item.LimitID, 1, { ["vip"] = 1 } )
 
