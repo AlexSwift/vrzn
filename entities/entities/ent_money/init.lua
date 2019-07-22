@@ -52,6 +52,6 @@ end
 
 function ENT:Use( pPlayer )
 	pPlayer:AddMoney( self:GetMoney() )
-	pPlayer:AddNote( "You picked up $".. string.Comma(self:GetMoney()) ) 
+	pPlayer:AddNote( "Você pegou R$".. string.Comma(self:GetMoney()) ) 
 	self:Remove()
 end
