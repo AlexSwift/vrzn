@@ -337,3 +337,5 @@ hook.Add( "GamemodeOnPlayerReady", "SendPropertyFullUpdate", function( pPlayer )
 		GAMEMODE.Net:SendFullPropertyUpdate( pPlayer )
 	end )
 end )
+
+

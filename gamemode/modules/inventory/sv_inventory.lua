@@ -799,6 +799,26 @@ function GM.Inv:PlayerCraftItem( pPlayer, strItemID )
 end
 
 --[[ Money Drops ]]--
+function GM.Inv:PlayerGiveTargetMoney( pPlayer, intAmount, pTarget )
+
+	if not pPlayer:GetCharacterID() then return false end
+	if pPlayer:InVehicle() then return false end
+	
+	if not pPlayer:CanAfford( intAmount ) then
+		pPlayer:AddNote("Você não possui essa quantidade " ..  intAmount)
+		return false
+	end
+	if intAmount <= 0 then 
+		pPlayer:AddNote("Você não tem dinheiro")
+		return false 
+	end
+	
+	pPlayer:TakeMoney( intAmount )
+	pPlayer:AddNote("Você deu R$" .. string.Comma(intAmount) .. " Para: " ..  pTarget:Nick() )
+	pTarget:AddMoney( intAmount )
+	pTarget:AddNote("Você recebeu R$" .. string.Comma(intAmount) .. " De: " ..  pPlayer:Nick())
+end
+
 function GM.Inv:PlayerDropMoney( pPlayer, intAmount, bOwnerless )
 	if not pPlayer:GetCharacterID() then return false end
 	if pPlayer:IsIncapacitated() then return false end
@@ -824,6 +844,10 @@ function GM.Inv:PlayerDropMoney( pPlayer, intAmount, bOwnerless )
 	
 	if not bOwnerless then ent:SetPlayerOwner( pPlayer ) end	
 end
+
+
+
+
 function ChatDropMoney( ply, text )
 	
         local _cmd = "dropmoney";
