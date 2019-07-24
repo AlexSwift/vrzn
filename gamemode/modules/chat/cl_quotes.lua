@@ -8,4 +8,5 @@ chatQuotes = {
 	"Papai noel não existe",
 	"Vrzn é o melhor servidor de DarkRP!",
 	"O Nodge é pica",
+	"Comi o cu de quem tá lendo"
 }
