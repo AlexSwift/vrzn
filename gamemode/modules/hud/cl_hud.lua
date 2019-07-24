@@ -381,22 +381,6 @@ function GM.HUD:DrawChopShopOverlay()
 )
 end
 
-local PANEL = {}
-PANEL.Done = false
-PANEL.maskSize = 16 --Defult for 32
-
-function PANEL:Init()
-	self.Avatar = vgui.Create("AvatarImage", self)
-	self.Avatar:SetPaintedManually(true)
-end
-
-function PANEL:PerformLayout()
-	self.Avatar:SetSize(self:GetWide(), self:GetTall())
-end
-
-function PANEL:SetMaskSize(size)
-	self.maskSize = size
-end
 
 local vw = ScrW() / 10
 local pah = ScrH() * 6.666666666666667 / 100
@@ -409,177 +393,60 @@ surface.CreateFont( "HUD::0.1vw", {	font = "Montserrat Regular", size = vw * 0.1
 surface.CreateFont( "HUD::0.2vw", {	font = "Montserrat Regular", size = vw * 0.2,	weight = 500, antialias = true } )
 surface.CreateFont( "HUD::0.3vw", {	font = "Montserrat Regular", size = vw * 0.3,	weight = 500, antialias = true } )
 
+
+
+
 surface.CreateFont( "BSYS::CrateTimer", {
-	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } )
+	font = "Montserrat Bold",	size = 32,	weight = 500,	antialias = true, } 
+)
+-- local open = false
+-- hook.Add( "Think", "OpenCrateDerma", function()
 	
-	hook.Add( "Think", "OpenCrateDerma", function()
-
-		local eTraceHit = LocalPlayer():GetEyeTrace()
-		if !eTraceHit.Entity:IsValid() then return end
-		-- if eTraceHit == nil then return end
-		if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
-			if input.IsKeyDown( KEY_F2 ) then 
-				local Door = LocalPlayer():GetEyeTrace().Entity
-				local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-				if !DoorData then return end
-				local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-				if !PropertyData then return end
-				if not time then
-					time = CurTime() + ( 1 )
-					hook.Add( "HUDPaint", "hHoldingButton", function()
-						variavel = CurTime() + 1
-						if time then			
-							local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-							if !DoorData then return end
-							local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-							if !PropertyData then return end
-							local PropertyName = DoorData.Name
-							
-							if  PropertyData.Government then return end
-							if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
-								if time > CurTime() then
-									local iOpenT = 1
-									diff=(time-(CurTime()+iOpenT))*-1
-									RevDiff=time-CurTime()
-									---
-									draw.NoTexture()
-									Col = Color( 255,255, 255, 100)
-									surface.SetDrawColor( Col )
-									drawArc(ScrW()/2 ,ScrH()/2, 50, 15, 0, ToNumber(diff,360,iOpenT))
-									----
-									surface.SetFont( "BSYS::CrateTimer" )
-									surface.SetTextColor( Color( 255,255,255) )
-									local flWidth, flHeight = surface.GetTextSize( math.Round(RevDiff,1) )
-									surface.SetTextPos( ScrW()/2 - flWidth / 2 ,ScrH()/2 - flHeight / 2  )
-									surface.DrawText( math.Round(RevDiff,1))
-								end
-								
-							else
-								time = nil
-								LocalPlayer():ChatPrint("Deixou de olhar")
-							end
-							
-						end
-					end )
-				end 
-				if CurTime() > time and not open then
-					local Door = LocalPlayer():GetEyeTrace().Entity
-					local DoorData = GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()]
-					if !DoorData then return end
-					local PropertyData =  GAMEMODE.Property.m_tblProperties[DoorData.Name]			
-					if !PropertyData then return end
-					if  PropertyData.Government then return end
-					-- if DoorData.Owner ~= LocalPlayer() then return end
-					-- if !DoorData.Owner:IsWorld() then return end				
-					hook.Remove( "HUDPaint", "hHoldingButton" )
-					
-					open = true
-					local mw = vgui.Create("DFrame")
-					mw:SetSize(500,400)
-					mw:SetTitle("")
-					mw:MakePopup()
-					mw:SetPos(ScrW()/2 - mw:GetWide()/2, ScrH()/2 - mw:GetWide()/2 - 50)
-					mw:DockMargin(0, 0, 0, 0)
-					mw:ShowCloseButton(false)
-					mw:SetDraggable(false)
-					mw.Paint = function()
-					end
-					
-					local mwh = mw:Add("DPanel")
-					mwh:Dock(TOP)
-					mwh:SetTall(100)
-					mwh.Paint = function(pnl, w, h)
-						local aX, aY = pnl:LocalToScreen()
-						BSHADOWS.BeginShadow()
-						draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(26,26,26))
-						BSHADOWS.EndShadow(1, 1, 2, 200)
-					end
-					
-					local hi = mwh:Add("DImage")
-					hi:SetImage( "materials/vgui/elements/house.png")
-					hi:Dock(LEFT)
-					hi:SetWide( mwh:GetTall())
-					
-					local hn = mwh:Add("DLabel")
-					hn:SetText("")
-					hn:Dock(FILL)
-					hn.Paint = function(pnl, w, h)
-						surface.SetFont("DoorMenuFont")
-						t1w, t1h = surface.GetTextSize("Opções da propriedade")
-						surface.SetTextColor(255, 255, 255, 255)
-						surface.SetTextPos( 0, h/2-t1h)
-						surface.DrawText("Opções da propriedade")
-						
-						surface.SetFont("DoorMenuFont2")
-						surface.SetTextColor(255, 255, 255, 180)
-						t2w, t2h = surface.GetTextSize("n24, Rua Gole de Skol")
-						surface.SetTextPos( 0, h/2)
-						surface.DrawText( DoorData.Name )
-					end
-					if DoorData.Owner:IsWorld() then
-						local cc = mw:Add("DButton")
-						cc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-						cc:Dock(TOP)
-						cc:SetTall(40)
-						cc:SetTextColor( Color(255,255,255) )
-						cc:SetFont("DoorMenuButtonFont")
-						cc:SetText("Alugar: R$".. PropertyData.Price)
-						cc.Paint = function(pnl, w, h)
-							local aX, aY = pnl:LocalToScreen()
-							BSHADOWS.BeginShadow()
-							draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-							BSHADOWS.EndShadow(1, 1, 2, 200)
-						end
-						cc.DoClick = function()
-							GAMEMODE.Net:RequestBuyProperty( DoorData.Name )
-							mw:Remove()
-						end
-					end
-					if DoorData.Owner == LocalPlayer() then
-						local sc = mw:Add("DButton")
-						sc:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-						sc:Dock(TOP)
-						sc:SetTall(40)
-						sc:SetTextColor( Color(255,255,255) )
-						sc:SetFont("DoorMenuButtonFont")
-						sc:SetText("Vender")
-						sc.Paint = function(pnl, w, h)
-							local aX, aY = pnl:LocalToScreen()
-							BSHADOWS.BeginShadow()
-							draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-							BSHADOWS.EndShadow(1, 1, 2, 200)
-						end
-						sc.DoClick = function()
-							GAMEMODE.Net:RequestSellProperty( DoorData.Name )
-							mw:Remove()
-						end
-					end
-
-					local cb = vgui.Create("SRP_Button", mw)
-					cb:DockMargin(mw:GetWide()/6, 10, mw:GetWide()/6, 5)
-					cb:Dock(TOP)
-					cb:SetTall(40)
-					cb:SetTextColor( Color(255,255,255) )
-					cb:SetFont("DoorMenuButtonFont")
-					cb:SetText("Voltar")
-					cb.Paint = function(pnl, w, h)
-						local aX, aY = pnl:LocalToScreen()
-						BSHADOWS.BeginShadow()
-						draw.RoundedBox(pnl:GetTall()/2, aX, aY, w, h, Color(36,36,36) )
-						BSHADOWS.EndShadow(1, 1, 2, 200)
-					end
-					cb.DoClick = function()
-						mw:Remove()
-					end
-					
-				end
-			else
-				open = false 
-				time = nil
-			end
-		else return
-		end
-	end )
+-- 	local eTraceHit = LocalPlayer():GetEyeTrace()
+-- 	if !eTraceHit.Entity:IsValid() then return end
+-- 	--
+-- 	if (eTraceHit.Entity:GetClass() == "prop_door_rotating") and ((eTraceHit.Entity:GetPos():Distance(LocalPlayer():GetPos()) < 150))  then
+-- 		if input.IsKeyDown( KEY_F2 ) then 
+-- 			print("s")
+			
+-- 			if open == false then 
+-- 				open = true
+-- 				print(open)
+-- 				PopupProprietiesDerma()
+				
+				
+-- 			else
+-- 				open = false 
+-- 				time = nil
+-- 			end
+-- 		else 
+-- 			return
+			
+-- 		end 
+-- 	end
+-- end)
+	
+	
+	-- local antispam=false
+	
+	-- hook.Add("PlayerButtonDown", "Handle.ActionMenu", function(ply, key)
+	-- 	if (key == KEY_F2) then
+	
+	-- 		if antispam==false then
+	-- 			antispam=true
+	-- 			local focus = vgui.GetKeyboardFocus()
+	-- 			if ( not IsValid(focus) and not IsValid( ProprietiesMenu ) ) then
+	-- 				local panel=PopupProprietiesDerma()
+	-- 			else
+	-- 				antispam=true
+	-- 			end
+	-- 		end
+	-- 	else
+	-- 		antispam=false
+	-- 	end
+	
+	
+	
 	
 	surface.CreateFont( "DoorMenuFont", {size = 32, weight = 400, font = "Montserrat Bold"} )
 	surface.CreateFont( "DoorMenuButtonFont", {size = 32, weight = 400, font = "Montserrat Regular"} )
@@ -591,31 +458,31 @@ surface.CreateFont( "BSYS::CrateTimer", {
 	surface.CreateFont( "MoneyHudLabel", {	font = "Montserrat Bold",	extended = false,	size = 28,	weight = 500,	antialias = true,	} )
 	surface.CreateFont( "BankHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 34,	weight = 500,	antialias = true,	} )
 	surface.CreateFont( "SalaryHudLabel", {	font = "Montserrat Regular",	extended = false,	size = 22,	weight = 500,	antialias = true,	} )	
-
 	
-
+	
+	
 	function AwDownload(filename, url, callback, errorCallback)
 		local path = "threebow/downloads/"..filename
 		local dPath = "data/"..path
-	
+		
 		if(file.Exists(path, "DATA")) then return callback(dPath) end
 		if(!file.IsDir(string.GetPathFromFilename(path), "DATA")) then file.CreateDir(string.GetPathFromFilename(path)) end
-	
+		
 		errorCallback = errorCallback || function(reason)
 			error("Threebow Lib: Download de arquivo falho ("..url..") ("..reason..")")
 		end
-	
+		
 		http.Fetch(url, function(body, size, headers, code)
 			if(code != 200) then return errorCallback(code) end
 			file.Write(path, body)
 			callback(dPath)
 		end, errorCallback)
 	end
-
+	
 	hook.Add("GamemodeGameStatusChanged", "DrawHudAfterLoading", function()
 		local steamid = LocalPlayer():SteamID64()
 		if steamid == "1234567890" then steamid = "76561198119350635" end
-
+		
 		awcache.AvatarLoader.GetMaterial( steamid, function(mat)
 			awcache.AvatarLoader.CachedMaterials[steamid] = mat
 		end)
@@ -626,112 +493,112 @@ surface.CreateFont( "BSYS::CrateTimer", {
 		local  SmoothArmorBar = 0
 		hook.Add("HUDPaint", "Testing", function()
 			local NicePlayerName = string.Explode( " ", LocalPlayer():Nick() )
-
+			
 			local Health = LocalPlayer():Health()
 			local MaxHealth = LocalPlayer():GetMaxHealth()
-
+			
 			local Armor = LocalPlayer():Armor()
 			local MaxArmor = 100
-
+			
 			local Level = GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem")
-			local XP = GAMEMODE.Skills:GetPlayerXP("1 Nível do Personagem") - GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
-			local BaseXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
-			local MaxXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") ) - BaseXP
-			
-			local job = GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() )
-			local salary1 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[1].Pay )
-			local salary2 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[4].Pay )
-
-			local Money = "R$ " .. string.VrznMoney( LocalPlayer():GetMoney() )
-			local Bank = "R$ " .. string.VrznMoney( LocalPlayer():GetBankMoney() )
-
-			// AVATAR
-
-			SmoothXpBar=Lerp(2*RealFrameTime(),SmoothXpBar,(1 - XP/MaxXP) * 360)
-
-			AwMaskInverse(
-				function()
-					surface.SetDrawColor(255, 255, 255, 255)
-					-- surface.DrawRect(HudMargin/2, ScrH() - HudMargin - 110, 150, (1 - XP/MaxXP) * 120)
-					AwArc(50 + HudMargin, ScrH() - 50 - HudMargin, 0, SmoothXpBar, 58, Color(255,255,255), 30, "XPBar")
-				end
-				,
-				function()
-					AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 55, Color(67, 255, 124))
-				end
-			)
-
-			AwMask( 
-				function()
-					AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 50, Color(255,0,0))
+				local XP = GAMEMODE.Skills:GetPlayerXP("1 Nível do Personagem") - GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
+					local BaseXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") -1 )
+						local MaxXP = GAMEMODE.Skills:GetXPForLevel( "1 Nível do Personagem", GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem") ) - BaseXP
+							
+							local job = GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() )
+							local salary1 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[1].Pay )
+							local salary2 = "R$ " .. string.VrznMoney( GAMEMODE.Jobs:GetPlayerJob( LocalPlayer() ).Pay[4].Pay )
+							
+							local Money = "R$ " .. string.VrznMoney( LocalPlayer():GetMoney() )
+							local Bank = "R$ " .. string.VrznMoney( LocalPlayer():GetBankMoney() )
+							
+							// AVATAR
+							
+							SmoothXpBar=Lerp(2*RealFrameTime(),SmoothXpBar,(1 - XP/MaxXP) * 360)
+							
+							AwMaskInverse(
+							function()
+								surface.SetDrawColor(255, 255, 255, 255)
+								-- surface.DrawRect(HudMargin/2, ScrH() - HudMargin - 110, 150, (1 - XP/MaxXP) * 120)
+								AwArc(50 + HudMargin, ScrH() - 50 - HudMargin, 0, SmoothXpBar, 58, Color(255,255,255), 30, "XPBar")
+							end
+							,
+							function()
+								AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 55, Color(67, 255, 124))
+							end
+						)
+						
+						AwMask( 
+						function()
+							AwCircle( 50 + HudMargin, ScrH() - 50 - HudMargin, 50, Color(255,0,0))
+							
+						end
+						, 
+						function()
+							surface.SetDrawColor(255, 255, 255, 255)
+							if AwMaterialAvatar then
+								surface.SetMaterial( AwMaterialAvatar )
+							end
+							surface.DrawTexturedRect(HudMargin, ScrH() - HudMargin - 100 , 100, 100)
+						end
+					)
 					
-				end
-			, 
-				function()
+					// Nível :)
+					AwCircle( Circle["XPBar"].x, Circle["XPBar"].y, 15, Color(26,26,26))
+					draw.SimpleText(GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem"), "XPHudLabel", Circle["XPBar"].x, Circle["XPBar"].y-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+						
+						// Nome
+						draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 17, ScrH() - HudMargin - 99, Color(50,50,50), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+						draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 16, ScrH() - HudMargin - 100, COLOR_WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+						
+						// FOME
+						-- draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, Color(26,26,26))
+						local hungerfraction = 1 - (GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0)  / GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
+						
+						AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255, 50))
+						-- print( "Fraction: " .. hungerfraction )
+						-- print( "Hunger: " .. GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0) )
+						-- print( "Max Hunger: " .. GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
+						
+						
+						AwMask(
+						function()
+							AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255))
+						end,
+						function()
+							-- AwCircle( HudMargin + 316 + 25, ScrH() - HudMargin - 45 , 20, Color(122, 75, 53))
+							draw.RoundedBox(0, HudMargin + 316 + 5, (ScrH() - HudMargin - 65) + (42* hungerfraction), 40, 41, Color(122, 75, 53))
+						end
+					)
 					surface.SetDrawColor(255, 255, 255, 255)
-					if AwMaterialAvatar then
-						surface.SetMaterial( AwMaterialAvatar )
-					end
-					surface.DrawTexturedRect(HudMargin, ScrH() - HudMargin - 100 , 100, 100)
-				end
-			)
-
-			// Nível :)
-			AwCircle( Circle["XPBar"].x, Circle["XPBar"].y, 15, Color(26,26,26))
-			draw.SimpleText(GAMEMODE.Skills:GetPlayerLevel("1 Nível do Personagem"), "XPHudLabel", Circle["XPBar"].x, Circle["XPBar"].y-2, Color(255,255,255,255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-
-			// Nome
-			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 17, ScrH() - HudMargin - 99, Color(50,50,50), TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
-			draw.SimpleText(NicePlayerName[1] .. " " .. NicePlayerName[2], "NameHudLabel", HudMargin + 100 + 16, ScrH() - HudMargin - 100, COLOR_WHITE, TEXT_ALIGN_LEFT, TEXT_ALIGN_LEFT)
+					surface.SetMaterial(awcache.UI.Materials.hunger)
+					surface.DrawTexturedRect(HudMargin + 322, (ScrH() - HudMargin - 59), 32, 32)
+					
+					
+					// HP
+					draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, 200, 12, Color(46,46,46))
+					if Health > MaxHealth then Health = 100 end
+					SmoothHpBar = Lerp( 5 * RealFrameTime(), SmoothHpBar, (Health/MaxHealth) * 200)
+					draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, SmoothHpBar, 12, Color(255,56,56))
+					
+					// Armor
+					draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, 200, 12, Color(46,46,46))
+					if Armor > MaxArmor then Armor = 100 end
+					SmoothArmorBar = Lerp( 5 * RealFrameTime(), SmoothArmorBar, (Armor/MaxArmor) * 200)
+					draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, SmoothArmorBar, 12, Color(82,192,249))
+					
+					// Monetary
+					surface.SetFont("BankHudLabel")
+					local bw, bh = surface.GetTextSize( Money )
+					draw.SimpleText(Money, "MoneyHudLabel", HudMargin + 100 + 16, ScrH() - bh - HudMargin + 5, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+					draw.SimpleText(" - ".. salary1 .. "/hr", "MoneyHudLabel", HudMargin + 100 + bw, ScrH() - bh - HudMargin + 5, Color(0,255,78, 100), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+					-- draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+					-- draw.SimpleText("+ " .. salary1 .. "/hr", "SalaryHudLabel", HudMargin + bw + 6, bh, Color(255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+					
+				end)
+			end)
 			
-			// FOME
-				-- draw.RoundedBox(0, HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, Color(26,26,26))
-			local hungerfraction = 1 - (GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0)  / GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
-
-			AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255, 50))
-			-- print( "Fraction: " .. hungerfraction )
-			-- print( "Hunger: " .. GAMEMODE.Player:GetGameVar( "need_".. "Hunger", 0) )
-			-- print( "Max Hunger: " .. GAMEMODE.Needs.m_tblNeeds["Hunger"].Max )
-			
-			
-				AwMask(
-					function()
-					AwCircle( HudMargin + 100 + 16 + 200 + 25, ScrH() - HudMargin - 45, 20, Color(255,255,255))
-				end,
-				function()
-					-- AwCircle( HudMargin + 316 + 25, ScrH() - HudMargin - 45 , 20, Color(122, 75, 53))
-					draw.RoundedBox(0, HudMargin + 316 + 5, (ScrH() - HudMargin - 65) + (42* hungerfraction), 40, 41, Color(122, 75, 53))
-				end
-			)
-			surface.SetDrawColor(255, 255, 255, 255)
-			surface.SetMaterial(awcache.UI.Materials.hunger)
-			surface.DrawTexturedRect(HudMargin + 322, (ScrH() - HudMargin - 59), 32, 32)
-			
-
-			// HP
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, 200, 12, Color(46,46,46))
-			if Health > MaxHealth then Health = 100 end
-			SmoothHpBar = Lerp( 5 * RealFrameTime(), SmoothHpBar, (Health/MaxHealth) * 200)
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 60, SmoothHpBar, 12, Color(255,56,56))
-			
-			// Armor
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, 200, 12, Color(46,46,46))
-			if Armor > MaxArmor then Armor = 100 end
-			SmoothArmorBar = Lerp( 5 * RealFrameTime(), SmoothArmorBar, (Armor/MaxArmor) * 200)
-			draw.RoundedBox(6, HudMargin + 100 + 16, ScrH() - HudMargin - 40, SmoothArmorBar, 12, Color(82,192,249))
-			
-			// Monetary
-			surface.SetFont("BankHudLabel")
-			local bw, bh = surface.GetTextSize( Money )
-			draw.SimpleText(Money, "MoneyHudLabel", HudMargin + 100 + 16, ScrH() - bh - HudMargin + 5, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-			draw.SimpleText(" - ".. salary1 .. "/hr", "MoneyHudLabel", HudMargin + 100 + bw, ScrH() - bh - HudMargin + 5, Color(0,255,78, 100), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-			-- draw.SimpleText(Bank , "BankHudLabel", HudMargin, 28, Color(0,255,78), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-			-- draw.SimpleText("+ " .. salary1 .. "/hr", "SalaryHudLabel", HudMargin + bw + 6, bh, Color(255,255,255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
-				
-		end)
-	end)
-
-	function hudrefresh()
-		hook.Run("GamemodeGameStatusChanged")
-	end
-		concommand.Add("restorehud", hudrefresh)
+			function hudrefresh()
+				hook.Run("GamemodeGameStatusChanged")
+			end
+			concommand.Add("restorehud", hudrefresh)

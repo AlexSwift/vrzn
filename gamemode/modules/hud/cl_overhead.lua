@@ -101,7 +101,7 @@ hook.Add( "PreDrawEffects", "HUD::PreDrawEffects", function()
 		local ang = LocalPlayer():EyeAngles();
 		ang:RotateAroundAxis( ang:Forward(), 90 );
 		ang:RotateAroundAxis( ang:Right(), 90 );
-		if LocalPlayer():Crouching() then
+		if v:Crouching() then
 			pos = pos + Vector( 0, 0, v:OBBMaxs().z - 25 );
 		else
 			pos = pos + Vector( 0, 0, v:OBBMaxs().z - 65 );
