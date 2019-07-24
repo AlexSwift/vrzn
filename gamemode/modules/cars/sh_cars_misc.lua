@@ -62,15 +62,15 @@ if SERVER then
 					data.StartTime = CurTime()
 					pl:GetVehicle():EmitSound( "car_starter" )
 
-					-- ATUALIZAR PRO VCMOD if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
-					-- ATUALIZAR PRO VCMOD if pl:GetVehicle():GetFuel() < 1 then return end
+					 if pl:GetVehicle():VC_getHealth(false) <= 0 then return end
+					 if pl:GetVehicle():VC_fuelGet(false) < 1 then return end
 				elseif data.State == VEHICLE_STARTING then
-					-- ATUALIZAR PRO VCMOD  if GAMEMODE.Cars:GetCarHealth( pl:GetVehicle() ) <= 0 then return end
-					-- ATUALIZAR PRO VCMOD if pl:GetVehicle():GetFuel() < 1 then return end
+					  if pl:GetVehicle():VC_getHealth(false) <= 0 then return end
+					 if pl:GetVehicle():VC_fuelGet(false) < 1 then return end
 					
 					if not data.ExtraTime then
-						-- ATUALIZAR PRO VCMOD  local max = GAMEMODE.Cars:GetCarMaxHealth( pl:GetVehicle() )
-						-- ATUALIZAR PRO VCMOD local time = (max -GAMEMODE.Cars:GetCarHealth(pl:GetVehicle())) /max
+						  local max = pl:GetVehicle():VC_getHealthMax()
+						 local time = (max -pl:GetVehicle():VC_getHealth(false)) /max
 						local time = 0.1
 						data.ExtraTime = (VEHCILE_START_DURATION *1) *math.Rand(time *5.8, time *6.3)
 					end
