@@ -163,7 +163,7 @@ function TIE:Paint(w, h)
 	-- surface.DrawTexturedRect(0, 0, w, h)
 	draw.RoundedBox(8, 0, 0, w, h, Color(46,46,46))
 
-	if GAMEMODE.Jobs:GetPlayerJob(self.Player).Name then
+	if GAMEMODE.Jobs:GetPlayerJob(self.Player) then
 		if self.Player:Team() then
 			self.PColor = Color(235,235,235)
 		else
@@ -185,7 +185,8 @@ function TIE:Paint(w, h)
 			draw.SimpleText(serverguard.ranks.stored[serverguard.player:GetRank(self.Player)].name, "HUD::0.1vw", 320, 18, Color(clr.r * 1.3, clr.g * 1.3, clr.b * 1.3, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 		end
 	else
-		self:GetParent():GetParent():GetParent():Clean()
+		draw.SimpleText(self.Player:Nick() .. " - Conectando", "HUD::0.1vw", 58, 18, Color(255,255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_CENTER)
+		-- self:GetParent():GetParent():GetParent():Clean()
 	end
 end
 
