@@ -242,13 +242,13 @@ function NADMOD.CanTool(ply, tr, mode)
 end
 hook.Add("CanTool", "NADMOD.CanTool", NADMOD.CanTool)
 
-function NADMOD.PlayerUse(ply, ent)
-	if !NADMOD.PPConfig["use"] or NADMOD.PlayerCanTouch(ply, ent) or (ent:IsValid() and NADMOD.Props[ent:EntIndex()].Name == "W") then
-		return
-	end
-	return false
-end
-hook.Add("PlayerUse", "NADMOD.PlayerUse", NADMOD.PlayerUse)
+-- function NADMOD.PlayerUse(ply, ent)
+-- 	if !NADMOD.PPConfig["use"] or NADMOD.PlayerCanTouch(ply, ent) or (ent:IsValid() and NADMOD.Props[ent:EntIndex()].Name == "W") then
+-- 		return
+-- 	end
+-- 	return false
+-- end
+-- hook.Add("PlayerUse", "NADMOD.PlayerUse", NADMOD.PlayerUse)
 
 --==========================================================--
 --   Ownership Setting Functions							--
@@ -289,7 +289,7 @@ end
 
 hook.Add("ProttectDroppedItem", "NADMOD.PlayerDroppedItem", NADMOD.PlayerMakePropOwner )
 hook.Add("PlayerSpawnedSENT", "NADMOD.PlayerSpawnedSENT", NADMOD.PlayerMakePropOwner)
-hook.Add("PlayerSpawnedVehicle", "NADMOD.PlayerSpawnedVehicle", NADMOD.PlayerMakePropOwner)
+-- hook.Add("PlayerSpawnedVehicle", "NADMOD.PlayerSpawnedVehicle", NADMOD.PlayerMakePropOwner)
 hook.Add("PlayerSpawnedSWEP", "NADMOD.PlayerSpawnedSWEP", NADMOD.PlayerMakePropOwner)
 
 function metaent:CPPISetOwnerless(bool)

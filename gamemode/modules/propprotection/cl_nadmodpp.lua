@@ -56,7 +56,7 @@ hook.Add("HUDPaint", "NADMOD.HUDPaint", function()
 				if !PropertyData then return end
 				if PropertyData.Government then return end
 				if !GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()].Owner:IsWorld() then return end
-				Notify = "SEGURE"
+				Notify = "APERTE"
 				Notify2  = "PARA ABRIR O MENU DE CASA"
 
 				surface.SetFont("DoorHudFont")
@@ -68,7 +68,7 @@ hook.Add("HUDPaint", "NADMOD.HUDPaint", function()
 				BSHADOWS.BeginShadow()
 				draw.RoundedBox(8, ScrW()/2 - bw/2, ScrH()/2 + (ScrH()*30/100), bw + 52, bh, Color(26,26,26))
 				BSHADOWS.EndShadow(1, 1, 2, 200)
-				draw.SimpleText("SEGURE", "DoorHudFont", ScrW()/2 - bw/2 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
+				draw.SimpleText("APERTE", "DoorHudFont", ScrW()/2 - bw/2 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
 				draw.SimpleText("PARA ABRIR O MENU DE CASA", "DoorHudFont", ScrW()/2 - bw/2 + n1w + 10 + 42 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
 
 				surface.SetDrawColor(255, 255, 255, 255)
