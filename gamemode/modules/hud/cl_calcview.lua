@@ -18,7 +18,12 @@ GM.Camera.m_conBackMove = CreateClientConVar( "vrzn_cam_back", 72, true, false )
 --Table of weapon classes that will force the camera to first person when active
 GM.Camera.m_tblFirstPersonWeps = {
 	["weapon_phone"] = true,
+	["weapon_ziptied"] = true,
+	["gmod_camera"] = true,
+	["weapon_handcuffed"] = true,
 }
+
+
 
 local keyStateC, keyStateAlt
 local lastViewAngle
@@ -215,14 +220,13 @@ function GM.Camera:CalcView( pPlayer, vecOrigin, angAngs, intFOV )
 end
 
 function GM.Camera:DrawCrosshair()
-	if self.m_conThirdPerson:GetInt() ~= 1 then 
-		surface.SetDrawColor(255, 255, 255, 100)
-		surface.SetMaterial( Material("materials/vgui/crosshair.png") )
-		surface.DrawTexturedRect(ScrW()/2 -8, ScrH()/2 -8, 16, 16)
-	
-		return end
-	if IsValid( LocalPlayer():GetActiveWeapon() ) and self.m_tblFirstPersonWeps[LocalPlayer():GetActiveWeapon():GetClass()] then return end
-	
+	-- if self.m_conThirdPerson:GetInt() ~= 1 then return end 
+	if not IsValid(LocalPlayer():GetActiveWeapon()) then return end
+	local swep = LocalPlayer():GetActiveWeapon()
+	if not swep then return end
+	local class =  swep:GetClass()
+	if IsValid( swep ) and self.m_tblFirstPersonWeps[class] then return end
+
 	local wide = 8 --crosshar size
 	local drawPos = util.TraceLine{
 		start = LocalPlayer():GetShootPos(),
@@ -230,10 +234,20 @@ function GM.Camera:DrawCrosshair()
 		filter = LocalPlayer(),
 		mask = MASK_SHOT,
 	}.HitPos:ToScreen()
+	if string.find(class,"swb_") then return end
+	if self.m_conThirdPerson:GetInt() ~= 1 then	
+		
+		surface.SetDrawColor(255, 255, 255, 100)
+		surface.SetMaterial( Material("materials/vgui/crosshair.png") )
+		surface.DrawTexturedRect( drawPos.x-8, drawPos.y-8, 16, 16)
+		return 
+	end
 
 	surface.SetDrawColor(255, 255, 255, 100)
 	surface.SetMaterial( Material("materials/vgui/crosshair.png") )
 	surface.DrawTexturedRect( drawPos.x-8, drawPos.y-8, 16, 16)
+
+
 end
 
 hook.Add( "HUDPaint", "ThirdpersonCrosshair", function()
