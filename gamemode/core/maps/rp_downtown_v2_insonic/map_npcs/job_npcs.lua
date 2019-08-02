@@ -18,8 +18,8 @@ GAMEMODE.Map:RegisterNPCSpawn{
 
 GAMEMODE.Map:RegisterNPCSpawn{
 	UID = "cop_jail_warden",
-	pos = { Vector( -8983.859375, 10601.818359, 288.031250 ) },
-	angs = { Angle( 0, 90, 0 ) },
+	pos = { Vector( -1417.968750, -125.295227, -195.968750 ) },
+	angs = { Angle( 0, 15, 0 ) },
 }
 
 GAMEMODE.Map:RegisterNPCSpawn{

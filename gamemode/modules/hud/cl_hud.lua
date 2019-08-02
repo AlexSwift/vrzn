@@ -180,14 +180,14 @@ end
 
 local CircleMat = Material("sgm/playercircle")
 local color_config = {}
-color_config["superadmin"] = function() return util.CleanGlow(0.3, Color(255, 255, 255), HSVToColor(CurTime() * 60 % 360, 1, 1)) end
-color_config["founder"] = function() return util.CleanGlow(0.1, Color(255, 55, 55), Color(55, 255, 255)) end
+-- color_config["superadmin"] = function() return util.CleanGlow(0.3, Color(255, 255, 255), HSVToColor(CurTime() * 60 % 360, 1, 1)) end
+-- color_config["founder"] = function() return util.CleanGlow(0.1, Color(255, 55, 55), Color(55, 255, 255)) end
 local num = 65
 
 function GM:DrawPlayerRing(pPlayer)
-	if IsValid(pPlayer:GetActiveWeapon()) and pPlayer:GetActiveWeapon():GetClass() ~= "god_s" then return end
-	if pPlayer:IsUncon() then return end
-	if pPlayer:IsIncapacitated() then return end
+	if IsValid(pPlayer:GetActiveWeapon()) and pPlayer:GetActiveWeapon():GetClass() ~= "dfg_adminstick" then return end
+	-- if pPlayer:IsUncon() then return end
+	-- if pPlayer:IsIncapacitated() then return end
 	if IsValid(pPlayer:GetVehicle()) then return end
 	if pPlayer:GetColor().a ~= 255 then return end
 	local trace = {}

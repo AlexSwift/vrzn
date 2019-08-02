@@ -26,7 +26,6 @@ if SERVER then
 	local VEHICLE_STARTED = 2
 
 	hook.Add( "PlayerEnteredVehicle", "TurnCarOff", function( pPlayer, entVehicle, intRole )
-		print("teste")
 		if entVehicle:GetClass() == "prop_vehicle_prisoner_pod" then return end
 		pPlayer:AddNote( "Segure [ i ] Para Ligar/Desligar o motor." )
 		g_PlayerVehicles[pPlayer] = { State = 0 }
@@ -102,37 +101,11 @@ if SERVER then
 					data.State = VEHICLE_OFF
 					data.ExtraTime = nil
 					pl:GetVehicle():StopSound( "car_starter" )
-					pl:GetVehicle():Fire( "TurnOff", "1" )
+					pl:GetVehicle():Fire( "TurnOn", "1" )
 				end
 			end
 		end
 	end )
-
-	-- timer.Create( "WheelSparks", 0.25, 0, function()
-	-- 	local car
-	-- 	for k, v in pairs( player.GetAll() ) do
-	-- 		if not GAMEMODE.Cars:PlayerHasCar( v ) then continue end
-	-- 		car = GAMEMODE.Cars:GetCurrentPlayerCar( v )
-
-	-- 		if not car.m_tblWheelHealth then continue end
-	-- 		for idx, health in pairs( car.m_tblWheelHealth ) do
-	-- 			local wheel = car:GetWheel( idx )
-				
-	-- 			if IsValid( wheel ) and health <= 0 then
-	-- 				if wheel:GetAngleVelocity():Length() <= 50 then continue end
-	-- 				local pos, _, onGround = car:GetWheelContactPoint( idx )
-	-- 				if not onGround then continue end
-					
-	-- 				local effect = EffectData()
-	-- 				effect:SetStart( pos )
-	-- 				effect:SetOrigin( pos )
-	-- 				effect:SetScale( 0.5 )
-	-- 				effect:SetNormal( car:GetVelocity():GetNormal() *-1 )
-	-- 				util.Effect( "ManhackSparks", effect )
-	-- 			end
-	-- 		end
-	-- 	end
-	-- end )
 
 
 else

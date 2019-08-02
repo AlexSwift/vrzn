@@ -799,24 +799,20 @@ function GM.Inv:PlayerCraftItem( pPlayer, strItemID )
 end
 
 --[[ Money Drops ]]--
-function GM.Inv:PlayerGiveTargetMoney( pPlayer, intAmount, pTarget )
-
-	if not pPlayer:GetCharacterID() then return false end
-	if pPlayer:InVehicle() then return false end
+function GM.Inv:EntityDropMoney( pos, intAmount )
 	
-	if not pPlayer:CanAfford( intAmount ) then
-		pPlayer:AddNote("Você não possui essa quantidade " ..  intAmount)
-		return false
-	end
 	if intAmount <= 0 then 
-		pPlayer:AddNote("Você não tem dinheiro")
-		return false 
-	end
+	return false end
+
+	local ent = ents.Create( "ent_money" )
+	ent:SetAngles( Angle(0, 0, 0) )
+	ent:SetAmount( intAmount )
+	ent:SetPos( pos )
+	ent:Spawn()
+	ent:Activate()
+	ent:PhysWake()
 	
-	pPlayer:TakeMoney( intAmount )
-	pPlayer:AddNote("Você deu R$" .. string.Comma(intAmount) .. " Para: " ..  pTarget:Nick() )
-	pTarget:AddMoney( intAmount )
-	pTarget:AddNote("Você recebeu R$" .. string.Comma(intAmount) .. " De: " ..  pPlayer:Nick())
+	if not bOwnerless then ent:SetPlayerOwner( pPlayer ) end	
 end
 
 function GM.Inv:PlayerDropMoney( pPlayer, intAmount, bOwnerless )
@@ -844,10 +840,6 @@ function GM.Inv:PlayerDropMoney( pPlayer, intAmount, bOwnerless )
 	
 	if not bOwnerless then ent:SetPlayerOwner( pPlayer ) end	
 end
-
-
-
-
 function ChatDropMoney( ply, text )
 	
         local _cmd = "dropmoney";
@@ -867,6 +859,26 @@ function ChatDropMoney( ply, text )
         end
 end
 hook.Add("PlayerSay", "vrzn.ChatCommand2", ChatDropMoney )
+
+function GM.Inv:PlayerGiveTargetMoney( pPlayer, intAmount, pTarget )
+
+	if not pPlayer:GetCharacterID() then return false end
+	if pPlayer:InVehicle() then return false end
+
+	if not pPlayer:CanAfford( intAmount ) then
+		pPlayer:AddNote("Você não possui essa quantidade " ..  intAmount)
+		return false
+	end
+	if intAmount <= 0 then 
+		pPlayer:AddNote("Você não tem dinheiro")
+		return false 
+	end
+
+	pPlayer:TakeMoney( intAmount )
+	pPlayer:AddNote("Você deu R$" .. string.Comma(intAmount) .. " Para: " ..  pTarget:Nick() )
+	pTarget:AddMoney( intAmount )
+	pTarget:AddNote("Você recebeu R$" .. string.Comma(intAmount) .. " De: " ..  pPlayer:Nick())
+end
 
 
 --[[ Active ammo saving ]]--

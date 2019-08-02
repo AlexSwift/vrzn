@@ -11,7 +11,12 @@ Job.ID = 5
 Job.Enum = "JOB_TAXI"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Taxista"
-Job.Cat = "citizen"
+Job.Cat = "Serviços"
+Job.Text = [[Taxista - Ganha a vida levando as pessoas para seus destinos
+            
+[x] Proibido cometer qualquer tipo de crime
+[x] Pode cobrar até 5.000 por uma corrida
+[x] Pode ter armas para auto defesa]];
 Job.ParkingGaragePos = GM.Config.TaxiParkingZone
 Job.Pay = {
 	{ PlayTime = 0, Pay = 28 },

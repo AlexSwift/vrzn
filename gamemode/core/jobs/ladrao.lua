@@ -9,7 +9,12 @@ Job.ID = 14
 Job.Enum = "JOB_ASSALTANTE"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Ladrão"
-Job.Cat = "bad"
+Job.Cat = "Criminosos"
+Job.Text = [[Um criminoso comum ou um ladrão de sucesso, tudo depende de você.
+    
+[x] Nao pode assaltar a mesma pessoa em menos de 5m
+[x] Pode ter casa
+[x] Pode ter bitminer/printer]];
 Job.PlayerCap = { Min = 5, MinStart = 5, Max = 5, MaxEnd = 5 }
 Job.Pay = {
 	{ PlayTime = 0, Pay = 0 },

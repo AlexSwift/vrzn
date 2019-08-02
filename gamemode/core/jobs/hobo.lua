@@ -5,11 +5,21 @@
 ]]--
 
 local Job = {}
-Job.ID = 15
+Job.ID = 18
 Job.Enum = "JOB_HOBO"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Mendigo"
-Job.Cat = "citizen"
+Job.Cat = "Mendigos"
+Job.Text = [[Reprimido pela sociedade desde seu nascimento e desprezado pela família.
+OBJETIVOS: 
+x Construa seu abrigo
+x Tente ganhar esmola
+
+REGRAS:
+x Pode fazer grupo somente com outros mendigos
+x Não pode cometer atos ilícitos
+x Não pode ter armas
+x Não pode dar dano em nínguem por recusarem dar esmola]];
 Job.PlayerCap = { Min = 4, MinStart = 4, Max = 4, MaxEnd = 4 }
 Job.PlayerModel = {
     Male_Fallback = "models/player/corpse1.mdl",

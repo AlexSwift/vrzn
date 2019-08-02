@@ -1,16 +1,8 @@
 --[[
-	© 2017 Thriving Ventures Limited, do not share, re-distribute or modify
 
-	without permission of its author (gustaf@thrivingventures.com).
 ]]
 
 local MOTD = ""
-
-net.Receive("MOTDUpdateClient", function()
-	if (SCOREBOARD) then
-		SCOREBOARD.MotdPanel:OpenURL("https://monolithservers.com/motd")
-	end
-end)
 
 hook.Add("ScoreboardHide", "HideScoreboard", function()
 	if (ValidPanel(SCOREBOARD)) then
@@ -27,9 +19,6 @@ hook.Add("ScoreboardShow", "ShowScoreboard", function()
 	if (ValidPanel(SCOREBOARD)) then
 		SCOREBOARD:Show()
 
-		-- if (LocalPlayer():GetActiveQuest() == "tutorial" and LocalPlayer():GetQuestState() == 1) then
-		-- 	LocalPlayer().QuestState = 2
-		-- end
 	end
 
 	return false

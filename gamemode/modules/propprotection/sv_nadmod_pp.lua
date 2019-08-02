@@ -249,6 +249,7 @@ hook.Add("CanTool", "NADMOD.CanTool", NADMOD.CanTool)
 -- 	return false
 -- end
 -- hook.Add("PlayerUse", "NADMOD.PlayerUse", NADMOD.PlayerUse)
+-- hook.Remove("PlayerUse", "NADMOD.PlayerUse")
 
 --==========================================================--
 --   Ownership Setting Functions							--
@@ -289,7 +290,7 @@ end
 
 hook.Add("ProttectDroppedItem", "NADMOD.PlayerDroppedItem", NADMOD.PlayerMakePropOwner )
 hook.Add("PlayerSpawnedSENT", "NADMOD.PlayerSpawnedSENT", NADMOD.PlayerMakePropOwner)
--- hook.Add("PlayerSpawnedVehicle", "NADMOD.PlayerSpawnedVehicle", NADMOD.PlayerMakePropOwner)
+hook.Add("PlayerSpawnedVehicle", "NADMOD.PlayerSpawnedVehicle", NADMOD.PlayerMakePropOwner)
 hook.Add("PlayerSpawnedSWEP", "NADMOD.PlayerSpawnedSWEP", NADMOD.PlayerMakePropOwner)
 
 function metaent:CPPISetOwnerless(bool)
@@ -588,3 +589,35 @@ hook.Add("PhysgunDrop", "Drop", function(ply, ent)
 		ent:SetColor( Color(255,255,255) )
 	end
 end)
+
+function GM:PlayerSpawnSENT( ply, class )
+	if not ply:IsAdmin() then
+		ply:AddNote("Você não tem permissão")
+		return false
+	end
+end
+function GM:PlayerSpawnVehicle( ply, model, name, table )
+	if not ply:IsAdmin() then
+		ply:AddNote("Você não tem permissão")
+		return false
+	end
+end
+hook.Add( "PlayerSpawnSWEP", "SpawnBlockSWEP", function( ply, class, info )
+	if ( not ply:IsAdmin() ) then
+		ply:AddNote("Você não tem permissão")
+		return false
+	end
+end )
+hook.Add( "PlayerGiveSWEP", "BlockPlayerSWEPs", function( ply, class, swep )
+	if ( not ply:IsAdmin() ) then
+		ply:AddNote("Você não tem permissão")
+		return false
+	end
+end )
+
+function CantSpawnPropSmartAss( ply, model )
+	if GAMEMODE.Jail:IsPlayerInJail( ply ) then ply:AddNote("Boa tentativa") return false end
+	if ply:GetActiveWeapon():GetClass() == "weapon_handcuffed" then ply:AddNote("Algemado não pode") return false end
+end
+
+hook.Add("PlayerSpawnProp", "SmarAss", CantSpawnPropSmartAss )

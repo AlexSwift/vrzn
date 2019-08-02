@@ -10,8 +10,13 @@ local Job = {}
 Job.ID = 6
 Job.Enum = "JOB_TOW"
 Job.TeamColor = Color( 255, 100, 160, 255 )
-Job.Name = "Tiozinho do Reboque"
-	Job.Cat = "citizen"
+Job.Name = "Mecânico"
+Job.Cat = "Serviços"
+Job.Text = [[Mecanico - Deve consertar os veiculos dos seus clientes
+            
+[x] Proibido cometer qualquer tipo de crime
+[x] Pode ter bitminer/printers(exceção para regra de cima)
+[x] Pode ter armas para auto defesa]];
 Job.Pay = {
 	{ PlayTime = 0, Pay = 35 },
 	{ PlayTime = 4 *(60 *60), Pay = 55 },

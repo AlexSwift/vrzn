@@ -34,7 +34,7 @@ hook.Add("HUDPaint", "NADMOD.HUDPaint", function()
 	local ent = tr.Entity
 	local dist = ent:GetPos():Distance( LocalPlayer():GetPos() )
 	if dist <= 130 then
-		if ent:IsValid() && !ent:IsPlayer() then
+		if ent:IsValid() then
 			local text = "Objeto"
 			if LocalPlayer():IsSuperAdmin() then
 				text = "Dropado por: " .. (Props[ent:EntIndex()] or "N/A")
@@ -56,7 +56,7 @@ hook.Add("HUDPaint", "NADMOD.HUDPaint", function()
 				if !PropertyData then return end
 				if PropertyData.Government then return end
 				if !GAMEMODE.Property.m_tblDoorCache[Door:EntIndex()].Owner:IsWorld() then return end
-				Notify = "APERTE"
+				Notify = "PRESSIONE"
 				Notify2  = "PARA ABRIR O MENU DE CASA"
 
 				surface.SetFont("DoorHudFont")
@@ -68,15 +68,36 @@ hook.Add("HUDPaint", "NADMOD.HUDPaint", function()
 				BSHADOWS.BeginShadow()
 				draw.RoundedBox(8, ScrW()/2 - bw/2, ScrH()/2 + (ScrH()*30/100), bw + 52, bh, Color(26,26,26))
 				BSHADOWS.EndShadow(1, 1, 2, 200)
-				draw.SimpleText("APERTE", "DoorHudFont", ScrW()/2 - bw/2 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
+				draw.SimpleText("PRESSIONE", "DoorHudFont", ScrW()/2 - bw/2 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
 				draw.SimpleText("PARA ABRIR O MENU DE CASA", "DoorHudFont", ScrW()/2 - bw/2 + n1w + 10 + 42 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
 
 				surface.SetDrawColor(255, 255, 255, 255)
 				surface.SetMaterial(Material("materials/vgui/keys/f2.png"))
 				surface.DrawTexturedRect(ScrW()/2 - bw/2 + n1w + 10 + 10, ScrH()/2 + (ScrH()*30/100) -8, 32, 32)
+			elseif ent:IsPlayer()  then
 
+				Notify = "PRESSIONE"
+				Notify2  = "PARA INTERAGIR COM " .. ent:Nick()
+
+				surface.SetFont("DoorHudFont")
+				n1w, n1h = surface.GetTextSize(Notify)
+				n2w, n2h = surface.GetTextSize(Notify2)
+
+				bw = n1w + n2w + 20  
+				bh = n1h + 10
+				BSHADOWS.BeginShadow()
+				draw.RoundedBox(8, ScrW()/2 - bw/2, ScrH()/2 + (ScrH()*30/100), bw + 52, bh, Color(26,26,26))
+				BSHADOWS.EndShadow(1, 1, 2, 200)
+				draw.SimpleText("PRESSIONE", "DoorHudFont", ScrW()/2 - bw/2 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
+				draw.SimpleText("PARA INTERAGIR COM " .. ent:Nick(), "DoorHudFont", ScrW()/2 - bw/2 + n1w + 10 + 42 + 10, ScrH()/2 + (ScrH()*30/100) + 5, Color(255,255,255,255))
+
+				surface.SetDrawColor(255, 255, 255, 255)
+				surface.SetMaterial(Material("materials/vgui/keys/f2.png"))
+				surface.DrawTexturedRect(ScrW()/2 - bw/2 + n1w + 10 + 10, ScrH()/2 + (ScrH()*30/100) -8, 32, 32)
+	
 			end
 			if tostring(ent:GetClass() ) == "prop_door_rotating" then return end
+			if ent:IsPlayer() then return end
 			surface.SetFont("PropProtectFont")
 			local Width, Height = surface.GetTextSize(text)
 			local boxWidth = Width + 25

@@ -143,7 +143,7 @@ function LerpColor(t, c1, c2)
 end
 
 function AWDrawTimeCountdown( Initial, Final, Colour, str)
-	hook.Add("HUDPaint", "AWESOME::TimeCountdown", function()
+	hook.Add("HUDPaint", "AWESOME::TimeCountdown::" .. str, function()
 		local start, finish = Initial, Final
 		local curTime = CurTime()
 		local scrW, scrH = ScrW(), ScrH()

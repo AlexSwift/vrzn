@@ -1416,11 +1416,11 @@ function PANEL:Paint( intW, intH )
 	local radius = intH/2+1
 	-- surface.SetDrawColor( self.m_colBackground )
 	-- surface.DrawRect( 1, 1, intW -2, intH -2 )
-	draw.RoundedBox(radius, 1, 1, intW -2, intH-2, self.m_colBackground )
+	draw.RoundedBox( radius - radius/2, 1, 1, intW -2, intH-2, self.m_colBackground )
 	if (intW -2) *self.m_fFraction > 0 then
 		-- surface.SetDrawColor( self.m_colBar )
 		-- surface.DrawRect( 1, 1, (intW -2) *self.m_fFraction, intH -2 )
-		draw.RoundedBox(radius, 1, 1,(intW -2) *self.m_fFraction, intH -2, self.m_colBar)
+		draw.RoundedBox(radius - radius/3, 1, 1,(intW -2) *self.m_fFraction, intH -2, self.m_colBar)
 		-- surface.SetTexture( TEX_GRADIENT_DOWN )
 		surface.SetDrawColor(
 			math.max( 0, self.m_colBar.r -100 ),

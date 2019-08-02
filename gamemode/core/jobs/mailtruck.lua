@@ -9,7 +9,18 @@ Job.ID = 7
 Job.Enum = "JOB_MAIL"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Carteiro"
-Job.Cat = "citizen"
+Job.Cat = "Civis"
+Job.Text = [[TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+
+	textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto]];
 Job.Pay = {
 	{ PlayTime = 0, Pay = 25 },
 	{ PlayTime = 4 *(60 *60), Pay = 40 },

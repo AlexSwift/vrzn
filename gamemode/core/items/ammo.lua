@@ -2,7 +2,7 @@
 -- local Item = {}
 -- Item.Name = " nome da munição "
 -- Item.F4 = true
--- Item.Cat = "ammo"
+-- Item.Cat = "Munição"
 -- Item.Desc = "Munição para armas calibre xx" -- xx = calibre da munição.
 -- Item.Type = "type_ammo"
 -- Item.Model = "models/props_c17/FurnitureCouch001a.mdl" -- Modelo da munição, você pode usar um modelo só pra todas se quiser.
@@ -16,7 +16,7 @@
 local Item = {}
 Item.Name = " Munição de calibre.32 S&W"
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .32 ACP"
 Item.Type = "type_ammo"
@@ -31,7 +31,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição de calibre .12 "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .12"
 Item.Type = "type_ammo"
@@ -46,7 +46,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição calibre .556x45mm "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .556x45mm"
 Item.Type = "type_ammo"
@@ -61,7 +61,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição de calibre .45 ACP "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .45 ACP"
 Item.Type = "type_ammo"
@@ -77,7 +77,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição de calibre .338 lapua "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .338"
 Item.Type = "type_ammo"
@@ -92,7 +92,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição calibre .50 AE "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .50"
 Item.Type = "type_ammo"
@@ -107,7 +107,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição calibre .380 "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre .380"
 Item.Type = "type_ammo"
@@ -122,7 +122,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição calibre 7.92x57 "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre 7.92x57"
 Item.Type = "type_ammo"
@@ -137,7 +137,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição calibre 9x19mm"
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre 9x19mm"
 Item.Type = "type_ammo"
@@ -152,7 +152,7 @@ GM.Inv:RegisterItem( Item )
 local Item = {}
 Item.Name = " Munição de calibre 7.62x51mm "
 Item.F4 = true
-Item.Cat = "ammo"
+Item.Cat = "Munição"
 Item.Value = 666
 Item.Desc = "Munição para armas calibre 7.62x51mm"
 Item.Type = "type_ammo"

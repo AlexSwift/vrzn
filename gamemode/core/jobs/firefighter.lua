@@ -14,7 +14,7 @@ Job.Receives911Messages = true
 Job.Enum = "JOB_FIREFIGHTER"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Bombeiro"
-Job.Cat = "law"
+Job.Cat = "Agentes da lei"
 Job.WhitelistName = "bombeiro"
 Job.PlayerCap = { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
 Job.PlayerModel = {

@@ -21,8 +21,8 @@ function GM:PrintDebug( intLevel, ... )
 end
 
 function GM:PrintCore(... )
-	local name = SERVER and "[SantosRP]: " or "[SantosRP CL]: "
-	 MsgC(Color(150, 150, 150), name, Color(120, 255, 120), ..., "\n")
+	local name = SERVER and "[VRZN]: " or "[VRZN CLIENT]: "
+	 MsgC(Color(255, 150, 150), name, Color(0, 255, 78), ..., "\n")
 end
 
 include("core/boot/sh_boot.lua")

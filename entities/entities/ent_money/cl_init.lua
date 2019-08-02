@@ -26,6 +26,6 @@ function ENT:Draw()
 		surface.SetTextColor( 120, 230, 110, 255 )
 		surface.SetFont( "SRP_DoorFont" )
 		surface.SetTextPos( 0, 0 )
-		surface.DrawText( "$".. string.Comma(self:GetMoney()) )
+		surface.DrawText( "R$".. string.Comma(self:GetMoney()) )
 	cam.End3D2D()
 end

@@ -52,3 +52,56 @@ Item.DropClass = "zrms_bar_silver"
 Item.Illegal = false
 
 GM.Inv:RegisterItem( Item )
+-------------------------------------
+local Item = {}
+Item.Name = "Fardo de Papel"
+Item.Rarity = "Normal"
+Item.Desc = "Produto de reciclagem."
+Item.Model = "models/zerochain/props_trashman/ztm_recycleblock.mdl"
+Item.Weight = 4
+Item.Volume = 5
+Item.CanDrop = true
+Item.DropClass = "ztm_recycled_block"
+Item.Illegal = false
+
+GM.Inv:RegisterItem( Item )
+
+local Item = {}
+Item.Name = "Fardo de Plástico"
+Item.Rarity = "Raro"
+Item.Desc = "Produto de reciclagem."
+Item.Model = "models/zerochain/props_trashman/ztm_recycleblock.mdl"
+Item.Weight = 4
+Item.Volume = 5
+Item.CanDrop = true
+Item.DropClass = "ztm_recycled_block"
+Item.Illegal = false
+
+GM.Inv:RegisterItem( Item )
+
+local Item = {}
+Item.Name = "Bloco de Vidro"
+Item.Rarity = "Raro"
+Item.Desc = "Produto de reciclagem."
+Item.Model = "models/zerochain/props_trashman/ztm_recycleblock.mdl"
+Item.Weight = 4
+Item.Volume = 5
+Item.CanDrop = true
+Item.DropClass = "ztm_recycled_block"
+Item.Illegal = false
+
+GM.Inv:RegisterItem( Item )
+
+local Item = {}
+Item.Name = "Metais Pesados"
+Item.Rarity = "Épico"
+Item.Desc = "Produto de reciclagem."
+Item.Model = "models/zerochain/props_trashman/ztm_recycleblock.mdl"
+Item.Weight = 4
+Item.Volume = 5
+Item.CanDrop = true
+Item.DropClass = "ztm_recycled_block"
+Item.Illegal = false
+
+GM.Inv:RegisterItem( Item )
+

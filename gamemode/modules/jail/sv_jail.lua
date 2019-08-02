@@ -23,14 +23,15 @@ function GM.Jail:Tick()
 		if self:GetJailTimeLeft( v ) < 0 then
 			self:ReleasePlayerFromJail( v, "Jail time served." )
 		else
-			if GAMEMODE.Config.JailBBox and v:Alive() then
-				if not GAMEMODE.Util:VectorInRange( v:GetPos(), GAMEMODE.Config.JailBBox.Min, GAMEMODE.Config.JailBBox.Max ) then
+			if GAMEMODE.Config.JailBBoxMin and v:Alive() then
+				if not v:GetPos():WithinAABox(GAMEMODE.Config.JailBBoxMin, GAMEMODE.Config.JailBBoxMax) then
 					v.m_intUnjailTicks = (v.m_intUnjailTicks or 0) +1
-					if v.m_intUnjailTicks < 5 then continue end
-
-					--Player is in jail but out of the jail zone, consider this a jail break and unjail them
-					if self:ReleasePlayerFromJail( v, "Escaped from cell!", true, true ) then
-						v:AddNote( "You have broken out of your cell!" )
+					-- if v.m_intUnjailTicks < 5 then continue end
+					-- print( GAMEMODE.Config.JailBBoxMin )
+					-- print( GAMEMODE.Config.JailBBoxMax )
+					-- Player is in jail but out of the jail zone, consider this a jail break and unjail them
+					if self:ReleasePlayerFromJail( v, "Escapou da cadeia!", true, true ) then
+						v:AddNote( "Você escapou da sua cela!" )
 						hook.Call( "GamemodeOnPlayerJailBreak", GAMEMODE, v )
 					end
 				else

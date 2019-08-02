@@ -178,9 +178,13 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 	if self.m_tblProperties[data.Name].Government then
 		doorTitle = "Propriedade do Governo"
 	elseif not IsValid( self:GetOwner(doorName) ) then
-		doorTitle = "VAGO"
+		if GAMEMODE.Property:GetPropertyByName( doorName ).Price ~= nil then
+			doorTitle = "R$ " .. GAMEMODE.Property:GetPropertyByName( doorName ).Price
+		else
+			doorTitle = "VAGO"
+		end
 	else
-		if doorTitle == "" then doorTitle = "PROPRIEDADE PRIVADA" end
+		if doorTitle == "" then doorTitle = "" end
 		ownerName = self:GetOwner( doorName ):Nick()
 	end
 
@@ -191,7 +195,7 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 		doorName,
 		"SRP_DoorFont",
 		x,
-		y,
+		y-700,
 		self.m_colTextColor,
 		TEXT_ALIGN_CENTER,
 		TEXT_ALIGN_CENTER
@@ -201,8 +205,8 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 		doorTitle,
 		"SRP_DoorFont",
 		x,
-		y,
-		Color_White,
+		y-700,
+		Color(0,255,78),
 		TEXT_ALIGN_CENTER,
 		TEXT_ALIGN_CENTER
 	)
@@ -212,7 +216,7 @@ function GM.Property:PaintDoorCard( vecCamPos, entDoor, strModel, bBack )
 			ownerName,
 			"SRP_DoorFont",
 			x,
-			y,
+			y-700,
 			Color_White,
 			TEXT_ALIGN_CENTER,
 			TEXT_ALIGN_CENTER
@@ -227,11 +231,11 @@ function GM.Property:PaintDoorText()
 
 	local pos, ang, posBack, angBack, width, hitWorld = self:CalculateDoorPositioning( door )
 	render.SuppressEngineLighting( true )
-	cam.Start3D2D( pos, ang, 0.02 )
+	cam.Start3D2D( pos, ang, 0.03 )
 		self:PaintDoorCard( pos, door, door:GetModel() )
 	cam.End3D2D()
 	
-	cam.Start3D2D( posBack, angBack, 0.02 )
+	cam.Start3D2D( posBack, angBack, 0.03 )
 		self:PaintDoorCard( pos, door, door:GetModel(), true )
 	cam.End3D2D()
 	render.SuppressEngineLighting( false )

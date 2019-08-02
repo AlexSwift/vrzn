@@ -40,10 +40,9 @@ if SERVER then
 		Vector( -1579, 116, -149 ),
 		Vector( -1368, 226, -145 ),
 	}
-	GM.Config.JailBBox = {
-		Min = Vector(-1417.968750, -165.461472, -205), 
-		Max = Vector(-2507, 1006, 370 )
-	}
+	GM.Config.JailBBox = {}
+	GM.Config.JailBBoxMax = Vector(-2792.976074, 1612.399658, 478.806122 )
+	GM.Config.JailBBoxMin = Vector(-1060.590332, -974.830566, -247.013260)
 
 	--[[ NPC Drug Dealer Settings ]]-- Faltando
 	GM.Config.DrugNPCPositions = {

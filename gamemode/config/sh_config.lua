@@ -65,6 +65,7 @@ GM.Config.VIP3Groups      = {
 }
 
 GM.Config.VIP4Groups      = {
+	["ruby"]              = true,
 	["founder"]              = true,
 	["developer"]            = true
 }
@@ -556,9 +557,10 @@ GM.Config.DrivingTestQuestions    = {
 							
 							--[[ Skills ]]--
 							GM.Config.Skills         = {
-								["1 Nível do Personagem"]= { MaxLevel = 100, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for crafting table
-									["Criminalidade"]        = { MaxLevel = 25, Const = 0.25 }, --Used for making meth
-									["Fabricação"]           = { MaxLevel = 5, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for assembly table
+								["1 Nível do Personagem"]= { MaxLevel = 100, Const = 0.25, ReductionRatio = 0.75 /25 },
+								["Passe de Batalha"]= { MaxLevel = 20, Const = 1, ReductionRatio = 0.25 }, --Used for crafting table
+								["Criminalidade"]        = { MaxLevel = 25, Const = 0.25 }, --Used for making meth
+								["Fabricação"]           = { MaxLevel = 5, Const = 0.25, ReductionRatio = 0.75 /25 }, --Used for assembly table
 									-- ["Respeito"]          = { MaxLevel = 25, Const = 0.25 }, --Used for growing weed/coco
 									
 								}

@@ -331,11 +331,28 @@ function GM.Property:ForceUnlockEntity( eEnt )
 	eEnt:EmitSound( "doors/latchunlocked1.wav" )
 end
 
+function PlayerLockProperty( PropertyName, pPlayer )
+	local data = GAMEMODE.Property:GetPropertyByName( PropertyName )
+	local owner = GAMEMODE.Property:GetOwner( PropertyName )
+	pPlayer:AddNote("Todas as portas foram trancadas")
+	for id, door in pairs(data.Doors) do
+		door:Fire("Close")
+		door:Fire("Lock")
+	end
+end
+
+function PlayerMessageProperty( PropertyName, MessageStr, pPlayer )
+	local data = GAMEMODE.Property:GetPropertyByName( PropertyName )
+	local owner = GAMEMODE.Property:GetOwner( PropertyName )
+	owner:ChatPrint("!Nova mensagem em sua propriedade!")
+	owner:ChatPrint( "De: " .. pPlayer:Nick() ) 
+	owner:ChatPrint("Mensagem: " .. MessageStr)
+end
+
+
 hook.Add( "GamemodeOnPlayerReady", "SendPropertyFullUpdate", function( pPlayer )
 	timer.Simple( 30, function()
 		if not IsValid( pPlayer ) then return end
 		GAMEMODE.Net:SendFullPropertyUpdate( pPlayer )
 	end )
 end )
-
-

@@ -10,7 +10,17 @@ Job.Enum = "JOB_PSICOPATA"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Psicopata"
 Job.PlayerCap = { Min = 1, MinStart = 1, Max = 1, MaxEnd = 1 }
-Job.Cat = "bad"
+Job.Cat = "Criminosos"
+Job.Text = [[Sofreu muito abuso durante a infância e desenvolveu vários traumas psicológicos,
+agora chegou a vez de dar o troco
+	
+	[x] Nao pode matar em publico
+	[x] Pode matar livremente no esgoto
+	[x] So pode utilizar armas da job
+	[x] Pode invadir casas para matar pessoas
+	[x] Pode sequestrar somente para matar
+	[x] Nao pode fazer grupos
+	[x] Nao pode invadir a delegacia]];
 Job.Vip = true
 Job.Pay = {
 	{ PlayTime = 0, Pay = 5 },

@@ -5,11 +5,22 @@
 ]]--
 
 local Job = {}
-Job.ID = 22
+Job.ID = 17
 Job.Enum = "JOB_MINER"
 Job.TeamColor = Color( 110, 48, 0 )
 Job.Name = "Minerador"
-Job.Cat = "citizen"
+Job.Cat = "Civis"
+Job.Text = [[TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+
+	textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto]];
 Job.Pay = {
 	{ PlayTime = 0, Pay = 15 },
 	{ PlayTime = 0, Pay = 20 },

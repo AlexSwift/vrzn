@@ -346,15 +346,14 @@ function GM.Net:RequestDropMoney( intAmount, bOwnerless )
 	self:FireEvent()
 end
 
---Player wants to give money to other players
+--Players wants to give money in hands
 function GM.Net:RequestGiveMoney( intAmount, Receiver)
-	print("NETSTRING CLIENT")
-	print( Receiver )
 	self:NewEvent( "game", "g_money" )
 		net.WriteUInt( intAmount, 32 )
 		net.WriteEntity(Receiver)
 	self:FireEvent()
 end
+
 
 -- function GM.Net:PromotePoliceRank(pTarget)
 -- 	self:NewEvent("jobs", "promote_cop")
@@ -760,7 +759,6 @@ function GM.Net:RequestEditBuddyKey( intBuddyID, strKey, bValue )
 end
 
 function GM.Net:RequestAddBuddy( intBuddyID )
-	print("Tentando adicionar " .. intBuddyID)
 	self:NewEvent( "buddy", "add" )
 		net.WriteUInt( intBuddyID, 32 )
 	self:FireEvent()
@@ -789,18 +787,6 @@ function GM.Net:RequestSellProperty( strName )
 	self:FireEvent()
 end
 
-function GM.Net:RequestLockProperty( strName )
-	self:NewEvent( "property", "l" )
-		net.WriteString( strName )
-	self:FireEvent()
-end
-
-function GM.Net:RequestMessageProperty( strName, strMessage )
-	self:NewEvent( "property", "m" )
-		net.WriteString( strName )
-		net.WriteString( strMessage )
-	self:FireEvent()
-end
 --[[function GM.Net:RequestSetDoorTitle( strText )
 	self:NewEvent( "property", "t" )
 		net.WriteUInt( GAMEMODE.Property.NET_SET_TITLE, 8 )
@@ -842,6 +828,19 @@ GM.Net:RegisterEventHandle( "property", "fupd", function( intMsgLen, pPlayer )
 	end
 end )
 
+
+function GM.Net:RequestLockProperty( strName )
+	self:NewEvent( "property", "l" )
+		net.WriteString( strName )
+	self:FireEvent()
+end
+
+function GM.Net:RequestMessageProperty( strName, strMessage )
+	self:NewEvent( "property", "m" )
+		net.WriteString( strName )
+		net.WriteString( strMessage )
+	self:FireEvent()
+end
 --[[GM.Net:RegisterEventHandle( "property", "dmn", function( intMsgLen, pPlayer )
 	--!REWRITE THIS FUNCTION!--
 	SRP_CS_OpenDoorOptions( net.ReadEntity(), net.ReadTable() )

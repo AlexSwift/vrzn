@@ -264,8 +264,6 @@ function GM:CanPlayerSuicide( pPlayer )
 end
 
 function GM:CanPlayerEnterVehicle( pPlayer, entVeh )
-	print(entVeh)
-	print( entVeh:VC_isLocked() )
 	-- local ret = self.Uncon:CanPlayerEnterVehicle( pPlayer, entVeh )
 	-- if ret ~= nil then return ret end
 	return not entVeh:VC_isLocked()

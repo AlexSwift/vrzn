@@ -11,7 +11,7 @@
 local Item = {}
 Item.Name = "Cigarro Avulso"
 Item.F4 = false
-Item.Cat = "misc"
+Item.Cat = "Outros"
 Item.Rarity = "Normal"
 Item.Desc = "A pack of cigarettes"
 Item.Type = "type_drugs"
@@ -33,7 +33,7 @@ local Item = {}
 Item.Name = "Caixa de cigarro"
 Item.Value = 666
 Item.F4 = true
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 Item.Rarity = "Normal"
 Item.Desc = "A box of cigars"
 Item.Type = "type_drugs"

@@ -320,7 +320,7 @@ Item.Value = 666
 
 Item.F4 = true
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Estante de secagem pra maconha."
 
@@ -382,7 +382,7 @@ Item.Value = 666
 
 Item.F4 = true
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Uma máquina para dichavar maconha."
 
@@ -452,7 +452,7 @@ Item.Value = 666
 
 Item.F4 = true
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Uma caixa de semente."
 
@@ -564,7 +564,7 @@ Item.Name = "Maconha Solta (Baixa Qualidade)"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Tablet de baixa qualidade, pronto para secar."
 
@@ -622,7 +622,7 @@ Item.Name = "Maconha não Dichavada (Baixa Qualidade)"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Tablet de Baixa qualidade, pronto para dichavar."
 
@@ -680,7 +680,7 @@ Item.Name = "Baseado (Baixa qualidade)"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Baseado prensado com cocô de cavalo"
 
@@ -750,7 +750,7 @@ Item.Rarity = "Raro"
 
 Item.F4 = true
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Sementes de qualidade mediana."
 
@@ -862,7 +862,7 @@ Item.Rarity = "Raro"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Tablet de qualidade média, pronto para secar."
 
@@ -920,7 +920,7 @@ Item.Name = "Maconha não Dichavada (Qualidade Média)"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Tablet de qualidade média, pronto para secar."
 
@@ -980,7 +980,7 @@ Item.Rarity = "Raro"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Baseado de qualidade mediana"
 
@@ -1050,7 +1050,7 @@ Item.Rarity = "Épico"
 
 Item.F4 = true
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Isso é um grão divino."
 
@@ -1162,7 +1162,7 @@ Item.Rarity = "Épico"
 
 Item.F4 = false
 
-Item.Cat = "drugs"
+Item.Cat = "Drogas"
 
 Item.Desc = "Pronto para secar."
 

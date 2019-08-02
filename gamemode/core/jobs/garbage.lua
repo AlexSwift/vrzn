@@ -7,11 +7,11 @@
 ]]--
 
 local Job = {}
-Job.ID = 23
+Job.ID = 40
 Job.Enum = "JOB_LIXEIRO"
 Job.TeamColor = Color( 191, 129, 13, 255 )
 Job.Name = "Lixeiro"
-Job.Cat = "citizen"
+Job.Cat = "Serviços"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 190 },
 	{ PlayTime = 4 *(60 *60), Pay = 235 },
@@ -23,7 +23,16 @@ Job.ParkingLotPos = GM.Config.TowParkingZone
 Job.TruckSpawns = GM.Config.TowCarSpawns
 Job.CarID = "JOB_CITYWORKER"
 Job.PlayerCap = { Min = 2, MinStart = 2, Max = 2, MaxEnd = 2 }
+Job.Text = [[Objetivo: Colete o lixo para manter o padrão de vida da cidade.
+[x] Venda o lixo que coletar ou recicle em materiais reutilizáveis.
+[x] Utilize os materiais que reciclou para fabricação de itens ou venda no posto de coleta
+[x] Você também pode coletar o lixo do bolso de alguns jogadores.
 
+Regras:
+[x] O porte de armas é proíbido (Exceção pistolas com licensa.)
+[x] Proíbida a posse de Money Printers/Bitcoin Miner.
+[x] Você tem carta branca pra coletar o lixo em qualquer território.
+]];
 function Job:OnPlayerJoinJob( pPlayer )
 end
 

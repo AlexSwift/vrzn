@@ -16,7 +16,20 @@ Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
 Job.Name = "Polícia"
 -- Job.WhitelistName = "police"
-Job.Cat = "law"
+Job.Cat = "Agentes da lei"
+Job.Text = [[O protetor de cada cidadão que vive na cidade.
+Você tem o poder de prender criminosos e proteger inocentes.
+Algeme um jogador com suas algemas para prendê-lo.
+Atordoe um jogador com um cacetete para que eles obedeçam a lei.
+O ariete pode quebrar a porta da frente de um criminoso que esteja procurado.
+O ariete tambem pode descongelar props (se habilitado)..
+Digite /wanted <nome> para alertar o público sobre a presença de um criminoso.
+
+[x] Nao pode ser corrupto
+[x] Nao pode cometer nenhum tipo de crime
+[x] Nao abusar da autoridade
+[x] Deve obedecer o Delegado e o Prefeito
+[x] Nao pode ter casa ]];
 Job.PlayerModel = {
 	Male_Fallback = "models/player/santos/cop/Male_02.mdl",
 	Female_Fallback = "models/portal/player/female_police02.mdl",

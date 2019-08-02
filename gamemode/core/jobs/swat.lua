@@ -15,7 +15,25 @@ Job.Enum = "JOB_SWAT"
 Job.Receives911Messages = true
 Job.TeamColor = Color( 255, 0, 0, 255 )
 Job.Name = "S.W.A.T"
-Job.Cat = "law"
+Job.Text = [[Crescido em família humilde e fascinado por matemática, agora utiliza dessa destreza para calcular movimentos peculiares interessantes para justiçar o mundo.
+OBJETIVOS:
+x Proteger a População de ameaças
+x Fazer a justiça com as ferramentas disponíveis
+x Fazer que a população respeite o Governo
+x Não deixar com que rebeliões se explanem
+
+REGRAS:
+x Multa no valor máximo de: R$1.000
+x Deve obedecer ordens do Delegado e Prefeito
+x Não pode ser corrupto
+x Usar força letal apenas para casos EXTREMOS
+x Para invasão investigar para haver provas do crime
+x Não pode desrespeitar jogadores
+x Não pode participar de grupos com além de outros agentes governamentais
+x Não pode ter printer
+x Não pode sequestrar/roubar/assaltar
+x Não pode cometer nenhum ato ilícito]];
+Job.Cat = "Agentes da lei"
 Job.Vip = true
 -- Job.WhitelistName = "swat"
 Job.PlayerModel = {

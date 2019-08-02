@@ -214,19 +214,29 @@ if g_CheckGroup then
 		if strName == "vip" then
 			if GAMEMODE.Config.VIPGroups[self:GetUserGroup()] or GAMEMODE.Config.VIP2Groups[self:GetUserGroup()] or GAMEMODE.Config.VIP3Groups[self:GetUserGroup()] or GAMEMODE.Config.VIP4Groups[self:GetUserGroup()] then
 				return true
+			else 
+				return false
 			end
 		end
 		if strName == "topázio" and GAMEMODE.Config.VIPGroups[self:GetUserGroup()] then
 			return true
+		else 
+			return false
 		end
 		if strName == "safira" and GAMEMODE.Config.VIP2Groups[self:GetUserGroup()] then
 			return true
+		else 
+			return false
 		end
 		if strName == "ametista" and GAMEMODE.Config.VIP3Groups[self:GetUserGroup()] then
 			return true
+		else 
+			return false
 		end
 		if strName == "ruby" and GAMEMODE.Config.VIP4Groups[self:GetUserGroup()] then
 			return true
+		else 
+			return false
 		end
 		return g_CheckGroup( self, strName, ... )
 	end

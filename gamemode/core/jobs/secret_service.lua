@@ -9,7 +9,17 @@ Job.ID = 13
 Job.Enum = "JOB_SSERVICE"
 Job.TeamColor = Color( 255, 100, 160, 255 )
 Job.Name = "Serviço Secreto"
-Job.Cat = "law"
+Job.Cat = "Agentes da lei"
+Job.Cat = [[Formado em artilharia pesada, decidiu 
+se juntar a policia para defender as pessoas .
+Pode algemar as pessoas e chamar a policia.
+
+	[x] DEVE ficar ao lado do prefeito
+[x] Só pode utilizar a job se houver um prefeito
+	[x] Nao pode ser corrupto
+	[x] DEVE fazer de tudo para proteger o prefeito
+	[x] Nao pode cometer nenhum tipo de crime
+	[x] Nao pode ajudar a policia se nao for relacionado com o prefeito]];
 Job.Pay = {
 	{ PlayTime = 0, Pay = 180 },
 	{ PlayTime = 4 *(60 *60), Pay = 225 },

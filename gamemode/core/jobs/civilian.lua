@@ -9,13 +9,24 @@ Job.ID = 1
 Job.Enum = "JOB_CIVILIAN"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Cidadão"
-Job.Cat = "citizen"
+Job.Cat = "Civis"
 Job.Pay = {
 	{ PlayTime = 0, Pay = 15 },
 	{ PlayTime = 0, Pay = 15 },
 	{ PlayTime = 0, Pay = 15 },
 	{ PlayTime = 0, Pay = 15 },
 }
+Job.Text = [[TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+	TEste de 1 linha
+	teste de 2 linhas
+	teste de 3 linhas
+
+	textotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotextotexto]];
 
 function Job:OnPlayerJoinJob( pPlayer )
 end

@@ -11,7 +11,24 @@ Job.ID = 12
 Job.Enum = "JOB_MAYOR"
 Job.TeamColor = Color( 255, 255, 255, 255 )
 Job.Name = "Prefeito"
-Job.Cat = "law"
+Job.Cat = "Agentes da lei"
+Job.Text = [[Sempre suprindo sua vontade insasciável de podre, o que melhor que ter o poder sobre toda a população?
+OBJETIVOS:
+x Governar para o Povo
+x Cuidar da proteção de todos
+x Mobilizar as tropas terrestres
+Digite /lockdown para iniciar um estado de toque de recolher.
+Todos devem estar dentro de casa durante o toque de recolher.
+Os policias vão patrulhar a area
+/unlockdown para acabar o toque de recolher
+
+[x] So pode portar pistola como arma de fogo
+[x] Proibido cometer qualquer tipo de crime
+[x] Pode fazer ditadura
+[x] Nao pode criar leis que permitam RDM ou quebra de regras
+
+
+]];
 Job.DefaultChatRadioChannel = 1
 Job.ChannelKeys = {
     [2] = true, -- Dá Acesso ao canal 2

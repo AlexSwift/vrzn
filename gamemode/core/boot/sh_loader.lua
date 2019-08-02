@@ -47,27 +47,27 @@ local function LoadFolder(sFolder, tExcludeDir)
 end
 
 function GM._Core.LoadLibs()
-  GM:PrintCore("...CARREGANDO BIBLIOTECAS......................")
+  GM:PrintCore("[X] CARREGANDO BIBLIOTECAS")
   LoadFolder(GM.BaseDirectory.. "libs")
-  GM:PrintCore(".........................PRONTO................")
+  GM:PrintCore("[v] DONE")
 end
 
 function GM._Core.LoadConfig()
-  GM:PrintCore("...CARREGANDO ARQUIVOS DE CONFIGURAÇÃO.........")
+  GM:PrintCore("[X] CARREGANDO ARQUIVOS DE CONFIGURAÇÃO")
   LoadFolder(GM.BaseDirectory.. "config")
-  GM:PrintCore(".........................PRONTO................")
+  GM:PrintCore("[v] DONE")
 end
 
 function GM._Core.LoadCore()
-  GM:PrintCore("...CARREGANDO ARQUIVOS DE BOOT.................")
+  GM:PrintCore("[X] CARREGANDO ARQUIVOS DE BOOT")
   LoadFolder(GM.BaseDirectory.. "core", {boot = true})
-  GM:PrintCore(".....................PRONTO....................")
+  GM:PrintCore("[v] DONE")
 end
 
 function GM._Core.LoadModules()
-  GM:PrintCore("...MÓDULOS....................................")
+  GM:PrintCore("[X] INSERINDO MÓDULOS")
   LoadFolder(GM.BaseDirectory.. "modules", {
     day_night = true
   })
-  GM:PrintCore(".....................PRONTO...................")
+  GM:PrintCore("[v] DONE")
 end

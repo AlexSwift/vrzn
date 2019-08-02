@@ -478,6 +478,13 @@ GM.Net:RegisterEventHandle( "game", "d_money", function( intMsgLen, pPlayer )
 	GAMEMODE.Inv:PlayerDropMoney( pPlayer, net.ReadUInt(32), net.ReadBit() == 1 )
 end )
 
+GM.Net:RegisterEventHandle("inv", "r", function(intMsgLen, pPlayer)
+	local itemID, itemAmount = net.ReadString(), net.ReadUInt(8)
+	-- GAMEMODE:Log("item_destroy", string.format("%s has destroyed %s (x%s)", GAMEMODE:FormatPlayer(pPlayer), GAMEMODE:Highlight(itemID), GAMEMODE:Highlight(itemAmount)))
+	GAMEMODE.Inv:TakePlayerItem(pPlayer, itemID, itemAmount)
+end)
+
+-- Give money in hands
 GM.Net:RegisterEventHandle( "game", "g_money", function( intMsgLen, pPlayer )
 	local ammount = net.ReadUInt(32)
 	local target = net.ReadEntity()
@@ -485,12 +492,6 @@ GM.Net:RegisterEventHandle( "game", "g_money", function( intMsgLen, pPlayer )
 	print(target)
 	GAMEMODE.Inv:PlayerGiveTargetMoney( pPlayer, ammount, target)
 end )
-
-GM.Net:RegisterEventHandle("inv", "r", function(intMsgLen, pPlayer)
-	local itemID, itemAmount = net.ReadString(), net.ReadUInt(8)
-	-- GAMEMODE:Log("item_destroy", string.format("%s has destroyed %s (x%s)", GAMEMODE:FormatPlayer(pPlayer), GAMEMODE:Highlight(itemID), GAMEMODE:Highlight(itemAmount)))
-	GAMEMODE.Inv:TakePlayerItem(pPlayer, itemID, itemAmount)
-end)
 
 -- ----------------------------------------------------------------
 -- Clothing Shop Netcode
@@ -1018,6 +1019,7 @@ GM.Net:RegisterEventHandle( "property", "s", function( intMsgLen, pPlayer )
 	GAMEMODE.Property:PlayerSellProperty( net.ReadString(), pPlayer )
 end )
 
+
 GM.Net:RegisterEventHandle( "property", "l", function( intMsgLen, pPlayer )
 	-- if not pPlayer:WithinTalkingRange() then return end
 	-- if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
@@ -1032,25 +1034,6 @@ GM.Net:RegisterEventHandle( "property", "m", function( intMsgLen, pPlayer )
 	-- if pPlayer:GetTalkingNPC().UID ~= "property_buy" then return end
 	PlayerMessageProperty( door, message, player )
 end )
-
-
-	function PlayerLockProperty( PropertyName, pPlayer )
-		local data = GAMEMODE.Property:GetPropertyByName( PropertyName )
-		local owner = GAMEMODE.Property:GetOwner( PropertyName )
-		for id, door in pairs(data.Doors) do
-			door:Fire("Close")
-			door:Fire("Lock")
-		end
-	end
-
-	function PlayerMessageProperty( PropertyName, MessageStr, pPlayer )
-		local data = GAMEMODE.Property:GetPropertyByName( PropertyName )
-		local owner = GAMEMODE.Property:GetOwner( PropertyName )
-		owner:ChatPrint("!Nova mensagem em sua propriedade!")
-		owner:ChatPrint( "De: " .. pPlayer:Nick() ) 
-		owner:ChatPrint("Mensagem: " .. MessageStr)
-
-	end
 
 --[[GM.Net:RegisterEventHandle( "property", "t", function( intMsgLen, pPlayer )
 	local ent = pPlayer:GetEyeTrace().Entity
