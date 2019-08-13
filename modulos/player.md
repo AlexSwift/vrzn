@@ -122,7 +122,7 @@ SERVER/CLIENT | pPlayer:GetInventory()
 
 | Retorno | Tipo |
 | :--- | :--- |
-| Nome Itens | Tabela |
+| tbl\_Items | Tabela |
 
 #### 
 
@@ -157,7 +157,7 @@ SERVER/CLIENT | pPlayer:GetEquipment()
 
 | Retorno | Tipo |
 | :--- | :--- |
-| Nome Itens | Tabela |
+| tbl\_Equipment | Tabela |
 
 #### 
 
@@ -175,7 +175,7 @@ SERVER | pPlayer:GetCharacter()
 
 | Retorno | Tipo |
 | :--- | :--- |
-| Data Personagem | Tabela \(Banco de dados\) |
+| tbl\_CharData | Tabela \(Banco de dados\) |
 
 {% hint style="info" %}
 Essa função apenas chama uma função do módulo CHARACTER usando META:

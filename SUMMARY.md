@@ -16,3 +16,9 @@
 * [INVENTORY](modulos/inventory.md)
 * [HUD](modulos/hud.md)
 
+## Valores
+
+* [tbl\_Items](valores/tbl_items.md)
+* [tbl\_Equipment](valores/tbl_equipment.md)
+* [tbl\_CharData](valores/tbl_chardata.md)
+
