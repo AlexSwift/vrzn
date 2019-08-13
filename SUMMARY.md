@@ -13,4 +13,6 @@
 ## Módulos
 
 * [PLAYER](modulos/player.md)
+* [INVENTORY](modulos/inventory.md)
+* [HUD](modulos/hud.md)
 

@@ -104,7 +104,102 @@ SERVER/CLIENT | pPlayer:CanAfford( inteiro Quantidade )
 
 | Retorno | Tipo |
 | :--- | :--- |
-| Resposta | boleano |
+| Resposta | Lógico |
+
+#### 
+
+## Funções de inventário.
+
+#### Obter inventário do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+SERVER/CLIENT | pPlayer:GetInventory()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+| Retorno | Tipo |
+| :--- | :--- |
+| Nome Itens | Tabela |
+
+#### 
+
+#### Substituir inventário do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:SetInventory( tabela Itens )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% hint style="info" %}
+Isso vai substituir o inventário do personagem completamente.  
+Se seu objetivo é adicionar ou remover um item específico, verifique o Módulo de inventário.
+{% endhint %}
+
+{% page-ref page="inventory.md" %}
+
+#### 
+
+#### Obter equipamento do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+SERVER/CLIENT | pPlayer:GetEquipment()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+| Retorno | Tipo |
+| :--- | :--- |
+| Nome Itens | Tabela |
+
+#### 
+
+## Funções de jogador.
+
+#### Obter informações do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:GetCharacter()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+| Retorno | Tipo |
+| :--- | :--- |
+| Data Personagem | Tabela \(Banco de dados\) |
+
+{% hint style="info" %}
+Essa função apenas chama uma função do módulo CHARACTER usando META:
+{% endhint %}
+
+#### 
+
+#### Obter ID do Personagem
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+SERVER/CLIENT | pPlayer:GetCharacterID()
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+| Resposta | Tipo |
+| :--- | :--- |
+| ID Personagem | Inteiro |
+
+{% hint style="info" %}
+Essa função apenas chama outra função do módulo CHARACTER usando META:
+{% endhint %}
 
 #### 
 
@@ -118,7 +213,7 @@ SERVER | pPlayer:AddNote( string Texto, inteiro Ícone, inteiro Tempo )
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
-| ID | Tipo |
+| Ícone | Tipo |
 | :--- | :--- |
 | 0 | Sem ícone |
 | 1 | Alerta |
@@ -126,4 +221,10 @@ SERVER | pPlayer:AddNote( string Texto, inteiro Ícone, inteiro Tempo )
 | 3 | Erro |
 | 4 | Tesoura |
 | 5 | Atualização |
+
+{% hint style="info" %}
+Essa função também está disponível no módulo HUD, para CLIENT SIDE
+{% endhint %}
+
+{% page-ref page="hud.md" %}
 
