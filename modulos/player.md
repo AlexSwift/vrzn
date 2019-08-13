@@ -124,6 +124,8 @@ SERVER/CLIENT | pPlayer:GetInventory()
 | :--- | :--- |
 | tbl\_Items | Tabela |
 
+{% page-ref page="../valores/tbl\_items.md" %}
+
 #### 
 
 #### Substituir inventário do personagem.
@@ -158,6 +160,8 @@ SERVER/CLIENT | pPlayer:GetEquipment()
 | Retorno | Tipo |
 | :--- | :--- |
 | tbl\_Equipment | Tabela |
+
+{% page-ref page="../valores/tbl\_equipment.md" %}
 
 #### 
 
@@ -215,12 +219,14 @@ SERVER | pPlayer:AddNote( string Texto, inteiro Ícone, inteiro Tempo )
 
 | Ícone | Tipo |
 | :--- | :--- |
-| 0 | Sem ícone |
-| 1 | Alerta |
-| 2 | Sucesso |
-| 3 | Erro |
+| 0 | Alerta |
+| 1 | Erro |
+| 2 | Atualização |
+| 3 | Dica |
 | 4 | Tesoura |
-| 5 | Atualização |
+| 5 | Branco |
+
+![Notifica&#xE7;&#xF5;es teste com seus respectivos &#xED;cones](../.gitbook/assets/code_jhur2yhews.png)
 
 {% hint style="info" %}
 Essa função também está disponível no módulo HUD, para CLIENT SIDE

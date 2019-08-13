@@ -18,7 +18,9 @@
 
 ## Valores
 
+* [tbl\_Item](valores/tbl_item.md)
 * [tbl\_Items](valores/tbl_items.md)
+* [tbl\_RegisteredItems](valores/tbl_registereditems.md)
 * [tbl\_Equipment](valores/tbl_equipment.md)
 * [tbl\_CharData](valores/tbl_chardata.md)
 
