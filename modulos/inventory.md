@@ -169,6 +169,28 @@ SERVER | GAMEMODE.Inv:RemoveIllegalItems( pPlayer )
 {% endcode-tabs-item %}
 {% endcode-tabs %}
 
+#### Remover itens de emprego do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_inventory.lua" %}
+```lua
+SERVER | GAMEMODE.Inv:RemoveJobItems( pPlayer )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### 
+
+#### Força o jogador a começar a fabricação de um item.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_inventory.lua" %}
+```lua
+SERVER | GAMEMODE.Inv:PlayerCraftItem( pPlayer, string NomeDoItem )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
 ## Funções do servidor.
 
 #### Obter todos os itens registrados no servidor.
@@ -230,5 +252,17 @@ O lugar precisa estar vazio.
 O Dono do item precisa estar vivo.
 {% endhint %}
 
+#### 
 
+#### Criar caixa de loot.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_inventory.lua" %}
+```lua
+ SERVER | GAMEMODE.Inv:MakeItemBox( pPlayer Dono, vetores Posição, Angulos, tabela tbl_Items )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% page-ref page="../valores/tbl\_items.md" %}
 

@@ -8,6 +8,24 @@ description: >-
 
 ### Funções monetárias
 
+#### Fazer jogador dropar dinheiro.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_inventory.lua" %}
+```lua
+SERVER GM.Inv:PlayerDropMoney( pPlayer, inteiro Quantidade, PossuiDono? )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% hint style="info" %}
+Essa função faz parte do módulo INVENTORY.
+{% endhint %}
+
+{% page-ref page="inventory.md" %}
+
+#### 
+
 #### Obter dinheiro da carteira do personagem.
 
 {% code-tabs %}
@@ -107,6 +125,27 @@ SERVER/CLIENT | pPlayer:CanAfford( inteiro Quantidade )
 | Resposta | Lógico |
 
 #### 
+
+#### Verificar nível de acesso do jogador.
+
+```lua
+SERVER/CLIENT | CheckGroup( string NívelDeAcesso, ... )
+```
+
+| Nível de acesso | Retorna verdadeiro se: |
+| :--- | :--- |
+| vip | Qualquer um dos abaixo |
+| topázio | Player em rank Topázio |
+| safira | Player em rank safira |
+| ametista | Player em rank ametista |
+| ruby | Player em rank ruby |
+
+| Nível de acesso | Nível de acesso |
+| :--- | :--- |
+| Staff | Qualquer um dos abaixo |
+| suporte | Player em rank cons. Operator |
+| moderator | Player em rank cons. Moderador |
+| admin | Player em rank cons. Admin |
 
 ## Funções de inventário.
 

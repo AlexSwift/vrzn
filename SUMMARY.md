@@ -8,11 +8,13 @@
 
 ## Funções
 
-* [Funções do Gamemode](funcoes/funcoes-do-gamemode.md)
+* [Index Módulos](funcoes/funcoes-do-gamemode.md)
+* [Funções da base](funcoes/funcoes-da-base.md)
 
 ## Módulos
 
 * [PLAYER](modulos/player.md)
+* [CHARACTER](modulos/character.md)
 * [INVENTORY](modulos/inventory.md)
 * [HUD](modulos/hud.md)
 
@@ -23,4 +25,8 @@
 * [tbl\_RegisteredItems](valores/tbl_registereditems.md)
 * [tbl\_Equipment](valores/tbl_equipment.md)
 * [tbl\_CharData](valores/tbl_chardata.md)
+
+## hooks
+
+* [Gamemode](hooks/gamemode.md)
 
