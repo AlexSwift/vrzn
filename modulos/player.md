@@ -1,0 +1,84 @@
+---
+description: >-
+  O Player no gamemode é identificado como um jogador que já selecionou um
+  personagem (Exceto em contexto de Draw/Think)
+---
+
+# PLAYER
+
+### Funções monetárias
+
+#### Obter dinheiro da carteira do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+SERVER | pPlayer:GetMoney( )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Obter dinheiro no banco do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+CLIENT/SERVER | pPlayer:GetMoney( )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Adicionar dinheiro a carteira do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:AddMoney( inteiro Quantidade )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Retirar dinheiro da carteira do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:TakeMoney( inteiro Quantidade )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+{% hint style="info" %}
+Você também pode remover dinheiro utilizando um valor negativo em AddMoney\( \)
+{% endhint %}
+
+#### Adicionar dinheiro ao banco do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:AddBankMoney( inteiro Quantidade )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Remover dinheiro do banco do personagem.
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua" %}
+```lua
+SERVER | pPlayer:TakeBankMoney( inteiro Quantidade )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
+#### Verificar se o jogador pode pagar um valor \(Com dinheiro da carteira\).
+
+{% code-tabs %}
+{% code-tabs-item title="sv\_player.lua + cl\_player.lua" %}
+```lua
+SERVER/CLIENT | pPlayer:CanAfford( inteiro Quantidade )
+```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
+
